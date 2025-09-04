@@ -5,33 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Usuario_Tarea/src/main/java/org/springej/usuario_tarea/service/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Usuario_Tarea/src/main/java/org/springej/usuario_tarea/service/UsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/borrar.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/borrar1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Repository/borrar2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/borrar3.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "CristianK25"
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CristianK25&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "https://github.com/CristianK25/UTN-Archivos.git",
+    "url": "https://github.com/tomimastro069/PROYECTO_YACOMO.git",
     "accountId": "5838be81-50a7-4e11-92f7-b334a26e865b"
   }
 }]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="32DA9lJqOumPwEJ6zryPIBdRkIA" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,11 +60,28 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/windows/Desktop/PROYECTO_YACOMO/Backend/BackendE_Commerce",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="BackendECommerceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="BackendE_Commerce.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.springej.backende_commerce.BackendECommerceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -62,6 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1756944621037</updated>
       <workItem from="1756944621898" duration="28000" />
+      <workItem from="1757014397071" duration="1345000" />
     </task>
     <servers />
   </component>

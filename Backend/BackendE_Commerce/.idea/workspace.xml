@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf3f4de0-53ca-4497-ad1a-5bc8a7f98579" name="Changes" comment="">
+    <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../Usuario_Tarea/src/main/java/org/springej/usuario_tarea/service/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Usuario_Tarea/src/main/java/org/springej/usuario_tarea/service/UsuarioService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,9 +28,10 @@
   }
 }]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
   "associatedIndex": 7
 }]]></component>
-  <component name="ProjectId" id="32D8FG4ndgRG0EjjqxWswy06Gv7" />
+  <component name="ProjectId" id="32DA9lJqOumPwEJ6zryPIBdRkIA" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -55,12 +56,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cf3f4de0-53ca-4497-ad1a-5bc8a7f98579" name="Changes" comment="" />
-      <created>1756943678497</created>
+      <changelist id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="" />
+      <created>1756944621037</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1756943678497</updated>
-      <workItem from="1756943679707" duration="263000" />
+      <updated>1756944621037</updated>
+      <workItem from="1756944621898" duration="28000" />
     </task>
     <servers />
   </component>

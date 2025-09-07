@@ -8,5 +8,5 @@ import jakarta.persistence.Id;
 public class Favorito {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 }

@@ -8,5 +8,5 @@ import jakarta.persistence.Id;
 public class DetalleVenta {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 }

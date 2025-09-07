@@ -10,6 +10,6 @@ import lombok.Data;
 public class Usuario {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     private String nombre;
 }

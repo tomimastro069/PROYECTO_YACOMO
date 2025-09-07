@@ -1,12 +1,9 @@
 package org.springej.backende_commerce.Service;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 
-@Entity
+import org.springframework.stereotype.Service;
+
+@Service
 public class DetalleVenta {
-    @Id
-    @GeneratedValue
-    private int id;
+
 }

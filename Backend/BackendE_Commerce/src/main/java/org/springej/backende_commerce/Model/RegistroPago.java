@@ -11,20 +11,21 @@ import lombok.NoArgsConstructor;
 public class RegistroPago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idRegistro_Pago")
     private Long id;
 
     @Column(name = "cantidad_total")
     private float cantidadTotal;
 
-    @Column(name = "cvu")
+    @Column(name = "CVU_registro_pago")
     private int cvu;
 
-    @Column(name = "alias")
+    @Column(name = "alias_registro_pago")
     private String alias;
 
     // Relación con Venta
     @OneToOne
-    @JoinColumn(name = "Venta_idVenta", nullable = false)
+    @JoinColumn(name = "idVenta", nullable = false)
     private Venta venta;
 
 //    @JoinColumn

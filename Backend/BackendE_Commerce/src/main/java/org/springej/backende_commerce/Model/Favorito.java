@@ -1,11 +1,17 @@
 package org.springej.backende_commerce.Model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "Favoritos")
+@Data
+@NoArgsConstructor
 public class Favorito {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idFavoritos")
     private Long id;
 
     @ManyToOne

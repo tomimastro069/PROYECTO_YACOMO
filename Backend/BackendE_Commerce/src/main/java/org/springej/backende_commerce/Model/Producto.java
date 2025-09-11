@@ -16,9 +16,9 @@ public class Producto {
     @Column(name = "nombre_producto")
     private String nombre;
 
-    @Column(name = "Descripcion")
+    @Column(name = "descripcion_producto")
     private String descripcion;
 
-    @Column(name = "Precio_producto")
+    @Column(name = "precio_unitario_producto")
     private double precio;
 }

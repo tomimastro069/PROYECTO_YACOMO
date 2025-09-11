@@ -13,25 +13,29 @@ import java.util.List;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUsuario")
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre_usuario")
     private String nombre;
 
-    @Column(name = "apellido")
+    @Column(name = "apellido_usuario")
     private String apellido;
 
-    @Column(name = "email")
+    @Column(name = "contrasena_usuario")
+    private String password;
+
+    @Column(name = "email_usuario")
     private String email;
 
-    @Column(name = "codigo_de_area")
+    @Column(name = "codigo_area_usuario")
     private int CodigoArea;
 
-    @Column(name = "numero_telefono")
+    @Column(name = "numero_telefono_usuario")
     private String numeroTelefono;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Rol> rol;
+    @Column(name = "es_admin_usuario")
+    private boolean esAdmin;
 
     //Navegacion Inversa con Ventas
     @OneToMany(mappedBy = "usuario")

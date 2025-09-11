@@ -14,11 +14,11 @@ public class Estrellas {
     @Column(name = "idEstrellas")
     private Long id;
 
-    @Column(name = "cantidad")
+    @Column(name = "cantidad_estrellas")
     private int cantidad;
 
     // Relación con Producto
     @ManyToOne
-    @JoinColumn(name = "producto_idProducto", nullable = false)
+    @JoinColumn(name = "idProducto", nullable = false)
     private Producto producto;
 }

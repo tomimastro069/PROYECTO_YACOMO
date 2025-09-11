@@ -7,18 +7,19 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Auditoria_Producto")
+@Table(name = "Auditoria_producto")
 @Data
 @NoArgsConstructor
 public class AuditoriaProducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idAuditoria_producto")
     private Long id;
 
-    @Column(name = "nombre_producto")
+    @Column(name = "nombre_producto_historico")
     private String nombre;
 
-    @Column(name = "descripcion_historico")
+    @Column(name = "descripcion_producto_historico")
     private String descripcionHistorico;
 
     @Column(name = "precio_producto_historico")

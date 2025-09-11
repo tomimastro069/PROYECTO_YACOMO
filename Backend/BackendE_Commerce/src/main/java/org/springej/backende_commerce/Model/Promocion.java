@@ -14,6 +14,6 @@ public class Promocion {
     @Column(name = "idPromocion")
     private Long id;
 
-    @Column(name = "porcentaje_descuento")
+    @Column(name = "porcentaje_promocion")
     private double porcentajeDescuento;
 }

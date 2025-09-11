@@ -1,13 +1,13 @@
 package org.springej.backende_commerce.Controller;
 
+import jakarta.validation.Valid;
 import org.springej.backende_commerce.Model.Producto;
 import org.springej.backende_commerce.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 import java.util.Map;
@@ -26,38 +26,12 @@ public class ProductoController {
         return ResponseEntity.ok(productos);
     }
 
-    // GET /productos/paginado - Listar productos con paginación
-    @GetMapping("/paginado")
-    public ResponseEntity<Page<Producto>> listarPaginado(Pageable pageable) {
-        Page<Producto> productos = productoService.listarPaginado(pageable);
-        return ResponseEntity.ok(productos);
-    }
-
     // GET /productos/{id} - Buscar producto por ID
     @GetMapping("/{id}")
     public ResponseEntity<Producto> buscarPorId(@PathVariable Long id) {
         return productoService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
-
-    // GET /productos/buscar - Buscar productos por diferentes criterios
-    @GetMapping("/buscar")
-    public ResponseEntity<List<Producto>> buscarProductos(
-            @RequestParam(required = false) String nombre,
-            @RequestParam(required = false) String categoria,
-            @RequestParam(required = false) Double precioMin,
-            @RequestParam(required = false) Double precioMax) {
-
-        List<Producto> productos = productoService.buscarProductos(nombre, categoria, precioMin, precioMax);
-        return ResponseEntity.ok(productos);
-    }
-
-    // GET /productos/categoria/{categoria} - Buscar por categoría específica
-    @GetMapping("/categoria/{categoria}")
-    public ResponseEntity<List<Producto>> buscarPorCategoria(@PathVariable String categoria) {
-        List<Producto> productos = productoService.buscarPorCategoria(categoria);
-        return ResponseEntity.ok(productos);
     }
 
     // POST /productos - Crear nuevo producto
@@ -107,18 +81,46 @@ public class ProductoController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+//    // GET /productos/paginado - Listar productos con paginación
+//    @GetMapping("/paginado")
+//    public ResponseEntity<Page<Producto>> listarPaginado(Pageable pageable) {
+//        Page<Producto> productos = productoService.listarPaginado(pageable);
+//        return ResponseEntity.ok(productos);
+//    }
 
-    // GET /productos/disponibles - Listar solo productos disponibles
-    @GetMapping("/disponibles")
-    public ResponseEntity<List<Producto>> listarDisponibles() {
-        List<Producto> productos = productoService.listarDisponibles();
-        return ResponseEntity.ok(productos);
-    }
 
-    // GET /productos/destacados - Listar productos destacados
-    @GetMapping("/destacados")
-    public ResponseEntity<List<Producto>> listarDestacados() {
-        List<Producto> productos = productoService.listarDestacados();
-        return ResponseEntity.ok(productos);
-    }
+//    // GET /productos/buscar - Buscar productos por diferentes criterios
+//    @GetMapping("/buscar")
+//    public ResponseEntity<List<Producto>> buscarProductos(
+//            @RequestParam(required = false) String nombre,
+//            @RequestParam(required = false) String categoria,
+//            @RequestParam(required = false) Double precioMin,
+//            @RequestParam(required = false) Double precioMax) {
+//
+//        List<Producto> productos = productoService.buscarProductos(nombre, categoria, precioMin, precioMax);
+//        return ResponseEntity.ok(productos);
+//    }
+//
+//    // GET /productos/categoria/{categoria} - Buscar por categoría específica
+//    @GetMapping("/categoria/{categoria}")
+//    public ResponseEntity<List<Producto>> buscarPorCategoria(@PathVariable String categoria) {
+//        List<Producto> productos = productoService.buscarPorCategoria(categoria);
+//        return ResponseEntity.ok(productos);
+//    }
+
+
+
+//    // GET /productos/disponibles - Listar solo productos disponibles
+//    @GetMapping("/disponibles")
+//    public ResponseEntity<List<Producto>> listarDisponibles() {
+//        List<Producto> productos = productoService.listarDisponibles();
+//        return ResponseEntity.ok(productos);
+//    }
+//
+//    // GET /productos/destacados - Listar productos destacados
+//    @GetMapping("/destacados")
+//    public ResponseEntity<List<Producto>> listarDestacados() {
+//        List<Producto> productos = productoService.listarDestacados();
+//        return ResponseEntity.ok(productos);
+//    }
 }

@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Repository/ProductoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Repository/ProductoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/DetalleVenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/DetalleVenta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/ProductoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/ProductoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/ProductoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/ProductoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/UsuarioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/DetalleVenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/DetalleVenta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Favorito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Favorito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Producto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Venta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Venta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -58,9 +62,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Build BackendE_Commerce.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BackendECommerceApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "cristian",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/windows/Desktop/PROYECTO_YACOMO/Backend/BackendE_Commerce",
@@ -102,11 +110,25 @@
       <workItem from="1756944621898" duration="28000" />
       <workItem from="1757014397071" duration="3053000" />
       <workItem from="1757117524395" duration="3975000" />
-      <workItem from="1757199892675" duration="1962000" />
+      <workItem from="1757199892675" duration="2406000" />
+      <workItem from="1757204917783" duration="224000" />
+      <workItem from="1757333412319" duration="24000" />
+      <workItem from="1757534688436" duration="15675000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -30,6 +30,9 @@ public class Usuario {
     @Column(name = "numero_telefono")
     private String numeroTelefono;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Rol> rol;
+
     //Navegacion Inversa con Ventas
     @OneToMany(mappedBy = "usuario")
     private List<Venta> ventas;

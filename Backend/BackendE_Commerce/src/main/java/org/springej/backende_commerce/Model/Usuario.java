@@ -1,15 +1,21 @@
 package org.springej.backende_commerce.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @Table(name = "Usuario")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +40,6 @@ public class Usuario {
     @Column(name = "numero_telefono_usuario")
     private String numeroTelefono;
 
-    @Column(name = "es_admin_usuario")
-    private boolean esAdmin;
-
     //Navegacion Inversa con Ventas
     @OneToMany(mappedBy = "usuario")
     private List<Venta> ventas;
@@ -44,4 +47,11 @@ public class Usuario {
     //Navegacion Inversa con Favoritos
     @OneToMany(mappedBy = "usuario")
     private List<Favorito> productosFavoritos;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_rol",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    @Builder.Default
+    private Set<Rol> roles = new HashSet<>();
 }

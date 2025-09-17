@@ -167,7 +167,7 @@ public class ProductoService {
     // Método privado para guardar auditoría
     private void guardarAuditoria(String accion, String detalle) {
         try {
-            AuditoriaProducto auditoria = new AuditoriaProducto(accion, detalle);
+            AuditoriaProducto auditoria = new AuditoriaProducto();
             auditoriaRepository.save(auditoria);
             logger.debug("Registro de auditoría guardado: {} - {}", accion, detalle);
         } catch (Exception e) {

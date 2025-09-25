@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface VentaRepository extends JpaRepository<Venta, Long> {
@@ -22,4 +23,10 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
     @Query("SELECT v FROM Venta v WHERE v.fechaVenta = CURRENT_DATE ORDER BY v.id DESC")
     List<Venta> findVentasDeHoy();
 
+    // traer venta con items y productos en una sola consulta
+    @Query("select v from Venta v " +
+            "left join fetch v.productos pv " +
+            "left join fetch pv.producto p " +
+            "where v.id = :id")
+    Optional<Venta> findByIdWithItems(@Param("id") Long id);
 }

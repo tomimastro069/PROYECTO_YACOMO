@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subir Imágenes a Producto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"], input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="file"] {
+            padding: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .file-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<h1>Subir Multiples Imagenes a Producto</h1>
+
+<form id="uploadForm">
+    <div class="form-group">
+        <label for="productId">ID del Producto:</label>
+        <input type="number" id="productId" name="productId" required>
+    </div>
+
+    <div class="form-group">
+        <label for="images">Seleccionar Imagenes (multiples):</label>
+        <input type="file" id="images" name="imagenes" multiple accept="image/*" required>
+        <div class="file-info">
+            Puedes seleccionar multiples archivos manteniendo presionado Ctrl
+        </div>
+    </div>
+
+    <button type="submit">Subir Imagenes</button>
+</form>
+
+<div id="response" class="response"></div>
+<div id="selectedFiles"></div>
+
+<script>
+    // Mostrar archivos seleccionados
+    document.getElementById('images').addEventListener('change', function(e) {
+        const files = e.target.files;
+        const fileList = document.getElementById('selectedFiles');
+
+        if (files.length > 0) {
+            let html = '<h3>Archivos seleccionados:</h3><ul>';
+            for (let i = 0; i < files.length; i++) {
+                html += `<li>${files[i].name} (${(files[i].size / 1024 / 1024).toFixed(2)} MB)</li>`;
+            }
+            html += '</ul>';
+            fileList.innerHTML = html;
+        } else {
+            fileList.innerHTML = '';
+        }
+    });
+
+    // Enviar formulario
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const productId = document.getElementById('productId').value;
+        const files = document.getElementById('images').files;
+        const responseDiv = document.getElementById('response');
+
+        if (files.length === 0) {
+            showResponse('Por favor selecciona al menos una imagen', 'error');
+            return;
+        }
+
+        const formData = new FormData();
+
+        // Agregar todas las imágenes al FormData
+        for (let i = 0; i < files.length; i++) {
+            formData.append('imagenes', files[i]);
+        }
+
+        try {
+            showResponse('Subiendo imagenes...', 'success');
+
+            const response = await fetch(`http://localhost:8080/api/productos/${productId}/imagenes`, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const result = await response.text();
+                showResponse(`Exito: ${result}`, 'success');
+                document.getElementById('uploadForm').reset();
+                document.getElementById('selectedFiles').innerHTML = '';
+            } else {
+                const error = await response.text();
+                showResponse(`Error: ${error}`, 'error');
+            }
+        } catch (error) {
+            showResponse(`Error de conexión: ${error.message}`, 'error');
+        }
+    });
+
+    function showResponse(message, type) {
+        const responseDiv = document.getElementById('response');
+        responseDiv.textContent = message;
+        responseDiv.className = `response ${type}`;
+        responseDiv.style.display = 'block';
+    }
+</script>
+</body>
+</html>

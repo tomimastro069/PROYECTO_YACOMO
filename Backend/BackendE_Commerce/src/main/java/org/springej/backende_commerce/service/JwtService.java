@@ -58,4 +58,20 @@ public class JwtService {
         return obtenerClaim(token, Claims::getExpiration).before(new Date());
     }
 
+    public String generatePasswordResetToken(String email) {
+        return Jwts.builder()
+                .setSubject(email)
+                .claim("reset", true) // identificador de que es para reset
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 15 * 60 * 1000)) // 15 min
+                .signWith(obtenerKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public boolean isPasswordResetToken(String token) {
+        Claims claims = obtenerTodosLosClaims(token);
+        Boolean resetFlag = claims.get("reset", Boolean.class);
+        return resetFlag != null && resetFlag;
+    }
+
 }

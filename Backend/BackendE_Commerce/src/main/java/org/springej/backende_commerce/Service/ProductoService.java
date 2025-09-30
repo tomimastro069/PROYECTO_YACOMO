@@ -61,7 +61,7 @@ public class ProductoService {
             String detalle = String.format("ID: %d, Nombre: %s, Precio: %.2f",
                     productoGuardado.getId(), productoGuardado.getNombre(), productoGuardado.getPrecio());
 
-            guardarAuditoria(accion, detalle);
+            //guardarAuditoria(accion, detalle);
 
             logger.info("Producto {} exitosamente con ID: {}",
                     esNuevo ? "creado" : "actualizado", productoGuardado.getId());
@@ -70,8 +70,8 @@ public class ProductoService {
 
         } catch (Exception e) {
             logger.error("Error al guardar producto {}: {}", producto.getNombre(), e.getMessage());
-            guardarAuditoria(accion + "_ERROR",
-                    "Error al " + accion.toLowerCase() + " producto: " + e.getMessage());
+            //guardarAuditoria(accion + "_ERROR",
+            //        "Error al " + accion.toLowerCase() + " producto: " + e.getMessage());
             throw e;
         }
     }

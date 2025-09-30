@@ -2,7 +2,7 @@ package org.springej.backende_commerce.Service;
 
 import org.springej.backende_commerce.Model.*;
 import org.springej.backende_commerce.Repository.*;
-import org.springej.backende_commerce.DTO.VentaDTO;
+import org.springej.backende_commerce.dto.VentaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package org.springej.backende_commerce.DTO;
+package org.springej.backende_commerce.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;

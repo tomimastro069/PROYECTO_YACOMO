@@ -2,7 +2,7 @@ package org.springej.backende_commerce.Controller;
 
 import org.springej.backende_commerce.Model.Venta;
 import org.springej.backende_commerce.Service.VentaService;
-import org.springej.backende_commerce.DTO.VentaDTO;
+import org.springej.backende_commerce.dto.VentaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

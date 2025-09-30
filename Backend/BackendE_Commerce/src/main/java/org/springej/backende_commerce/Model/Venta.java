@@ -31,8 +31,4 @@ public class Venta {
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProductoVenta> productos = new ArrayList<>();
 
-    //Navegacion Inversa con Registro Pago
-    @OneToOne(mappedBy = "venta")
-    private RegistroPago registroPago;
-
 }

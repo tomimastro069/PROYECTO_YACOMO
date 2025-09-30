@@ -2,9 +2,9 @@ package org.springej.backende_commerce.Controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springej.backende_commerce.DTO.JwtResponse;
-import org.springej.backende_commerce.DTO.LoginRequest;
-import org.springej.backende_commerce.DTO.RegisterRequest;
+import org.springej.backende_commerce.dto.JwtResponse;
+import org.springej.backende_commerce.dto.LoginRequest;
+import org.springej.backende_commerce.dto.RegisterRequest;
 import org.springej.backende_commerce.Model.Rol;
 import org.springej.backende_commerce.Model.Usuario;
 import org.springej.backende_commerce.Repository.RolRepository;

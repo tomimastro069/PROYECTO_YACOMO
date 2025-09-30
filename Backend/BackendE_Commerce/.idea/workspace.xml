@@ -6,22 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="integracion con JWT">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/ecommerce.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/ecommerce.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/ecommerce.log.2025-09-16.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Controller/VentaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/DTO/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/dto/JwtResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/DTO/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/dto/LoginRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/DTO/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/dto/RegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/DTO/VentaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/dto/VentaDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Estrellas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Estrellas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Producto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Promocion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Promocion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/RegistroPago.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Venta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Model/Venta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/ProductoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/ProductoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/VentaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Service/VentaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +80,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BackendECommerceApplication.executor": "Run",
-    "git-widget-placeholder": "cristian",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/windows/Desktop/REPOS EXTERNOS/PROYECTO_YACOMO-gian",
@@ -104,7 +89,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "terminal",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }

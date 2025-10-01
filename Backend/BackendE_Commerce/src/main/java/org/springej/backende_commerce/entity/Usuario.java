@@ -31,7 +31,7 @@ public class Usuario {
     @Column(name = "contrasena_usuario")
     private String password;
 
-    @Column(name = "email_usuario")
+    @Column(name = "email_usuario", unique = true)
     private String email;
 
     @Column(name = "codigo_area_usuario")

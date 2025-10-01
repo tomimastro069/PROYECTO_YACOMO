@@ -13,7 +13,7 @@ public class Producto {
     @Column(name = "idProducto")
     private Long id;
 
-    @Column(name = "nombre_producto")
+    @Column(name = "nombre_producto", unique = true)
     private String nombre;
 
     @Column(name = "descripcion_producto")

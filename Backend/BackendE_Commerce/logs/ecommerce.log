@@ -5280,3 +5280,958 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 2025-09-30T20:09:39.877-03:00 DEBUG 12528 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{error=Internal Server Error, timestamp=2025-09-30T20:09:39.876566900, status=500}]
 2025-09-30T20:09:39.882-03:00  WARN 12528 --- [BackendE_Commerce] [http-nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
 2025-09-30T20:09:39.882-03:00 DEBUG 12528 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 500 INTERNAL_SERVER_ERROR
+2025-09-30T20:22:46.808-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Starting BackendECommerceApplication using Java 21.0.8 with PID 13556 (C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce\build\classes\java\main started by windows in C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce)
+2025-09-30T20:22:46.811-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-09-30T20:22:46.861-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-30T20:22:46.862-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-30T20:22:47.694-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T20:22:47.696-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-30T20:22:47.785-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 79 ms. Found 9 JPA repository interfaces.
+2025-09-30T20:22:47.823-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T20:22:47.824-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-09-30T20:22:47.835-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.AuditoriaProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.835-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.EstrellasRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.836-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.FavoritoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.836-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.836-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoVentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.837-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.PromocionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.837-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.RolRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.837-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.UsuarioRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.838-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.VentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:22:47.838-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 MongoDB repository interfaces.
+2025-09-30T20:22:48.626-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-09-30T20:22:48.640-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-30T20:22:48.641-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-09-30T20:22:48.691-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-30T20:22:48.692-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1830 ms
+2025-09-30T20:22:48.846-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-30T20:22:48.915-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-09-30T20:22:48.960-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-09-30T20:22:49.259-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-30T20:22:49.295-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-30T20:22:49.540-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn1: url=jdbc:h2:file:./data/testdb user=SA
+2025-09-30T20:22:49.542-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-30T20:22:49.565-03:00  WARN 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30T20:22:49.586-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-30T20:22:50.497-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-30T20:22:50.532-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table auditoria_producto (
+        id_auditoria_producto bigint generated by default as identity,
+        descripcion_producto_historico varchar(255),
+        fecha_auditoria date,
+        nombre_producto_historico varchar(255),
+        precio_producto_historico float(24),
+        id_producto bigint,
+        primary key (id_auditoria_producto)
+    )
+2025-09-30T20:22:50.535-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table estrellas (
+        id_estrellas bigint generated by default as identity,
+        cantidad_estrellas integer,
+        id_producto bigint not null,
+        primary key (id_estrellas)
+    )
+2025-09-30T20:22:50.536-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table favoritos (
+        id_favoritos bigint generated by default as identity,
+        id_producto bigint not null,
+        id_usuario bigint not null,
+        primary key (id_favoritos)
+    )
+2025-09-30T20:22:50.537-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table procto_venta (
+        id_producto_venta bigint generated by default as identity,
+        cantidad_producto_venta integer,
+        id_producto bigint,
+        id_promocion bigint,
+        id_venta bigint,
+        primary key (id_producto_venta)
+    )
+2025-09-30T20:22:50.538-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table producto (
+        id_producto bigint generated by default as identity,
+        descripcion_producto varchar(255),
+        nombre_producto varchar(255),
+        precio_unitario_producto float(53),
+        primary key (id_producto)
+    )
+2025-09-30T20:22:50.539-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table promocion (
+        id_promocion bigint generated by default as identity,
+        porcentaje_promocion float(53),
+        primary key (id_promocion)
+    )
+2025-09-30T20:22:50.541-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table rol (
+        id_rol bigint generated by default as identity,
+        nombre_rol varchar(255) not null,
+        primary key (id_rol)
+    )
+2025-09-30T20:22:50.543-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table usuario (
+        id_usuario bigint generated by default as identity,
+        codigo_area_usuario integer,
+        apellido_usuario varchar(255),
+        email_usuario varchar(255),
+        nombre_usuario varchar(255),
+        numero_telefono_usuario varchar(255),
+        contrasena_usuario varchar(255),
+        primary key (id_usuario)
+    )
+2025-09-30T20:22:50.545-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table usuario_rol (
+        usuario_id bigint not null,
+        rol_id bigint not null,
+        primary key (usuario_id, rol_id)
+    )
+2025-09-30T20:22:50.547-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    create table venta (
+        id_venta bigint generated by default as identity,
+        fecha_venta date,
+        id_usuario bigint not null,
+        primary key (id_venta)
+    )
+2025-09-30T20:22:50.549-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists rol 
+       drop constraint if exists UKl0qdsam7tunbtmxcmeeyfcifk
+2025-09-30T20:22:50.549-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists rol 
+       add constraint UKl0qdsam7tunbtmxcmeeyfcifk unique (nombre_rol)
+2025-09-30T20:22:50.551-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists auditoria_producto 
+       add constraint FKfcascirkory8jjcys0f5h5nj0 
+       foreign key (id_producto) 
+       references producto
+2025-09-30T20:22:50.555-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists estrellas 
+       add constraint FKqkrrgfxn590sxobqqx7kju78f 
+       foreign key (id_producto) 
+       references producto
+2025-09-30T20:22:50.557-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists favoritos 
+       add constraint FKr8fhi9kvsrrnl5fme4tsb2fef 
+       foreign key (id_producto) 
+       references producto
+2025-09-30T20:22:50.558-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists favoritos 
+       add constraint FK7r02f8nvb9xxqv76gvomi0abh 
+       foreign key (id_usuario) 
+       references usuario
+2025-09-30T20:22:50.562-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists procto_venta 
+       add constraint FK9s83cgi67vfywv3fx0gkl794n 
+       foreign key (id_producto) 
+       references producto
+2025-09-30T20:22:50.564-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists procto_venta 
+       add constraint FK1w0mes9gbvba6vkj2753gjh1d 
+       foreign key (id_promocion) 
+       references promocion
+2025-09-30T20:22:50.566-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists procto_venta 
+       add constraint FKqkrne29erfm7sd664bpeg6a5s 
+       foreign key (id_venta) 
+       references venta
+2025-09-30T20:22:50.568-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists usuario_rol 
+       add constraint FK610kvhkwcqk2pxeewur4l7bd1 
+       foreign key (rol_id) 
+       references rol
+2025-09-30T20:22:50.570-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists usuario_rol 
+       add constraint FKbyfgloj439r9wr9smrms9u33r 
+       foreign key (usuario_id) 
+       references usuario
+2025-09-30T20:22:50.572-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    alter table if exists venta 
+       add constraint FKoilu1fdfgmu7sfe0spen005ms 
+       foreign key (id_usuario) 
+       references usuario
+2025-09-30T20:22:50.576-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-30T20:22:51.050-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-30T20:22:51.051-03:00  WARN 13556 --- [BackendE_Commerce] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-30T20:22:51.167-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-30T20:22:51.736-03:00  WARN 13556 --- [BackendE_Commerce] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30T20:22:51.940-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 18 mappings in 'requestMappingHandlerMapping'
+2025-09-30T20:22:52.030-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-30T20:22:52.062-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-30T20:22:52.110-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-30T20:22:52.296-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.5.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.8+12-LTS-250"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@3c928ed4, com.mongodb.Jep395RecordCodecProvider@32ddc697, com.mongodb.KotlinCodecProvider@5836abdc]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+2025-09-30T20:22:52.308-03:00  INFO 13556 --- [BackendE_Commerce] [cluster-ClusterId{value='68dc664c2ec691c2ae41c0cc', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=22709900, minRoundTripTimeNanos=0}
+2025-09-30T20:22:52.449-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/testdb'
+2025-09-30T20:22:52.545-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-09-30T20:22:52.573-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-09-30T20:22:52.582-03:00  INFO 13556 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Started BackendECommerceApplication in 6.225 seconds (process running for 6.677)
+2025-09-30T20:22:52.667-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T20:22:52.710-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        rol
+        (nombre_rol, id_rol) 
+    values
+        (?, default)
+2025-09-30T20:22:52.728-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T20:22:52.729-03:00 DEBUG 13556 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    insert 
+    into
+        rol
+        (nombre_rol, id_rol) 
+    values
+        (?, default)
+2025-09-30T20:25:13.765-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Starting BackendECommerceApplication using Java 21.0.8 with PID 13496 (C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce\build\classes\java\main started by windows in C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce)
+2025-09-30T20:25:13.768-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-09-30T20:25:13.812-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-30T20:25:13.813-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-30T20:25:14.599-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T20:25:14.601-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-30T20:25:14.692-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 79 ms. Found 9 JPA repository interfaces.
+2025-09-30T20:25:14.732-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T20:25:14.733-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-09-30T20:25:14.742-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.AuditoriaProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.743-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.EstrellasRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.743-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.FavoritoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.744-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.744-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoVentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.744-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.PromocionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.745-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.RolRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.745-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.UsuarioRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.746-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.VentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:25:14.746-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 MongoDB repository interfaces.
+2025-09-30T20:25:15.377-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-09-30T20:25:15.393-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-30T20:25:15.393-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-09-30T20:25:15.440-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-30T20:25:15.440-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1627 ms
+2025-09-30T20:25:15.584-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-30T20:25:15.647-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-09-30T20:25:15.698-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-09-30T20:25:15.977-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-30T20:25:16.012-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-30T20:25:20.301-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn1: url=jdbc:h2:file:./data/testdb user=SA
+2025-09-30T20:25:20.303-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-30T20:25:20.326-03:00  WARN 13496 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30T20:25:20.342-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-30T20:25:21.324-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-30T20:25:21.370-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-30T20:25:21.762-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-30T20:25:21.763-03:00  WARN 13496 --- [BackendE_Commerce] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-30T20:25:21.879-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-30T20:25:22.450-03:00  WARN 13496 --- [BackendE_Commerce] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30T20:25:22.673-03:00 DEBUG 13496 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 18 mappings in 'requestMappingHandlerMapping'
+2025-09-30T20:25:22.786-03:00 DEBUG 13496 --- [BackendE_Commerce] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-30T20:25:22.819-03:00 DEBUG 13496 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-30T20:25:22.871-03:00 DEBUG 13496 --- [BackendE_Commerce] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-30T20:25:23.101-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.5.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.8+12-LTS-250"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@317a9dce, com.mongodb.Jep395RecordCodecProvider@55eaf9b, com.mongodb.KotlinCodecProvider@3186d9a1]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+2025-09-30T20:25:23.111-03:00  INFO 13496 --- [BackendE_Commerce] [cluster-ClusterId{value='68dc66e31acb93a7402fd8de', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=22352800, minRoundTripTimeNanos=0}
+2025-09-30T20:25:23.269-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/testdb'
+2025-09-30T20:25:23.377-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-09-30T20:25:23.407-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-09-30T20:25:23.415-03:00  INFO 13496 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Started BackendECommerceApplication in 10.145 seconds (process running for 10.593)
+2025-09-30T20:25:23.510-03:00 DEBUG 13496 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T20:25:23.541-03:00 DEBUG 13496 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T20:26:22.731-03:00  INFO 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-30T20:26:22.731-03:00  INFO 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-09-30T20:26:22.731-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-09-30T20:26:22.731-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-09-30T20:26:22.731-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-09-30T20:26:22.732-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7e7f8511
+2025-09-30T20:26:22.732-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@4b4ce778
+2025-09-30T20:26:22.732-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-30T20:26:22.732-03:00  INFO 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-09-30T20:26:22.755-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : OPTIONS "/auth/forgot-password", parameters={}
+2025-09-30T20:26:22.758-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#forgotPassword(ForgotPasswordRequest)
+2025-09-30T20:26:22.774-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.cors.DefaultCorsProcessor        : Reject: 'http://127.0.0.1:5500' origin is not allowed
+2025-09-30T20:26:22.777-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 403 FORBIDDEN
+2025-09-30T20:26:37.780-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/auth/register", parameters={}
+2025-09-30T20:26:37.780-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#register(RegisterRequest)
+2025-09-30T20:26:37.839-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [RegisterRequest(nombre=Cristian, apellido=Krahulik, email=krahulikcristian@gmail.com, password=123)]
+2025-09-30T20:26:37.846-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        u1_0.id_usuario,
+        u1_0.codigo_area_usuario,
+        u1_0.apellido_usuario,
+        u1_0.email_usuario,
+        u1_0.nombre_usuario,
+        u1_0.numero_telefono_usuario,
+        u1_0.contrasena_usuario 
+    from
+        usuario u1_0 
+    where
+        u1_0.email_usuario=?
+2025-09-30T20:26:37.914-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T20:26:37.944-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] org.hibernate.SQL                        : 
+    insert 
+    into
+        usuario
+        (codigo_area_usuario, apellido_usuario, email_usuario, nombre_usuario, numero_telefono_usuario, contrasena_usuario, id_usuario) 
+    values
+        (?, ?, ?, ?, ?, ?, default)
+2025-09-30T20:26:37.970-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] org.hibernate.SQL                        : 
+    insert 
+    into
+        usuario_rol
+        (usuario_id, rol_id) 
+    values
+        (?, ?)
+2025-09-30T20:26:37.980-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-09-30T20:26:37.981-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Usuario registrado correctamente"]
+2025-09-30T20:26:37.983-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-30T20:26:45.726-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : OPTIONS "/auth/forgot-password", parameters={}
+2025-09-30T20:26:45.727-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#forgotPassword(ForgotPasswordRequest)
+2025-09-30T20:26:45.728-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.web.cors.DefaultCorsProcessor        : Reject: 'http://127.0.0.1:5500' origin is not allowed
+2025-09-30T20:26:45.729-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 403 FORBIDDEN
+2025-09-30T20:26:49.046-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : OPTIONS "/auth/forgot-password", parameters={}
+2025-09-30T20:26:49.047-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#forgotPassword(ForgotPasswordRequest)
+2025-09-30T20:26:49.047-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-5] o.s.web.cors.DefaultCorsProcessor        : Reject: 'http://127.0.0.1:5500' origin is not allowed
+2025-09-30T20:26:49.048-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 403 FORBIDDEN
+2025-09-30T20:27:02.644-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/auth/forgot-password", parameters={}
+2025-09-30T20:27:02.645-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#forgotPassword(ForgotPasswordRequest)
+2025-09-30T20:27:02.646-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [ForgotPasswordRequest(email=krahulikcristian@gmail.com)]
+2025-09-30T20:27:02.647-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        u1_0.id_usuario,
+        u1_0.codigo_area_usuario,
+        u1_0.apellido_usuario,
+        u1_0.email_usuario,
+        u1_0.nombre_usuario,
+        u1_0.numero_telefono_usuario,
+        u1_0.contrasena_usuario 
+    from
+        usuario u1_0 
+    where
+        u1_0.email_usuario=?
+2025-09-30T20:27:02.651-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-6] org.hibernate.SQL                        : 
+    select
+        r1_0.usuario_id,
+        r1_1.id_rol,
+        r1_1.nombre_rol 
+    from
+        usuario_rol r1_0 
+    join
+        rol r1_1 
+            on r1_1.id_rol=r1_0.rol_id 
+    where
+        r1_0.usuario_id=?
+2025-09-30T20:27:06.779-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-09-30T20:27:06.780-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Link de recuperación: http://127.0.0.1:5500/ht.html?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmFodWxpa (truncated)..."]
+2025-09-30T20:27:06.782-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-30T20:28:17.558-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : OPTIONS "/auth/reset-password", parameters={}
+2025-09-30T20:28:17.558-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#resetPassword(ResetPasswordRequest)
+2025-09-30T20:28:17.559-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-9] o.s.web.cors.DefaultCorsProcessor        : Reject: 'http://127.0.0.1:5500' origin is not allowed
+2025-09-30T20:28:17.559-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 403 FORBIDDEN
+2025-09-30T20:30:45.882-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/auth/", parameters={}
+2025-09-30T20:30:45.882-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-09-30T20:30:45.884-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-09-30T20:30:45.886-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Using @ExceptionHandler org.springej.backende_commerce.exception.GlobalExceptionHandler#handleGenericException(Exception)
+2025-09-30T20:30:45.886-03:00 ERROR 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.b.exception.GlobalExceptionHandler   : Error inesperado: No static resource auth.
+
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource auth.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585) ~[spring-webmvc-6.2.10.jar:6.2.10]
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52) ~[spring-webmvc-6.2.10.jar:6.2.10]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.10.jar:6.2.10]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.10.jar:6.2.10]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.10.jar:6.2.10]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.10.jar:6.2.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.44.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.10.jar:6.2.10]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.44.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springej.backende_commerce.security.JwtFilter.doFilterInternal(JwtFilter.java:32) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.5.3.jar:6.5.3]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319) ~[spring-security-config-6.5.3.jar:6.5.3]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267) ~[spring-webmvc-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240) ~[spring-security-config-6.5.3.jar:6.5.3]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.10.jar:6.2.10]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.44.jar:10.1.44]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2025-09-30T20:30:45.895-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-30T20:30:45.896-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{error=Internal Server Error, timestamp=2025-09-30T20:30:45.894932900, status=500}]
+2025-09-30T20:30:45.900-03:00  WARN 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource auth.]
+2025-09-30T20:30:45.900-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 500 INTERNAL_SERVER_ERROR
+2025-09-30T20:31:49.875-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/auth/reset-password", parameters={}
+2025-09-30T20:31:49.876-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#resetPassword(ResetPasswordRequest)
+2025-09-30T20:31:49.878-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [ResetPasswordRequest(token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmFodWxpa2NyaXN0aWFuQGdtYWlsLmNvbSIsInJl (truncated)...]
+2025-09-30T20:31:49.903-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] org.hibernate.SQL                        : 
+    select
+        u1_0.id_usuario,
+        u1_0.codigo_area_usuario,
+        u1_0.apellido_usuario,
+        u1_0.email_usuario,
+        u1_0.nombre_usuario,
+        u1_0.numero_telefono_usuario,
+        u1_0.contrasena_usuario 
+    from
+        usuario u1_0 
+    where
+        u1_0.email_usuario=?
+2025-09-30T20:31:49.904-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] org.hibernate.SQL                        : 
+    select
+        r1_0.usuario_id,
+        r1_1.id_rol,
+        r1_1.nombre_rol 
+    from
+        usuario_rol r1_0 
+    join
+        rol r1_1 
+            on r1_1.id_rol=r1_0.rol_id 
+    where
+        r1_0.usuario_id=?
+2025-09-30T20:31:49.981-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] org.hibernate.SQL                        : 
+    update
+        usuario 
+    set
+        codigo_area_usuario=?,
+        apellido_usuario=?,
+        email_usuario=?,
+        nombre_usuario=?,
+        numero_telefono_usuario=?,
+        contrasena_usuario=? 
+    where
+        id_usuario=?
+2025-09-30T20:31:49.985-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-09-30T20:31:49.985-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Contraseña actualizada correctamente"]
+2025-09-30T20:31:49.985-03:00 DEBUG 13496 --- [BackendE_Commerce] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-30T20:53:47.509-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Starting BackendECommerceApplication using Java 21.0.8 with PID 6368 (C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce\build\classes\java\main started by windows in C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce)
+2025-09-30T20:53:47.511-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-09-30T20:53:47.560-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-30T20:53:47.560-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-30T20:53:48.369-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T20:53:48.371-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-30T20:53:48.459-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 79 ms. Found 9 JPA repository interfaces.
+2025-09-30T20:53:48.495-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T20:53:48.495-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-09-30T20:53:48.506-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.AuditoriaProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.507-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.EstrellasRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.507-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.FavoritoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.507-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.508-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoVentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.508-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.PromocionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.508-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.RolRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.508-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.UsuarioRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.509-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.VentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:53:48.509-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 MongoDB repository interfaces.
+2025-09-30T20:53:49.133-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-09-30T20:53:49.148-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-30T20:53:49.149-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-09-30T20:53:49.203-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-30T20:53:49.203-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1642 ms
+2025-09-30T20:53:49.341-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-30T20:53:49.398-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-09-30T20:53:49.448-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-09-30T20:53:49.734-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-30T20:53:49.768-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-30T20:53:54.053-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn1: url=jdbc:h2:file:./data/testdb user=SA
+2025-09-30T20:53:54.055-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-30T20:53:54.075-03:00  WARN 6368 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30T20:53:54.092-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-30T20:53:54.994-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-30T20:53:55.038-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-30T20:53:55.425-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-30T20:53:55.426-03:00  WARN 6368 --- [BackendE_Commerce] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-30T20:53:55.541-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-30T20:53:56.095-03:00  WARN 6368 --- [BackendE_Commerce] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30T20:53:56.302-03:00 DEBUG 6368 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 18 mappings in 'requestMappingHandlerMapping'
+2025-09-30T20:53:56.387-03:00 DEBUG 6368 --- [BackendE_Commerce] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-30T20:53:56.419-03:00 DEBUG 6368 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-30T20:53:56.468-03:00 DEBUG 6368 --- [BackendE_Commerce] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-30T20:53:56.672-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.5.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.8+12-LTS-250"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@64242dcf, com.mongodb.Jep395RecordCodecProvider@4ebfd46, com.mongodb.KotlinCodecProvider@41e8221b]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+2025-09-30T20:53:56.680-03:00  INFO 6368 --- [BackendE_Commerce] [cluster-ClusterId{value='68dc6d946aa9643d783051bc', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=21964400, minRoundTripTimeNanos=0}
+2025-09-30T20:53:56.836-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/testdb'
+2025-09-30T20:53:56.946-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-09-30T20:53:56.975-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-09-30T20:53:56.983-03:00  INFO 6368 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Started BackendECommerceApplication in 9.942 seconds (process running for 10.346)
+2025-09-30T20:53:57.078-03:00 DEBUG 6368 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T20:53:57.104-03:00 DEBUG 6368 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T20:55:52.012-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Starting BackendECommerceApplication using Java 21.0.8 with PID 1508 (C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce\build\classes\java\main started by windows in C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce)
+2025-09-30T20:55:52.014-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-09-30T20:55:52.065-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-30T20:55:52.066-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-30T20:55:52.895-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T20:55:52.897-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-30T20:55:52.978-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73 ms. Found 9 JPA repository interfaces.
+2025-09-30T20:55:53.013-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T20:55:53.014-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-09-30T20:55:53.022-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.AuditoriaProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.023-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.EstrellasRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.024-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.FavoritoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.024-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.024-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoVentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.025-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.PromocionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.025-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.RolRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.025-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.UsuarioRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.025-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.VentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T20:55:53.026-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 MongoDB repository interfaces.
+2025-09-30T20:55:53.691-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-09-30T20:55:53.705-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-30T20:55:53.705-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-09-30T20:55:53.754-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-30T20:55:53.754-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1688 ms
+2025-09-30T20:55:53.900-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-30T20:55:53.961-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-09-30T20:55:54.009-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-09-30T20:55:54.293-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-30T20:55:54.329-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-30T20:55:58.639-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn1: url=jdbc:h2:file:./data/testdb user=SA
+2025-09-30T20:55:58.641-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-30T20:55:58.668-03:00  WARN 1508 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30T20:55:58.687-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-30T20:55:59.622-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-30T20:55:59.672-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-30T20:56:00.063-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-30T20:56:00.064-03:00  WARN 1508 --- [BackendE_Commerce] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-30T20:56:00.170-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-30T20:56:00.758-03:00  WARN 1508 --- [BackendE_Commerce] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30T20:56:00.962-03:00 DEBUG 1508 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 18 mappings in 'requestMappingHandlerMapping'
+2025-09-30T20:56:01.052-03:00 DEBUG 1508 --- [BackendE_Commerce] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-30T20:56:01.082-03:00 DEBUG 1508 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-30T20:56:01.133-03:00 DEBUG 1508 --- [BackendE_Commerce] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-30T20:56:01.347-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.5.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.8+12-LTS-250"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@4176b127, com.mongodb.Jep395RecordCodecProvider@23e1d111, com.mongodb.KotlinCodecProvider@4a90af33]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+2025-09-30T20:56:01.353-03:00  INFO 1508 --- [BackendE_Commerce] [cluster-ClusterId{value='68dc6e118a21ae0bd60f56b5', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=19959200, minRoundTripTimeNanos=0}
+2025-09-30T20:56:01.507-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/testdb'
+2025-09-30T20:56:01.607-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-09-30T20:56:01.636-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-09-30T20:56:01.645-03:00  INFO 1508 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Started BackendECommerceApplication in 10.091 seconds (process running for 10.573)
+2025-09-30T20:56:01.745-03:00 DEBUG 1508 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T20:56:01.773-03:00 DEBUG 1508 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T21:20:57.255-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Starting BackendECommerceApplication using Java 21.0.8 with PID 5284 (C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce\build\classes\java\main started by windows in C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce)
+2025-09-30T21:20:57.258-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-09-30T21:20:57.308-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-30T21:20:57.308-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-30T21:20:58.125-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T21:20:58.127-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-30T21:20:58.208-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70 ms. Found 9 JPA repository interfaces.
+2025-09-30T21:20:58.243-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T21:20:58.243-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-09-30T21:20:58.251-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.AuditoriaProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.252-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.EstrellasRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.252-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.FavoritoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.253-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.253-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoVentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.253-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.PromocionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.254-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.RolRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.254-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.UsuarioRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.254-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.VentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:20:58.254-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 MongoDB repository interfaces.
+2025-09-30T21:20:58.913-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-09-30T21:20:58.927-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-30T21:20:58.927-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-09-30T21:20:58.978-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-30T21:20:58.979-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1670 ms
+2025-09-30T21:20:59.129-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-30T21:20:59.194-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-09-30T21:20:59.248-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-09-30T21:20:59.549-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-30T21:20:59.580-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-30T21:21:03.878-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn1: url=jdbc:h2:file:./data/testdb user=SA
+2025-09-30T21:21:03.879-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-30T21:21:03.900-03:00  WARN 5284 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30T21:21:03.917-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-30T21:21:04.823-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-30T21:21:04.870-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-30T21:21:05.260-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-30T21:21:05.261-03:00  WARN 5284 --- [BackendE_Commerce] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-30T21:21:05.377-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-30T21:21:05.935-03:00  WARN 5284 --- [BackendE_Commerce] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30T21:21:06.135-03:00 DEBUG 5284 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 18 mappings in 'requestMappingHandlerMapping'
+2025-09-30T21:21:06.223-03:00 DEBUG 5284 --- [BackendE_Commerce] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-30T21:21:06.256-03:00 DEBUG 5284 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-30T21:21:06.305-03:00 DEBUG 5284 --- [BackendE_Commerce] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-30T21:21:06.515-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.5.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.8+12-LTS-250"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@641cfcd7, com.mongodb.Jep395RecordCodecProvider@1cd6e99f, com.mongodb.KotlinCodecProvider@471cfd2f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+2025-09-30T21:21:06.522-03:00  INFO 5284 --- [BackendE_Commerce] [cluster-ClusterId{value='68dc73f26c7007f3bffbbf39', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=21399500, minRoundTripTimeNanos=0}
+2025-09-30T21:21:06.678-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/testdb'
+2025-09-30T21:21:06.783-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-09-30T21:21:06.814-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-09-30T21:21:06.821-03:00  INFO 5284 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Started BackendECommerceApplication in 10.001 seconds (process running for 10.403)
+2025-09-30T21:21:06.922-03:00 DEBUG 5284 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T21:21:06.948-03:00 DEBUG 5284 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T21:21:14.425-03:00  INFO 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-30T21:21:14.425-03:00  INFO 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-09-30T21:21:14.425-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-09-30T21:21:14.425-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-09-30T21:21:14.426-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-09-30T21:21:14.427-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@5a8aa0ee
+2025-09-30T21:21:14.427-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@70780675
+2025-09-30T21:21:14.427-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-30T21:21:14.427-03:00  INFO 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-09-30T21:21:14.455-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : OPTIONS "/auth/forgot-password", parameters={}
+2025-09-30T21:21:14.457-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#forgotPassword(ForgotPasswordRequest)
+2025-09-30T21:21:14.475-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-30T21:21:14.481-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/auth/forgot-password", parameters={}
+2025-09-30T21:21:14.481-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#forgotPassword(ForgotPasswordRequest)
+2025-09-30T21:21:14.542-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [ForgotPasswordRequest(email=krahulikcristian@gmail.com)]
+2025-09-30T21:21:14.549-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        u1_0.id_usuario,
+        u1_0.codigo_area_usuario,
+        u1_0.apellido_usuario,
+        u1_0.email_usuario,
+        u1_0.nombre_usuario,
+        u1_0.numero_telefono_usuario,
+        u1_0.contrasena_usuario 
+    from
+        usuario u1_0 
+    where
+        u1_0.email_usuario=?
+2025-09-30T21:21:14.559-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        r1_0.usuario_id,
+        r1_1.id_rol,
+        r1_1.nombre_rol 
+    from
+        usuario_rol r1_0 
+    join
+        rol r1_1 
+            on r1_1.id_rol=r1_0.rol_id 
+    where
+        r1_0.usuario_id=?
+2025-09-30T21:21:18.114-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-09-30T21:21:18.115-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Link de recuperación: http://127.0.0.1:5500/ht.html?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmFodWxpa (truncated)..."]
+2025-09-30T21:21:18.119-03:00 DEBUG 5284 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-30T21:31:43.200-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Starting BackendECommerceApplication using Java 21.0.8 with PID 12840 (C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce\build\classes\java\main started by windows in C:\Users\windows\Desktop\PROYECTO_YACOMO\Backend\BackendE_Commerce)
+2025-09-30T21:31:43.203-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-09-30T21:31:43.250-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-30T21:31:43.251-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-30T21:31:44.078-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T21:31:44.080-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-30T21:31:44.160-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 9 JPA repository interfaces.
+2025-09-30T21:31:44.198-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-09-30T21:31:44.198-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-09-30T21:31:44.210-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.AuditoriaProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.210-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.EstrellasRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.211-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.FavoritoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.211-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.211-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.ProductoVentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.212-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.PromocionRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.212-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.RolRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.212-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.UsuarioRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.213-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data MongoDB - Could not safely identify store assignment for repository candidate interface org.springej.backende_commerce.repository.VentaRepository; If you want this repository to be a MongoDB repository, consider annotating your entities with one of these annotations: org.springframework.data.mongodb.core.mapping.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.mongodb.repository.MongoRepository
+2025-09-30T21:31:44.213-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 MongoDB repository interfaces.
+2025-09-30T21:31:44.885-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-09-30T21:31:44.900-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-09-30T21:31:44.901-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-09-30T21:31:44.945-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-30T21:31:44.945-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1694 ms
+2025-09-30T21:31:45.127-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-30T21:31:45.197-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-09-30T21:31:45.248-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-09-30T21:31:45.540-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-30T21:31:45.575-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-09-30T21:31:49.860-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn1: url=jdbc:h2:file:./data/testdb user=SA
+2025-09-30T21:31:49.861-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-09-30T21:31:49.883-03:00  WARN 12840 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30T21:31:49.900-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-30T21:31:50.811-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-30T21:31:50.857-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-30T21:31:51.261-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-30T21:31:51.262-03:00  WARN 12840 --- [BackendE_Commerce] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-30T21:31:51.364-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-30T21:31:51.906-03:00  WARN 12840 --- [BackendE_Commerce] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30T21:31:52.233-03:00 DEBUG 12840 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 18 mappings in 'requestMappingHandlerMapping'
+2025-09-30T21:31:52.348-03:00 DEBUG 12840 --- [BackendE_Commerce] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-30T21:31:52.384-03:00 DEBUG 12840 --- [BackendE_Commerce] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-30T21:31:52.442-03:00 DEBUG 12840 --- [BackendE_Commerce] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-30T21:31:52.661-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.5.1"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/21.0.8+12-LTS-250"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@1891538c, com.mongodb.Jep395RecordCodecProvider@4cb65f7e, com.mongodb.KotlinCodecProvider@50c43a5f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+2025-09-30T21:31:52.669-03:00  INFO 12840 --- [BackendE_Commerce] [cluster-ClusterId{value='68dc7678c8e6b9ced515b531', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=24703300, minRoundTripTimeNanos=0}
+2025-09-30T21:31:52.826-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/testdb'
+2025-09-30T21:31:52.929-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-09-30T21:31:52.959-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-09-30T21:31:52.967-03:00  INFO 12840 --- [BackendE_Commerce] [restartedMain] o.s.b.BackendECommerceApplication        : Started BackendECommerceApplication in 10.234 seconds (process running for 10.638)
+2025-09-30T21:31:53.061-03:00 DEBUG 12840 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T21:31:53.085-03:00 DEBUG 12840 --- [BackendE_Commerce] [restartedMain] org.hibernate.SQL                        : 
+    select
+        r1_0.id_rol,
+        r1_0.nombre_rol 
+    from
+        rol r1_0 
+    where
+        r1_0.nombre_rol=?
+2025-09-30T21:31:58.221-03:00  INFO 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-30T21:31:58.221-03:00  INFO 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-09-30T21:31:58.221-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-09-30T21:31:58.221-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-09-30T21:31:58.221-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-09-30T21:31:58.222-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@65962c12
+2025-09-30T21:31:58.222-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@78e1cf47
+2025-09-30T21:31:58.223-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-30T21:31:58.223-03:00  INFO 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-09-30T21:31:58.246-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/auth/forgot-password", parameters={}
+2025-09-30T21:31:58.248-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#forgotPassword(ForgotPasswordRequest)
+2025-09-30T21:31:58.316-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [ForgotPasswordRequest(email=krahulikcristian@gmail.com)]
+2025-09-30T21:31:58.323-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        u1_0.id_usuario,
+        u1_0.codigo_area_usuario,
+        u1_0.apellido_usuario,
+        u1_0.email_usuario,
+        u1_0.nombre_usuario,
+        u1_0.numero_telefono_usuario,
+        u1_0.contrasena_usuario 
+    from
+        usuario u1_0 
+    where
+        u1_0.email_usuario=?
+2025-09-30T21:31:58.334-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        r1_0.usuario_id,
+        r1_1.id_rol,
+        r1_1.nombre_rol 
+    from
+        usuario_rol r1_0 
+    join
+        rol r1_1 
+            on r1_1.id_rol=r1_0.rol_id 
+    where
+        r1_0.usuario_id=?
+2025-09-30T21:32:01.848-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-09-30T21:32:01.849-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Link de recuperación: http://127.0.0.1:5500/reset-password.html?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiO (truncated)..."]
+2025-09-30T21:32:01.853-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-30T21:32:27.450-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : OPTIONS "/auth/reset-password", parameters={}
+2025-09-30T21:32:27.451-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#resetPassword(ResetPasswordRequest)
+2025-09-30T21:32:27.451-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-09-30T21:32:27.455-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/auth/reset-password", parameters={}
+2025-09-30T21:32:27.455-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springej.backende_commerce.controller.AuthController#resetPassword(ResetPasswordRequest)
+2025-09-30T21:32:27.457-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [ResetPasswordRequest(token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrcmFodWxpa2NyaXN0aWFuQGdtYWlsLmNvbSIsInJl (truncated)...]
+2025-09-30T21:32:27.479-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        u1_0.id_usuario,
+        u1_0.codigo_area_usuario,
+        u1_0.apellido_usuario,
+        u1_0.email_usuario,
+        u1_0.nombre_usuario,
+        u1_0.numero_telefono_usuario,
+        u1_0.contrasena_usuario 
+    from
+        usuario u1_0 
+    where
+        u1_0.email_usuario=?
+2025-09-30T21:32:27.480-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] org.hibernate.SQL                        : 
+    select
+        r1_0.usuario_id,
+        r1_1.id_rol,
+        r1_1.nombre_rol 
+    from
+        usuario_rol r1_0 
+    join
+        rol r1_1 
+            on r1_1.id_rol=r1_0.rol_id 
+    where
+        r1_0.usuario_id=?
+2025-09-30T21:32:27.580-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] org.hibernate.SQL                        : 
+    update
+        usuario 
+    set
+        codigo_area_usuario=?,
+        apellido_usuario=?,
+        email_usuario=?,
+        nombre_usuario=?,
+        numero_telefono_usuario=?,
+        contrasena_usuario=? 
+    where
+        id_usuario=?
+2025-09-30T21:32:27.585-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-09-30T21:32:27.586-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing ["Contraseña actualizada correctamente"]
+2025-09-30T21:32:27.586-03:00 DEBUG 12840 --- [BackendE_Commerce] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

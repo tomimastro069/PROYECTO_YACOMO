@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import jakarta.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5500")
 @RestController
 @RequestMapping("/ventas")
 public class VentaController {

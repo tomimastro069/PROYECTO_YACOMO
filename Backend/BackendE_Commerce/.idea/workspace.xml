@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="restauracion de contraseña incompleto">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/exception/GlobalExceptionHandler.java" afterDir="false" />
-    </list>
+    <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="restauracion de contraseña incompleto" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,7 +80,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/windows/Desktop/REPOS EXTERNOS/PROYECTO_YACOMO-gian",
+    "last_opened_file_path": "C:/Users/windows/Desktop/UTN-Archivos/Vesper/Vesper",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

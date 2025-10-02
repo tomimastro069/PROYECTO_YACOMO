@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="perfilStyle.css">
+    <title>Script-G</title>
+</head>
+<body>
+    <header>
+        <a class="boton-logo" href="index.html">
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
+            </svg>
+            <h1>Script-G</h1>
+        </a>
+
+        <nav>
+            <form class="form">
+                <button>
+                    <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
+                        <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+                <input class="input" placeholder="Search" required="" type="text">
+                <button class="reset" type="reset">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </form>
+            <div class="notificaciones-header">
+                <button class="notificaciones">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="user-profile">
+                <a href="/profile" class="profile-link" aria-label="Ver mi perfil">
+                    <div class="profile-picture-container">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">Nombre del Usuario</span>
+                        <span class="user-email">correo.usuario@ejemplo.com</span>
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main class="dashboard-layout">
+        <aside class="sidebar">
+            <section class="user-summary">
+                <div class="user-profile-header">
+                    <img src="path/to/carlos-photo.jpg" alt="Foto de perfil de Carlos Rodríguez" class="profile-photo">
+                    <div class="user-details">
+                        <h2 class="user-name">Carlos Rodríguez</h2>
+                        <span class="user-membership">Gold Member</span>
+                    </div>
+                </div>
+
+                <ul class="stats-list">
+                    <li>
+                        <span class="stat-label">Pedidos activos:</span>
+                        <span class="stat-value">2</span>
+                    </li>
+                    <li>
+                        <span class="stat-label">Total gastado:</span>
+                        <span class="stat-value">$125.000</span>
+                    </li>
+                    <li>
+                        <span class="stat-label">Lista de deseos:</span>
+                        <a href="#" class="stat-link">4 productos</a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="quick-access">
+                <h3>Accesos rápidos</h3>
+                <nav class="quick-nav-list">
+                    <a href="/configuracion" class="quick-nav-item">
+                        <i class="bi bi-gear-fill"></i>
+                        <div class="quick-nav-text">
+                            <span>Configuración</span>
+                            <span class="quick-nav-subtitle">Preferencias de cuenta</span>
+                        </div>
+                    </a>
+                    <a href="/ayuda" class="quick-nav-item">
+                        <i class="bi bi-question-circle-fill"></i>
+                        <div class="quick-nav-text">
+                            <span>Ayuda</span>
+                            <span class="quick-nav-subtitle">Centro de soporte</span>
+                        </div>
+                    </a>
+                    <a href="/logout" class="quick-nav-item logout-link">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <div class="quick-nav-text">
+                            <span>Cerrar sesión</span>
+                            <span class="quick-nav-subtitle">Salir de tu cuenta</span>
+                        </div>
+                    </a>
+                </nav>
+            </section>
+        </aside>
+        <section class="main-content">
+            <ul class="nav-sec">
+                
+                <li class="nav-item">
+                    <a class="nav-link active-link"  href="#" data-target="info-perfil" >Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="info-historial">Historial</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="info-pedidos">Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="info-fav">Favoritos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="info-soporte">Soporte</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="info-pagos">Pagos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="info-direcciones">Direcciones</a>
+                </li>
+            </ul>
+            <section class="info info-perfil active-content">
+                <h2 class="section-title">Informacion Personal</h2>
+                <div class="miniperfil">
+                    <div class="miniperfil-header">
+                        <img src="path/to/carlos-photo.jpg" alt="Foto de perfil del usuario" class="profile-photo">
+                        <div class="encabezado">
+                            <h2 class="user-name">Carlos Rodríguez</h2>
+                            <span class="user-membership">Gold Member</span>
+                        </div>
+                    </div>
+                    <div class="perfil-details">
+                        <ul class="perfil-detalles">
+                            <li>
+                                <span>Nombre completo</Span>
+                                <p>Nombre Apellido</p>
+                            </li>
+                            <li>
+                                <span>Correo electrónico</span>
+                                <p>usuario123@email.com</p>
+                            </li>
+                            <li>
+                                <span>Telefono</span>
+                                <p>1234567890</p>
+                            </li>
+                            <li>
+                                <span>Fecha de registro</span>
+                                <p>dd/mm/aa</p>
+                            </li>
+                        </ul>
+                    
+                        <ul class="perfil-detalles-extra">
+                            <li>
+                                <i class="bi bi-calendar-check">24</i><br>
+                                <span class="aclaracion">Pedidos realizados</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-currency-dollar">125.000</i><br>
+                                <span class="aclaracion">Total gastado</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-person-badge">Gold</i><br>
+                                <span class="aclaracion">Nivel de membresía</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="info info-historial">
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h3 class="order-id">Pedido #ORD-2023-045</h3>
+                            <p class="order-date">14 de diciembre de 2023</p>
+                        </div>
+                        <div class="status-badge delivered">
+                            Entregado
+                        </div>
+                    </div>
+
+                    <div class="order-summary">
+                        <p class="summary-label">Total:</p>
+                        <p class="summary-value">$67.500</p>
+                    </div>
+
+                    <div class="order-products">
+                        <p class="products-label">Productos (2):</p>
+                        <div class="product-images">
+                            <img src="product-image-1.jpg" alt="Producto 1" class="product-thumb">
+                            <img src="product-image-2.jpg" alt="Producto 2" class="product-thumb">
+                        </div>
+                    </div>
+
+                    <div class="order-actions">
+                        <button class="btn btn-details">Ver detalles</button>
+                        <button class="btn btn-reorder">Recomprar</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info info-pedidos">
+                <div class="order-card-new">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h3 class="order-id">Pedido #ORD-2024-001</h3>
+                            <p class="order-date">21 de enero de 2024</p>
+                        </div>
+                        <div class="status-badge shipped">
+                            Enviado
+                        </div>
+                    </div>
+
+                    <div class="order-summary-row total-row">
+                        <p class="summary-label">Total:</p>
+                        <p class="summary-value total-value">$45.999</p>
+                    </div>
+
+                    <div class="order-summary-row estimated-delivery">
+                        <p class="summary-label">Entrega estimada:</p>
+                        <p class="summary-value delivery-date">25 de enero</p>
+                    </div>
+
+                    <div class="order-products-list">
+                        <p class="products-list-label">Productos (1):</p>
+                        <div class="product-item">
+                            <img src="nvidia-rtx-4070.jpg" alt="NVIDIA GeForce RTX 4070" class="product-thumb-lg">
+                            <div class="product-details">
+                                <p class="product-name">NVIDIA GeForce RTX 4070</p>
+                                <p class="product-quantity">Cantidad: 1</p>
+                            </div>
+                            <p class="product-price">$45.999</p>
+                        </div>
+                    </div>
+
+                    <div class="order-actions-single">
+                        <button class="btn btn-details-single">Ver detalles</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info info-fav">
+                <div class="product-list">
+
+                    <div class="product-card">
+                        <img src="nvidia-rtx-4080-super.jpg" alt="NVIDIA GeForce RTX 4080 SUPER" class="product-image">
+                        
+                        <div class="product-details">
+                            <p class="product-brand top-brand">ASUS</p>
+                            
+                            <div class="rating">
+                                <span class="rating-stars">★★★★★</span>
+                                <span class="rating-value">4.8</span>
+                                <span class="review-count">(156 reseñas)</span>
+                            </div>
+                            
+                            <div class="price-section">
+                                <span class="current-price">$89.999</span>
+                                <span class="old-price">$94.999</span>
+                                <span class="discount-badge">-5%</span>
+                            </div>
+                            
+                            <p class="added-date">Agregado el 14/1/2024</p>
+
+                            <div class="product-title-group bottom-title">
+                                <h3 class="product-title">NVIDIA GeForce RTX 4080 SUPER</h3>
+                                <button class="remove-btn" aria-label="Eliminar producto">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button class="action-btn add-to-cart-btn">Agregar al carrito</button>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="nvidia-rtx-3060.jpg" alt="NVIDIA GeForce RTX 3060" class="product-image">
+                        
+                        <div class="product-details">
+                            <p class="product-brand top-brand">ASUS</p>
+                            
+                            <div class="rating">
+                                <span class="rating-stars">★★★★★</span>
+                                <span class="rating-value">4.7</span>
+                                <span class="review-count">(172 reseñas)</span>
+                            </div>
+                            
+                            <div class="price-section">
+                                <span class="current-price">$79.999</span>
+                                <span class="old-price">$90.999</span>
+                                <span class="discount-badge">-5%</span>
+                            </div>
+                            
+                            <p class="added-date">Agregado el 14/1/2024</p>
+
+                            <div class="product-title-group bottom-title">
+                                <h3 class="product-title">NVIDIA GeForce RTX 3060 </h3>
+                                <button class="remove-btn" aria-label="Eliminar producto">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button class="action-btn add-to-cart-btn">Agregar al carrito</button>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="motherboard-b550.jpg" alt="Motherboard AMD B550" class="product-image">
+                        
+                        <div class="product-details">
+                            <p class="product-brand top-brand">MSI</p>
+                            
+                            <div class="rating">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="rating-value">4.6</span>
+                                <span class="review-count">(89 reseñas)</span>
+                            </div>
+                            
+                            <div class="price-section">
+                                <span class="current-price">$25.999</span>
+                                <span class="no-stock-badge">Sin stock</span>
+                            </div>
+                            
+                            <p class="added-date">Agregado el 9/1/2024</p>
+                            
+                            <div class="product-title-group bottom-title">
+                                <h3 class="product-title">Motherboard AMD B550</h3>
+                                <button class="remove-btn" aria-label="Eliminar producto">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button class="action-btn out-of-stock-btn" disabled>Sin stock</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="info info-pagos">
+                <div class="payment-card">
+                    <div class="card-icon-container">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                        </svg>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-line-1">
+                            <span class="card-type">Mastercard</span>
+                            <span class="card-number">xxxx 1234</span>
+                            <span class="card-badge debit">Débito</span>
+                        </div>
+                        <p class="card-holder">Carlos Rodríguez</p>
+                        <p class="card-expiry">Vence: 08/2026</p>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn btn-icon" aria-label="Editar tarjeta">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        </button>
+                        <button class="btn btn-icon" aria-label="Eliminar tarjeta">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="payment-card">
+                    <div class="card-icon-container">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                        </svg>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-line-1">
+                            <span class="card-type">Visa</span>
+                            <span class="card-number">xxxx 1234</span>
+                            <span class="card-badge debit">Crédito</span>
+                        </div>
+                        <p class="card-holder">Carlos Rodríguez</p>
+                        <p class="card-expiry">Vence: 08/2026</p>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn btn-icon" aria-label="Editar tarjeta">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        </button>
+                        <button class="btn btn-icon" aria-label="Eliminar tarjeta">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="payment-card">
+                    <div class="card-icon-container">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                        </svg>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-line-1">
+                            <span class="card-type">Mercado Pago</span>
+                            <span class="card-number">xxxx 5678</span>
+                            <span class="card-badge debit">Transferencia</span>
+                        </div>
+                        <p class="card-holder">Carlos Rodríguez</p>
+                        <p class="card-expiry">Vence: 08/2026</p>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn btn-icon" aria-label="Editar tarjeta">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        </button>
+                        <button class="btn btn-icon" aria-label="Eliminar tarjeta">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info info-direcciones">
+                <div class="address-card">
+                    <div class="address-icon-container">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                    </div>
+
+                    <div class="address-info">
+                        <div class="address-title-group">
+                            <span class="address-title">Domicilio</span>
+                            <span class="address-badge">Departamento</span>
+                        </div>
+                        <p class="address-line">Av. Santa Fe 5678</p>
+                        <p class="address-line">Buenos Aires, CABA C1425</p>
+                        <p class="address-line">Argentina</p>
+                    </div>
+
+                    <div class="address-actions">
+                        <button class="btn btn-icon" aria-label="Editar dirección">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                        </button>
+                        <button class="btn btn-icon" aria-label="Eliminar dirección">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info info-soporte">
+                <div class="support-page-container">
+                    
+                    <div class="ticket-header-card">
+                        
+                        <div class="ticket-title-row">
+                            <h2 class="ticket-title">Demora en el envío del pedido #12345 <span class="ticket-id-badge">TICK-003</span></h2>
+                            <button class="btn btn-view-convo">Ver conversación</button>
+                            <button class="btn btn-icon-email" aria-label="Responder por email">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </button>
+                        </div>
+
+                        <div class="ticket-meta-row">
+                            <span class="meta-item">Envíos</span>
+                            <span class="meta-separator">•</span>
+                            <span class="meta-item">Creado: 21/1/2024</span>
+                            <span class="meta-separator">•</span>
+                            <span class="meta-item">Actualizado: 21/1/2024</span>
+                        </div>
+
+                        <div class="ticket-status-row">
+                            <div class="status-tag-group">
+                                <span class="status-badge status-open">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.93c-2.8-.75-5-3.32-5-6.43 0-3.87 3.13-7 7-7s7 3.13 7 7c0 3.11-2.2 5.68-5 6.43V17h2v-2h-4v2h2v.93z"/></svg>
+                                    Abierto
+                                </span>
+                            </div>
+                            <span class="message-count">1 mensaje</span>
+                        </div>
+                    </div>
+
+                    <div class="support-channels-card">
+                        <h3 class="section-heading">Otros canales de soporte</h3>
+
+                        <div class="channels-grid">
+                            
+                            <div class="channel-item">
+                                <div class="channel-details">
+                                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12zM7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+                                    <div class="channel-text">
+                                        <p class="channel-name">Chat en vivo</p>
+                                        <p class="channel-schedule">Lun-Vie 9:00-18:00</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="channel-item">
+                                <div class="channel-details">
+                                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                    <div class="channel-text">
+                                        <p class="channel-name">Email</p>
+                                        <p class="channel-email">soporte@tienda.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+    </main>
+    
+
+    <script src="navPerfil.js"></script>
+</body>
+</html>

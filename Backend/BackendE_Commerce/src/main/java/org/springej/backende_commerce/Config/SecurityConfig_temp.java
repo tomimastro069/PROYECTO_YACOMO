@@ -1,10 +1,10 @@
-package org.springej.backende_commerce.config;
+package org.springej.backende_commerce.Config;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springej.backende_commerce.security.AuthEntryPoint;
-import org.springej.backende_commerce.security.JwtFilter;
-import org.springej.backende_commerce.service.UserDetailsServiceImpl;
+import org.springej.backende_commerce.Security.AuthEntryPoint;
+import org.springej.backende_commerce.Security.JwtFilter;
+import org.springej.backende_commerce.Service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +30,7 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable());  //desactiva csrf porque se va a usar JWT
 
-        http.authorizeHttpRequests( auth -> auth
+        http.authorizeHttpRequests(auth -> auth
                 .anyRequest().permitAll() //DESPUES DEFINIR CUALES SON PRIVADAS Y CUAL PUBLIC 
         );
 

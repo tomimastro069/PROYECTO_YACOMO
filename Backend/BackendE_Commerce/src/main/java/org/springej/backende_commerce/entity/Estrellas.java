@@ -5,20 +5,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Estrellas")
+@Table(name = "estrellas")
 @Data
 @NoArgsConstructor
 public class Estrellas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idEstrellas")
     private Long id;
 
-    @Column(name = "cantidad_estrellas")
-    private int cantidad;
+    @Column(name = "puntuacion", nullable = false)
+    private int puntuacion;
 
     // Relación con Producto
-    @ManyToOne
-    @JoinColumn(name = "idProducto", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
+
+    // Relación con Usuario
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 }

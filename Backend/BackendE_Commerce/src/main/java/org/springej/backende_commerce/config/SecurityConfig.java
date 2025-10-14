@@ -31,7 +31,23 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());  //desactiva csrf porque se va a usar JWT
 
         http.authorizeHttpRequests( auth -> auth
-                .anyRequest().permitAll() //DESPUES DEFINIR CUALES SON PRIVADAS Y CUAL PUBLIC 
+                // Rutas públicas para autenticación, documentación de API y visualización de productos
+                .requestMatchers("/api/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/productos", "/api/productos/**").permitAll()
+
+                // Rutas para usuarios autenticados (USER o ADMIN)
+                .requestMatchers("/api/ventas/**").authenticated()
+                .requestMatchers("/api/favoritos/**").authenticated()
+                .requestMatchers("/api/estrellas/**").authenticated()
+
+                // Rutas exclusivas para ADMIN (gestión de productos e imágenes)
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/productos").hasRole("ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/productos/**").hasRole("ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
+                .requestMatchers("/api/producto-imagenes/**").hasRole("ADMIN")
+
+                // Todas las demás rutas requieren autenticación
+                .anyRequest().authenticated()
         );
 
         http.exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint));

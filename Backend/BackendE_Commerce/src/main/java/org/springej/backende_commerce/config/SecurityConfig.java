@@ -36,7 +36,11 @@ public class SecurityConfig {
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/productos", "/api/productos/**").permitAll()
 
                 // Rutas para usuarios autenticados (USER o ADMIN)
-                .requestMatchers("/api/ventas/**").authenticated()
+                // Reglas específicas para Ventas
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/ventas").authenticated() // Usuarios pueden crear ventas
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/ventas/mis-compras").authenticated() // Usuarios pueden ver sus compras
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/ventas", "/api/ventas/usuario/**").hasRole("ADMIN") // Admins ven todo
+
                 .requestMatchers("/api/favoritos/**").authenticated()
                 .requestMatchers("/api/estrellas/**").authenticated()
 

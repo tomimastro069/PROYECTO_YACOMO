@@ -1,9 +1,9 @@
 package org.springej.backende_commerce.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springej.backende_commerce.entity.*;
 import org.springej.backende_commerce.repository.*;
 import org.springej.backende_commerce.dto.VentaDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
@@ -13,39 +13,22 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class VentaService {
 
     private static final Logger logger = LoggerFactory.getLogger(VentaService.class);
 
-    @Autowired
-    private VentaRepository ventaRepository;
-
-    @Autowired
-    private ProductoVentaRepository productoVentaRepository;
-
-    @Autowired
-    private ProductoRepository productoRepository;
-
-    @Autowired
-    private PromocionRepository promocionRepository;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final VentaRepository ventaRepository;
+    private final ProductoVentaRepository productoVentaRepository;
+    private final ProductoRepository productoRepository;
+    private final PromocionRepository promocionRepository;
+    private final UsuarioRepository usuarioRepository;
 
     /**
-     * Registra una nueva venta con sus productos
+     * Registra una nueva venta para el usuario autenticado
      */
-    public Venta registrarVenta(VentaDTO ventaDTO) {
-        logger.info("Iniciando proceso de registro de venta para usuario ID: {}", ventaDTO.getIdUsuario());
-
-        // 1. Validar que el usuario existe
-        Usuario usuario = usuarioRepository.findById(ventaDTO.getIdUsuario())
-                .orElseThrow(() -> {
-                    logger.error("Usuario con ID {} no encontrado", ventaDTO.getIdUsuario());
-                    return new IllegalArgumentException("Usuario no encontrado con ID: " + ventaDTO.getIdUsuario());
-                });
-
-        logger.debug("Usuario encontrado: {}", usuario.getId());
+    public Venta registrarVenta(VentaDTO ventaDTO, Usuario usuario) {
+        logger.info("Iniciando proceso de registro de venta para usuario ID: {}", usuario.getId());
 
         // 2. Crear y guardar la venta
         Venta venta = new Venta();
@@ -117,19 +100,11 @@ public class VentaService {
     }
 
     /**
-     * Método helper para validar si un usuario existe
+     * Obtiene todas las ventas registradas en el sistema (solo para Admins)
      */
     @Transactional(readOnly = true)
-    public boolean existeUsuario(Long idUsuario) {
-        return usuarioRepository.existsById(idUsuario);
-    }
-
-    /**
-     * Método helper para contar ventas de un usuario
-     */
-    @Transactional(readOnly = true)
-    public long contarVentasPorUsuario(Long idUsuario) {
-        logger.debug("Contando ventas para usuario ID: {}", idUsuario);
-        return ventaRepository.countByUsuarioId(idUsuario);
+    public List<Venta> listarTodasLasVentas() {
+        logger.info("Listando todas las ventas del sistema");
+        return ventaRepository.findAll();
     }
 }

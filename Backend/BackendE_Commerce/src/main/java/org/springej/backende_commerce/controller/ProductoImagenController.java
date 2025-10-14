@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/productos")
+@RequestMapping("/api/producto-imagenes")
 @CrossOrigin(origins = "*")
 public class ProductoImagenController {
 
@@ -34,11 +34,11 @@ public class ProductoImagenController {
     private CloudinaryService cloudinaryService;
 
     // ---- SUBIR IMÁGENES ----
-    @PostMapping("/{id}/imagenes")
-    public ResponseEntity<?> subirImagenes(@PathVariable Long id,
+    @PostMapping("/producto/{productoId}")
+    public ResponseEntity<?> subirImagenes(@PathVariable Long productoId,
                                            @RequestParam("imagenes") MultipartFile[] imagenes) {
         try {
-            Optional<Producto> optProducto = productoRepository.findById(id);
+            Optional<Producto> optProducto = productoRepository.findById(productoId);
             if (optProducto.isEmpty()) {
                 return ResponseEntity.badRequest().body("Producto no encontrado");
             }
@@ -71,11 +71,11 @@ public class ProductoImagenController {
     }
 
     // ---- ELIMINAR IMAGEN ----
-    @DeleteMapping("/{id}/imagenes/{idImagen}")
-    public ResponseEntity<?> eliminarImagen(@PathVariable Long id,
+    @DeleteMapping("/{idImagen}/producto/{productoId}")
+    public ResponseEntity<?> eliminarImagen(@PathVariable Long productoId,
                                             @PathVariable Long idImagen) {
         try {
-            Optional<Producto> optProducto = productoRepository.findById(id);
+            Optional<Producto> optProducto = productoRepository.findById(productoId);
             if (optProducto.isEmpty()) {
                 return ResponseEntity.badRequest().body("Producto no encontrado");
             }

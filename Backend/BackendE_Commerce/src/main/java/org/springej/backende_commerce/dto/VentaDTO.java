@@ -16,7 +16,8 @@ public class VentaDTO {
 
     @NotNull(message = "El ID del usuario es obligatorio")
     @Positive(message = "El ID del usuario debe ser positivo")
-    private Long idUsuario;
+    // Se elimina idUsuario para tomarlo del contexto de seguridad (usuario logeado)
+    // private Long idUsuario;
 
     @NotNull(message = "La fecha de venta es obligatoria")
     private LocalDate fechaVenta;

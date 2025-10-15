@@ -23,7 +23,6 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
-    // GET /productos - Listar todos los productos
     @GetMapping
     public ResponseEntity<List<Producto>> listarTodos() {
         logger.info("Iniciando búsqueda de todos los productos");
@@ -32,7 +31,6 @@ public class ProductoController {
         return ResponseEntity.ok(productos);
     }
 
-    // GET /productos/{id} - Buscar producto por ID
     @GetMapping("/{id}")
     public ResponseEntity<Producto> buscarPorId(@PathVariable Long id) {
         logger.info("Buscando producto con ID: {}", id);
@@ -47,20 +45,18 @@ public class ProductoController {
                 });
     }
 
-    // POST /productos - Crear nuevo producto
     @PostMapping
-    public ResponseEntity<Producto> crearProducto(@RequestBody @Valid Producto producto) {
+    public ResponseEntity<Producto> crearProducto(@Valid @RequestBody Producto producto) {
         logger.info("Iniciando creación de producto: {}", producto.getNombre());
         Producto nuevoProducto = productoService.guardar(producto);
         logger.info("Producto creado exitosamente con ID: {}", nuevoProducto.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoProducto);
     }
 
-    // PUT /productos/{id} - Actualizar producto existente
     @PutMapping("/{id}")
     public ResponseEntity<Producto> actualizarProducto(
             @PathVariable Long id,
-            @RequestBody @Valid Producto producto) {
+            @Valid @RequestBody Producto producto) {
 
         logger.info("Iniciando actualización completa del producto con ID: {}", id);
         return productoService.buscarPorId(id)
@@ -76,7 +72,6 @@ public class ProductoController {
                 });
     }
 
-    // PATCH /productos/{id} - Actualización parcial
     @PatchMapping("/{id}")
     public ResponseEntity<Producto> actualizarParcial(
             @PathVariable Long id,
@@ -96,7 +91,6 @@ public class ProductoController {
                 });
     }
 
-    // DELETE /productos/{id} - Eliminar producto
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
         logger.info("Iniciando eliminación del producto con ID: {}", id);

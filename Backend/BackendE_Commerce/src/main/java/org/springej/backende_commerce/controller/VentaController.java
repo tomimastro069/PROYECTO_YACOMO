@@ -26,9 +26,8 @@ public class VentaController {
     private final VentaService ventaService;
     private final AuthService authService;
 
-    // POST /api/ventas -> Registrar una venta para el usuario logeado
     @PostMapping
-    public ResponseEntity<Venta> registrarVenta(@RequestBody @Valid VentaDTO ventaDTO) {
+    public ResponseEntity<Venta> registrarVenta(@Valid @RequestBody VentaDTO ventaDTO) {
         Usuario usuarioLogeado = authService.getUsuarioLogeado();
         logger.info("Registrando venta para usuario ID: {}", usuarioLogeado.getId());
         Venta nuevaVenta = ventaService.registrarVenta(ventaDTO, usuarioLogeado);
@@ -36,7 +35,6 @@ public class VentaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaVenta);
     }
 
-    // GET /api/ventas/mis-compras -> Obtener las ventas del usuario logeado
     @GetMapping("/mis-compras")
     public ResponseEntity<List<Venta>> obtenerMisCompras() {
         Usuario usuarioLogeado = authService.getUsuarioLogeado();
@@ -48,7 +46,6 @@ public class VentaController {
         return ResponseEntity.ok(ventas);
     }
 
-    // GET /api/ventas -> Obtener TODAS las ventas (SOLO ADMIN)
     @GetMapping
     public ResponseEntity<List<Venta>> listarTodasLasVentas() {
         logger.info("Obteniendo todas las ventas del sistema (ADMIN)");
@@ -56,8 +53,6 @@ public class VentaController {
         return ResponseEntity.ok(ventas);
     }
 
-
-    // GET /api/ventas/usuario/{idUsuario} -> Obtener todas las ventas de un usuario (SOLO ADMIN)
     @GetMapping("/usuario/{idUsuario}")
     public ResponseEntity<List<Venta>> obtenerVentasPorUsuario(@PathVariable Long idUsuario) {
         logger.info("Obteniendo ventas para usuario ID: {} (ADMIN)", idUsuario);

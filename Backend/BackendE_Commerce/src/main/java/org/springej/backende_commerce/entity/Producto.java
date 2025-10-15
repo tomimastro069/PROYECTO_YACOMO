@@ -2,11 +2,13 @@ package org.springej.backende_commerce.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 @Entity
 @Table(name="Producto")
 @Data
 @NoArgsConstructor
+@Audited
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

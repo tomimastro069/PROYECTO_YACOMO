@@ -44,6 +44,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     implementation 'com.cloudinary:cloudinary-http44:1.39.0'
+    implementation 'org.springframework.data:spring-data-envers'
 
     // Conector MySQL, versión gestionada por Spring Boot
     runtimeOnly 'com.mysql:mysql-connector-j'

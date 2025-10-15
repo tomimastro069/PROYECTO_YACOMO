@@ -87,7 +87,6 @@ public class ProductoService {
 
                 String detalle = String.format("ID: %d, Nombre: %s eliminado",
                         id, producto.get().getNombre());
-                guardarAuditoria("ELIMINAR", detalle);
 
                 logger.info("Producto con ID {} eliminado exitosamente de la base de datos", id);
             } else {
@@ -96,8 +95,7 @@ public class ProductoService {
 
         } catch (Exception e) {
             logger.error("Error al eliminar producto con ID {}: {}", id, e.getMessage());
-            guardarAuditoria("ELIMINAR_ERROR",
-                    "Error al eliminar producto ID " + id + ": " + e.getMessage());
+
             throw e;
         }
     }
@@ -133,7 +131,7 @@ public class ProductoService {
 
                 String detalle = String.format("ID: %d, Cambios: %s",
                         id, cambiosRealizados.toString());
-                guardarAuditoria("ACTUALIZAR_PARCIAL", detalle);
+
 
                 logger.info("Producto actualizado parcialmente: {}", cambiosRealizados.toString());
 
@@ -142,8 +140,6 @@ public class ProductoService {
 
         } catch (Exception e) {
             logger.error("Error en actualización parcial del producto ID {}: {}", id, e.getMessage());
-            guardarAuditoria("ACTUALIZAR_PARCIAL_ERROR",
-                    "Error en actualización parcial ID " + id + ": " + e.getMessage());
             throw e;
         }
     }
@@ -163,16 +159,16 @@ public class ProductoService {
         logger.info("Total de productos en base de datos: {}", total);
         return total;
     }
-
-    // Método privado para guardar auditoría
-    private void guardarAuditoria(String accion, String detalle) {
-        try {
-            AuditoriaProducto auditoria = new AuditoriaProducto();
-            auditoriaRepository.save(auditoria);
-            logger.debug("Registro de auditoría guardado: {} - {}", accion, detalle);
-        } catch (Exception e) {
-            logger.error("Error al guardar auditoría para acción {}: {}", accion, e.getMessage());
-            // No relanzamos la excepción para no afectar la operación principal
-        }
-    }
+//
+//    // Método privado para guardar auditoría
+//    private void guardarAuditoria(String accion, String detalle) {
+//        try {
+//            AuditoriaProducto auditoria = new AuditoriaProducto();
+//            auditoriaRepository.save(auditoria);
+//            logger.debug("Registro de auditoría guardado: {} - {}", accion, detalle);
+//        } catch (Exception e) {
+//            logger.error("Error al guardar auditoría para acción {}: {}", accion, e.getMessage());
+//            // No relanzamos la excepción para no afectar la operación principal
+//        }
+//    }
 }

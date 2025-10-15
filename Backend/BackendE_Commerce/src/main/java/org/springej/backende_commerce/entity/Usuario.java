@@ -48,10 +48,11 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Favorito> productosFavoritos;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "usuario_rol",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id"))
     @Builder.Default
     private Set<Rol> roles = new HashSet<>();
+
 }

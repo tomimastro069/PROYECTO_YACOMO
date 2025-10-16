@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Favoritos")
+@Table(name = "favoritos")
 @Data
 @NoArgsConstructor
 public class Favorito {

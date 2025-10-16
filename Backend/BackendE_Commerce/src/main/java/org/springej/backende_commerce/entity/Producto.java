@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.envers.Audited;
 
 @Entity
-@Table(name="Producto")
+@Table(name="productos")
 @Data
 @NoArgsConstructor
 @Audited

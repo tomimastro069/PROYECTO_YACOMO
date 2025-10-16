@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "imagen")
+@Table(name = "imagenes")
 @Data
 @NoArgsConstructor
 public class Imagen {

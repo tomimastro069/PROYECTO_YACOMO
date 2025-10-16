@@ -1,6 +1,7 @@
 package org.springej.backende_commerce.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springej.backende_commerce.exception.ResourceNotFoundException;
 import org.springej.backende_commerce.entity.*;
 import org.springej.backende_commerce.repository.*;
 import org.springej.backende_commerce.dto.VentaDTO;
@@ -30,54 +31,57 @@ public class VentaService {
     public Venta registrarVenta(VentaDTO ventaDTO, Usuario usuario) {
         logger.info("Iniciando proceso de registro de venta para usuario ID: {}", usuario.getId());
 
-        // 2. Crear y guardar la venta
         Venta venta = new Venta();
         venta.setUsuario(usuario);
         venta.setFechaVenta(ventaDTO.getFechaVenta());
 
-        venta = ventaRepository.save(venta);
-        logger.debug("Venta creada con ID: {}", venta.getId());
+        double totalVenta = 0.0;
 
-        // 3. Procesar cada producto de la venta
         for (VentaDTO.ProductoVentaDTO productoDTO : ventaDTO.getProductos()) {
             logger.debug("Procesando producto ID: {} con cantidad: {}",
                     productoDTO.getIdProducto(), productoDTO.getCantidad());
 
-            // Validar que el producto existe
             Producto producto = productoRepository.findById(productoDTO.getIdProducto())
-                    .orElseThrow(() -> {
-                        logger.error("Producto con ID {} no encontrado", productoDTO.getIdProducto());
-                        return new IllegalArgumentException("Producto no encontrado con ID: " + productoDTO.getIdProducto());
-                    });
+                    .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con ID: " + productoDTO.getIdProducto()));
 
-            // Validar promoción si se especifica
+            // Verificar y descontar stock
+            if (producto.getStock() == null || producto.getStock() < productoDTO.getCantidad()) {
+                logger.warn("Intento de compra sin stock para producto ID: {}. Stock disponible: {}, Cantidad solicitada: {}",
+                        producto.getId(), producto.getStock(), productoDTO.getCantidad());
+                throw new IllegalStateException("No hay stock suficiente para el producto: " + producto.getNombre());
+            }
+            producto.setStock(producto.getStock() - productoDTO.getCantidad());
+
             Promocion promocion = null;
             if (productoDTO.getIdPromocion() != null) {
                 promocion = promocionRepository.findById(productoDTO.getIdPromocion())
-                        .orElseThrow(() -> {
-                            logger.error("Promoción con ID {} no encontrada", productoDTO.getIdPromocion());
-                            return new IllegalArgumentException("Promoción no encontrada con ID: " + productoDTO.getIdPromocion());
-                        });
-                logger.debug("Promoción aplicada: {}", promocion.getId());
+                        .orElseThrow(() -> new ResourceNotFoundException("Promoción no encontrada con ID: " + productoDTO.getIdPromocion()));
             }
 
-            // Crear registro en ProductoVenta
+            double precioUnitario = producto.getPrecio();
+            if (promocion != null) {
+                double descuento = promocion.getPorcentajeDescuento();
+                precioUnitario = precioUnitario * (1 - (descuento / 100.0));
+            }
+            totalVenta += precioUnitario * productoDTO.getCantidad();
+
             ProductoVenta productoVenta = new ProductoVenta();
             productoVenta.setVenta(venta);
             productoVenta.setProducto(producto);
             productoVenta.setPromocion(promocion);
             productoVenta.setCantidad(productoDTO.getCantidad());
+            productoVenta.setPrecioUnitario(precioUnitario);
 
-            productoVentaRepository.save(productoVenta);
-
-            logger.debug("ProductoVenta guardado: {} x {} unidades",
-                    producto.getNombre(), productoDTO.getCantidad());
+            venta.getProductos().add(productoVenta);
         }
 
-        logger.info("Venta registrada exitosamente. ID: {}, Usuario: {}, Productos: {}",
-                venta.getId(), usuario.getId(), ventaDTO.getTotalProductos());
+        venta.setTotal(totalVenta);
+        Venta ventaGuardada = ventaRepository.save(venta);
 
-        return venta;
+        logger.info("Venta registrada exitosamente. ID: {}, Usuario: {}, Total: {:.2f}",
+                ventaGuardada.getId(), usuario.getId(), ventaGuardada.getTotal());
+
+        return ventaGuardada;
     }
 
     /**
@@ -90,7 +94,7 @@ public class VentaService {
         // Validar que el usuario existe
         if (!usuarioRepository.existsById(idUsuario)) {
             logger.warn("Usuario con ID {} no existe", idUsuario);
-            throw new IllegalArgumentException("Usuario no encontrado con ID: " + idUsuario);
+            throw new ResourceNotFoundException("Usuario no encontrado con ID: " + idUsuario);
         }
 
         List<Venta> ventas = ventaRepository.findByUsuarioIdOrderByFechaVentaDesc(idUsuario);

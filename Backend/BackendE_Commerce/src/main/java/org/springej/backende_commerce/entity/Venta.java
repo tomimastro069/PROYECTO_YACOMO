@@ -26,6 +26,9 @@ public class Venta {
     @Column(name = "fecha_venta")
     private LocalDate fechaVenta;
 
+    @Column(name = "total")
+    private Double total;
+
     //Relacion con usuario
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)

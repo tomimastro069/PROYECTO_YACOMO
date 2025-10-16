@@ -39,4 +39,7 @@ public class ProductoVenta {
     @Column(name = "cantidad")
     private int cantidad;
 
+    @Column(name = "precio_unitario")
+    private Double precioUnitario;
+
 }

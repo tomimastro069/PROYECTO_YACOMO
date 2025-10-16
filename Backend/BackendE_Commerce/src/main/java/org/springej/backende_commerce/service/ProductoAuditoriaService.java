@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class ProductoAuditoriaService {
 
     private final ProductoRepository productoRepository;
-    private final EntityManager entityManager;  // ← Cambio: EntityManager en lugar de Factory
+    private final EntityManager entityManager;
 
     /**
      * Obtiene todo el historial de cambios de un producto

@@ -25,14 +25,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(()-> new UsernameNotFoundException("Usuario no encontrado " + email));
 
         //se convierten roles a GrantedAuthority
-        List<SimpleGrantedAuthority> authorities = usuario.getRoles()
-                .stream()
-                .map(rol -> new SimpleGrantedAuthority(rol.getNombre()))
-                .toList();
 
         return new User(
                 usuario.getEmail(),
                 usuario.getPassword(),
-                authorities);
+                null);
     }
 }

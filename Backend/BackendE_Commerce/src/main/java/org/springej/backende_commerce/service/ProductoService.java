@@ -2,9 +2,7 @@ package org.springej.backende_commerce.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springej.backende_commerce.entity.AuditoriaProducto;
 import org.springej.backende_commerce.entity.Producto;
-import org.springej.backende_commerce.repository.AuditoriaProductoRepository;
 import org.springej.backende_commerce.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

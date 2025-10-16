@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Checkout — Envío</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+ <header class="header">
+  <div class="header__logo">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v12H3z"/></svg>
+    <strong>Script-G</strong>
+  </div>
+  <div class="header__right">
+    <div class="header__pill">Ayuda</div>
+    <div class="header__pill">Seguridad</div>
+  </div>
+</header>
+
+
+  <main class="container">
+    <section class="card">
+      <div class="card__header"><h3>Checkout</h3></div>
+      <div class="card__body">
+
+        <div class="stepper">
+          <div class="step step--active"><span class="step__dot">1</span> Envío</div>
+          <div class="step"><span class="step__dot">2</span> Pago</div>
+          <div class="step"><span class="step__dot">3</span> Confirmación</div>
+        </div>
+
+        <h4 style="margin:6px 0 14px;">Elegí dónde querés recibir tu compra</h4>
+
+        <div class="list">
+          <label class="addr">
+            <input type="radio" name="address" checked>
+            <div class="addr__main">
+              <div class="addr__name">Casa — Carlos Rodríguez</div>
+              <div class="addr__meta">Av. Siempre Viva 742, CABA</div>
+              <div class="addr__meta">Tel: +54 261 5555-3333</div>
+              <span class="badge">Llega mañana • Envío gratis</span>
+            </div>
+          </label>
+
+          <label class="addr">
+            <input type="radio" name="address">
+            <div class="addr__main">
+              <div class="addr__name">Trabajo — Carlos Rodríguez</div>
+              <div class="addr__meta">Bouchard 351, Piso 9, CABA</div>
+              <div class="addr__meta">Recepción 9 a 18 hs</div>
+              <span class="badge">Entrega en 2–3 días</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="card__footer">
+        <a class="btn" href="#">Volver</a>
+        <a class="btn btn--primary" href="checkout-pago.html">Continuar a Pago</a>
+      </div>
+    </section>
+
+    <aside class="card">
+      <div class="card__header"><h3>Resumen</h3></div>
+      <div class="summary__group">
+        <div class="item">
+          <img class="item__img" src="https://i.imgur.com/0E3f3pP.jpeg" alt="HYTE Y70">
+          <div>
+            <div class="item__title">HYTE Y70 TOUCH INFINITE Black</div>
+            <div class="item__qty">x1 • Gabinete</div>
+          </div>
+          <div class="price price--ok">$696.658</div>
+        </div>
+      </div>
+      <div class="summary__group">
+        <div class="summary__row muted"><span>Envío</span><span class="price price--ok">Gratis</span></div>
+      </div>
+      <div class="summary__group">
+        <div class="summary__total"><span>Total</span><span class="price price--ok">$696.658</span></div>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Checkout — Pago</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+ <header class="header">
+  <div class="header__logo">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v12H3z"/></svg>
+    <strong>Script-G</strong>
+  </div>
+  <div class="header__right">
+    <div class="header__pill">Ayuda</div>
+    <div class="header__pill">Seguridad</div>
+  </div>
+</header>
+
+
+  <main class="container">
+    <section class="card">
+      <div class="card__header"><h3>Checkout</h3></div>
+      <div class="card__body">
+
+        <div class="stepper">
+          <div class="step step--done"><span class="step__dot">✓</span> Envío</div>
+          <div class="step step--active"><span class="step__dot">2</span> Pago</div>
+          <div class="step"><span class="step__dot">3</span> Confirmación</div>
+        </div>
+
+        <h4 style="margin:6px 0 14px;">Elegí un medio de pago</h4>
+
+        <div class="list">
+          <label class="payopt">
+            <input type="radio" name="pay" checked>
+            <div class="payopt__logo">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="#00AEEF"/>
+                <path d="M6.8 12.2c1.6-2.1 4.7-2.1 6.3 0 1.6-2.1 4.7-2.1 6.3 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="payopt__main">
+              <div class="payopt__title">Mercado Pago</div>
+              <div class="addr__meta">Tarjeta, débito, efectivo o saldo en tu cuenta</div>
+            </div>
+          </label>
+
+          <span class="badge">Pago 100% seguro</span>
+        </div>
+      </div>
+
+      <div class="card__footer">
+        <a class="btn" href="checkout-envio.html">Volver a Envío</a>
+        <a class="btn btn--primary" href="#">Confirmar y Pagar</a>
+      </div>
+    </section>
+
+    <aside class="card">
+      <div class="card__header"><h3>Resumen</h3></div>
+      <div class="summary__group">
+        <div class="item">
+          <img class="item__img" src="https://i.imgur.com/0E3f3pP.jpeg" alt="HYTE Y70">
+          <div>
+            <div class="item__title">HYTE Y70 TOUCH INFINITE Black</div>
+            <div class="item__qty">x1 • Gabinete</div>
+          </div>
+          <div class="price price--ok">$696.658</div>
+        </div>
+      </div>
+      <div class="summary__group">
+        <div class="summary__row muted"><span>Envío</span><span class="price price--ok">Gratis</span></div>
+      </div>
+      <div class="summary__group">
+        <div class="summary__total"><span>Total</span><span class="price price--ok">$696.658</span></div>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>
+
+</html>

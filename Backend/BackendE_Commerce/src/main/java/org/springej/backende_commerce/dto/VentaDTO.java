@@ -37,7 +37,7 @@ public class VentaDTO {
 
         @NotNull(message = "La cantidad es obligatoria")
         @Min(value = 1, message = "La cantidad debe ser al menos 1")
-        private Integer cantidadProductoVenta;
+        private Integer cantidad;
 
         // ID de promoción opcional
         private Long idPromocion;
@@ -50,6 +50,6 @@ public class VentaDTO {
 
     public int getCantidadTotalItems() {
         return productos != null ?
-                productos.stream().mapToInt(ProductoVentaDTO::getCantidadProductoVenta).sum() : 0;
+                productos.stream().mapToInt(ProductoVentaDTO::getCantidad).sum() : 0;
     }
 }

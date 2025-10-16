@@ -41,7 +41,7 @@ public class VentaService {
         // 3. Procesar cada producto de la venta
         for (VentaDTO.ProductoVentaDTO productoDTO : ventaDTO.getProductos()) {
             logger.debug("Procesando producto ID: {} con cantidad: {}",
-                    productoDTO.getIdProducto(), productoDTO.getCantidadProductoVenta());
+                    productoDTO.getIdProducto(), productoDTO.getCantidad());
 
             // Validar que el producto existe
             Producto producto = productoRepository.findById(productoDTO.getIdProducto())
@@ -66,12 +66,12 @@ public class VentaService {
             productoVenta.setVenta(venta);
             productoVenta.setProducto(producto);
             productoVenta.setPromocion(promocion);
-            productoVenta.setCantidadProductoVenta(productoDTO.getCantidadProductoVenta());
+            productoVenta.setCantidad(productoDTO.getCantidad());
 
             productoVentaRepository.save(productoVenta);
 
             logger.debug("ProductoVenta guardado: {} x {} unidades",
-                    producto.getNombre(), productoDTO.getCantidadProductoVenta());
+                    producto.getNombre(), productoDTO.getCantidad());
         }
 
         logger.info("Venta registrada exitosamente. ID: {}, Usuario: {}, Productos: {}",

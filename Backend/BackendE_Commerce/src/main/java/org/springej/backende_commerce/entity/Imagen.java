@@ -1,15 +1,19 @@
 package org.springej.backende_commerce.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "imagenes")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Imagen {
 
@@ -27,5 +31,7 @@ public class Imagen {
     private LocalDateTime fechaFoto;
 
     @OneToMany(mappedBy = "imagen")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<ProductoImagen> productoImagenes;
 }

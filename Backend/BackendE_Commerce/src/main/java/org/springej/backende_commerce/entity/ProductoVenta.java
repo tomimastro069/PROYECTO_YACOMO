@@ -1,13 +1,17 @@
 package org.springej.backende_commerce.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 
 @Entity
 @Table(name = "producto_venta")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class ProductoVenta {
     @Id
@@ -16,14 +20,20 @@ public class ProductoVenta {
 
     @ManyToOne
     @JoinColumn(name = "venta_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Venta venta;
 
     @ManyToOne
     @JoinColumn(name = "promocion_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Promocion promocion;
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Producto producto;
 
     @Column(name = "cantidad")

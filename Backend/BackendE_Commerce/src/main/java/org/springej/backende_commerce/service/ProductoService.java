@@ -1,6 +1,7 @@
 package org.springej.backende_commerce.service;
 
 import org.slf4j.Logger;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springej.backende_commerce.entity.Producto;
 import org.springej.backende_commerce.repository.ProductoRepository;
@@ -16,15 +17,13 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ProductoService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductoService.class);
 
-    @Autowired
-    private ProductoRepository productoRepository;
+    private final ProductoRepository productoRepository;
 
-    @Autowired
-    private AuditoriaProductoRepository auditoriaRepository;
 
     // Listar todos los productos
     public List<Producto> listarTodos() {

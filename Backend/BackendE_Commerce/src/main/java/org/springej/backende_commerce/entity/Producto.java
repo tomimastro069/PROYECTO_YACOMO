@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.envers.Audited;
 
+import java.util.List;
+
 @Entity
 @Table(name="productos")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Audited
 public class Producto {
@@ -22,4 +25,24 @@ public class Producto {
 
     @Column(name = "precio")
     private double precio;
+
+    @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Estrellas> estrellas;
+
+    @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Favorito> favoritos;
+
+    @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<ProductoImagen> productoImagenes;
+
+    @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<ProductoVenta> productoVentas;
 }

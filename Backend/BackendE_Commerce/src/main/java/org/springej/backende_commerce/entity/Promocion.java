@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 public class Promocion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPromocion")
     private Long id;
 
-    @Column(name = "porcentaje_promocion")
+    @Column(name = "porcentaje_descuento")
     private double porcentajeDescuento;
 }

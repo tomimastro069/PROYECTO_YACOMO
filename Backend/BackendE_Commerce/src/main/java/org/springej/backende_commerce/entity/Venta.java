@@ -17,7 +17,6 @@ import java.util.List;
 public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idVenta")
     private Long id;
 
     @Column(name = "fecha_venta")
@@ -25,7 +24,7 @@ public class Venta {
 
     //Relacion con usuario
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idUsuario", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

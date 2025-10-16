@@ -19,25 +19,24 @@ import java.util.Set;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUsuario")
     private Long id;
 
-    @Column(name = "nombre_usuario")
+    @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "apellido_usuario")
+    @Column(name = "apellido")
     private String apellido;
 
-    @Column(name = "contrasena_usuario")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "email_usuario", unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "codigo_area_usuario")
-    private int CodigoArea;
+    @Column(name = "codigo_area")
+    private int codigoArea;
 
-    @Column(name = "numero_telefono_usuario")
+    @Column(name = "numero_telefono")
     private String numeroTelefono;
 
     //Navegacion Inversa con Ventas
@@ -48,7 +47,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Favorito> productosFavoritos;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_rol",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id"))

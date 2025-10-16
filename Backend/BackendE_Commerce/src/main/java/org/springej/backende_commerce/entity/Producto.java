@@ -12,15 +12,14 @@ import org.hibernate.envers.Audited;
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProducto")
     private Long id;
 
-    @Column(name = "nombre_producto", unique = true)
+    @Column(name = "nombre", unique = true)
     private String nombre;
 
-    @Column(name = "descripcion_producto")
+    @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "precio_unitario_producto")
+    @Column(name = "precio")
     private double precio;
 }

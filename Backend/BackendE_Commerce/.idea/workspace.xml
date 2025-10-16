@@ -6,6 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="restauracion de contraseña incompleto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Favorito.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Favorito.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Imagen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Imagen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Producto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/ProductoImagen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/ProductoImagen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/ProductoVenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/ProductoVenta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Promocion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Promocion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Rol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Venta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Venta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +31,12 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BackendE_Commerce" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -77,7 +91,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/windows/Desktop/Sistema_Gestion_Hospital_CristianKrahulik",
+    "last_opened_file_path": "C:/Users/windows/Desktop/PROYECTO_YACOMO/Backend/BackendE_Commerce",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

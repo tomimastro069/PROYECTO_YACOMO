@@ -12,22 +12,21 @@ import lombok.NoArgsConstructor;
 public class ProductoVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProducto_Venta")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idVenta")
+    @JoinColumn(name = "venta_id")
     private Venta venta;
 
     @ManyToOne
-    @JoinColumn(name = "idPromocion")
+    @JoinColumn(name = "promocion_id")
     private Promocion promocion;
 
     @ManyToOne
-    @JoinColumn(name = "idProducto")
+    @JoinColumn(name = "producto_id")
     private Producto producto;
 
-    @Column(name = "cantidad_Producto_Venta")
-    private int cantidadProductoVenta;
+    @Column(name = "cantidad")
+    private int cantidad;
 
 }

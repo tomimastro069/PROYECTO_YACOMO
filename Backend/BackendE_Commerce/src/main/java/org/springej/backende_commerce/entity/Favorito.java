@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 public class Favorito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idFavoritos")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "idProducto", nullable = false)
+    @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 }

@@ -12,15 +12,14 @@ public class ProductoImagen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProductoImagen")
-    private Integer idProductoImagen;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "producto_idProducto", referencedColumnName = "idProducto")
+    @JoinColumn(name = "producto_id")
     private Producto producto;
 
     @ManyToOne
-    @JoinColumn(name = "imagen_idImagen", referencedColumnName = "idImagen")
+    @JoinColumn(name = "imagen_id")
     private Imagen imagen;
 
 }

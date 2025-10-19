@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: "AndroidAssassin";
-    src: url('fonts/android_assassin/Android Assassin.otf') format('opentype');
+    src: url('fonts/Android Assassin.otf') format('opentype');
 }
 
 * {
@@ -24,7 +24,7 @@ body {
    ================================================================ */
 .menu-btn {
     font-size: medium;
-    font-family: "Roboto mono";
+    font-family: 'Inter', sans-serif;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -38,8 +38,12 @@ body {
     background: linear-gradient(90deg, rgb(0, 0, 100), rgb(91, 0, 130));
     transition: .4s ease;
     cursor: pointer;
+    gap: 5px;
 }
-
+.menu  i {
+    position: relative;
+    top: -1px;
+}
 .menu .menu-btn:hover {
     background: linear-gradient(90deg, #00c6ff, #ad00ff);
     color: #fff;
@@ -85,6 +89,7 @@ body {
 }
 
 .logo h1 {
+    font-family: AndroidAssassin, "Roboto Mono", monospace;
     font-size: 30px;
     font-weight: 700;
     background: linear-gradient(90deg, #00c6ff, #ad00ff);
@@ -302,6 +307,18 @@ body {
     max-width: 1200px;
     margin: 24px auto;
     padding: 0 20px;
+}
+.btn-favorite {
+    margin: 0 6px;
+    background: linear-gradient(90deg, #a9d7ff, #e4e1ff);
+    border: none;
+    border-radius: 8px;
+    padding: 6px;
+    font-weight: 600;
+    font-size:small;
+    color: rgb(51, 144, 237);
+    cursor: pointer;
+    transition: transform .2s;
 }
 
 /* ================================================================

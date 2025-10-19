@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @font-face {
   font-family: "AndroidAssassin";
-  src: url('fonts/android_assassin/Android\ Assassin.otf') format('opentype');
+  src: url('fonts/Android Assassin.otf') format('opentype');
 }
 @font-face {
     font-family: Andromeda;
@@ -26,26 +26,41 @@ header {
     font-family: Inter;
     width: 100%;
     height: 70px;
-    background: linear-gradient(90deg, #140d48, #3d086f, #140d48);
     display: flex;
-    text-align: center ;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    color: #fff;
+    background: linear-gradient(90deg, #0d0c1d, #4b0082, #2e006c);
+/* Logo y título juntos en el header */
+.header-logo-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
-
-h1 {
+.header-logo-title .logo {
+    margin: 0;
+    padding: 0;
+}
+.header-logo-title h1 {
+    margin: 0;
+    font-size: 2.2rem;
     font-family: "AndroidAssassin", "Roboto Mono", monospace;
     font-weight: 400;
-    font-style: normal;
-    margin-top: 1rem;
     background: linear-gradient(90deg, #00c6ff, #ad00ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+}
+
+h1 {
+    /* ...existing code... */
+    /* El h1 del header ahora se estiliza en .header-logo-title h1 */
+}
 
 .logo {
-    margin-left: 2rem;
-    margin-top: 1rem;
+    /* El logo del header ahora se estiliza en .header-logo-title .logo */
     color: #00c6ff;
-    padding: 0%;
 }
 
 nav {
@@ -81,22 +96,20 @@ svg {
     box-shadow: 0 6px 18px rgba(122, 77, 255, 0.35);*/
 
     font-size: medium;
-    font-family: "Inter";
+    font-family: 'Inter', sans-serif;
     text-decoration: none;
     display: flex;
-    padding: 0.7rem;
+    align-items: center;
+    height: 2.5rem;
+    padding: .6rem;
     text-transform: capitalize;
     border-radius: 8px;
     font-weight: 700;
     color: #e1f4ff;
-    text-shadow: none;
-    background: linear-gradient(90deg, rgb(0, 0, 100), rgb(91, 0, 130));
-    cursor: pointer;
     border: 2px solid #e1f4ff;
-    transition: 0.4s ease;
-    user-select: none;
-    height: 2.5rem;
-    align-items: center;
+    background: linear-gradient(90deg, rgb(0, 0, 100), rgb(91, 0, 130));
+    transition: .4s ease;
+    cursor: pointer;
 }
 
 .menu-btn:hover,
@@ -108,12 +121,17 @@ svg {
     box-shadow: 0 0 3px #006bc3, 0 0 8px #006bc3, 0 0 18px #006bc3, 0 0 28px #008cff5d;
 }
 
+.menu  i {
+    position: relative;
+    top: -1px;
+}
+
 ul {
     align-items: center;
     margin: 1rem;
     list-style: none;
     display: flex;
-    gap: 2rem;
+    gap: 1.1rem;
 }
 
 

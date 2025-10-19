@@ -11,6 +11,8 @@ function renderizarCarrito() {
     totalCantidad += producto.cantidad || 1;
     const item = document.createElement('article');
     item.className = 'ts-item';
+    // expose the product id on the DOM element so delete/qty handlers can find it reliably
+    item.dataset.id = producto.id;
     item.innerHTML = `
       <img class="ts-item__img" src="${producto.imagen}" alt="${producto.titulo}">
       <div class="ts-item__main">
@@ -39,14 +41,37 @@ function renderizarCarrito() {
 }
 
 // Función para agregar un producto al carrito
+
 function agregarAlCarrito(event) {
+  const boton = event.target.closest('.btn-cart');
+  if (boton) {
+    boton.classList.remove('btn-animate');
+    void boton.offsetWidth;
+    boton.classList.add('btn-animate');
+  }
   const card = event.target.closest('.card, .card_producto');
   if (!card) return;
   const titulo = card.querySelector('.Titulo')?.textContent || card.querySelector('.ts-item__title')?.textContent;
   const precio = card.querySelector('.Precio')?.textContent || card.querySelector('.ts-price')?.textContent;
   const imagen = card.querySelector('.Imagen_Producto, .ts-item__img')?.src;
   const marca = card.querySelector('.content h3')?.textContent || '';
-  const id = card.dataset.id || (titulo + precio);
+  // Build a stable id for the product. Prefer a normalized title when available
+  const rawTitulo = (titulo || '').trim();
+  const rawImagen = imagen || '';
+  let id;
+  if (rawTitulo) {
+    // normalize title to a slug-like string
+    id = rawTitulo.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+  } else if (rawImagen) {
+    // fallback to image filename
+    try {
+      id = rawImagen.split('/').pop();
+    } catch (e) {
+      id = String(Date.now());
+    }
+  } else {
+    id = String(Date.now());
+  }
 
   // Verificar si el producto ya está en el carrito
   let producto = carrito.find(item => item.id === id);
@@ -76,22 +101,23 @@ function toggleCart() {
 // Lógica para eliminar productos del carrito
 document.addEventListener('DOMContentLoaded', function() {
   // Delegación de eventos para el botón eliminar en el carrito
-  document.querySelector('.ts-cart__body').addEventListener('click', function(e) {
-    if (e.target.closest('.ts-remove')) {
-      const item = e.target.closest('.ts-item');
-      if (item) {
-        // Obtener el título y precio para identificar el producto
-        const titulo = item.querySelector('.ts-item__title')?.textContent;
-        const precio = item.querySelector('.ts-price')?.textContent;
-        // Buscar el producto en el array carrito
-        const index = carrito.findIndex(p => p.titulo === titulo && p.precio === precio);
-        if (index !== -1) {
-          carrito.splice(index, 1);
-          localStorage.setItem('carrito', JSON.stringify(carrito));
+  const cartBody = document.querySelector('.ts-cart__body');
+  if (cartBody) {
+    cartBody.addEventListener('click', function(e) {
+      if (e.target.closest('.ts-remove')) {
+        const item = e.target.closest('.ts-item');
+        if (item) {
+          // Use the data-id set on the rendered cart item to identify the product
+          const itemId = item.dataset.id;
+          const index = carrito.findIndex(p => p.id === itemId);
+          if (index !== -1) {
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+          }
+          // Actualizar la vista y el contador en tiempo real
+          renderizarCarrito();
         }
-        // Actualizar la vista y el contador en tiempo real
-        renderizarCarrito();
       }
-    }
-  });
+    });
+  }
 });

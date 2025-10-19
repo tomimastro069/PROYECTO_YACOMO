@@ -110,8 +110,15 @@ function mostrarFavoritos() {
 document.addEventListener('DOMContentLoaded', function() {
     // Agregar listeners a todos los botones de favoritos
     const botonesFavoritos = document.querySelectorAll('.btn-favorite');
+
     botonesFavoritos.forEach(boton => {
-        boton.addEventListener('click', agregarFavorito);
+        boton.addEventListener('click', function(e) {
+            // Animación visual
+            boton.classList.remove('btn-animate');
+            void boton.offsetWidth; // reflow para reiniciar animación
+            boton.classList.add('btn-animate');
+            agregarFavorito(e);
+        });
     });
 
     // Mostrar los productos favoritos si estamos en la página de perfil

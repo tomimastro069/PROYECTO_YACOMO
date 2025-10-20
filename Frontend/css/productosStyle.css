@@ -40,6 +40,8 @@ body {
     cursor: pointer;
     gap: 5px;
 }
+/* ensure positioned children (badge) are placed relative to the button */
+.menu-btn { position: relative; }
 .menu  i {
     position: relative;
     top: -1px;
@@ -1113,4 +1115,47 @@ footer {
 
 .ts-pay__icon {
     line-height: 0;
+}
+
+/* ================================================================
+   = Modal de Producto (HTML-only)
+   ================================================================ */
+   /* Style for the notification bubble (when visible) */
+.cart-notification {
+    /* Positioning */
+    position: absolute;
+    top: -6px;          /* position inside the button, near top-right */
+    right: -5px;       /* adjust to sit over the icon/text */
+
+    /* Appearance */
+    background-color: rgba(255, 255, 255, 0.96); /* Color of the bubble */
+    color: rgb(84, 17, 255);          /* Color of the number */
+    border-radius: 50%;    /* Makes it a circle */
+    padding: 4px 8px;      /* Adjust padding to control bubble size */
+    font-size: 12px;       /* Smaller font size for the number */
+    font-weight: bold;
+    min-width: 15px;       /* Ensures it's round even with single digits */
+    text-align: center;
+    line-height: 1.2;
+    z-index: 10;           /* Ensures it's on top of other elements */
+
+    /* Initially hide it if the count is 0 (or use JS to hide) */
+    display: none;
+}
+
+/* Style to ensure the bubble is visible when the count is > 0 */
+.cart-notification.visible {
+    display: block;
+}
+
+/* subtle pop animation for the badge when the count changes */
+.cart-notification.pop {
+    transform-origin: center;
+    animation: cart-pop .22s ease;
+}
+
+@keyframes cart-pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.28); }
+    100% { transform: scale(1); }
 }

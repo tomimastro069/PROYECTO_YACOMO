@@ -63,10 +63,6 @@ header {
 }
 }
 
-h1 {
-    /* ...existing code... */
-    /* El h1 del header ahora se estiliza en .header-logo-title h1 */
-}
 
 .logo {
     /* El logo del header ahora se estiliza en .header-logo-title .logo */

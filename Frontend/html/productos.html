@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/productosStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="../scriptsFolder/script.js"></script>
+    <script src="../scriptsFolder/carrito.js"></script>
     <script src="../scriptsFolder/fav.js"></script>
 
 </head>
@@ -500,7 +500,14 @@
                         </button>
                     </li>
 
-                    <li><a href="#cart" class="menu-btn" onclick="toggleCart()"><i class="fa-solid fa-cart-shopping"></i> Carrito</a></li>
+                    <li>
+                        <a href="#cart" class="menu-btn" onclick="toggleCart()">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Carrito
+                            <span id="cart-count" class="cart-notification"></span>
+                        </a>
+                    </li>
+                    </li>
 
                 </ul>
             </nav>

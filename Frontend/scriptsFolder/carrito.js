@@ -1,5 +1,7 @@
 // Array para almacenar los productos del carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+// Keep the previous count to trigger a small "pop" animation when the count changes
+let previousCartCount = 0;
 
 // Función para renderizar el carrito en el DOM
 function renderizarCarrito() {
@@ -38,6 +40,8 @@ function renderizarCarrito() {
   if (countMsg) {
     countMsg.textContent = `${totalCantidad} producto${totalCantidad === 1 ? '' : 's'}`;
   }
+  // Update the small cart badge in the header/nav when the cart is re-rendered
+  updateCartCount();
 }
 
 // Función para agregar un producto al carrito
@@ -91,6 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
     boton.addEventListener('click', agregarAlCarrito);
   });
   renderizarCarrito();
+  // Ensure badge reflects current storage on page load
+  updateCartCount();
   // ...existing code...
 });
 
@@ -121,3 +127,41 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+function updateCartCount() {
+  // Compute current total of items in the cart
+  const count = getCartProductCount();
+
+  // Format the display: cap at 9+
+  const display = count > 9 ? '9+' : String(count);
+
+  // Update all badges on the page (in case other pages or multiple places include a badge)
+  const badges = document.querySelectorAll('.cart-notification');
+  if (!badges || badges.length === 0) return;
+
+  badges.forEach(el => {
+    const previousDisplay = el.textContent || '';
+    el.textContent = display;
+
+    if (count > 0) el.classList.add('visible'); else el.classList.remove('visible');
+
+    if (previousDisplay !== display) {
+      el.classList.add('pop');
+      clearTimeout(el._popTimeout);
+      el._popTimeout = setTimeout(() => el.classList.remove('pop'), 220);
+    }
+  });
+
+  // store the last known count
+  previousCartCount = count;
+}
+
+// Helper: reads the cart (from memory or localStorage) and sums quantities
+function getCartProductCount() {
+  try {
+    // prefer live `carrito` array if available
+    const source = Array.isArray(carrito) ? carrito : JSON.parse(localStorage.getItem('carrito')) || [];
+    return source.reduce((sum, p) => sum + (Number(p.cantidad) || 1), 0);
+  } catch (e) {
+    return 0;
+  }
+}

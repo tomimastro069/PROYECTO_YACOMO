@@ -21,14 +21,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //buscar user en la DB por email
-        Usuario usuario = usuarioRepository.findByEmail(email)
+        Usuario usuario = usuarioRepository.findWithRolesByEmail(email)
                 .orElseThrow(()-> new UsernameNotFoundException("Usuario no encontrado " + email));
 
         //se convierten roles a GrantedAuthority
 
+        List<SimpleGrantedAuthority> authorities = usuario.getRoles().stream()
+                .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getNombre().toUpperCase()))
+                .toList();
+
         return new User(
                 usuario.getEmail(),
                 usuario.getPassword(),
-                null);
+                authorities);
     }
 }

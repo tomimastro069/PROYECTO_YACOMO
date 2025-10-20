@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Checkout — Envío</title>
+  <title>Checkout — Pago</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="checkout.css">
+  <link rel="stylesheet" href="../css/checkout.css">
 </head>
 <body>
  <header class="header">
@@ -25,39 +25,35 @@
       <div class="card__body">
 
         <div class="stepper">
-          <div class="step step--active"><span class="step__dot">1</span> Envío</div>
-          <div class="step"><span class="step__dot">2</span> Pago</div>
+          <div class="step step--done"><span class="step__dot">✓</span> Envío</div>
+          <div class="step step--active"><span class="step__dot">2</span> Pago</div>
           <div class="step"><span class="step__dot">3</span> Confirmación</div>
         </div>
 
-        <h4 style="margin:6px 0 14px;">Elegí dónde querés recibir tu compra</h4>
+        <h4 style="margin:6px 0 14px;">Elegí un medio de pago</h4>
 
         <div class="list">
-          <label class="addr">
-            <input type="radio" name="address" checked>
-            <div class="addr__main">
-              <div class="addr__name">Casa — Carlos Rodríguez</div>
-              <div class="addr__meta">Av. Siempre Viva 742, CABA</div>
-              <div class="addr__meta">Tel: +54 261 5555-3333</div>
-              <span class="badge">Llega mañana • Envío gratis</span>
+          <label class="payopt">
+            <input type="radio" name="pay" checked>
+            <div class="payopt__logo">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="#00AEEF"/>
+                <path d="M6.8 12.2c1.6-2.1 4.7-2.1 6.3 0 1.6-2.1 4.7-2.1 6.3 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="payopt__main">
+              <div class="payopt__title">Mercado Pago</div>
+              <div class="addr__meta">Tarjeta, débito, efectivo o saldo en tu cuenta</div>
             </div>
           </label>
 
-          <label class="addr">
-            <input type="radio" name="address">
-            <div class="addr__main">
-              <div class="addr__name">Trabajo — Carlos Rodríguez</div>
-              <div class="addr__meta">Bouchard 351, Piso 9, CABA</div>
-              <div class="addr__meta">Recepción 9 a 18 hs</div>
-              <span class="badge">Entrega en 2–3 días</span>
-            </div>
-          </label>
+          <span class="badge">Pago 100% seguro</span>
         </div>
       </div>
 
       <div class="card__footer">
-        <a class="btn" href="#">Volver</a>
-        <a class="btn btn--primary" href="checkout-pago.html">Continuar a Pago</a>
+        <a class="btn" href="checkout-envio.html">Volver a Envío</a>
+        <a class="btn btn--primary" href="#">Confirmar y Pagar</a>
       </div>
     </section>
 
@@ -82,4 +78,6 @@
     </aside>
   </main>
 </body>
+</html>
+
 </html>

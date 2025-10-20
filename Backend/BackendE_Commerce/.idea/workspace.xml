@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="Refactorizacion: agrego anti recursion, corrigo services y elimino autowired">
+    <list default="true" id="f1833d87-af9d-4243-84d6-cfd02510fe57" name="Changes" comment="Refactorizacion: Arreglo audited en producto, venta y stock. BACK FUNCIONANDO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/ecommerce.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/ecommerce.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Producto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/ProductoVenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/ProductoVenta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Venta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/entity/Venta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/service/VentaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/springej/backende_commerce/service/VentaService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,33 +69,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.BackendE_Commerce [:BackendECommerceApplication.main()].executor": "Run",
-    "Gradle.Build BackendE_Commerce.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.BackendECommerceApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/windows/Desktop/PROYECTO_YACOMO/Backend/BackendE_Commerce",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "terminal",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.BackendE_Commerce [:BackendECommerceApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build BackendE_Commerce.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendECommerceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/windows/Desktop/PROYECTO_YACOMO/Backend/BackendE_Commerce&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.BackendECommerceApplication">
     <configuration name="BackendECommerceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.springej.backende_commerce.BackendECommerceApplication" />
@@ -194,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760586710992</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Refactorizacion: Arreglo audited en producto, venta y stock. BACK FUNCIONANDO">
+      <option name="closed" value="true" />
+      <created>1760587994723</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1760587994723</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +220,7 @@
     <MESSAGE value="restauracion de contraseña incompleto" />
     <MESSAGE value="Refactorizacion: tablas con la misma convencion." />
     <MESSAGE value="Refactorizacion: agrego anti recursion, corrigo services y elimino autowired" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactorizacion: agrego anti recursion, corrigo services y elimino autowired" />
+    <MESSAGE value="Refactorizacion: Arreglo audited en producto, venta y stock. BACK FUNCIONANDO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactorizacion: Arreglo audited en producto, venta y stock. BACK FUNCIONANDO" />
   </component>
 </project>

@@ -2,6 +2,8 @@ package org.springej.backende_commerce.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springej.backende_commerce.dto.RegisterRequest;
+import org.springej.backende_commerce.exception.AlreadyExistsException;
+import org.springej.backende_commerce.exception.ResourceNotFoundException;
 import org.springej.backende_commerce.entity.Rol;
 import org.springej.backende_commerce.entity.Usuario;
 import org.springej.backende_commerce.repository.RolRepository;
@@ -23,13 +25,14 @@ public class UsuarioService {
      * Registra un nuevo usuario con rol USER por defecto.
      *
      * @param request DTO con los datos del usuario a registrar
-     * @return El usuario registrado
-     * @throws RuntimeException si el email ya existe o no se encuentra el rol USER
+     * @return El usuario guardado
+     * @throws AlreadyExistsException si el email ya está en uso
+     * @throws ResourceNotFoundException si no se encuentra el rol USER
      */
     public Usuario registrarUsuario(RegisterRequest request) {
-        if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("El usuario que ingreso ya existe.");
-        }
+        usuarioRepository.findByEmail(request.getEmail()).ifPresent(u -> {
+            throw new AlreadyExistsException("El email '" + request.getEmail() + "' ya está registrado.");
+        });
 
         Usuario usuario = Usuario.builder()
                 .nombre(request.getNombre())
@@ -39,7 +42,7 @@ public class UsuarioService {
                 .build();
 
         Rol rol = rolRepository.findByNombre("USER")
-                .orElseThrow(() -> new RuntimeException("Rol USER no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el rol 'USER' para la asignación inicial."));
 
         usuario.getRoles().add(rol);
 
@@ -62,11 +65,11 @@ public class UsuarioService {
      * @param email Usuario a actualizar
      * @param nuevaPassword Nueva contraseña sin encriptar
      * @return Usuario con la contraseña actualizada
-     * @throws RuntimeException si no se encuentra el usuario
+     * @throws ResourceNotFoundException si no se encuentra el usuario
      */
     public Usuario actualizarPassword(String email, String nuevaPassword) {
         Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró un usuario con el email: " + email));
 
         usuario.setPassword(passwordEncoder.encode(nuevaPassword));
         return usuarioRepository.save(usuario);
@@ -78,11 +81,11 @@ public class UsuarioService {
      * @param email Email del usuario
      * @param jwtService Servicio JWT para generar el token
      * @return Token generado
-     * @throws RuntimeException si no se encuentra el usuario
+     * @throws ResourceNotFoundException si no se encuentra el usuario
      */
     public String generarTokenRecuperacion(String email, JwtService jwtService) {
         Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró un usuario con el email: " + email));
 
         return jwtService.generatePasswordResetToken(usuario.getEmail());
     }

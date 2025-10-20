@@ -1,10 +1,14 @@
 {
-    "name": "Producto Imágenes",
-    "description": "Endpoints para subir y eliminar las imágenes de los productos. Requiere rol de ADMIN.",
+    "info": {
+        "name": "Producto Imagenes",
+        "description": "Coleccion de endpoints para gestionar imagenes de productos. Requiere rol ADMIN.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
     "item": [
         {
             "name": "Subir Imagen y Asociar a Producto [ADMIN]",
             "request": {
+                "method": "POST",
                 "auth": {
                     "type": "bearer",
                     "bearer": [
@@ -15,20 +19,21 @@
                         }
                     ]
                 },
-                "method": "POST",
                 "header": [],
                 "body": {
                     "mode": "formdata",
                     "formdata": [
                         {
-                            "key": "file",
+                            "key": "imagenes",
                             "type": "file",
-                            "src": "/C:/Users/windows/Desktop/PROYECTO_YACOMO/Backend/BackendE_Commerce/src/main/resources/images/producto_ejemplo.jpg"
+                            "src": [
+                                "C:/Users/windows/Desktop/PROYECTO_YACOMO/Backend/BackendE_Commerce/src/main/resources/images/producto_ejemplo.jpg"
+                            ]
                         }
                     ]
                 },
                 "url": {
-                    "raw": "{{base_url}}/producto-imagenes/producto/1",
+                    "raw": "{{base_url}}/producto-imagenes/upload/1",
                     "host": [
                         "{{base_url}}"
                     ],
@@ -36,22 +41,16 @@
                         "producto-imagenes",
                         "upload",
                         "1"
-                    ],
-                    "query": [
-                        {
-                            "key": "imagenes",
-                            "value": "",
-                            "disabled": true
-                        }
                     ]
                 },
-                "description": "Sube uno o más archivos de imagen y los asocia al producto con el ID especificado en la URL. La petición debe ser de tipo multipart/form-data. En el 'Body', selecciona la pestaña 'form-data', introduce 'imagenes' como la KEY y cambia el tipo de 'Text' a 'File' para poder seleccionar imágenes de tu disco."
+                "description": "Sube uno o mas archivos de imagen y los asocia al producto con el ID proporcionado."
             },
             "response": []
         },
         {
             "name": "Eliminar Imagen de Producto [ADMIN]",
             "request": {
+                "method": "DELETE",
                 "auth": {
                     "type": "bearer",
                     "bearer": [
@@ -59,14 +58,9 @@
                             "key": "token",
                             "value": "{{jwt_token}}",
                             "type": "string"
-                        },
-                        {
-                            "key": "type",
-                            "value": "bearer"
                         }
                     ]
                 },
-                "method": "DELETE",
                 "header": [],
                 "url": {
                     "raw": "{{base_url}}/producto-imagenes/1/producto/1",
@@ -80,9 +74,21 @@
                         "1"
                     ]
                 },
-                "description": "Elimina una imagen específica (por su ID de imagen) de un producto (por su ID de producto). Esto también eliminará la imagen de Cloudinary."
+                "description": "Elimina una imagen especifica (por su ID) de un producto (por su ID)."
             },
             "response": []
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8080",
+            "type": "default"
+        },
+        {
+            "key": "jwt_token",
+            "value": "",
+            "type": "default"
         }
     ]
 }

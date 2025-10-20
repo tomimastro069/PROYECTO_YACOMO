@@ -1,0 +1,88 @@
+{
+    "name": "Producto Imágenes",
+    "description": "Endpoints para subir y eliminar las imágenes de los productos. Requiere rol de ADMIN.",
+    "item": [
+        {
+            "name": "Subir Imagen y Asociar a Producto [ADMIN]",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "{{jwt_token}}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "file",
+                            "type": "file",
+                            "src": "/C:/Users/windows/Desktop/PROYECTO_YACOMO/Backend/BackendE_Commerce/src/main/resources/images/producto_ejemplo.jpg"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/producto-imagenes/producto/1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "producto-imagenes",
+                        "upload",
+                        "1"
+                    ],
+                    "query": [
+                        {
+                            "key": "imagenes",
+                            "value": "",
+                            "disabled": true
+                        }
+                    ]
+                },
+                "description": "Sube uno o más archivos de imagen y los asocia al producto con el ID especificado en la URL. La petición debe ser de tipo multipart/form-data. En el 'Body', selecciona la pestaña 'form-data', introduce 'imagenes' como la KEY y cambia el tipo de 'Text' a 'File' para poder seleccionar imágenes de tu disco."
+            },
+            "response": []
+        },
+        {
+            "name": "Eliminar Imagen de Producto [ADMIN]",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "{{jwt_token}}",
+                            "type": "string"
+                        },
+                        {
+                            "key": "type",
+                            "value": "bearer"
+                        }
+                    ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/producto-imagenes/1/producto/1",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "producto-imagenes",
+                        "1",
+                        "producto",
+                        "1"
+                    ]
+                },
+                "description": "Elimina una imagen específica (por su ID de imagen) de un producto (por su ID de producto). Esto también eliminará la imagen de Cloudinary."
+            },
+            "response": []
+        }
+    ]
+}

@@ -1,0 +1,497 @@
+{
+    "info": {
+        "_postman_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+        "name": "Backend E-Commerce API",
+        "description": "Colección de endpoints para la API del E-Commerce. Este es un proyecto académico.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "description": "Endpoints para registro, login y recuperación de contraseña.",
+            "item": [
+                {
+                    "name": "Register",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nombre\": \"Nuevo\",\n    \"apellido\": \"Usuario\",\n    \"email\": \"nuevo.usuario@example.com\",\n    \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        },
+                        "description": "Registra un nuevo usuario con el rol 'USER'."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    pm.collectionVariables.set(\"jwt_token\", pm.response.json().token);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"adminpass\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "description": "Autentica un usuario y obtiene un token JWT. El token se guarda automáticamente en la variable de colección `jwt_token`."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Productos",
+            "description": "Operaciones CRUD para los productos. La creación, actualización y eliminación requieren rol de ADMIN.",
+            "item": [
+                {
+                    "name": "Listar Todos los Productos",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/productos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "productos"
+                            ]
+                        },
+                        "description": "Obtiene una lista de todos los productos. Es un endpoint público."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Buscar Producto por ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/productos/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "productos",
+                                "1"
+                            ]
+                        },
+                        "description": "Obtiene un producto específico por su ID. Es un endpoint público."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Crear Producto [ADMIN]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nombre\": \"Producto Nuevo desde Postman\",\n    \"descripcion\": \"Descripción del producto nuevo\",\n    \"precio\": 199.99,\n    \"stock\": 50\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/productos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "productos"
+                            ]
+                        },
+                        "description": "Crea un nuevo producto. Requiere autenticación con rol de ADMIN."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Actualizar Producto (PUT) [ADMIN]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nombre\": \"Producto Actualizado Totalmente\",\n    \"descripcion\": \"Nueva descripción completa\",\n    \"precio\": 250.00,\n    \"stock\": 40\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/productos/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "productos",
+                                "1"
+                            ]
+                        },
+                        "description": "Actualiza completamente un producto existente. Requiere autenticación con rol de ADMIN."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Actualizar Producto (PATCH) [ADMIN]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"precio\": 275.50\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/productos/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "productos",
+                                "1"
+                            ]
+                        },
+                        "description": "Actualiza parcialmente un producto existente. Requiere autenticación con rol de ADMIN."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Eliminar Producto [ADMIN]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/productos/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "productos",
+                                "1"
+                            ]
+                        },
+                        "description": "Elimina un producto por su ID. Requiere autenticación con rol de ADMIN."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Ventas",
+            "description": "Endpoints para gestionar las ventas. Requiere autenticación.",
+            "item": [
+                {
+                    "name": "Realizar una Compra [AUTENTICADO]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"fechaVenta\": \"2024-05-21T10:00:00Z\",\n    \"productos\": [\n        {\n            \"idProducto\": 1,\n            \"cantidad\": 2\n        },\n        {\n            \"idProducto\": 2,\n            \"cantidad\": 1,\n            \"idPromocion\": 1\n        }\n    ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/ventas",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ventas"
+                            ]
+                        },
+                        "description": "Registra una nueva venta para el usuario autenticado."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Ver Mis Compras [AUTENTICADO]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/ventas/mis-compras",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ventas",
+                                "mis-compras"
+                            ]
+                        },
+                        "description": "Obtiene el historial de compras del usuario autenticado."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Listar Todas las Ventas [ADMIN]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/ventas",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "ventas"
+                            ]
+                        },
+                        "description": "Obtiene una lista de todas las ventas en la plataforma. Requiere rol de ADMIN."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Favoritos",
+            "description": "Endpoints para gestionar los productos favoritos de un usuario. Requiere autenticación.",
+            "item": [
+                {
+                    "name": "Agregar a Favoritos [AUTENTICADO]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/favoritos/agregar?idProducto=1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "favoritos",
+                                "agregar"
+                            ],
+                            "query": [
+                                {
+                                    "key": "idProducto",
+                                    "value": "1"
+                                }
+                            ]
+                        },
+                        "description": "Agrega un producto a la lista de favoritos del usuario autenticado."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Eliminar de Favoritos [AUTENTICADO]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/favoritos/eliminar?idProducto=1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "favoritos",
+                                "eliminar"
+                            ],
+                            "query": [
+                                {
+                                    "key": "idProducto",
+                                    "value": "1"
+                                }
+                            ]
+                        },
+                        "description": "Elimina un producto de la lista de favoritos del usuario autenticado."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Listar Mis Favoritos [AUTENTICADO]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/favoritos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "favoritos"
+                            ]
+                        },
+                        "description": "Obtiene la lista de todos los productos favoritos del usuario autenticado."
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{jwt_token}}",
+                "type": "string"
+            }
+        ]
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8080/api",
+            "type": "string"
+        },
+        {
+            "key": "jwt_token",
+            "value": "",
+            "type": "string",
+            "description": "Este token se actualiza automáticamente al hacer login."
+        }
+    ]
+}

@@ -175,11 +175,18 @@ function toggleLoginModal() {
 
 // Inicialización del modal de login
 document.addEventListener('DOMContentLoaded', () => {
+    // Login Modal
     const botonLogin = document.getElementById('btn-login');
-    const modal = document.getElementById('loginModal');
-    const botonCerrar = modal?.querySelector('.cerrar-modal');
+    const loginModal = document.getElementById('loginModal');
+    const botonCerrarLogin = loginModal?.querySelector('.cerrar-modal');
 
-    // Asignar evento click al botón de login
+    // Signup Modal
+    const signupModal = document.getElementById('signupModal');
+    const btnSignup = document.querySelector('.button2');
+    const botonCerrarSignup = signupModal?.querySelector('.cerrar-modal');
+    const switchToLogin = document.getElementById('switchToLogin');
+
+    // Login Modal Events
     if (botonLogin) {
         botonLogin.addEventListener('click', (e) => {
             e.preventDefault();
@@ -187,16 +194,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Asignar evento click al botón de cerrar
-    if (botonCerrar) {
-        botonCerrar.addEventListener('click', toggleLoginModal);
+    if (botonCerrarLogin) {
+        botonCerrarLogin.addEventListener('click', toggleLoginModal);
     }
 
-    // Cerrar modal al hacer click fuera de él
-    if (modal) {
-        modal.addEventListener('click', (evento) => {
-            if (evento.target === modal) {
-                modal.classList.add('modal-cerrado');
+    if (loginModal) {
+        loginModal.addEventListener('click', (evento) => {
+            if (evento.target === loginModal) {
+                loginModal.classList.add('modal-cerrado');
+            }
+        });
+    }
+
+    // Signup Modal Events
+    if (btnSignup) {
+        btnSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.add('modal-cerrado');
+            signupModal.classList.remove('modal-cerrado');
+        });
+    }
+
+    if (botonCerrarSignup) {
+        botonCerrarSignup.addEventListener('click', () => {
+            signupModal.classList.add('modal-cerrado');
+        });
+    }
+
+    if (switchToLogin) {
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupModal.classList.add('modal-cerrado');
+            loginModal.classList.remove('modal-cerrado');
+        });
+    }
+
+    if (signupModal) {
+        signupModal.addEventListener('click', (e) => {
+            if (e.target === signupModal) {
+                signupModal.classList.add('modal-cerrado');
             }
         });
     }

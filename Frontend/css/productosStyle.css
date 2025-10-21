@@ -856,9 +856,8 @@ footer {
 .x-dialog::-webkit-scrollbar-thumb:hover {
     background: #8c8c8c;
 }
-
 /*==============================================================================
-----POP-UP/MODAL/INICIAR-SESION----
+----POP-UP/MODAL/INICIAR-SESION Y REGISTRO----
 ================================================================================*/
 /* ========================================= */
 /* ESTILOS ESPECÍFICOS DEL MODAL (Overlay y Centrado) */
@@ -920,12 +919,50 @@ footer {
 
 .form:hover {
     box-shadow: 0px 0px 30px 1px rgba(78, 0, 255, 0.3);
-    border: 2px solid rgba(78, 0, 255, 0.5);
+    border: 2px solid rgba(50, 115, 255, 0.747);
 }
 
 /* Muestra el formulario dentro del modal visible */
 .pop-up:not(.modal-cerrado) .form {
     display: flex; 
+}
+
+/* Estilos específicos para el formulario de registro */
+.form.signup {
+    max-width: 450px; /* Un poco más ancho para acomodar los campos adicionales */
+    font-family: 'Inter';
+}
+
+.form.signup .field {
+    margin-bottom: 8px; /* Espaciado entre campos */
+    width: 100%;
+}
+
+/* Contenedor para campos en línea (nombre y apellido) */
+.form.signup .name-fields {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.form.signup .name-fields .field {
+    flex: 1;
+}
+
+/* Ajustes para los campos de texto */
+.form.signup .input-field::placeholder {
+    color: #888;
+}
+
+
+.card2 {
+    border-radius: 0;
+    transition: all 0.2s;
+}
+
+.card2:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
 }
 
 #heading {
@@ -1030,6 +1067,48 @@ footer {
 .button3:hover {
     background-color: red;
     color: white;
+}
+
+/* Estilos para cambiar entre modales */
+.modal-toggle-btn {
+    background: none;
+    border: none;
+    color: #00c6ff;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 1em;
+    transition: color 0.3s ease;
+}
+
+.modal-toggle-btn:hover {
+    color: #ad00ff;
+}
+
+/* Contenedor para el texto de cambio de modal */
+.modal-switch {
+    text-align: center;
+    color: #fff;
+    margin-top: 1em;
+    font-size: 0.9em;
+}
+
+/* Estilos específicos para validación de campos */
+.field.error {
+    border: 1px solid #ff3333;
+    box-shadow: 0 0 5px rgba(255, 51, 51, 0.3);
+}
+
+.field.valid {
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.error-message {
+    color: #ff3333;
+    font-size: 0.8em;
+    margin-top: 0.2em;
+    display: none;
 }
 
 /* ================================================================

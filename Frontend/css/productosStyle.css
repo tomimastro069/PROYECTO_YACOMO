@@ -857,6 +857,181 @@ footer {
     background: #8c8c8c;
 }
 
+/*==============================================================================
+----POP-UP/MODAL/INICIAR-SESION----
+================================================================================*/
+/* ========================================= */
+/* ESTILOS ESPECÍFICOS DEL MODAL (Overlay y Centrado) */
+/* ========================================= */
+
+.pop-up {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000; 
+    transition: opacity 0.3s, visibility 0.3s;
+}
+/* Clase para ocultar el modal por defecto (es la que maneja el JavaScript) */
+.modal-cerrado {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Estilos para el botón de cerrar */
+.cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px; /* Ajuste para mejor visibilidad */
+    background: none;
+    border: none;
+    color: #fff; /* Color del texto/icono de la 'x' */
+    font-size: 1.8em; /* Tamaño de la 'x' */
+    cursor: pointer;
+    padding: 0; /* Quitar padding por defecto */
+    line-height: 1;
+    z-index: 1001;
+}
+
+/* ========================================= */
+/* ESTILOS DEL FORMULARIO Y COMPONENTES (Originales con ajustes) */
+/* ========================================= */
+
+.form {
+    position: relative; /* Necesario para posicionar el botón de cerrar */
+    display: none; /* Inicialmente oculto, se muestra con el .pop-up:not(.modal-cerrado) */
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 0.4em;
+    background-color: #171717;
+    border-radius: 25px;
+    transition: all 0.4s ease-in-out;
+    max-width: 400px; /* Limita el ancho del formulario para centrar mejor */
+    width: 90%; /* Ancho adaptable */
+    border: 2px solid transparent;
+}
+
+.form:hover {
+    box-shadow: 0px 0px 30px 1px rgba(78, 0, 255, 0.3);
+    border: 2px solid rgba(78, 0, 255, 0.5);
+}
+
+/* Muestra el formulario dentro del modal visible */
+.pop-up:not(.modal-cerrado) .form {
+    display: flex; 
+}
+
+#heading {
+    text-align: center;
+    margin: 2em 0; /* Ajuste para reducir margen inferior si es necesario */
+    color: rgb(255, 255, 255);
+    font-size: 1.2em;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    border-radius: 25px;
+    padding: 0.6em;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: #171717;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+
+.input-icon {
+    height: 1.3em;
+    width: 1.3em;
+    fill: white;
+}
+
+.input-field {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: #d3d3d3;
+}
+
+.form .btn-is {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 2.5em;
+    background-color: transparent;
+}
+
+.button1 {
+    padding: 0.5em;
+    padding-left: 1.8em;
+    padding-right: 1.8em;
+    border-radius: 5px;
+    margin-right: 0.5em;
+    border: none;
+    outline: none;
+    transition: 0.4s ease-in-out;
+    background-color: #252525;
+    color: white;
+    cursor: pointer;
+    min-width: 120px;
+    text-align: center;
+}
+
+.button1:hover {
+    background-color: black;
+    color: white;
+}
+
+.button2 {
+    padding: 0.5em;
+    padding-left: 1.8em;
+    padding-right: 1.8em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: 0.4s ease-in-out;
+    background-color: #252525;
+    color: white;
+    cursor: pointer;
+    min-width: 120px;
+    text-align: center;
+}
+
+.button2:hover {
+    background-color: black;
+    color: white;
+}
+
+.button3 {
+    justify-content: center;
+    margin-bottom: 3em;
+    margin-right: 2.6em;
+    padding: 0.5em 0.5em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: 0.4s ease-in-out;
+    background-color: #252525;
+    color: white;
+    cursor: pointer;
+    width: 245px;
+}
+
+.button3:hover {
+    background-color: red;
+    color: white;
+}
+
 /* ================================================================
    = Drawer Carrito (HTML-only)
    ================================================================ */

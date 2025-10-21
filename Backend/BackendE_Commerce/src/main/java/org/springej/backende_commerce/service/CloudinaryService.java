@@ -25,11 +25,11 @@ public class CloudinaryService {
         ));
     }
 
-    public Map upload(MultipartFile file) throws IOException {
+    public Map<String, Object> upload(MultipartFile file) throws IOException {
         return cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
     }
 
-    public Map destroy(String publicId) throws IOException {
+    public Map<String, Object> destroy(String publicId) throws IOException {
         return cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
     }
 

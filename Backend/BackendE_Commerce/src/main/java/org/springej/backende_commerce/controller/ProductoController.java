@@ -2,10 +2,10 @@ package org.springej.backende_commerce.controller;
 
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springej.backende_commerce.entity.Producto;
 import org.springej.backende_commerce.service.ProductoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,12 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:5500")
 @RestController
 @RequestMapping("/api/productos")
+@RequiredArgsConstructor
 public class ProductoController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
 
-    @Autowired
-    private ProductoService productoService;
+    private final ProductoService productoService;
 
     @GetMapping
     public ResponseEntity<List<Producto>> listarTodos() {

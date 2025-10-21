@@ -1,10 +1,7 @@
 package org.springej.backende_commerce.controller;
 
-import com.mercadopago.client.payment.PaymentClient;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
-import com.mercadopago.resources.payment.Payment;
-import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Optional;
@@ -20,10 +17,10 @@ import org.springej.backende_commerce.service.PaymentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.mercadopago.resources.payment.Payment;
 import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.validation.Valid;
-import java.math.BigDecimal;
 import org.springej.backende_commerce.service.RegistroPagoService;
 import org.springej.backende_commerce.service.VentaService;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,11 +71,15 @@ public class PaymentController {
             );
     
             return ResponseEntity.ok(Map.of("init_point", initPoint));
+        } catch (MPApiException e) {
+            logger.error("Error de API de Mercado Pago al crear preferencia (Status: {}, Response: {}): {}", e.getStatusCode(), e.getApiResponse().getContent(), e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.valueOf(e.getStatusCode())).body(Map.of("error", "Error del proveedor de pagos: " + e.getApiResponse().getContent()));
         } catch (MPException e) {
-            // Loggear el error de Mercado Pago
-            logger.error("Error de Mercado Pago al crear preferencia: {}", e.getMessage(), e);
+            logger.error("Error de SDK de Mercado Pago al crear preferencia: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Error al contactar al proveedor de pagos."));
-        } catch (Exception e) {
+        }
+        // Captura excepciones de negocio (ej. stock insuficiente) y otras inesperadas
+        catch (Exception e) {
             // Loggear cualquier otro error
             logger.error("Error al crear la orden de pago: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
@@ -95,10 +96,14 @@ public class PaymentController {
         }
 
         try {
-            Long paymentId = Optional.ofNullable(payload.get("data"))
-                    .map(data -> ((Map<String, Object>) data).get("id"))
-                    .map(Object::toString)
-                    .map(Long::valueOf)
+            Object dataObj = payload.get("data");
+            if (!(dataObj instanceof Map)) {
+                throw new IllegalArgumentException("El payload del webhook no contiene un objeto 'data' válido.");
+            }
+            Map<?, ?> dataMap = (Map<?, ?>) dataObj;
+
+            // El ID puede venir como String o Long, lo manejamos de forma segura.
+            Long paymentId = Optional.ofNullable(dataMap.get("id")).map(String::valueOf).map(Long::parseLong)
                     .orElseThrow(() -> new IllegalArgumentException("El payload del webhook no contiene el ID del pago."));
 
             Payment payment = paymentService.getPayment(paymentId);

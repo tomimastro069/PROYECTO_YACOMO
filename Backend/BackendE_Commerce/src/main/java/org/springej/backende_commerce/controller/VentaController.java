@@ -1,23 +1,23 @@
 package org.springej.backende_commerce.controller;
 
-import jakarta.validation.Valid;
+//import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springej.backende_commerce.dto.VentaCreationResult;
-import org.springej.backende_commerce.dto.VentaDTO;
+//import org.springej.backende_commerce.dto.VentaCreationResult;
+//import org.springej.backende_commerce.dto.VentaDTO;
 import org.springej.backende_commerce.entity.Usuario;
 import org.springej.backende_commerce.entity.Venta;
 import org.springej.backende_commerce.service.AuthService;
 import org.springej.backende_commerce.service.VentaService;
-import org.springframework.http.HttpStatus;
+//import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://localhost:5500") // Asegurarse que esta anotación esté presente
 @RestController
 @RequestMapping("/api/ventas")
 @RequiredArgsConstructor

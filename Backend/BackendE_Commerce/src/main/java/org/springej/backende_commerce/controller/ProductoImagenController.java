@@ -1,5 +1,6 @@
 package org.springej.backende_commerce.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springej.backende_commerce.entity.Imagen;
 import org.springej.backende_commerce.entity.Producto;
 import org.springej.backende_commerce.entity.ProductoImagen;
@@ -7,7 +8,6 @@ import org.springej.backende_commerce.repository.ImagenRepository;
 import org.springej.backende_commerce.repository.ProductoImagenRepository;
 import org.springej.backende_commerce.repository.ProductoRepository;
 import org.springej.backende_commerce.service.CloudinaryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,20 +18,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/producto-imagenes")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5500") // Es mejor ser específico que usar "*"
+@RequiredArgsConstructor
 public class ProductoImagenController {
 
-    @Autowired
-    private ProductoRepository productoRepository;
-
-    @Autowired
-    private ImagenRepository imagenRepository;
-
-    @Autowired
-    private ProductoImagenRepository productoImagenRepository;
-
-    @Autowired
-    private CloudinaryService cloudinaryService;
+    private final ProductoRepository productoRepository;
+    private final ImagenRepository imagenRepository;
+    private final ProductoImagenRepository productoImagenRepository;
+    private final CloudinaryService cloudinaryService;
 
     // ---- SUBIR IMÁGENES ----
     @PostMapping("/producto/{productoId}")

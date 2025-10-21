@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/admin.css">
+    <title>Panel de Administración</title>
+</head>
+<body>
+
+    <h1>Panel de Administración</h1>
+
+    <hr>
+
+    <!-- ================= SECCIÓN DE PRODUCTOS ================= -->
+    <details>
+        <summary><h2>Gestión de Productos</h2></summary>
+        <nav>
+            <a href="#producto-add-mod" class="admin-tab-link">Añadir / Modificar</a>
+            <a href="#producto-delete" class="admin-tab-link">Eliminar</a>
+            <a href="#producto-list" class="admin-tab-link">Ver Listado</a>
+        </nav>
+
+        <section id="producto-add-mod" class="admin-tab-content">
+            <fieldset>
+                <legend><h3>Añadir / Modificar Producto</h3></legend>
+                <form action="/api/productos" method="post">
+                    <p>
+                        <label for="producto_id">ID del Producto (dejar en blanco para añadir, rellenar para modificar):</label><br>
+                        <input type="text" id="producto_id" name="producto_id">
+                    </p>
+                    <p>
+                        <label for="producto_nombre">Nombre del Producto:</label><br>
+                        <input type="text" id="producto_nombre" name="producto_nombre" required>
+                    </p>
+                    <p>
+                        <label for="producto_descripcion">Descripción:</label><br>
+                        <textarea id="producto_descripcion" name="producto_descripcion" rows="4" cols="50"></textarea>
+                    </p>
+                    <p>
+                        <label for="producto_precio">Precio:</label><br>
+                        <input type="number" id="producto_precio" name="producto_precio" step="0.01" min="0" required>
+                    </p>
+                    <p>
+                        <label for="producto_stock">Stock disponible:</label><br>
+                        <input type="number" id="producto_stock" name="producto_stock" min="0" required>
+                    </p>
+                    <p>
+                        <label for="producto_categoria">Categoría:</label><br>
+                        <input type="text" id="producto_categoria" name="producto_categoria">
+                    </p>
+                    <button type="submit">Guardar Producto</button>
+                </form>
+            </fieldset>
+        </section>
+
+        <section id="producto-delete" class="admin-tab-content">
+            <fieldset>
+                <legend><h3>Eliminar Producto</h3></legend>
+                <form action="/api/productos/{id}" method="post"> <!-- El método real sería DELETE -->
+                    <p>
+                        <label for="producto_id_eliminar">ID del Producto a eliminar:</label><br>
+                        <input type="text" id="producto_id_eliminar" name="producto_id" required>
+                    </p>
+                    <button type="submit">Eliminar Producto</button>
+                </form>
+            </fieldset>
+        </section>
+
+        <section id="producto-list" class="admin-tab-content">
+            <h3>Listado de Productos Actuales</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Laptop Modelo X</td>
+                        <td>$1200.00</td>
+                        <td>50</td>
+                        <td>
+                            <button>Modificar</button>
+                            <button>Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Mouse Inalámbrico</td>
+                        <td>$25.50</td>
+                        <td>200</td>
+                        <td>
+                            <button>Modificar</button>
+                            <button>Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </details>
+
+    <hr>
+
+    <!-- ================= SECCIÓN DE USUARIOS ================= -->
+    <details>
+        <summary><h2>Gestión de Usuarios</h2></summary>
+        <nav>
+            <a href="#usuario-add-mod" class="admin-tab-link">Añadir / Modificar</a>
+            <a href="#usuario-delete" class="admin-tab-link">Eliminar</a>
+            <a href="#usuario-list" class="admin-tab-link">Ver Listado</a>
+        </nav>
+
+        <section id="usuario-add-mod" class="admin-tab-content">
+            <fieldset>
+                <legend><h3>Añadir / Modificar Usuario</h3></legend>
+                <form action="/api/auth/register" method="post"> <!-- O una ruta de admin para modificar -->
+                    <p>
+                        <label for="usuario_id">ID del Usuario (para modificar):</label><br>
+                        <input type="text" id="usuario_id" name="usuario_id">
+                    </p>
+                    <p>
+                        <label for="usuario_nombre">Nombre de Usuario:</label><br>
+                        <input type="text" id="usuario_nombre" name="usuario_nombre" required>
+                    </p>
+                    <p>
+                        <label for="usuario_email">Email:</label><br>
+                        <input type="email" id="usuario_email" name="usuario_email" required>
+                    </p>
+                    <p>
+                        <label for="usuario_password">Contraseña:</label><br>
+                        <input type="password" id="usuario_password" name="usuario_password">
+                        <small>(Dejar en blanco para no cambiar la actual)</small>
+                    </p>
+                    <p>
+                        <label for="usuario_rol">Rol:</label><br>
+                        <select id="usuario_rol" name="usuario_rol">
+                            <option value="USER">Cliente</option>
+                            <option value="ADMIN">Administrador</option>
+                        </select>
+                    </p>
+                    <button type="submit">Guardar Usuario</button>
+                </form>
+            </fieldset>
+        </section>
+
+        <section id="usuario-delete" class="admin-tab-content">
+            <fieldset>
+                <legend><h3>Eliminar Usuario</h3></legend>
+                <form action="/api/usuarios/{id}" method="post"> <!-- El método real sería DELETE -->
+                    <p>
+                        <label for="usuario_id_eliminar">ID del Usuario a eliminar:</label><br>
+                        <input type="text" id="usuario_id_eliminar" name="usuario_id" required>
+                    </p>
+                    <button type="submit">Eliminar Usuario</button>
+                </form>
+            </fieldset>
+        </section>
+
+        <section id="usuario-list" class="admin-tab-content">
+            <h3>Listado de Usuarios Actuales</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>admin_user</td>
+                        <td>admin@example.com</td>
+                        <td>Administrador</td>
+                        <td>
+                            <button>Modificar</button>
+                            <button>Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>cliente_juan</td>
+                        <td>juan@example.com</td>
+                        <td>Cliente</td>
+                        <td>
+                            <button>Modificar</button>
+                            <button>Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </details>
+
+    <hr>
+
+    <!-- ================= SECCIÓN DE VENTAS ================= -->
+    <details>
+        <summary><h2>Gestión de Ventas</h2></summary>
+        <h3>Listado de Todas las Ventas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Venta</th>
+                    <th>ID Usuario</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>V-001</td>
+                    <td>102</td>
+                    <td>2024-05-20</td>
+                    <td>$1250.50</td>
+                    <td><button>Ver Detalles</button></td>
+                </tr>
+                <tr>
+                    <td>V-002</td>
+                    <td>103</td>
+                    <td>2024-05-21</td>
+                    <td>$85.00</td>
+                    <td><button>Ver Detalles</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </details>
+
+    <script src="../scriptsFolder/admin.js"></script>
+</body>
+</html>

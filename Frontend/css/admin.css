@@ -1,0 +1,197 @@
+/* =================================
+   Estilos para admin.html
+   ================================= */
+
+/* Importar fuente y estilos base */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    margin: 0;
+    padding: 2rem;
+}
+
+h1, h2, h3 {
+    color: #1a253c;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e1e5eb;
+    margin: 2.5rem 0;
+}
+
+/* Paneles desplegables <details> */
+details {
+    background-color: #ffffff;
+    border: 1px solid #e1e5eb;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(26, 37, 60, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+details[open] {
+    box-shadow: 0 8px 25px rgba(26, 37, 60, 0.1);
+}
+
+summary {
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.2rem;
+    list-style: none; /* Ocultar el marcador por defecto */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+summary::-webkit-details-marker {
+    display: none; /* Ocultar marcador en Chrome/Safari */
+}
+
+summary::after {
+    content: '▼';
+    font-size: 0.8rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+details[open] summary::after {
+    transform: rotate(180deg);
+}
+
+/* Navegación de pestañas dentro de los paneles */
+details > nav {
+    padding: 0 1.5rem;
+    border-bottom: 1px solid #e1e5eb;
+    display: flex;
+    gap: 1rem;
+}
+
+details > nav a {
+    text-decoration: none;
+    color: #5a6a85;
+    padding: 0.75rem 0.25rem;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+details > nav a:hover {
+    color: #3344dd;
+}
+
+details > nav a.active-tab {
+    color: #3344dd;
+    font-weight: 600;
+    border-bottom-color: #3344dd;
+}
+
+/* Contenido de las pestañas */
+.admin-tab-content {
+    display: none; /* Oculto por defecto */
+    padding: 1.5rem;
+    animation: fadeIn 0.4s ease;
+}
+
+.admin-tab-content.active-content {
+    display: block; /* Visible cuando está activo */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos de Formularios */
+fieldset {
+    border: 1px solid #e1e5eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+legend {
+    padding: 0 0.5rem;
+    font-weight: 600;
+    color: #1a253c;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #3344dd;
+    box-shadow: 0 0 0 3px rgba(51, 68, 221, 0.2);
+}
+
+button[type="submit"], button {
+    background-color: #3344dd;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #2233bb;
+}
+
+/* Estilos de Tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid #e1e5eb;
+}
+
+thead th {
+    background-color: #f8f9fc;
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: #f8f9fc;
+}
+
+td button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}

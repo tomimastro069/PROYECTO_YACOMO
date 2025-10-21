@@ -1,6 +1,7 @@
 package org.springej.backende_commerce.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springej.backende_commerce.dto.VentaCreationResult;
 import org.springej.backende_commerce.exception.ResourceNotFoundException;
 import org.springej.backende_commerce.entity.*;
 import org.springej.backende_commerce.repository.*;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -28,12 +30,13 @@ public class VentaService {
     /**
      * Registra una nueva venta para el usuario autenticado
      */
-    public Venta registrarVenta(VentaDTO ventaDTO, Usuario usuario) {
+    public VentaCreationResult registrarVenta(VentaDTO ventaDTO, Usuario usuario) {
         logger.info("Iniciando proceso de registro de venta para usuario ID: {}", usuario.getId());
 
         Venta venta = new Venta();
         venta.setUsuario(usuario);
         venta.setFechaVenta(ventaDTO.getFechaVenta());
+        venta.setEstado("PENDIENTE"); // Establecer estado inicial para la integración con Mercado Pago
 
         double totalVenta = 0.0;
 
@@ -75,13 +78,13 @@ public class VentaService {
             venta.getProductos().add(productoVenta);
         }
 
-        venta.setTotal(totalVenta);
+        // El campo 'total' fue eliminado de la entidad Venta. El total se calcula aquí y se devuelve.
         Venta ventaGuardada = ventaRepository.save(venta);
 
-        logger.info("Venta registrada exitosamente. ID: {}, Usuario: {}, Total: {:.2f}",
-                ventaGuardada.getId(), usuario.getId(), ventaGuardada.getTotal());
+        logger.info("Venta registrada exitosamente. ID: {}, Usuario: {}, Total calculado: {:.2f}",
+                ventaGuardada.getId(), usuario.getId(), totalVenta);
 
-        return ventaGuardada;
+        return new VentaCreationResult(ventaGuardada, BigDecimal.valueOf(totalVenta));
     }
 
     /**

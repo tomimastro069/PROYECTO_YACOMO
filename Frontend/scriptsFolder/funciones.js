@@ -165,3 +165,39 @@ function getCartProductCount() {
     return 0;
   }
 }
+// Función global para alternar la visibilidad del modal de login
+function toggleLoginModal() {
+    const modal = document.getElementById('loginModal');
+    if (modal) {
+        modal.classList.toggle('modal-cerrado');
+    }
+}
+
+// Inicialización del modal de login
+document.addEventListener('DOMContentLoaded', () => {
+    const botonLogin = document.getElementById('btn-login');
+    const modal = document.getElementById('loginModal');
+    const botonCerrar = modal?.querySelector('.cerrar-modal');
+
+    // Asignar evento click al botón de login
+    if (botonLogin) {
+        botonLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleLoginModal();
+        });
+    }
+
+    // Asignar evento click al botón de cerrar
+    if (botonCerrar) {
+        botonCerrar.addEventListener('click', toggleLoginModal);
+    }
+
+    // Cerrar modal al hacer click fuera de él
+    if (modal) {
+        modal.addEventListener('click', (evento) => {
+            if (evento.target === modal) {
+                modal.classList.add('modal-cerrado');
+            }
+        });
+    }
+});

@@ -7,25 +7,31 @@ import { logoutUser } from './api/api_auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica de verificación de rol de administrador ---
+    // Se ejecuta solo después de que el DOM esté listo.
     const userRoles = JSON.parse(localStorage.getItem('user_roles') || '[]');
     const jwtToken = localStorage.getItem('jwt_token');
-
-    if (!jwtToken || !userRoles.includes('ROLE_ADMIN')) {
-        // Si no hay token o el usuario no es ADMIN, redirigir
-        alert('Acceso denegado. Debes ser administrador para acceder a esta página.');
-        // Redirige a la página de inicio de sesión (ajusta la ruta si es necesario)
-        window.location.href = 'login.html'; // O 'index.html', 'error.html', etc.
-        return; // Detener la ejecución del script si no es admin
-    }
 
     // --- Lógica de Cerrar Sesión ---
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
             logoutUser(); // Limpia el token y los roles del localStorage
-            window.location.href = 'login.html'; // Redirige a la página de inicio de sesión
+            window.location.href = 'index.html'; // Redirige a la página de inicio de sesión
         });
     }
+
+    // La verificación de JWT y rol se hace aquí. Si no se cumple, se detiene todo.
+    if (!jwtToken || !userRoles.includes('ROLE_ADMIN')) {
+        // 1. Muestra un mensaje claro al usuario.
+        alert('Acceso denegado. No tienes los permisos necesarios para ver esta página.');
+        // 2. Redirige al usuario a la página principal.
+        window.location.href = 'index.html';
+        // 3. Detenemos la ejecución del script para que no intente hacer nada más.
+        return; // Salimos de la función del DOMContentLoaded.
+    }
+
+    // Si la verificación es exitosa, el resto del código para las pestañas y
+    // la carga de datos se ejecutará normalmente.
 
     // --- Lógica existente para la gestión de pestañas ---
     // Seleccionar todos los paneles desplegables <details>

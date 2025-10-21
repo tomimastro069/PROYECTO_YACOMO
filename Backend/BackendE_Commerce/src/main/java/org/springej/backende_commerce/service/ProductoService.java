@@ -3,9 +3,8 @@ package org.springej.backende_commerce.service;
 import org.slf4j.Logger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
-import org.springej.backende_commerce.entity.Producto;
 import org.springej.backende_commerce.repository.ProductoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
@@ -13,6 +12,7 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import org.springej.backende_commerce.entity.Producto;
 import java.util.Optional;
 
 @Service
@@ -55,11 +55,7 @@ public class ProductoService {
         try {
             Producto productoGuardado = productoRepository.save(producto);
 
-            String detalle = String.format("ID: %d, Nombre: %s, Precio: %.2f",
-                    productoGuardado.getId(), productoGuardado.getNombre(), productoGuardado.getPrecio());
-
             //guardarAuditoria(accion, detalle);
-
             logger.info("Producto {} exitosamente con ID: {}",
                     esNuevo ? "creado" : "actualizado", productoGuardado.getId());
 
@@ -81,9 +77,6 @@ public class ProductoService {
             Optional<Producto> producto = buscarPorId(id);
             if (producto.isPresent()) {
                 productoRepository.deleteById(id);
-
-                String detalle = String.format("ID: %d, Nombre: %s eliminado",
-                        id, producto.get().getNombre());
 
                 logger.info("Producto con ID {} eliminado exitosamente de la base de datos", id);
             } else {

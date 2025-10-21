@@ -1,5 +1,7 @@
 package org.springej.backende_commerce.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springej.backende_commerce.dto.CambioNombreDTO;
 import org.springej.backende_commerce.entity.Producto;
 import org.springej.backende_commerce.repository.ProductoRepository;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductoAuditoriaService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductoAuditoriaService.class);
     private final ProductoRepository productoRepository;
     private final EntityManager entityManager;
 
@@ -76,9 +79,14 @@ public class ProductoAuditoriaService {
 
             Date timestamp = Date.from(fecha.atZone(ZoneId.systemDefault()).toInstant());
 
-            Number revision = auditReader.getRevisionNumberForDate(timestamp);
-            return auditReader.find(Producto.class, productoId, revision);
+            Number revisionNumber = auditReader.getRevisionNumberForDate(timestamp);
+            if (revisionNumber == null) {
+                logger.warn("No se encontró una revisión para el producto ID {} en o antes de la fecha {}", productoId, fecha);
+                return null;
+            }
+            return auditReader.find(Producto.class, productoId, revisionNumber);
         } catch (Exception e) {
+            logger.error("Error al obtener el producto ID {} en la fecha {}: {}", productoId, fecha, e.getMessage());
             return null;
         }
     }

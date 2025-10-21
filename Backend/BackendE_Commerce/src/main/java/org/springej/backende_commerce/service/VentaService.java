@@ -1,18 +1,26 @@
 package org.springej.backende_commerce.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springej.backende_commerce.dto.VentaCreationResult;
-import org.springej.backende_commerce.exception.ResourceNotFoundException;
-import org.springej.backende_commerce.entity.*;
-import org.springej.backende_commerce.repository.*;
-import org.springej.backende_commerce.dto.VentaDTO;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.math.BigDecimal;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springej.backende_commerce.dto.VentaCreationResult;
+import org.springej.backende_commerce.dto.VentaDTO;
+import org.springej.backende_commerce.entity.Producto;
+import org.springej.backende_commerce.entity.ProductoVenta;
+import org.springej.backende_commerce.entity.Promocion;
+import org.springej.backende_commerce.entity.Usuario;
+import org.springej.backende_commerce.entity.Venta;
+import org.springej.backende_commerce.exception.ResourceNotFoundException;
+import org.springej.backende_commerce.repository.ProductoRepository;
+import org.springej.backende_commerce.repository.PromocionRepository;
+import org.springej.backende_commerce.repository.UsuarioRepository;
+import org.springej.backende_commerce.repository.VentaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
@@ -20,9 +28,7 @@ import java.util.List;
 public class VentaService {
 
     private static final Logger logger = LoggerFactory.getLogger(VentaService.class);
-
     private final VentaRepository ventaRepository;
-    private final ProductoVentaRepository productoVentaRepository;
     private final ProductoRepository productoRepository;
     private final PromocionRepository promocionRepository;
     private final UsuarioRepository usuarioRepository;
@@ -33,12 +39,17 @@ public class VentaService {
     public VentaCreationResult registrarVenta(VentaDTO ventaDTO, Usuario usuario) {
         logger.info("Iniciando proceso de registro de venta para usuario ID: {}", usuario.getId());
 
+        if (ventaDTO.getProductos() == null || ventaDTO.getProductos().isEmpty()) {
+            logger.warn("Intento de registrar una venta sin productos para el usuario ID: {}", usuario.getId());
+            throw new IllegalArgumentException("La lista de productos no puede estar vacía.");
+        }
+
         Venta venta = new Venta();
         venta.setUsuario(usuario);
         venta.setFechaVenta(ventaDTO.getFechaVenta());
         venta.setEstado("PENDIENTE"); // Establecer estado inicial para la integración con Mercado Pago
 
-        double totalVenta = 0.0;
+        BigDecimal totalVenta = BigDecimal.ZERO;
 
         for (VentaDTO.ProductoVentaDTO productoDTO : ventaDTO.getProductos()) {
             logger.debug("Procesando producto ID: {} con cantidad: {}",
@@ -61,18 +72,20 @@ public class VentaService {
                         .orElseThrow(() -> new ResourceNotFoundException("Promoción no encontrada con ID: " + productoDTO.getIdPromocion()));
             }
 
-            double precioUnitario = producto.getPrecio();
+            BigDecimal precioUnitario = BigDecimal.valueOf(producto.getPrecio());
             if (promocion != null) {
                 double descuento = promocion.getPorcentajeDescuento();
-                precioUnitario = precioUnitario * (1 - (descuento / 100.0));
+                BigDecimal factorDescuento = BigDecimal.ONE.subtract(BigDecimal.valueOf(descuento / 100.0));
+                precioUnitario = precioUnitario.multiply(factorDescuento);
             }
-            totalVenta += precioUnitario * productoDTO.getCantidad();
+            
+            totalVenta = totalVenta.add(precioUnitario.multiply(BigDecimal.valueOf(productoDTO.getCantidad())));
 
             ProductoVenta productoVenta = new ProductoVenta();
             productoVenta.setVenta(venta);
             productoVenta.setProducto(producto);
             productoVenta.setPromocion(promocion);
-            productoVenta.setCantidad(productoDTO.getCantidad());
+            productoVenta.setCantidad(productoDTO.getCantidad());            
             productoVenta.setPrecioUnitario(precioUnitario);
 
             venta.getProductos().add(productoVenta);
@@ -84,7 +97,7 @@ public class VentaService {
         logger.info("Venta registrada exitosamente. ID: {}, Usuario: {}, Total calculado: {:.2f}",
                 ventaGuardada.getId(), usuario.getId(), totalVenta);
 
-        return new VentaCreationResult(ventaGuardada, BigDecimal.valueOf(totalVenta));
+        return new VentaCreationResult(ventaGuardada, totalVenta);
     }
 
     /**

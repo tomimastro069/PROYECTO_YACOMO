@@ -1,10 +1,13 @@
 package org.springej.backende_commerce.service;
 
 import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.payment.PaymentClient;
 import com.mercadopago.client.preference.*;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.payment.Payment;
 import com.mercadopago.resources.preference.Preference;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +17,30 @@ import java.util.List;
 @Service
 public class PaymentService {
 
+    private final PreferenceClient preferenceClient;
+    private final PaymentClient paymentClient;
+
     @Value("${mercadopago.access.token}")
     private String mpAccessToken;
 
     @Value("${mercadopago.base.url}")
     private String baseUrl;
 
-    public String createPreference(String title, BigDecimal unitPrice, int quantity,
-                                   String externalRef, String notificationUrl) throws MPException, MPApiException {
+    public PaymentService() {
+        this.preferenceClient = new PreferenceClient();
+        this.paymentClient = new PaymentClient();
+    }
 
+    @PostConstruct
+    public void init() {
         MercadoPagoConfig.setAccessToken(mpAccessToken);
+    }
 
-        PreferenceClient client = new PreferenceClient();
-
+    public String createPreference(String title, BigDecimal totalAmount, String externalRef, String notificationUrl) throws MPException, MPApiException {
         PreferenceItemRequest item = PreferenceItemRequest.builder()
                 .title(title)
-                .quantity(quantity)
-                .unitPrice(unitPrice)
+                .quantity(1)
+                .unitPrice(totalAmount)
                 .currencyId("ARS")
                 .build();
 
@@ -49,10 +59,14 @@ public class PaymentService {
                 .build();
 
         try {
-            Preference preference = client.create(request);
+            Preference preference = preferenceClient.create(request);
             return preference.getInitPoint();
-        } catch (MPApiException e) {
-            throw e;
+        } catch (MPException | MPApiException e) {
+            throw e; // Re-lanzar las excepciones específicas de Mercado Pago
         }
+    }
+
+    public Payment getPayment(Long paymentId) throws MPException, MPApiException {
+        return paymentClient.get(paymentId);
     }
 }

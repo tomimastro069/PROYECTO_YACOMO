@@ -3,6 +3,8 @@ package org.springej.backende_commerce.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class RegisterRequest {
     @NotBlank(message = "El nombre es obligatorio")
@@ -17,4 +19,6 @@ public class RegisterRequest {
 
     @NotBlank(message = "La contraseña es obligatoria")
     private String password;
+
+    private List<DomicilioRequest> domicilios;
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,12 +38,6 @@ public class Usuario {
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "codigo_area")
-    private int codigoArea;
-
-    @Column(name = "numero_telefono")
-    private String numeroTelefono;
-
     //Navegacion Inversa con Ventas
     @OneToMany(mappedBy = "usuario")
     @ToString.Exclude
@@ -63,5 +58,10 @@ public class Usuario {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Rol> roles = new HashSet<>();
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
+    private List<Domicilio> domicilios= new ArrayList<>();
 
 }

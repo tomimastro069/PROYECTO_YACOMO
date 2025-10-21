@@ -1,20 +1,63 @@
--- Seed data for Producto table
--- Ejecuta este script en la base de datos de e-commerce para precargar productos
-
-INSERT INTO Producto (nombre_producto, descripcion_producto, precio_unitario_producto) VALUES
-('HYTE Y70 TOUCH INFINITE Black', 'Gabinete premium con panel lateral de vidrio templado y pantalla tactil 2.5K', 696658.00);
-
-INSERT INTO Producto (nombre_producto, descripcion_producto, precio_unitario_producto) VALUES
-('MSI GeForce RTX 5080 SUPRIM X', 'Tarjeta grafica de alto rendimiento con memoria GDDR7 de 16 GB', 1529999.00);
-
-INSERT INTO Producto (nombre_producto, descripcion_producto, precio_unitario_producto) VALUES
-('ASUS ROG Strix SCAR 18', 'Notebook gamer 18 pulgadas con Intel Core Ultra 9 y RTX 5080', 6856497.00);
-
-INSERT INTO Producto (nombre_producto, descripcion_producto, precio_unitario_producto) VALUES
-('Glorious GMMK3 HE 75 RGB', 'Teclado mecanico hot swap con switch hall effect y tasa de sondeo 8K', 256099.00);
-
-INSERT INTO Producto (nombre_producto, descripcion_producto, precio_unitario_producto) VALUES
-('AMD Ryzen 9 9950X', 'Procesador de 16 nucleos optimizado para juegos y creacion de contenido', 829999.00);
-
-INSERT INTO Producto (nombre_producto, descripcion_producto, precio_unitario_producto) VALUES
-('Samsung 990 EVO Plus 2TB', 'SSD NVMe PCIe 4.0 de 2 TB con velocidades de lectura de 5000 MBs', 349999.00);
+INSERT INTO producto (nombre, descripcion, precio, stock) VALUES
+('HYTE Y70 TOUCH INFINITE Black', 'Gabinete premium con panel lateral de vidrio templado y pantalla táctil 2.5K', 696658.00, 25),
+('MSI GeForce RTX 5080 SUPRIM X', 'Tarjeta gráfica de alto rendimiento con memoria GDDR7 de 16 GB', 1529999.00, 15),
+('ASUS ROG Strix SCAR 18', 'Notebook gamer 18 pulgadas con Intel Core Ultra 9 y RTX 5080', 6856497.00, 10),
+('Glorious GMMK3 HE 75 RGB', 'Teclado mecánico hot swap con switch hall effect y tasa de sondeo 8K', 256099.00, 40),
+('AMD Ryzen 9 9950X', 'Procesador de 16 núcleos optimizado para juegos y creación de contenido', 829999.00, 20),
+('Samsung 990 EVO Plus 2TB', 'SSD NVMe PCIe 4.0 de 2 TB con velocidades ultrarrápidas', 349999.00, 50),
+('Logitech G502 HERO', 'Mouse gamer con sensor de 16.000 DPI y pesos ajustables', 45999.00, 60),
+('Corsair K70 RGB MK.2', 'Teclado mecánico con switches Cherry MX y retroiluminación RGB', 139999.00, 35),
+('HyperX Cloud II', 'Auriculares gaming con sonido envolvente 7.1 y micrófono extraíble', 89999.00, 45),
+('Intel Core i7-14700K', 'Procesador 14 núcleos, 20 hilos, socket LGA1700', 349999.00, 25),
+('AMD Radeon RX 7900 XT', 'Tarjeta gráfica 24 GB GDDR6 con soporte ray tracing', 1299999.00, 15),
+('MSI MPG B760 CARBON WIFI', 'Placa madre LGA1700 con WiFi 6 y soporte DDR5', 189999.00, 30),
+('NZXT Kraken X73', 'Refrigeración líquida AIO 360 mm con RGB', 124999.00, 40),
+('Kingston Fury Beast 32GB DDR5 6000MHz', 'Memoria RAM de alto rendimiento para gaming y edición', 89999.00, 50),
+('Seagate FireCuda 530 2TB', 'SSD NVMe PCIe Gen4 de 2TB con velocidades ultrarrápidas', 289999.00, 35),
+('Asus TUF Gaming VG28UQL1A', 'Monitor 4K 144Hz con Adaptive Sync', 289999.00, 20),
+('Razer Huntsman V2 Analog', 'Teclado mecánico con switches analógicos y RGB', 179999.00, 25),
+('Logitech G915 TKL', 'Teclado mecánico inalámbrico con low profile y RGB', 239999.00, 20),
+('MSI MAG274QRF-QD', 'Monitor QHD 165Hz con panel IPS Quantum Dot', 219999.00, 18),
+('Cooler Master MasterBox TD500', 'Gabinete con flujo de aire optimizado y panel lateral de vidrio', 69999.00, 50),
+('Corsair Vengeance RGB Pro 64GB DDR4', 'Memoria RAM de alto rendimiento para edición y multitarea', 199999.00, 15),
+('Asus ROG Strix Z790-E', 'Placa madre LGA1700 con WiFi 6E y soporte DDR5', 289999.00, 20),
+('Gigabyte AORUS 7000X', 'SSD NVMe Gen4 de 2TB con control avanzado y disipador', 319999.00, 25),
+('Lenovo Legion 5 Pro 16"', 'Notebook gamer con AMD Ryzen 7 y RTX 4070', 549999.00, 18),
+('Dell Alienware Aurora R15', 'PC armada con Intel i9-14900K y RTX 4090', 1149999.00, 10),
+('Apple MacBook Pro 16 M2 Max', 'Notebook profesional con chip M2 Max y 64GB RAM', 1049999.00, 12),
+('Razer Naga X', 'Mouse MMO con 16 botones programables', 69999.00, 55),
+('SteelSeries Arctis Nova 7', 'Auriculares inalámbricos con sonido envolvente y RGB', 119999.00, 40),
+('Be Quiet! Dark Rock Pro 4', 'Disipador por aire silencioso para CPUs de alto rendimiento', 74999.00, 30),
+('Thermaltake Toughpower GF3 850W', 'Fuente de poder 80 Plus Gold totalmente modular', 119999.00, 25),
+('Corsair iCUE H150i Elite Capellix', 'Refrigeración líquida AIO 360mm con iluminación RGB', 134999.00, 20),
+('MSI GeForce RTX 4070 Ti Gaming X Trio', 'Tarjeta gráfica de alto rendimiento para gaming 4K', 599999.00, 15),
+('Asus ROG Flow X16', 'Notebook convertible con AMD Ryzen 9 y RTX 4060', 499999.00, 20),
+('Acer Predator Helios 300', 'Notebook gamer 15" con Intel i7 y RTX 4070', 479999.00, 22),
+('Logitech MX Master 3S', 'Mouse inalámbrico ergonómico para productividad', 59999.00, 60),
+('Elgato Stream Deck', 'Controlador para streamers con 15 botones LCD programables', 84999.00, 35),
+('Samsung Odyssey G7', 'Monitor QHD 240Hz curvo para gaming competitivo', 279999.00, 15),
+('Asus ROG Swift PG32UQX', 'Monitor 4K 144Hz con HDR y G-Sync Ultimate', 499999.00, 12),
+('Razer BlackWidow V3', 'Teclado mecánico con switches verdes y RGB', 119999.00, 30),
+('Kingston NV1 1TB', 'SSD NVMe Gen3 1TB para uso general', 41999.00, 50),
+('ADATA XPG Spectrix D50 32GB DDR4', 'Memoria RAM RGB de alto rendimiento', 69999.00, 35),
+('Corsair K95 RGB Platinum', 'Teclado mecánico premium con macro keys', 189999.00, 25),
+('Logitech G Pro X Superlight', 'Mouse inalámbrico ultraligero para e-sports', 169999.00, 40),
+('NZXT H510 Flow', 'Gabinete ATX con flujo de aire optimizado y panel lateral de vidrio', 49999.00, 45),
+('Thermaltake TOUGHRAM RGB 32GB', 'Memoria RAM DDR4 3600 MHz con iluminación RGB', 59999.00, 50),
+('Intel Core i5-14600K', 'Procesador 14 núcleos para gaming y productividad', 189999.00, 20),
+('AMD Ryzen 5 7600X', 'Procesador 6 núcleos y 12 hilos para PC gaming', 139999.00, 25),
+('ASUS TUF Gaming F15', 'Notebook gamer con Intel i7-12700H y RTX 3060', 289999.00, 18),
+('MSI MPG B650 CARBON WIFI', 'Placa madre AM5 con soporte DDR5 y WiFi 6', 179999.00, 22),
+('Gigabyte AORUS FI32U', 'Monitor 4K 144Hz con panel IPS para gaming', 329999.00, 14),
+('Corsair HS80 RGB Wireless', 'Auriculares inalámbricos con sonido 7.1 y RGB', 109999.00, 35),
+('Logitech G613', 'Teclado mecánico inalámbrico con switches Romer-G', 89999.00, 40),
+('Razer Viper V2', 'Mouse ultraligero para gaming competitivo', 119999.00, 50),
+('Samsung 870 EVO 2TB', 'SSD SATA 2TB confiable para almacenamiento masivo', 89999.00, 45),
+('WD Black SN850X 1TB', 'SSD NVMe Gen4 con altas velocidades de lectura/escritura', 149999.00, 30),
+('MSI Creator P100X', 'PC armada para edición y creación de contenido', 649999.00, 12),
+('HP Omen 45L', 'PC armada gamer con Intel i9-14900K y RTX 4090', 1249999.00, 10),
+('Asus ROG Zephyrus G14', 'Notebook ultraligera gamer con AMD Ryzen 9 y RTX 4060', 429999.00, 20),
+('Lenovo ThinkPad X1 Carbon', 'Notebook ultradelgada profesional con Intel i7 y 16GB RAM', 499999.00, 18),
+('Apple Mac Mini M2', 'PC compacta con chip M2 y 16GB RAM', 259999.00, 25),
+('Corsair MM700 RGB', 'Mousepad extendido con iluminación RGB y superficie de tela', 34999.00, 60),
+('Razer Basilisk V3', 'Mouse gamer con 11 botones programables y scroll ajustable', 89999.00, 40);

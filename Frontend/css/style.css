@@ -67,6 +67,7 @@
     position: relative; /* Necesario para posicionar el botón de cerrar */
     display: none; /* Inicialmente oculto, se muestra con el .pop-up:not(.modal-cerrado) */
     flex-direction: column;
+    font-family: 'Inter', sans-serif;
     gap: 10px;
     padding-left: 2em;
     padding-right: 2em;

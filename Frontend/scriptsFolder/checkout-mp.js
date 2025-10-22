@@ -15,18 +15,28 @@ document.addEventListener("DOMContentLoaded", () => {
         // 3. Definimos los datos de la orden.
         // El backend espera un objeto JSON con la clave "total".
         // ¡IMPORTANTE! Este valor debe obtenerse dinámicamente del carrito de compras real.
-        const orderData = {
-            total: 150.00 // Ejemplo de un total fijo.
+        // Para la integración con Mercado Pago, el backend ahora espera un VentaDTO completo.
+        const ventaData = {
+            fechaVenta: new Date().toISOString(), // Fecha actual en formato ISO
+            productos: [
+                {
+                    idProducto: 1, // Reemplaza con un ID de producto existente
+                    cantidad: 1,
+                    idPromocion: null // O un ID de promoción si aplica
+                },
+                // Puedes añadir más productos aquí
+            ]
+            // El total se calcula en el backend
         };
 
         // 4. Realizamos la petición al backend usando 'fetch'.
         // Esta es la llamada al endpoint que creaste en tu PaymentController.
-        fetch('/api/payments/create-order', {
+        fetch('http://localhost:8080/api/payments/create-order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(orderData)
+            body: JSON.stringify(ventaData)
         })
         .then(response => {
             // Verificamos si la respuesta del servidor fue exitosa (código 2xx)

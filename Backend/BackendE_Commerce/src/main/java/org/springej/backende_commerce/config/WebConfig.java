@@ -1,22 +1,25 @@
 package org.springej.backende_commerce.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig {
+public class WebConfig implements WebMvcConfigurer {
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/auth/**")
-                        .allowedOrigins("http://127.0.0.1:5500") // o "*"
-                        .allowedMethods("GET","POST","PUT","DELETE");
-            }
-        };
+    /**
+     * Configuración global de CORS para permitir que el frontend (servido en localhost:5500)
+     * se comunique con todos los endpoints de la API del backend.
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**") // Aplica la configuración a todos los endpoints bajo /api/
+                .allowedOrigins(
+                        "http://127.0.0.1:5500",
+                        "http://localhost:5500"
+                ) // Permite peticiones desde el Live Server (ambas URLs son equivalentes)
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS") // Permite todos los métodos HTTP comunes
+                .allowedHeaders("*") // Permite todos los encabezados en la petición (ej. Content-Type, Authorization)
+                .allowCredentials(true); // Permite el envío de cookies o tokens de autorización
     }
 }

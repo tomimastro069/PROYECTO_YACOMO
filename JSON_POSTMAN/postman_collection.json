@@ -1,7 +1,7 @@
 {
     "info": {
         "_postman_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
-        "name": "Backend E-Commerce API",
+        "name": "Script-Gang E-Commerce API (Completa)",
         "description": "Colección de endpoints para la API del E-Commerce. Este es un proyecto académico.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -63,7 +63,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"adminpass\"\n}"
+                            "raw": "{\n    \"email\": \"admin@ecommerce.com\",\n    \"password\": \"admin123\"\n}"
                         },
                         "url": {
                             "raw": "{{base_url}}/auth/login",
@@ -508,6 +508,212 @@
                             ]
                         },
                         "description": "Permite a un usuario autenticado dar o actualizar la puntuación (de 1 a 5) de un producto."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Payments (Mercado Pago)",
+            "description": "Endpoints para la integración con Mercado Pago. La creación de la orden inicia el flujo de pago.",
+            "item": [
+                {
+                    "name": "Crear Orden de Pago (Checkout) [AUTENTICADO]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"productos\": [\n        {\n            \"idProducto\": 1,\n            \"cantidad\": 1\n        },\n        {\n            \"idProducto\": 2,\n            \"cantidad\": 2\n        }\n    ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/payments/create-order",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "payments",
+                                "create-order"
+                            ]
+                        },
+                        "description": "Inicia el proceso de compra. Registra una venta con estado 'PENDIENTE' y devuelve el 'init_point' de Mercado Pago para redirigir al usuario y completar el pago."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Webhook (Notificación de Pago)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"action\": \"payment.created\",\n    \"api_version\": \"v1\",\n    \"data\": {\n        \"id\": \"123456789\"\n    },\n    \"date_created\": \"2024-05-21T15:04:03Z\",\n    \"id\": 987654321,\n    \"live_mode\": false,\n    \"type\": \"payment\",\n    \"user_id\": 12345\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/payments/webhook",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "payments",
+                                "webhook"
+                            ]
+                        },
+                        "description": "Endpoint para recibir notificaciones de Mercado Pago (ej. a través de ngrok). Actualiza el estado de la venta según el pago."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Página de Éxito (Success)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/payments/success",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "payments",
+                                "success"
+                            ]
+                        },
+                        "description": "Página a la que Mercado Pago redirige al usuario tras un pago exitoso."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Página de Fallo (Failure)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/payments/failure",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "payments",
+                                "failure"
+                            ]
+                        },
+                        "description": "Página a la que Mercado Pago redirige al usuario si el pago falla."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Página de Pendiente (Pending)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/payments/pending",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "payments",
+                                "pending"
+                            ]
+                        },
+                        "description": "Página a la que Mercado Pago redirige al usuario si el pago queda pendiente (ej. pago en efectivo)."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Producto Imagenes",
+            "description": "Coleccion de endpoints para gestionar imagenes de productos. Requiere rol ADMIN.",
+            "item": [
+                {
+                    "name": "Subir Imagen y Asociar a Producto [ADMIN]",
+                    "request": {
+                        "method": "POST",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "imagenes",
+                                    "type": "file",
+                                    "src": []
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/producto-imagenes/upload/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "producto-imagenes",
+                                "upload",
+                                "1"
+                            ]
+                        },
+                        "description": "Sube uno o mas archivos de imagen y los asocia al producto con el ID proporcionado."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Eliminar Imagen de Producto [ADMIN]",
+                    "request": {
+                        "method": "DELETE",
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/producto-imagenes/1/producto/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "producto-imagenes",
+                                "1",
+                                "producto",
+                                "1"
+                            ]
+                        },
+                        "description": "Elimina una imagen especifica (por su ID) de un producto (por su ID)."
                     },
                     "response": []
                 }

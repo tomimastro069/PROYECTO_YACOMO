@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -40,17 +42,20 @@ public class Producto {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @NotAudited
+    @JsonIgnore
     private List<Favorito> favoritos;
 
     @OneToMany(mappedBy = "producto")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @NotAudited
+    @JsonIgnore
     private List<ProductoImagen> productoImagenes;
 
     @OneToMany(mappedBy = "producto")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @NotAudited
+    @JsonIgnore
     private List<ProductoVenta> productoVentas;
 }

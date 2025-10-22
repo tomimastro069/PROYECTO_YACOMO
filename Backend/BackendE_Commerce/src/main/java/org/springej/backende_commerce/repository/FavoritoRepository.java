@@ -14,4 +14,7 @@ public interface FavoritoRepository extends JpaRepository<Favorito, Long> {
     Optional<Favorito> findByUsuarioAndProducto(Usuario usuario, Producto producto);
     List<Favorito> findByUsuario(Usuario usuario);
     boolean existsByUsuarioAndProducto(Usuario usuario, Producto producto);
+    // Opción 1: buscar por el ID del usuario
+    List<Favorito> findByUsuario_Id(Long usuarioId);
+
 }

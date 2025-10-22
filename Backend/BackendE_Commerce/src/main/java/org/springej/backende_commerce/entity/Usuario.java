@@ -14,6 +14,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Getter
 @Setter
@@ -44,11 +46,13 @@ public class Usuario {
     @EqualsAndHashCode.Exclude
     private List<Venta> ventas;
 
-    //Navegacion Inversa con Favoritos
-    @OneToMany(mappedBy = "usuario")
+    // 🔹 Evita recursión infinita (Usuario -> Favorito -> Usuario ...)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<Favorito> productosFavoritos;
+    @JsonManagedReference
+    @Builder.Default
+    private List<Favorito> productosFavoritos = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "usuario_rol",
@@ -58,6 +62,8 @@ public class Usuario {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Rol> roles = new HashSet<>();
+
+
     @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

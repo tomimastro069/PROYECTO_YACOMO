@@ -1,6 +1,9 @@
 package org.springej.backende_commerce.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import org.hibernate.Hibernate;
+import org.springej.backende_commerce.dto.FavoritoResponseDTO;
 import org.springej.backende_commerce.entity.Favorito;
 import org.springej.backende_commerce.entity.Usuario;
 import org.springej.backende_commerce.exception.ResourceNotFoundException;
@@ -14,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/favoritos")
@@ -27,15 +31,16 @@ public class FavoritoController {
     /**
      * Agrega un producto a los favoritos del usuario logeado
      * @param idProducto id del producto que se quiere agregar
-     * @return Favorito creado
+     * @return DTO del favorito creado
      * @throws ResourceNotFoundException si el usuario o producto no existen
      * @throws AlreadyExistsException si el usuario ya tiene este producto en favoritos
      */
     @PostMapping("/agregar")
-    public ResponseEntity<Favorito> agregarFavorito(@RequestParam Long idProducto) {
+    public ResponseEntity<FavoritoResponseDTO> agregarFavorito(@RequestParam Long idProducto) {
         Usuario usuario = authService.getUsuarioLogeado();
         Favorito favorito = favoritoService.agregarFavorito(usuario.getId(), idProducto);
-        return ResponseEntity.ok(favorito);
+        FavoritoResponseDTO responseDTO = new FavoritoResponseDTO(favorito);
+        return ResponseEntity.ok(responseDTO);
     }
 
     /**
@@ -53,14 +58,24 @@ public class FavoritoController {
 
     /**
      * Lista todos los favoritos del usuario logeado
-     * @return Lista de favoritos del usuario
+     * @return Lista de DTOs de los favoritos del usuario
      * @throws ResourceNotFoundException si el usuario no existe
      */
     @GetMapping
-    public ResponseEntity<List<Favorito>> obtenerFavoritos() {
+    public ResponseEntity<List<FavoritoResponseDTO>> obtenerFavoritos() {
         Usuario usuario = authService.getUsuarioLogeado();
+
         List<Favorito> favoritos = favoritoService.obtenerFavoritosDeUsuario(usuario.getId());
-        return ResponseEntity.ok(favoritos);
+
+        List<FavoritoResponseDTO> responseDTOs = favoritos.stream()
+                .peek(f -> {
+                    // ⚙️ Esto evita proxies dentro de la lista
+                    Hibernate.initialize(f.getProducto());
+                })
+                .map(FavoritoResponseDTO::new)
+                .toList();
+
+        return ResponseEntity.ok(responseDTOs);
     }
 
 

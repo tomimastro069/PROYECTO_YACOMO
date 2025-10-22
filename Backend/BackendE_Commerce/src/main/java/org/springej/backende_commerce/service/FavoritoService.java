@@ -1,6 +1,9 @@
 package org.springej.backende_commerce.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+
+import org.hibernate.Hibernate;
 import org.springej.backende_commerce.entity.Favorito;
 import org.springej.backende_commerce.entity.Producto;
 import org.springej.backende_commerce.entity.Usuario;
@@ -10,6 +13,7 @@ import org.springej.backende_commerce.repository.FavoritoRepository;
 import org.springej.backende_commerce.repository.ProductoRepository;
 import org.springej.backende_commerce.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -61,15 +65,17 @@ public class FavoritoService {
                 .ifPresent(favoritoRepository::delete);
     }
 
-    /**
-     * Obtiene todos los favoritos de un usuario
-     * @param idUsuario id del usuario
-     * @return Lista de Favorito del usuario
-     * @throws ResourceNotFoundException si el usuario no existe
-     */
-    public List<Favorito> obtenerFavoritosDeUsuario(Long idUsuario) {
-        Usuario usuario = usuarioRepository.findById(idUsuario)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
-        return favoritoRepository.findByUsuario(usuario);
+    @Transactional(readOnly = true)
+    public List<Favorito> obtenerFavoritosDeUsuario(Long usuarioId) {
+        List<Favorito> favoritos = favoritoRepository.findByUsuario_Id(usuarioId);
+
+        // ✅ Forzar la carga del Producto para evitar el proxy
+        favoritos.forEach(fav -> {
+            if (fav.getProducto() != null) {
+                Hibernate.initialize(fav.getProducto());
+            }
+        });
+
+        return favoritos;
     }
 }

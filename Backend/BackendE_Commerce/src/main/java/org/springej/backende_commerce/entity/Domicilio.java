@@ -14,10 +14,13 @@ public class Domicilio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column (name = "direccion")
     private String direccion;
+
     @Column(name = "codigo_area")
     private int codigo_area;
+    
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;

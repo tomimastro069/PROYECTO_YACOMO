@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +30,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{//sirve para definir que rutas seran públicas y privadas
 
         http.csrf(csrf -> csrf.disable());  //desactiva csrf porque se va a usar JWT
+
+        // Habilita CORS usando la configuración global definida en WebConfig
+        // Esto es CRUCIAL para que Spring Security no bloquee las peticiones de pre-vuelo (OPTIONS)
+        http.cors(Customizer.withDefaults());
 
         http.authorizeHttpRequests( auth -> auth
                 // Rutas públicas para autenticación, documentación de API y visualización de productos

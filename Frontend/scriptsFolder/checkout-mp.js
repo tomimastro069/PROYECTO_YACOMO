@@ -12,29 +12,41 @@ document.addEventListener("DOMContentLoaded", () => {
         statusContainer.innerText = "Preparando tu pago, por favor espera...";
         checkoutButton.disabled = true; // Deshabilitamos el botón para evitar múltiples clics
 
-        // 3. Definimos los datos de la orden.
-        // El backend espera un objeto JSON con la clave "total".
-        // ¡IMPORTANTE! Este valor debe obtenerse dinámicamente del carrito de compras real.
-        // Para la integración con Mercado Pago, el backend ahora espera un VentaDTO completo.
+        // 3. Obtener el token de autenticación y los productos del carrito desde localStorage
+        const token = localStorage.getItem('jwtToken');
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+        // Verificación de seguridad: el usuario debe estar logueado y tener productos en el carrito.
+        if (!token) {
+            statusContainer.innerText = "Error: No has iniciado sesión. Por favor, inicia sesión para continuar.";
+            checkoutButton.disabled = false;
+            return;
+        }
+
+        if (carrito.length === 0) {
+            statusContainer.innerText = "Tu carrito está vacío. Añade productos antes de pagar.";
+            checkoutButton.disabled = false;
+            return;
+        }
+
+        // 4. Mapeamos los productos del carrito al formato que espera el backend (VentaDTO)
+        const productosParaVenta = carrito.map(item => ({
+            idProducto: item.id, // Asegúrate de que el 'id' en el carrito sea el ID numérico del producto
+            cantidad: item.cantidad,
+            idPromocion: null // O el ID de la promoción si aplica
+        }));
+
         const ventaData = {
             fechaVenta: new Date().toISOString(), // Fecha actual en formato ISO
-            productos: [
-                {
-                    idProducto: 1, // Reemplaza con un ID de producto existente
-                    cantidad: 1,
-                    idPromocion: null // O un ID de promoción si aplica
-                },
-                // Puedes añadir más productos aquí
-            ]
-            // El total se calcula en el backend
+            productos: productosParaVenta
         };
 
-        // 4. Realizamos la petición al backend usando 'fetch'.
-        // Esta es la llamada al endpoint que creaste en tu PaymentController.
+        // 5. Realizamos la petición al backend usando 'fetch'.
         fetch('http://localhost:8080/api/payments/create-order', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // ¡Añadimos el token aquí!
             },
             body: JSON.stringify(ventaData)
         })
@@ -48,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
         .then(data => {
-            // 5. El backend nos devolvió la data con el 'init_point'.
+            // 6. El backend nos devolvió la data con el 'init_point'.
             // Verificamos que la URL de pago ('init_point') exista.
             if (data.init_point) {
                 // ¡Esta es la magia! Redirigimos al usuario a la página de Mercado Pago.
@@ -60,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
         .catch(error => {
-            // 6. Si ocurre cualquier error en el proceso (en el fetch o en las promesas), lo mostramos.
+            // 7. Si ocurre cualquier error en el proceso, lo mostramos.
             console.error('Error durante el proceso de checkout:', error);
             statusContainer.innerText = "Hubo un problema al procesar tu pago. Por favor, intenta de nuevo.";
             checkoutButton.disabled = false; // Habilitamos el botón nuevamente

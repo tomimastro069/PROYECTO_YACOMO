@@ -48,20 +48,17 @@ public class VentaController {
 
 
         List<VentaDTO> respuesta = ventas.stream().map(venta -> {
-
             UsuarioDTO usuarioDTO = new UsuarioDTO(
-                    usuarioLogeado.getId(),
-                    usuarioLogeado.getNombre(),
-                    usuarioLogeado.getApellido(),
-                    usuarioLogeado.getEmail()
+                    venta.getUsuario().getId(),
+                    venta.getUsuario().getNombre(),
+                    venta.getUsuario().getApellido(),
+                    venta.getUsuario().getEmail()
             );
-
 
             VentaDTO dto = new VentaDTO();
             dto.setFechaVenta(venta.getFechaVenta());
             dto.setEstado(venta.getEstado());
             dto.setUsuario(usuarioDTO);
-
 
             dto.setProductos(
                     venta.getProductos().stream()
@@ -77,6 +74,7 @@ public class VentaController {
             return dto;
         }).toList();
 
+
         return ResponseEntity.ok(respuesta);
     }
 
@@ -84,23 +82,79 @@ public class VentaController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Venta>> listarTodasLasVentas() {
+    public ResponseEntity<List<VentaDTO>> listarTodasLasVentas() {
         logger.info("Obteniendo todas las ventas del sistema (ADMIN)");
         List<Venta> ventas = ventaService.listarTodasLasVentas();
+
         if (ventas.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(ventas);
+
+        List<VentaDTO> respuesta = ventas.stream().map(venta -> {
+            UsuarioDTO usuarioDTO = new UsuarioDTO(
+                    venta.getUsuario().getId(),
+                    venta.getUsuario().getNombre(),
+                    venta.getUsuario().getApellido(),
+                    venta.getUsuario().getEmail()
+            );
+
+            VentaDTO dto = new VentaDTO();
+            dto.setFechaVenta(venta.getFechaVenta());
+            dto.setEstado(venta.getEstado());
+            dto.setUsuario(usuarioDTO);
+            dto.setProductos(
+                    venta.getProductos().stream()
+                            .map(pv -> new VentaDTO.ProductoVentaDTO(
+                                    pv.getProducto().getId(),
+                                    pv.getCantidad(),
+                                    pv.getPromocion() != null ? pv.getPromocion().getId() : null,
+                                    pv.getPrecioUnitario()
+                            ))
+                            .toList()
+            );
+            return dto;
+        }).toList();
+
+        return ResponseEntity.ok(respuesta);
     }
 
-    @GetMapping("/usuario/{idU  suario}")
+    @GetMapping("/usuario/{idUsuario}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Venta>> obtenerVentasPorUsuario(@PathVariable Long idUsuario) {
+    public ResponseEntity<List<VentaDTO>> obtenerVentasPorUsuario(@PathVariable Long idUsuario) {
         logger.info("Obteniendo ventas para usuario ID: {} (ADMIN)", idUsuario);
         List<Venta> ventas = ventaService.obtenerVentasPorUsuario(idUsuario);
         if (ventas.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(ventas);
+
+        List<VentaDTO> dtos = ventas.stream().map(venta -> {
+            UsuarioDTO usuarioDTO = new UsuarioDTO(
+                    venta.getUsuario().getId(),
+                    venta.getUsuario().getNombre(),
+                    venta.getUsuario().getApellido(),
+                    venta.getUsuario().getEmail()
+            );
+
+            VentaDTO dto = new VentaDTO();
+            dto.setFechaVenta(venta.getFechaVenta());
+            dto.setEstado(venta.getEstado());
+            dto.setUsuario(usuarioDTO);
+
+            dto.setProductos(
+                    venta.getProductos().stream()
+                            .map(pv -> new VentaDTO.ProductoVentaDTO(
+                                    pv.getProducto().getId(),
+                                    pv.getCantidad(),
+                                    pv.getPromocion() != null ? pv.getPromocion().getId() : null,
+                                    pv.getPrecioUnitario()
+                            ))
+                            .toList()
+            );
+
+            return dto;
+        }).toList();
+
+        return ResponseEntity.ok(dtos);
     }
+
 }

@@ -14,8 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class VentaDTO {
 
-    @NotNull(message = "El ID del usuario es obligatorio")
-    @Positive(message = "El ID del usuario debe ser positivo")
     // Se elimina idUsuario para tomarlo del contexto de seguridad (usuario logeado)
     // private Long idUsuario;
 

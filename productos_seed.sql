@@ -1,4 +1,4 @@
-INSERT INTO producto (nombre, descripcion, precio, stock) VALUES
+INSERT INTO productos (nombre, descripcion, precio, stock) VALUES
 ('HYTE Y70 TOUCH INFINITE Black', 'Gabinete premium con panel lateral de vidrio templado y pantalla táctil 2.5K', 696658.00, 25),
 ('MSI GeForce RTX 5080 SUPRIM X', 'Tarjeta gráfica de alto rendimiento con memoria GDDR7 de 16 GB', 1529999.00, 15),
 ('ASUS ROG Strix SCAR 18', 'Notebook gamer 18 pulgadas con Intel Core Ultra 9 y RTX 5080', 6856497.00, 10),

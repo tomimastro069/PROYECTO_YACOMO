@@ -40,6 +40,6 @@ public class ProductoVenta {
     private int cantidad;
 
     @Column(name = "precio_unitario")
-private java.math.BigDecimal precioUnitario;
+    private java.math.BigDecimal precioUnitario;
 
 }

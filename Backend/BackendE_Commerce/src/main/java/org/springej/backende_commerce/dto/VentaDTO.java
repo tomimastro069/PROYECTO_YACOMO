@@ -14,8 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 public class VentaDTO {
 
-    // Se elimina idUsuario para tomarlo del contexto de seguridad (usuario logeado)
-    // private Long idUsuario;
+    // Para la respuesta
+    private UsuarioDTO usuario;
 
     @NotNull(message = "La fecha de venta es obligatoria")
     private LocalDate fechaVenta;
@@ -23,6 +23,9 @@ public class VentaDTO {
     @NotEmpty(message = "La lista de productos no puede estar vacía")
     @Valid
     private List<ProductoVentaDTO> productos;
+
+    @NotNull(message = "El estado es obligatorio")
+    private String estado;
 
     @Data
     @NoArgsConstructor
@@ -39,6 +42,8 @@ public class VentaDTO {
 
         // ID de promoción opcional
         private Long idPromocion;
+        @NotNull(message ="el precio es obligatorio")
+        private java.math.BigDecimal precio_unitario;
     }
 
     // Métodos helper

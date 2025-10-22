@@ -2,6 +2,7 @@ package org.springej.backende_commerce.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springej.backende_commerce.dto.RegisterRequest;
+import org.springej.backende_commerce.entity.Domicilio;
 import org.springej.backende_commerce.exception.AlreadyExistsException;
 import org.springej.backende_commerce.exception.ResourceNotFoundException;
 import org.springej.backende_commerce.entity.Rol;
@@ -11,6 +12,9 @@ import org.springej.backende_commerce.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Optional;
 
 @Service
@@ -45,7 +49,17 @@ public class UsuarioService {
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el rol 'USER' para la asignación inicial."));
 
         usuario.getRoles().add(rol);
-
+        // Guardar domicilios si existen
+        if (request.getDomicilios() != null && !request.getDomicilios().isEmpty()) {
+            List<Domicilio> domicilios = request.getDomicilios().stream().map(d -> {
+                Domicilio domicilio = new Domicilio();
+                domicilio.setDireccion(d.getDireccion());
+                domicilio.setCodigo_area(d.getCodigo_area());
+                domicilio.setUsuario(usuario);
+                return domicilio;
+            }).toList();
+            usuario.setDomicilios(domicilios);
+        }
         return usuarioRepository.save(usuario);
     }
 

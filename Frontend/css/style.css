@@ -12,11 +12,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @font-face {
   font-family: "AndroidAssassin";
-  src: url('fonts/Android Assassin.otf') format('opentype');
+  src: url('../fonts/Android Assassin.otf') format('opentype');
 }
 @font-face {
     font-family: Andromeda;
-    src: url('fonts/andromeda/Andromeda-Bold.otf') format('opentype');
+    src: url('../fonts/andromeda/Andromeda-Bold.otf') format('opentype');
 }
 /*==============================================================================
 ----POP-UP/MODAL/INICIAR-SESION Y REGISTRO----
@@ -284,162 +284,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-header {
-    font-family: Inter;
-    width: 100%;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 25px;
-    color: #fff;
-    background: linear-gradient(90deg, #0d0c1d, #4b0082, #2e006c);
-/* Logo y título juntos en el header */
-.header-logo-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.header-logo-title .logo {
-    margin: 0;
-    padding: 0;
-}
-.header-logo-title h1 {
-    margin: 0;
-    font-size: 2.2rem;
-    font-family: "AndroidAssassin", "Roboto Mono", monospace;
-    font-weight: 400;
-    background: linear-gradient(90deg, #00c6ff, #ad00ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-}
-
-
-.logo {
-    /* El logo del header ahora se estiliza en .header-logo-title .logo */
-    color: #00c6ff;
-}
-
-nav {
-    margin-left: auto;
-
-}
-
-i {
-    margin-top: 2px;
-    margin-right: 0.3rem;
-}
-
-svg {
-    margin-right: 0.3rem;
-    width: 16;
-    height: 14;
-}
-
-
-.menu-btn {
-    /*align-items: center;
-    display: flex;
-    text-decoration: none;
-    background: linear-gradient(90deg, #4bc3ff, #9b52fa);
-    border: 0;
-    padding: 0.6rem;
-    height: 2.5rem;
-    border-radius: 8px;
-    color: #fff;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(122, 77, 255, 0.35);*/
-
-    font-size: medium;
-    font-family: 'Inter', sans-serif;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    height: 2.5rem;
-    padding: .6rem;
-    text-transform: capitalize;
-    border-radius: 8px;
-    font-weight: 700;
-    color: #e1f4ff;
-    border: 2px solid #e1f4ff;
-    background: linear-gradient(90deg, rgb(0, 0, 100), rgb(91, 0, 130));
-    transition: .4s ease;
-    cursor: pointer;
-}
-
-.menu-btn:hover,
-.menu-btn:focus {
-    /*box-shadow: 0 0 3px #006bc3, 0 0 8px #006bc3, 0 0 18px #006bc3, 0 0 28px #008cff5d; */
-    color: #ffffff;
-    background: linear-gradient(90deg, #0772c9, #ad00ff);
-    border: none inset;
-    box-shadow: 0 0 3px #006bc3, 0 0 8px #006bc3, 0 0 18px #006bc3, 0 0 28px #008cff5d;
-}
-
-.menu  i {
-    position: relative;
-    top: -1px;
-}
-
-ul {
-    align-items: center;
-    margin: 1rem;
-    list-style: none;
-    display: flex;
-    gap: 1.1rem;
-}
-
-
-/* Hide the hamburger button on desktop */
-.menu-toggle {
-  display: none;
-}
-
-/* --- Media Queries for Mobile --- */
-@media (max-width: 768px) {
-  /* Header layout on mobile */
-  header {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 1rem;
-    justify-content: space-between;
-  }
-
-  /* Show the hamburger button on mobile */
-  .menu-toggle {
-    color: #ffffff;
-    border: none;
-    background-color: transparent;
-    display: block;
-  }
-
-  /* Make logo and title line up with the hamburger button */
-  .logo, h1 {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-  }
-
-  /* The nav takes up the full width below the header line */
-  nav {
-    width: 40%;
-    margin-top: 1rem;
-    margin-left: 0;
-  }
-
-  /* The ul (menu) is hidden by default on mobile */
-  ul {
-    display: none; /* Key change: This hides the menu */
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
-  }
-
 }
 
 

@@ -8,23 +8,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/productosStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
 
 </head>
 <body>
-    <header>
-        <div class="header-logo-title">
-            <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
-            </svg>
+    <header class="main-header">
+        <a href="index.html" class="header-logo-title">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
+                </svg>
+            </div>
             <h1>Script-G</h1>
+        </a>
+
+        <div class="busqueda">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Buscar componentes...">
         </div>
-        <button class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        
         <div class="menu">
             <nav>
                 <ul>
@@ -38,11 +45,59 @@
                             </svg>Log in
                         </button>
                     </li>
-                    <li><a href="#cart" class="menu-btn" onclick="toggleCart()"><i class="fa-solid fa-cart-shopping"></i> Carrito</a></li>
+                    <li>
+                        <a href="#cart" class="menu-btn" onclick="toggleCart()">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Carrito
+                            <span id="cart-count" class="cart-notification"></span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <!-- Carrito -->
+    <div id="cart" class="ts-cart">
+        <a href="#" class="ts-cart__overlay" aria-hidden="true"></a>
+
+        <aside class="ts-cart__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+            <header class="ts-cart__header">
+                <div>
+                    <h4 id="cartTitle">Carrito de Compras</h4>
+                    <small class="ts-cart__count">0 productos</small>
+                </div>
+                <a href="#" class="ts-x" aria-label="Cerrar">✕</a>
+            </header>
+
+            <div class="ts-cart__body">
+                <!-- Los items del carrito se añadirán aquí dinámicamente -->
+            </div>
+
+            <footer class="ts-cart__footer">
+                <div class="ts-summary">
+                    <div class="ts-summary__row">
+                        <span>Subtotal (0 items)</span>
+                        <strong>$0</strong>
+                    </div>
+                    <div class="ts-summary__row">
+                        <span>Envío</span>
+                        <strong>Gratis</strong>
+                    </div>
+                    <div class="ts-summary__total">
+                        <span>Total</span>
+                        <strong class="ts-total-price">$0</strong>
+                    </div>
+                </div>
+
+                <a href="#" class="ts-pay">
+                    <span class="ts-pay__icon"><i class="fa-regular fa-credit-card"></i></span>
+                    Pagar Ahora
+                </a>
+            </footer>
+        </aside>
+    </div>
+
         <!-- From Uiverse.io by yashasvi9199 --> 
 
 <div class="pop-up modal-cerrado" id="loginModal">

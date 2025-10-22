@@ -30,18 +30,33 @@ body{
   box-shadow:0 8px 24px rgba(0,0,0,.25);
 }
 
-.header__logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-weight:800;
-  letter-spacing:.3px;
-  font-size:30px;                    /* + tamaño */
+.header__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-right: auto;
+    text-decoration: none;
 }
-.header__logo svg{
-  width:40px;
-  height:40px;
-  color:#1bc2ff;
+
+.header__logo svg {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: #00c6ff;
+    width: 36px;
+    height: 36px;
+}
+
+.header__logo strong {
+    margin: 0;
+    font-size: 30px;
+    font-family: "AndroidAssassin", "Roboto Mono", monospace;
+    font-weight: 700;
+    background: linear-gradient(90deg, #00c6ff, #ad00ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .header__right{
   margin-left:auto;

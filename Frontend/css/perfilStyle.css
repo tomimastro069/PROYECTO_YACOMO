@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @font-face {
   font-family: "AndroidAssassin";
-  src: url('fonts/Android Assassin.otf') format('opentype');
+  src: url('../fonts/Android Assassin.otf') format('opentype');
 }
 @font-face {
     font-family: Andromeda;
@@ -27,22 +27,33 @@ header {
     background: linear-gradient(90deg, #0d0c1d, #4b0082, #2e006c);
 }
 
-.boton-logo {
+.header-logo-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-right: auto;
+    text-decoration: none;
+}
+
+.header-logo-title .logo {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: #00c6ff;
+    width: 36px;
+    height: 36px;
+}
+
+.header-logo-title h1 {
+    margin: 0;
+    font-size: 30px;
     font-family: "AndroidAssassin", "Roboto Mono", monospace;
+    font-weight: 700;
     background: linear-gradient(90deg, #00c6ff, #ad00ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: AndroidAssassin,'Inter', sans-serif;
-    font-size: 100%;
-    text-decoration: none;
-    display: flex;
-    flex-direction: row;
-    width: 14.5rem;
-    margin-left: 5rem;
-}
-
-.logo {
-    color: #00c6ff;
+    background-clip: text;
 }
 
 nav {

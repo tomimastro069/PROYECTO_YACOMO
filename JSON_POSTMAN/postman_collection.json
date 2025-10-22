@@ -469,6 +469,49 @@
                     "response": []
                 }
             ]
+        },
+        {
+            "name": "Estrellas (Puntuaciones)",
+            "description": "Endpoint para que los usuarios puntúen los productos. Requiere autenticación.",
+            "item": [
+                {
+                    "name": "Dar o Actualizar Puntuación [AUTENTICADO]",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{jwt_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"productoId\": 1,\n    \"puntuacion\": 5\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/estrellas",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "estrellas"
+                            ]
+                        },
+                        "description": "Permite a un usuario autenticado dar o actualizar la puntuación (de 1 a 5) de un producto."
+                    },
+                    "response": []
+                }
+            ]
         }
     ],
     "auth": {

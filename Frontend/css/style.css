@@ -273,28 +273,38 @@
 }
 /*==============================================================================
 
-/* Estilos generales y box-sizing */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Reset y estilos base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
+
+html {
+    height: 100%;
+}
+
 body {
+    min-height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
 }
 
 
 /* Contenedor principal del carrusel */
 .carousel-container {
-    display: flex;
     position: relative;
-    width: 100%; /* Ocupa el 100% del ancho del viewport */
-    height: 35VW; /* ¡Altura fija! Ajusta este valor a tu gusto */
+    width: 100vw;
+    height: 35vw;
     overflow: hidden;
-    margin: 0; /* Asegura que no haya márgenes externos */
+    margin: 0;
+    padding: 0;
+    top: 0;
 }
 
 

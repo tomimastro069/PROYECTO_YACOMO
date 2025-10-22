@@ -40,6 +40,10 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/productos", "/api/productos/**").permitAll()
 
+                // Rutas públicas para el flujo de pago de Mercado Pago
+                .requestMatchers("/api/payments/webhook", "/api/payments/success", "/api/payments/failure", "/api/payments/pending").permitAll()
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/payments/create-order").authenticated() // Crear orden requiere autenticación
+
                 // Rutas para usuarios autenticados (USER o ADMIN)
                 // Reglas específicas para Ventas
                 .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/ventas").authenticated() // Usuarios pueden crear ventas

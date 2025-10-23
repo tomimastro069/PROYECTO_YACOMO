@@ -44,6 +44,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonManagedReference
     private List<Venta> ventas;
 
     // 🔹 Evita recursión infinita (Usuario -> Favorito -> Usuario ...)

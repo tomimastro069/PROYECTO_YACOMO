@@ -22,8 +22,4 @@ public class Promocion {
     @Column(name = "porcentaje_descuento")
     private double porcentajeDescuento;
 
-    @OneToMany(mappedBy = "promocion")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private List<ProductoVenta> productoVentas;
 }

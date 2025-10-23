@@ -27,12 +27,19 @@
             <h1>Script-G</h1>
         </a>
 
-        <div class="busqueda">
+        <!-- Botón hamburguesa (visible en mobile) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+            </svg>
+        </button>
+
+        <div class="busqueda" id="searchToggle">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="search" placeholder="Buscar componentes...">
         </div>
         
-        <div class="menu">
+        <div class="menu" id="mobileMenu">
             <nav>
                 <ul>
                     <li><a href="index.html" class="menu-btn"><i class="fa-solid fa-house"></i> Inicio</a></li>
@@ -55,7 +62,16 @@
                 </ul>
             </nav>
         </div>
+        <!-- Overlay para cerrar tocando fuera del menú -->
+        <div class="nav-overlay" id="navOverlay"></div>
     </header>
+    <!-- Panel de búsqueda (mobile) -->
+    <div id="mobileSearchPanel" class="mobile-search-panel" role="search" aria-hidden="true">
+        <div class="mobile-search-inner">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Buscar componentes..." aria-label="Buscar" />
+        </div>
+    </div>
 
     <!-- Carrito -->
     <div id="cart" class="ts-cart">
@@ -496,5 +512,53 @@
     </footer>
     <script src="../scriptsFolder/Inicio.js"></script>
     <script src="../scriptsFolder/funciones.js"></script>
+    <script>
+      (function(){
+        const btn = document.getElementById('hamburgerBtn');
+        const menu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('navOverlay');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchPanel  = document.getElementById('mobileSearchPanel');
+        if(!btn || !menu || !overlay) return;
+        const closeMenu = ()=>{
+          menu.classList.remove('active');
+          btn.setAttribute('aria-expanded','false');
+          overlay.classList.remove('active');
+        };
+        const openMenu = ()=>{
+          menu.classList.add('active');
+          btn.setAttribute('aria-expanded','true');
+          overlay.classList.add('active');
+        };
+        btn.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          menu.classList.contains('active') ? closeMenu() : openMenu();
+        });
+
+        const closeSearch = ()=>{ searchPanel?.classList.remove('open'); overlay.classList.remove('active'); };
+        const openSearch = ()=>{ searchPanel?.classList.add('open'); overlay.classList.add('active'); };
+
+        // Toggle de búsqueda al tocar el icono en mobile
+        searchToggle?.addEventListener('click', (e)=>{
+          // Solo comportamiento especial en mobile (coincide con breakpoint 992px)
+          if (window.matchMedia('(max-width: 992px)').matches) {
+            e.preventDefault();
+            e.stopPropagation();
+            // Cierra menú si está abierto
+            closeMenu();
+            // Abre/cierra panel de búsqueda
+            if (searchPanel?.classList.contains('open')) { closeSearch(); }
+            else { openSearch(); }
+          }
+        });
+
+        overlay.addEventListener('click', ()=>{ closeMenu(); closeSearch(); });
+        document.addEventListener('click', (e)=>{
+          if(!menu.contains(e.target) && e.target !== btn) closeMenu();
+          if(!searchPanel?.contains(e.target) && e.target !== searchToggle) closeSearch();
+        });
+        document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { closeMenu(); closeSearch(); } });
+      })();
+    </script>
 </body>
 </html>

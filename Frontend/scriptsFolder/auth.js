@@ -27,8 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('user_roles', JSON.stringify(data.roles));
                     
                     alert('¡Inicio de sesión exitoso!');
-                    toggleLoginModal(); // Cierra el modal
-                    updateUIForLoggedInUser(); // Actualiza la UI
+                    toggleLoginModal(); // Cierra el modal de login
+
+                    const userRoles = data.roles;
+                    if (userRoles.includes('ROLE_ADMIN')) {
+                        // Si es administrador, redirigir a la página de administración
+                        window.location.href = 'admin.html'; // admin.html está en la misma carpeta que index.html/productos.html
+                    } else {
+                        // Si no es administrador, actualizar la UI normal (Mi Perfil, Cerrar Sesión)
+                        updateUIForLoggedInUser();
+                    }
                 } else {
                     throw new Error('Respuesta inesperada del servidor.');
                 }
@@ -78,9 +86,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const loginButtonContainer = document.getElementById('btn-login')?.parentElement;
 
         if (token && loginButtonContainer) {
+            const userRoles = JSON.parse(localStorage.getItem('user_roles') || '[]');
+
+            // Si el usuario es administrador y está logueado, redirigirlo inmediatamente a admin.html
+            if (userRoles.includes('ROLE_ADMIN')) {
+                window.location.href = 'admin.html'; // Redirige a la página de administración
+                return; // Detiene la ejecución para evitar actualizar la UI de usuario normal
+            }
+
             // Si hay token, reemplazamos el botón de login
             loginButtonContainer.innerHTML = `
-                <a href="html/perfil.html" class="menu-btn">
+                <a href="perfil.html" class="menu-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                     </svg> Mi Perfil

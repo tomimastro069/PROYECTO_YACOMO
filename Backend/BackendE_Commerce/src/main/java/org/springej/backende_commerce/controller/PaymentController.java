@@ -3,11 +3,14 @@ package org.springej.backende_commerce.controller;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springej.backende_commerce.dto.CreateOrderRequestDTO;
 import org.springej.backende_commerce.dto.VentaCreationResult;
 import org.springej.backende_commerce.dto.VentaDTO;
 import org.springej.backende_commerce.entity.Usuario;
@@ -50,11 +53,22 @@ public class PaymentController {
     private String frontendPendingUrl;
 
     @PostMapping("/create-order")
-    public ResponseEntity<?> createOrder(@Valid @RequestBody VentaDTO ventaDTO) {
+    public ResponseEntity<?> createOrder(@Valid @RequestBody CreateOrderRequestDTO orderRequest) {
         try {
             // Obtener el usuario autenticado
             Usuario usuario = authService.getUsuarioLogeado();
-    
+
+            // Adaptar el DTO de la solicitud al DTO que espera el servicio de Venta
+            VentaDTO ventaDTO = new VentaDTO();
+            ventaDTO.setFechaVenta(LocalDate.now()); // La fecha se establece en el backend
+            ventaDTO.setProductos(
+                    orderRequest.getProductos().stream()
+                            .map(p -> new VentaDTO.ProductoVentaDTO(
+                                    p.getIdProducto(),
+                                    p.getCantidad(),
+                                    null)) // precio_unitario se calcula en el servicio
+                            .collect(Collectors.toList()));
+
             // Registrar la venta con sus productos y obtener el total calculado
             VentaCreationResult result = ventaService.registrarVenta(ventaDTO, usuario); // Llamar a VentaService
             Venta venta = result.getVenta();

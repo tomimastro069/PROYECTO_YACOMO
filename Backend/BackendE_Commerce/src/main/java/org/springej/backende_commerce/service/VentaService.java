@@ -9,12 +9,10 @@ import org.springej.backende_commerce.dto.VentaCreationResult;
 import org.springej.backende_commerce.dto.VentaDTO;
 import org.springej.backende_commerce.entity.Producto;
 import org.springej.backende_commerce.entity.ProductoVenta;
-import org.springej.backende_commerce.entity.Promocion;
 import org.springej.backende_commerce.entity.Usuario;
 import org.springej.backende_commerce.entity.Venta;
 import org.springej.backende_commerce.exception.ResourceNotFoundException;
 import org.springej.backende_commerce.repository.ProductoRepository;
-import org.springej.backende_commerce.repository.PromocionRepository;
 import org.springej.backende_commerce.repository.UsuarioRepository;
 import org.springej.backende_commerce.repository.VentaRepository;
 import org.springframework.stereotype.Service;
@@ -30,12 +28,12 @@ public class VentaService {
     private static final Logger logger = LoggerFactory.getLogger(VentaService.class);
     private final VentaRepository ventaRepository;
     private final ProductoRepository productoRepository;
-    private final PromocionRepository promocionRepository;
     private final UsuarioRepository usuarioRepository;
 
     /**
      * Registra una nueva venta para el usuario autenticado
      */
+    @Transactional
     public VentaCreationResult registrarVenta(VentaDTO ventaDTO, Usuario usuario) {
         logger.info("Iniciando proceso de registro de venta para usuario ID: {}", usuario.getId());
 
@@ -66,25 +64,28 @@ public class VentaService {
             }
             producto.setStock(producto.getStock() - productoDTO.getCantidad());
 
-            Promocion promocion = null;
-            if (productoDTO.getIdPromocion() != null) {
-                promocion = promocionRepository.findById(productoDTO.getIdPromocion())
-                        .orElseThrow(() -> new ResourceNotFoundException("Promoción no encontrada con ID: " + productoDTO.getIdPromocion()));
-            }
-
             BigDecimal precioUnitario = BigDecimal.valueOf(producto.getPrecio());
-            if (promocion != null) {
-                double descuento = promocion.getPorcentajeDescuento();
-                BigDecimal factorDescuento = BigDecimal.ONE.subtract(BigDecimal.valueOf(descuento / 100.0));
-                precioUnitario = precioUnitario.multiply(factorDescuento);
+            String promocion = producto.getPromocion();
+
+            // Lógica para aplicar el descuento desde el String de promoción (ej: "10%")
+            if (promocion != null && !promocion.isBlank() && promocion.endsWith("%")) {
+                try {
+                    String valorPorcentajeStr = promocion.replace("%", "").trim();
+                    double valorPorcentaje = Double.parseDouble(valorPorcentajeStr);
+                    if (valorPorcentaje > 0) {
+                        logger.debug("Aplicando promoción del {}% al producto ID: {}", valorPorcentaje, producto.getId());
+                        BigDecimal multiplicadorDescuento = BigDecimal.ONE.subtract(BigDecimal.valueOf(valorPorcentaje / 100.0));
+                        precioUnitario = precioUnitario.multiply(multiplicadorDescuento);
+                    }
+                } catch (NumberFormatException e) {
+                    logger.warn("No se pudo parsear el valor de la promoción '{}' para el producto ID: {}. Se usará el precio base.", promocion, producto.getId());
+                }
             }
-            
             totalVenta = totalVenta.add(precioUnitario.multiply(BigDecimal.valueOf(productoDTO.getCantidad())));
 
             ProductoVenta productoVenta = new ProductoVenta();
             productoVenta.setVenta(venta);
             productoVenta.setProducto(producto);
-            productoVenta.setPromocion(promocion);
             productoVenta.setCantidad(productoDTO.getCantidad());            
             productoVenta.setPrecioUnitario(precioUnitario);
 

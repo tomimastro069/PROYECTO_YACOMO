@@ -40,10 +40,8 @@ public class VentaDTO {
         @Min(value = 1, message = "La cantidad debe ser al menos 1")
         private Integer cantidad;
 
-        // ID de promoción opcional
-        private Long idPromocion;
-        @NotNull(message ="el precio es obligatorio")
-        private java.math.BigDecimal precio_unitario;
+        // El precio unitario no se recibe, se calcula en el backend. Se devuelve en la respuesta.
+        private java.math.BigDecimal precioUnitario;
     }
 
     // Métodos helper

@@ -65,7 +65,6 @@ public class VentaController {
                             .map(pv -> new VentaDTO.ProductoVentaDTO(
                                     pv.getProducto().getId(),
                                     pv.getCantidad(),
-                                    pv.getPromocion() != null ? pv.getPromocion().getId() : null,
                                     pv.getPrecioUnitario()
                             ))
                             .toList()
@@ -107,7 +106,6 @@ public class VentaController {
                             .map(pv -> new VentaDTO.ProductoVentaDTO(
                                     pv.getProducto().getId(),
                                     pv.getCantidad(),
-                                    pv.getPromocion() != null ? pv.getPromocion().getId() : null,
                                     pv.getPrecioUnitario()
                             ))
                             .toList()
@@ -145,7 +143,6 @@ public class VentaController {
                             .map(pv -> new VentaDTO.ProductoVentaDTO(
                                     pv.getProducto().getId(),
                                     pv.getCantidad(),
-                                    pv.getPromocion() != null ? pv.getPromocion().getId() : null,
                                     pv.getPrecioUnitario()
                             ))
                             .toList()

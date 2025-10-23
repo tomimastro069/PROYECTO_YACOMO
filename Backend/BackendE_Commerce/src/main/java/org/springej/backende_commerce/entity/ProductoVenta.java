@@ -25,12 +25,6 @@ public class ProductoVenta {
     private Venta venta;
 
     @ManyToOne
-    @JoinColumn(name = "promocion_id")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Promocion promocion;
-
-    @ManyToOne
     @JoinColumn(name = "producto_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

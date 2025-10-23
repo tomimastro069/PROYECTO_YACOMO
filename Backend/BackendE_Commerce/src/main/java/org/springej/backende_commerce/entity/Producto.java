@@ -32,6 +32,8 @@ public class Producto {
     @Column(name = "stock")
     private Integer stock;
 
+    private String promocion;
+
     @OneToMany(mappedBy = "producto")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -58,4 +60,11 @@ public class Producto {
     @NotAudited
     @JsonIgnore
     private List<ProductoVenta> productoVentas;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.promocion == null) {
+            this.promocion = "0%";
+        }
+    }
 }

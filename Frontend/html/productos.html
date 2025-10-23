@@ -634,131 +634,27 @@
 
             </div>
 
-            <Div class="Catalogo">
+            <div class="Catalogo" id="catalogo-productos">
+                <!-- Los productos se cargarán aquí dinámicamente desde el script -->
+                <!-- Ejemplo de producto hardcodeado (comentado para referencia):
                 <div class="card" data-id="gpu-4080">
-                    <img class="Imagen_Producto"
-                        src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_43863_Gabinete_HYTE_Y70_TOUCH_INFINITE_Black_Vidrio_Templado_Pantalla_Tactil_2.5K_LCD_IPS_60Hz_Inc._Cable_Riser_PCIe_4x16_USB-C_3.2_7b72188b-grn.jpg"
-                        alt="Producto">
-
+                    <img class="Imagen_Producto" src="..." alt="Producto">
                     <div class="content">
                         <span class="stock"></span>
-
-                        <h3 class="Titulo">HYTE Y70 TOUCH INFINITE Black</h3>
+                        <h3 class="Titulo">Nombre del Producto</h3>
                         <div class="rating">★5/5</div>
-                        <p class="precio-anterior">$758.999</p>
-
-                        <p class="Precio">$696.658</p>
-
-
-
-
-                        <ul class="Especificaciones">
-
-                        </ul>
-
-
-
+                        <p class="precio-anterior">$1.000</p>
+                        <p class="Precio">$800</p>
+                        <ul class="Especificaciones"></ul>
                         <div class="actions">
-
                             <button class="btn-cart">Agregar al Carrito</button>
                             <button class="btn-favorite" type="button">Agregar a Favoritos</button>
-                            <a class="btn-details" href="#modal-hyte">Ver Detalles</a>
+                            <a class="btn-details" href="#modal-id">Ver Detalles</a>
                         </div>
-
                     </div>
                 </div>
-                <div class="card" data-id="gpu-4080">
-                    <img class="Imagen_Producto"
-                        src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47466_Notebook_ASUS_ROG_Strix_SCAR_18_18__Intel_Core_Ultra_9_275HX_32GB_DDR5_SSD_2TB_RTX_5080_2.5K_240Hz_Win11_G835LW-SA024W_4fa8450d-grn.jpg"
-                        alt="Producto">
-
-                    <div class="content">
-                        <span class="stock"></span>
-
-                        <h3 class="Titulo">ASUS ROG Strix SCAR 18 18"</h3>
-                        <div class="rating">★5/5</div>
-                        <p class="precio-anterior">$8.000.000</p>
-
-                        <p class="Precio">$6.856.497</p>
-
-
-
-                        <ul class="Especificaciones">
-
-                        </ul>
-
-
-
-                        <div class="actions">
-
-                            <button class="btn-cart">Agregar al Carrito</button>
-                            <button class="btn-favorite" type="button">Agregar a Favoritos</button>
-                            <a class="btn-details" href="#modal-asus">Ver Detalles</a>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="card" data-id="gpu-4080">
-                    <img class="Imagen_Producto"
-                        src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47305_Teclado_Mecanico_Glorious_GMMK3_HE_75__RGB_Hall_Efect_8K_Hz_White_US_220e10c4-grn.jpg"
-                        alt="Producto">
-
-                    <div class="content">
-                        <span class="stock"></span>
-
-                        <h3 class="Titulo">Glorious GMMK3 HE 75% RGB</h3>
-                        <div class="rating">★5/5</div>
-                        <p class="precio-anterior">$300.000</p>
-                        <p class="Precio">$256.099</p>
-
-                        <ul class="Especificaciones">
-
-                        </ul>
-
-                        <div class="actions">
-
-                            <button class="btn-cart">Agregar al Carrito</button>
-                            <button class="btn-favorite" type="button">Agregar a Favoritos</button>
-                            <a class="btn-details" href="#modal-gmmk3">Ver Detalles</a>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="card" data-id="gpu-4080">
-                    <img class="Imagen_Producto"
-                        src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg"
-                        alt="Producto">
-
-                    <div class="content">
-                        <span class="stock"></span>
-
-                        <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
-
-
-
-                        <div class="rating">★5/5</div>
-                        <p class="precio-anterior">$1.100.000</p>
-                        <p class="Precio"> $839.999</p>
-
-                        <ul class="Especificaciones">
-
-                        </ul>
-
-
-
-                        <div class="actions">
-
-                            <button class="btn-cart">Agregar al Carrito</button>
-                            <button class="btn-favorite" type="button">Agregar a Favoritos</button>
-                            <a class="btn-details" href="#modal-rtx5080">Ver Detalles</a>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </Div>
+                -->
+            </div>
         </div>
     </div>
 
@@ -787,6 +683,58 @@
             <h2><a href="Terminos_condiciones">Terminos y Condiciones</a></h2>
         </div>
     </footer>
+    <script type="module">
+  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const contenedor = document.getElementById('catalogo-productos');
+
+    try {
+      const productos = await obtenerProductos();
+
+      if (!productos || productos.length === 0) {
+        contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
+        return;
+      }
+
+      contenedor.innerHTML = ''; // Borra los hardcodeados
+
+      productos.forEach((p) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.id = `producto-${p.id}`;
+
+        card.innerHTML = `
+          <img class="Imagen_Producto"
+               src="${p.imagenes?.[0] || 'https://via.placeholder.com/200'}"
+               alt="${p.nombre}">
+
+          <div class="content">
+            <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
+            <h3 class="Titulo">${p.nombre}</h3>
+            <div class="rating">★5/5</div>
+            <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
+
+            <ul class="Especificaciones"></ul>
+
+            <div class="actions">
+              <button class="btn-cart">Agregar al Carrito</button>
+              <button class="btn-favorite" type="button">Agregar a Favoritos</button>
+              <a class="btn-details" href="#">Ver Detalles</a>
+            </div>
+          </div>
+        `;
+
+        contenedor.appendChild(card);
+      });
+
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+      contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
+    }
+  });
+</script>
+
 </body>
 
 </html>

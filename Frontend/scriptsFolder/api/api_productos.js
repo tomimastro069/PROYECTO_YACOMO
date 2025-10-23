@@ -2,36 +2,87 @@
 
 import callApi from './apiClient.js';
 
-// --- Funciones Públicas (no requieren autenticación) ---
+/**
+ * ================================================================
+ * 🛍️ API de Productos
+ * Funciones para obtener, crear, actualizar y eliminar productos.
+ * - Algunas funciones son públicas (sin autenticación)
+ * - Otras requieren rol ADMIN autenticado.
+ * ================================================================
+ */
 
-export const getProducts = () => {
-    // Llama a GET /api/productos
-    return callApi('/productos', 'GET', null, false);
+/**
+ * Estructura esperada del objeto Producto (referencia):
+ * {
+ *   id: number,
+ *   nombre: string,
+ *   descripcion: string,
+ *   precio: number,
+ *   stock: number,
+ *   categoria?: string,
+ *   imagenes?: string[]
+ * }
+ */
+
+// =============================================================
+// 🌍 Funciones Públicas (sin autenticación)
+// =============================================================
+
+/**
+ * Obtiene todos los productos disponibles.
+ * @returns {Promise<Producto[]>} - Lista de productos.
+ */
+export const obtenerProductos = async () => {
+  return await callApi('/productos', 'GET', null, false);
 };
 
-export const getProductById = (id) => {
-    // Llama a GET /api/productos/{id}
-    return callApi(`/productos/${id}`, 'GET', null, false);
+/**
+ * Obtiene un producto específico por su ID.
+ * @param {number|string} id - ID del producto.
+ * @returns {Promise<Producto>} - Detalle del producto.
+ */
+export const obtenerProductoPorId = async (id) => {
+  return await callApi(`/productos/${id}`, 'GET', null, false);
 };
 
-// --- Funciones de Administrador (requieren autenticación y rol ADMIN) ---
+// =============================================================
+// 🧑‍💼 Funciones de Administrador (requieren autenticación)
+// =============================================================
 
-export const createProduct = (productData) => {
-    // Llama a POST /api/productos
-    return callApi('/productos', 'POST', productData, true);
+/**
+ * Crea un nuevo producto en el sistema.
+ * @param {object} datosProducto - Datos del producto a crear.
+ * @returns {Promise<Producto>} - Producto creado.
+ */
+export const crearProducto = async (datosProducto) => {
+  return await callApi('/productos', 'POST', datosProducto, true);
 };
 
-export const updateProduct = (id, productData) => {
-    // Llama a PUT /api/productos/{id}
-    return callApi(`/productos/${id}`, 'PUT', productData, true);
+/**
+ * Actualiza completamente un producto existente.
+ * @param {number|string} id - ID del producto.
+ * @param {object} datosProducto - Nuevos datos del producto.
+ * @returns {Promise<Producto>} - Producto actualizado.
+ */
+export const actualizarProducto = async (id, datosProducto) => {
+  return await callApi(`/productos/${id}`, 'PUT', datosProducto, true);
 };
 
-export const patchProduct = (id, partialData) => {
-    // Llama a PATCH /api/productos/{id} para actualizaciones parciales
-    return callApi(`/productos/${id}`, 'PATCH', partialData, true);
+/**
+ * Actualiza parcialmente un producto existente (PATCH).
+ * @param {number|string} id - ID del producto.
+ * @param {object} datosParciales - Campos a modificar.
+ * @returns {Promise<Producto>} - Producto actualizado parcialmente.
+ */
+export const modificarProducto = async (id, datosParciales) => {
+  return await callApi(`/productos/${id}`, 'PATCH', datosParciales, true);
 };
 
-export const deleteProduct = (id) => {
-    // Llama a DELETE /api/productos/{id}
-    return callApi(`/productos/${id}`, 'DELETE', null, true);
+/**
+ * Elimina un producto por su ID.
+ * @param {number|string} id - ID del producto.
+ * @returns {Promise<null>} - Null si se elimina correctamente.
+ */
+export const eliminarProducto = async (id) => {
+  return await callApi(`/productos/${id}`, 'DELETE', null, true);
 };

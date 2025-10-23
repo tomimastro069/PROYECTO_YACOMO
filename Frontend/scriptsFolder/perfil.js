@@ -178,6 +178,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     botonesFavoritos.forEach(boton => {
         boton.addEventListener('click', function(e) {
+            // 1. Verificar si el usuario está logueado
+            const token = localStorage.getItem('jwt_token');
+
+            if (!token) {
+                // 2. Si no está logueado, mostrar el modal de login y detener la ejecución
+                alert('Debes iniciar sesión para agregar productos a favoritos.');
+                toggleLoginModal(); // Esta función está en funciones.js y abre el modal
+                return; // Detiene el resto de la función
+            }
+
+            // 3. Si está logueado, proceder con la animación y la lógica para agregar a favoritos
             // Animación visual
             boton.classList.remove('btn-animate');
             void boton.offsetWidth; // reflow para reiniciar animación
@@ -189,4 +200,3 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mostrar los productos favoritos si estamos en la página de perfil
     mostrarFavoritos();
 });
-

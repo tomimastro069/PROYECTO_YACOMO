@@ -1,61 +1,136 @@
 // c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\api\apiClient.js
 
-export const BASE_URL = 'http://localhost:8080/api'; // ¡IMPORTANTE! Asegúrate de que esta URL sea la correcta para tu backend
+export const BASE_URL = 'http://localhost:8080/api';
 
 /**
- * Función genérica para realizar llamadas a la API.
- * @param {string} endpoint - La ruta del endpoint (ej. '/productos', '/auth/login').
- * @param {string} method - El método HTTP (GET, POST, PUT, DELETE, PATCH).
- * @param {object|null} data - Los datos a enviar en el cuerpo de la petición (para POST, PUT, PATCH).
- * @param {boolean} requiresAuth - Indica si la petición requiere un token JWT.
- * @returns {Promise<object|null>} - La respuesta JSON de la API o null si es 204 No Content.
- * @throws {Error} - Si la petición falla o la respuesta no es exitosa.
+ * Función genérica y robusta para realizar llamadas a la API.
+ * Maneja:
+ * - Autenticación con JWT.
+ * - Cuerpo JSON o FormData.
+ * - Parámetros de consulta (queryParams).
+ * - Distintos métodos HTTP.
+ * - Manejo global de errores.
+ *
+ * @param {string} endpoint - Ruta del endpoint (por ej. '/productos', '/usuarios/5', '/ventas').
+ * @param {string} method - Método HTTP (GET, POST, PUT, PATCH, DELETE).
+ * @param {object|FormData|null} [data=null] - Datos a enviar (objeto o FormData).
+ * @param {boolean} [requiresAuth=true] - Si la petición requiere token JWT.
+ * @param {object|null} [queryParams=null] - Parámetros de consulta opcionales.
+ * @param {object|null} [customHeaders=null] - Encabezados adicionales (sobrescriben los defaults).
+ * @returns {Promise<object|null>} - La respuesta JSON o null si no hay contenido (204).
+ * @throws {Error} - Si la petición falla.
  */
-async function callApi(endpoint, method = 'GET', data = null, requiresAuth = true) {
-    const headers = {
-        'Content-Type': 'application/json',
-    };
+export async function callApi(
+  endpoint,
+  method = 'GET',
+  data = null,
+  requiresAuth = true,
+  queryParams = null,
+  customHeaders = null
+) {
+  try {
+    // 🔹 Construcción dinámica de la URL
+    let url = `${BASE_URL}${endpoint}`;
+    if (queryParams && typeof queryParams === 'object') {
+      const query = new URLSearchParams(queryParams).toString();
+      if (query) url += `?${query}`;
+    }
 
+    // 🔹 Encabezados base
+    const headers = customHeaders ? { ...customHeaders } : { 'Content-Type': 'application/json' };
+
+    // 🔹 Autenticación
     if (requiresAuth) {
-        const token = localStorage.getItem('jwt_token');
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        } else {
-            // Si se requiere autenticación pero no hay token, redirigir al login
-            console.warn('Authentication required but no JWT token found. Redirecting to login.');
-            window.location.href = 'login.html'; // Ajusta esta ruta si es necesario
-            throw new Error('Authentication required.');
-        }
+      const token = localStorage.getItem('jwt_token');
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      } else {
+        console.warn('Auth required but no JWT token found. Redirecting to login.');
+        redirectToLogin();
+        throw new Error('Authentication required.');
+      }
     }
 
-    const config = {
-        method,
-        headers,
-    };
+    // 🔹 Configuración base de la petición
+    const config = { method, headers };
 
-    if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
+    // 🔹 Cuerpo de la petición (solo para métodos que lo aceptan)
+    const methodAllowsBody = ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase());
+    if (data && methodAllowsBody) {
+      if (data instanceof FormData) {
+        // Si es FormData, no se define Content-Type manualmente (el navegador lo hace)
+        delete headers['Content-Type'];
+        config.body = data;
+      } else {
         config.body = JSON.stringify(data);
+      }
     }
-    // Para GET con datos, generalmente se usan parámetros de consulta, no body.
-    // Si tu backend espera un body en GET, esto debería ajustarse.
 
-    try {
-        const response = await fetch(`${BASE_URL}${endpoint}`, config);
+    // 🔹 Ejecución de la petición
+    const response = await fetch(url, config);
 
-        if (!response.ok) {
-            let errorDetail = `API error: ${response.status} ${response.statusText}`;
-            try {
-                const errorData = await response.json();
-                errorDetail = errorData.message || JSON.stringify(errorData);
-            } catch (jsonError) { /* No es JSON */ }
-            throw new Error(errorDetail);
-        }
+    // 🔹 Manejo de respuestas no exitosas
+    if (!response.ok) {
+      const errorData = await safeJsonParse(response);
+      let message =
+        errorData?.message ||
+        errorData?.error ||
+        `Error ${response.status}: ${response.statusText}`;
 
-        return response.status === 204 ? null : response.json(); // 204 No Content no tiene body
-    } catch (error) {
-        console.error(`Error calling API endpoint ${endpoint}:`, error);
-        throw error;
+      // Ejemplo: si el token expira
+      if (response.status === 401) {
+        handleUnauthorized();
+      }
+
+      throw new Error(message);
     }
+
+    // 🔹 Si no hay contenido (204)
+    if (response.status === 204) return null;
+
+    // 🔹 Intentar parsear JSON, devolver texto si no es JSON válido
+    const result = await safeJsonParse(response);
+    return result;
+  } catch (error) {
+    handleApiError(error, endpoint);
+    throw error;
+  }
+}
+
+/**
+ * Intenta parsear la respuesta como JSON sin romper el flujo.
+ */
+async function safeJsonParse(response) {
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Redirige al login si el usuario no está autenticado.
+ */
+function redirectToLogin() {
+  localStorage.removeItem('jwt_token');
+  localStorage.removeItem('user_roles');
+  window.location.href = 'index.html';
+}
+
+/**
+ * Maneja errores globales de API (red, CORS, 500, etc.).
+ */
+function handleApiError(error, endpoint) {
+  console.error(`🔴 Error en endpoint ${endpoint}:`, error);
+  alert(error.message || 'Error inesperado al comunicarse con el servidor.');
+}
+
+/**
+ * Maneja el caso de token inválido o expirado.
+ */
+function handleUnauthorized() {
+  alert('Tu sesión ha expirado. Por favor inicia sesión nuevamente.');
+  redirectToLogin();
 }
 
 export default callApi;

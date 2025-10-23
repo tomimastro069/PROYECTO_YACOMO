@@ -2,28 +2,69 @@
 
 import callApi from './apiClient.js';
 
-// --- Funciones para Usuarios Autenticados (USER y ADMIN) ---
+/**
+ * ================================================================
+ * 🧾 API de Ventas
+ * Funciones para obtener información de ventas desde el backend.
+ * - Los datos manejan objetos de tipo VentaDTO o listas de VentaDTO.
+ * - Todos los endpoints requieren autenticación con JWT.
+ * ================================================================
+ */
 
-export const createSale = (saleData) => {
-    // Llama a POST /api/ventas
-    // Requiere autenticación
-    return callApi('/ventas', 'POST', saleData, true);
+/**
+ * Estructura esperada del objeto VentaDTO (referencia):
+ * {
+ *   usuario: {
+ *     id: number,
+ *     nombre: string,
+ *     apellido: string,
+ *     email: string
+ *   },
+ *   fechaVenta: string, // Formato ISO (YYYY-MM-DD)
+ *   estado: string,     // Ej: 'PAGADA', 'PENDIENTE'
+ *   productos: [
+ *     {
+ *       idProducto: number,
+ *       cantidad: number,
+ *       precioUnitario: number
+ *     }
+ *   ]
+ * }
+ */
+
+// =============================================================
+// 🧍‍♂️ Funciones para Usuarios Autenticados (USER y ADMIN)
+// =============================================================
+
+/**
+ * Obtiene todas las compras realizadas por el usuario autenticado.
+ * @returns {Promise<VentaDTO[]>} - Lista de ventas propias del usuario.
+ */
+export const obtenerMisCompras = async () => {
+  return await callApi('/ventas/mis-compras', 'GET', null, true);
 };
 
-export const getMySales = () => {
-    // Llama a GET /api/ventas/mis-compras
-    // Requiere autenticación
-    return callApi('/ventas/mis-compras', 'GET', null, true);
+// =============================================================
+// 🧮 Funciones para Administradores (ADMIN)
+// =============================================================
+
+/**
+ * Obtiene todas las ventas del sistema (requiere rol ADMIN).
+ * Puede recibir filtros opcionales como parámetros de consulta.
+ * 
+ * @param {object} [filtros] - Ejemplo: { estado: 'PAGADA', fechaDesde: '2025-01-01', fechaHasta: '2025-12-31' }
+ * @returns {Promise<VentaDTO[]>} - Lista completa de ventas registradas.
+ */
+export const obtenerTodasLasVentas = async (filtros = null) => {
+  return await callApi('/ventas', 'GET', null, true, filtros);
 };
 
-// --- Funciones solo para Administradores (ADMIN) ---
-
-export const getAllSales = () => {
-    // Llama a GET /api/ventas
-    return callApi('/ventas', 'GET', null, true);
-};
-
-export const getSalesByUserId = (userId) => {
-    // Llama a GET /api/ventas/usuario/{idUsuario}
-    return callApi(`/ventas/usuario/${userId}`, 'GET', null, true);
+/**
+ * Obtiene todas las ventas realizadas por un usuario específico (ADMIN).
+ * 
+ * @param {number|string} idUsuario - ID del usuario.
+ * @returns {Promise<VentaDTO[]>} - Lista de ventas de ese usuario.
+ */
+export const obtenerVentasPorUsuario = async (idUsuario) => {
+  return await callApi(`/ventas/usuario/${idUsuario}`, 'GET', null, true);
 };

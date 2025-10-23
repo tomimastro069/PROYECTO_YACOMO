@@ -52,7 +52,8 @@ public class VentaController {
                     venta.getUsuario().getId(),
                     venta.getUsuario().getNombre(),
                     venta.getUsuario().getApellido(),
-                    venta.getUsuario().getEmail()
+                    venta.getUsuario().getEmail(),
+                    venta.getUsuario().getFechaRegistro()
             );
 
             VentaDTO dto = new VentaDTO();
@@ -94,7 +95,8 @@ public class VentaController {
                     venta.getUsuario().getId(),
                     venta.getUsuario().getNombre(),
                     venta.getUsuario().getApellido(),
-                    venta.getUsuario().getEmail()
+                    venta.getUsuario().getEmail(),
+                    venta.getUsuario().getFechaRegistro()
             );
 
             VentaDTO dto = new VentaDTO();
@@ -130,7 +132,8 @@ public class VentaController {
                     venta.getUsuario().getId(),
                     venta.getUsuario().getNombre(),
                     venta.getUsuario().getApellido(),
-                    venta.getUsuario().getEmail()
+                    venta.getUsuario().getEmail(),
+                    venta.getUsuario().getFechaRegistro()
             );
 
             VentaDTO dto = new VentaDTO();

@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +40,9 @@ public class Usuario {
 
     @Column(name = "email", unique = true)
     private String email;
+
+    @Column(name = "fecha_registro")
+    private LocalDate fechaRegistro;
 
     //Navegacion Inversa con Ventas
     @OneToMany(mappedBy = "usuario")
@@ -71,4 +75,8 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
     private List<Domicilio> domicilios= new ArrayList<>();
 
+    @PrePersist
+    protected void onCreate() {
+        fechaRegistro = LocalDate.now();
+    }
 }

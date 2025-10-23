@@ -57,25 +57,25 @@
         <aside class="sidebar">
             <section class="user-summary">
                 <div class="user-profile-header">
-                    <img src="path/to/carlos-photo.jpg" alt="Foto de perfil de Carlos Rodríguez" class="profile-photo">
+                    <img src="https://via.placeholder.com/80" alt="Foto de perfil del usuario" class="profile-photo">
                     <div class="user-details">
-                        <h2 class="user-name">Carlos Rodríguez</h2>
-                        <span class="user-membership">Gold Member</span>
+                        <h2 class="user-name">Cargando...</h2>
+                        <span class="user-membership"></span>
                     </div>
                 </div>
 
                 <ul class="stats-list">
                     <li>
                         <span class="stat-label">Pedidos activos:</span>
-                        <span class="stat-value">2</span>
+                        <span class="stat-value" id="stat-pedidos-activos">0</span>
                     </li>
                     <li>
                         <span class="stat-label">Total gastado:</span>
-                        <span class="stat-value">$125.000</span>
+                        <span class="stat-value" id="stat-total-gastado">$0</span>
                     </li>
                     <li>
                         <span class="stat-label">Lista de deseos:</span>
-                        <a href="#" class="stat-link">4 productos</a>
+                        <a href="#" class="stat-link" id="stat-favoritos">0 productos</a>
                     </li>
                 </ul>
             </section>
@@ -135,11 +135,11 @@
             <section class="info info-perfil active-content">
                 <h2 class="section-title">Informacion Personal</h2>
                 <div class="miniperfil">
-                    <div class="miniperfil-header">
-                        <img src="path/to/carlos-photo.jpg" alt="Foto de perfil del usuario" class="profile-photo">
+                    <div class="miniperfil-header"> 
+                        <img src="https://via.placeholder.com/80" alt="Foto de perfil del usuario" class="profile-photo">
                         <div class="encabezado">
-                            <h2 class="user-name">Carlos Rodríguez</h2>
-                            <span class="user-membership">Gold Member</span>
+                            <h2 class="user-name">Cargando...</h2>
+                            <span class="user-membership"></span>
                         </div>
                     </div>
                     <div class="perfil-details">
@@ -150,15 +150,15 @@
                             </li>
                             <li>
                                 <span>Correo electrónico</span>
-                                <p>usuario123@email.com</p>
+                                <p>cargando@email.com</p>
                             </li>
                             <li>
                                 <span>Telefono</span>
-                                <p>1234567890</p>
+                                <p>No disponible</p>
                             </li>
                             <li>
                                 <span>Fecha de registro</span>
-                                <p>dd/mm/aa</p>
+                                <p>--/--/----</p>
                             </li>
                         </ul>
                     
@@ -182,284 +182,25 @@
             </section>
 
             <section class="info info-historial">
-                <div class="order-card">
-                    <div class="order-header">
-                        <div class="order-info">
-                            <h3 class="order-id">Pedido #ORD-2023-045</h3>
-                            <p class="order-date">14 de diciembre de 2023</p>
-                        </div>
-                        <div class="status-badge delivered">
-                            Entregado
-                        </div>
-                    </div>
-
-                    <div class="order-summary">
-                        <p class="summary-label">Total:</p>
-                        <p class="summary-value">$67.500</p>
-                    </div>
-
-                    <div class="order-products">
-                        <p class="products-label">Productos (2):</p>
-                        <div class="product-images">
-                            <img src="product-image-1.jpg" alt="Producto 1" class="product-thumb">
-                            <img src="product-image-2.jpg" alt="Producto 2" class="product-thumb">
-                        </div>
-                    </div>
-
-                    <div class="order-actions">
-                        <button class="btn btn-details">Ver detalles</button>
-                        <button class="btn btn-reorder">Recomprar</button>
-                    </div>
-                </div>
+                <!-- El historial de compras se cargará aquí dinámicamente -->
             </section>
 
             <section class="info info-pedidos">
-                <div class="order-card-new">
-                    <div class="order-header">
-                        <div class="order-info">
-                            <h3 class="order-id">Pedido #ORD-2024-001</h3>
-                            <p class="order-date">21 de enero de 2024</p>
-                        </div>
-                        <div class="status-badge shipped">
-                            Enviado
-                        </div>
-                    </div>
-
-                    <div class="order-summary-row total-row">
-                        <p class="summary-label">Total:</p>
-                        <p class="summary-value total-value">$45.999</p>
-                    </div>
-
-                    <div class="order-summary-row estimated-delivery">
-                        <p class="summary-label">Entrega estimada:</p>
-                        <p class="summary-value delivery-date">25 de enero</p>
-                    </div>
-
-                    <div class="order-products-list">
-                        <p class="products-list-label">Productos (1):</p>
-                        <div class="product-item">
-                            <img src="nvidia-rtx-4070.jpg" alt="NVIDIA GeForce RTX 4070" class="product-thumb-lg">
-                            <div class="product-details">
-                                <p class="product-name">NVIDIA GeForce RTX 4070</p>
-                                <p class="product-quantity">Cantidad: 1</p>
-                            </div>
-                            <p class="product-price">$45.999</p>
-                        </div>
-                    </div>
-
-                    <div class="order-actions-single">
-                        <button class="btn btn-details-single">Ver detalles</button>
-                    </div>
-                </div>
+                <!-- Los pedidos activos se cargarán aquí dinámicamente -->
             </section>
 
             <section class="info info-fav">
                 <div class="product-list">
-
-                    <div class="product-card">
-                        <img src="nvidia-rtx-4080-super.jpg" alt="NVIDIA GeForce RTX 4080 SUPER" class="product-image">
-                        
-                        <div class="product-details">
-                            <p class="product-brand top-brand">ASUS</p>
-                            
-                            <div class="rating">
-                                <span class="rating-stars">★★★★★</span>
-                                <span class="rating-value">4.8</span>
-                                <span class="review-count">(156 reseñas)</span>
-                            </div>
-                            
-                            <div class="price-section">
-                                <span class="current-price">$89.999</span>
-                                <span class="old-price">$94.999</span>
-                                <span class="discount-badge">-5%</span>
-                            </div>
-                            
-                            <p class="added-date">Agregado el 14/1/2024</p>
-
-                            <div class="product-title-group bottom-title">
-                                <h3 class="product-title">NVIDIA GeForce RTX 4080 SUPER</h3>
-                                <button class="remove-btn" aria-label="Eliminar producto">
-                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <button class="action-btn add-to-cart-btn">Agregar al carrito</button>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="nvidia-rtx-3060.jpg" alt="NVIDIA GeForce RTX 3060" class="product-image">
-                        
-                        <div class="product-details">
-                            <p class="product-brand top-brand">ASUS</p>
-                            
-                            <div class="rating">
-                                <span class="rating-stars">★★★★★</span>
-                                <span class="rating-value">4.7</span>
-                                <span class="review-count">(172 reseñas)</span>
-                            </div>
-                            
-                            <div class="price-section">
-                                <span class="current-price">$79.999</span>
-                                <span class="old-price">$90.999</span>
-                                <span class="discount-badge">-5%</span>
-                            </div>
-                            
-                            <p class="added-date">Agregado el 14/1/2024</p>
-
-                            <div class="product-title-group bottom-title">
-                                <h3 class="product-title">NVIDIA GeForce RTX 3060 </h3>
-                                <button class="remove-btn" aria-label="Eliminar producto">
-                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <button class="action-btn add-to-cart-btn">Agregar al carrito</button>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="motherboard-b550.jpg" alt="Motherboard AMD B550" class="product-image">
-                        
-                        <div class="product-details">
-                            <p class="product-brand top-brand">MSI</p>
-                            
-                            <div class="rating">
-                                <span class="rating-stars">★★★★☆</span>
-                                <span class="rating-value">4.6</span>
-                                <span class="review-count">(89 reseñas)</span>
-                            </div>
-                            
-                            <div class="price-section">
-                                <span class="current-price">$25.999</span>
-                                <span class="no-stock-badge">Sin stock</span>
-                            </div>
-                            
-                            <p class="added-date">Agregado el 9/1/2024</p>
-                            
-                            <div class="product-title-group bottom-title">
-                                <h3 class="product-title">Motherboard AMD B550</h3>
-                                <button class="remove-btn" aria-label="Eliminar producto">
-                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <button class="action-btn out-of-stock-btn" disabled>Sin stock</button>
-                    </div>
-
+                    <!-- Los favoritos se cargarán aquí dinámicamente -->
                 </div>
             </section>
 
             <section class="info info-pagos">
-                <div class="payment-card">
-                    <div class="card-icon-container">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
-                        </svg>
-                    </div>
-
-                    <div class="card-details">
-                        <div class="card-line-1">
-                            <span class="card-type">Mastercard</span>
-                            <span class="card-number">xxxx 1234</span>
-                            <span class="card-badge debit">Débito</span>
-                        </div>
-                        <p class="card-holder">Carlos Rodríguez</p>
-                        <p class="card-expiry">Vence: 08/2026</p>
-                    </div>
-
-                    <div class="card-actions">
-                        <button class="btn btn-icon" aria-label="Editar tarjeta">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                        <button class="btn btn-icon" aria-label="Eliminar tarjeta">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="payment-card">
-                    <div class="card-icon-container">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
-                        </svg>
-                    </div>
-
-                    <div class="card-details">
-                        <div class="card-line-1">
-                            <span class="card-type">Visa</span>
-                            <span class="card-number">xxxx 1234</span>
-                            <span class="card-badge debit">Crédito</span>
-                        </div>
-                        <p class="card-holder">Carlos Rodríguez</p>
-                        <p class="card-expiry">Vence: 08/2026</p>
-                    </div>
-
-                    <div class="card-actions">
-                        <button class="btn btn-icon" aria-label="Editar tarjeta">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                        <button class="btn btn-icon" aria-label="Eliminar tarjeta">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="payment-card">
-                    <div class="card-icon-container">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
-                        </svg>
-                    </div>
-
-                    <div class="card-details">
-                        <div class="card-line-1">
-                            <span class="card-type">Mercado Pago</span>
-                            <span class="card-number">xxxx 5678</span>
-                            <span class="card-badge debit">Transferencia</span>
-                        </div>
-                        <p class="card-holder">Carlos Rodríguez</p>
-                        <p class="card-expiry">Vence: 08/2026</p>
-                    </div>
-
-                    <div class="card-actions">
-                        <button class="btn btn-icon" aria-label="Editar tarjeta">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                        <button class="btn btn-icon" aria-label="Eliminar tarjeta">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                        </button>
-                    </div>
-                </div>
+                <!-- Los métodos de pago se cargarán aquí dinámicamente -->
             </section>
 
             <section class="info info-direcciones">
-                <div class="address-card">
-                    <div class="address-icon-container">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                        </svg>
-                    </div>
-
-                    <div class="address-info">
-                        <div class="address-title-group">
-                            <span class="address-title">Domicilio</span>
-                            <span class="address-badge">Departamento</span>
-                        </div>
-                        <p class="address-line">Av. Santa Fe 5678</p>
-                        <p class="address-line">Buenos Aires, CABA C1425</p>
-                        <p class="address-line">Argentina</p>
-                    </div>
-
-                    <div class="address-actions">
-                        <button class="btn btn-icon" aria-label="Editar dirección">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                        </button>
-                        <button class="btn btn-icon" aria-label="Eliminar dirección">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                        </button>
-                    </div>
-                </div>
+                <!-- Las direcciones se cargarán aquí dinámicamente -->
             </section>
 
             <section class="info info-soporte">

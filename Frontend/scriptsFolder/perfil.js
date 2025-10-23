@@ -1,8 +1,56 @@
 // Importar la función de logout para poder usarla
 import { logoutUser } from './api/api_auth.js';
+// Importar la nueva función para obtener los datos del perfil
+import { obtenerMiPerfil } from './api/api_usuarios.js'; // Obtiene PerfilDTO
+import { eliminarFavorito as eliminarFavoritoAPI } from './api/api_favoritos.js'; // API para eliminar favoritos
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Seleccionar todos los enlaces de navegación con la clase 'nav-link'
+    // --- Lógica de Carga de Datos del Perfil ---
+    async function cargarDatosPerfil() {
+        try {
+            const usuario = await obtenerMiPerfil();
+
+            // 1. Rellenar los campos del perfil con los datos reales del usuario
+            // Header principal
+            document.querySelector('.user-profile .user-name').textContent = `${usuario.nombre} ${usuario.apellido}`;
+            document.querySelector('.user-profile .user-email').textContent = usuario.email; // Este selector es correcto para el header.
+            // Sidebar
+            document.querySelector('.sidebar .user-summary .user-name').textContent = `${usuario.nombre} ${usuario.apellido}`;
+            // Contenido principal
+            document.querySelector('.miniperfil-header .user-name').textContent = `${usuario.nombre} ${usuario.apellido}`;
+            document.querySelector('.perfil-detalles li:nth-child(1) p').textContent = `${usuario.nombre} ${usuario.apellido}`;
+            document.querySelector('.perfil-detalles li:nth-child(2) p').textContent = usuario.email;
+            
+            // Formatear y mostrar la fecha de registro
+            const fechaRegistro = new Date(usuario.fechaRegistro).toLocaleDateString('es-ES');
+            document.querySelector('.perfil-detalles li:nth-child(4) p').textContent = fechaRegistro;
+
+            // 1.1 Rellenar las estadísticas de la barra lateral
+            const totalGastado = usuario.ventas.reduce((acc, venta) => acc + venta.total, 0);
+            const pedidosActivos = usuario.ventas.filter(v => v.estado !== 'ENTREGADO' && v.estado !== 'CANCELADO').length;
+
+            document.getElementById('stat-total-gastado').textContent = totalGastado.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+            document.getElementById('stat-pedidos-activos').textContent = pedidosActivos;
+            const favoritosCount = usuario.favoritos.length;
+            const statFavoritosLink = document.getElementById('stat-favoritos');
+            statFavoritosLink.textContent = `${favoritosCount} producto${favoritosCount !== 1 ? 's' : ''}`;
+
+            // 2. Renderizar el historial de compras
+            mostrarHistorial(usuario.ventas);
+
+            // 3. Renderizar la lista de favoritos
+            mostrarFavoritos(usuario.favoritos);
+
+            // 4. Renderizar las direcciones
+            mostrarDirecciones(usuario.domicilios);
+
+        } catch (error) {
+            console.error("Error al cargar los datos del perfil:", error);
+            alert("No se pudieron cargar los datos del perfil. Serás redirigido al inicio.");
+            window.location.href = 'index.html';
+        }
+    }
+
     const navLinks = document.querySelectorAll('.nav-link');
     // 2. Seleccionar todos los contenedores de contenido con la clase 'info'
     const contentSections = document.querySelectorAll('.info');
@@ -63,71 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
             firstContent.classList.add('active-content');
         }
     }
-});
 
+    // --- Ejecutar la carga de datos al iniciar la página ---
+    cargarDatosPerfil(); // Esta función ahora carga todo
 
-// Array para almacenar los productos favoritos
-let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
-
-// Función para generar un ID único para el producto basado en sus características
-function generarIdProducto(producto) {
-    return btoa(producto.titulo + producto.precio).replace(/[^a-zA-Z0-9]/g, '');
-}
-
-// Función para agregar un producto a favoritos
-function agregarFavorito(event) {
-    const card = event.target.closest('.card');
-    if (!card) return;
-
-    const titulo = card.querySelector('.Titulo').textContent;
-    const precio = card.querySelector('.Precio').textContent;
-    const imagen = card.querySelector('.Imagen_Producto').src;
-    const marca = card.querySelector('.content')?.querySelector('h3')?.textContent || 'Sin marca';
-    const rating = card.querySelector('.rating')?.textContent || '0/5';
-
-    const producto = {
-        titulo,
-        precio,
-        imagen,
-        marca,
-        rating,
-        fechaAgregado: new Date().toLocaleDateString()
-    };
-
-    // Generar ID único para el producto
-    producto.id = generarIdProducto(producto);
-
-    // Verificar si el producto ya está en favoritos
-    const yaExiste = favoritos.some(item => item.id === producto.id);
-    
-    if (!yaExiste) {
-        // Agregar a favoritos si no existe
-        favoritos.push(producto);
-        // Guardar en localStorage
-        localStorage.setItem('favoritos', JSON.stringify(favoritos));
-        // Mostrar mensaje de éxito
-        alert('Producto agregado a favoritos');
-        // Actualizar la vista de favoritos si estamos en la página de perfil
-        mostrarFavoritos();
-    } else {
-        // Mostrar mensaje si ya existe
-        alert('Este producto ya está en favoritos');
-    }
-}
-
-// Función para eliminar un producto de favoritos
-function eliminarFavorito(productoId) {
-    // Elimina el producto por ID y actualiza el array y localStorage
-    favoritos = favoritos.filter(item => item.id !== productoId);
-    localStorage.setItem('favoritos', JSON.stringify(favoritos));
-    // Permite volver a agregar el producto correctamente
-    mostrarFavoritos();
-    // Opcional: mostrar mensaje de confirmación
-    // alert('Producto eliminado de favoritos');
-}
-
-// Función para mostrar los productos favoritos
-function mostrarFavoritos() {
+    // --- Lógica para mostrar los productos favoritos ---
+    function mostrarFavoritos(favoritos) {
     const contenedorFavoritos = document.querySelector('.info-fav .product-list');
     if (!contenedorFavoritos) return;
 
@@ -140,27 +129,25 @@ function mostrarFavoritos() {
 
     favoritos.forEach(producto => {
         const productoElement = document.createElement('div');
-        productoElement.className = 'product-card';
+        productoElement.className = 'product-card-fav'; // Usamos una clase específica para evitar conflictos
         productoElement.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.titulo}" class="product-image">
+            <img src="${producto.producto.productoImagenes?.[0]?.imagen.url || 'https://via.placeholder.com/150'}" alt="${producto.producto.nombre}" class="product-image">
             
             <div class="product-details">
-                <p class="product-brand top-brand">${producto.marca}</p>
+                <p class="product-brand top-brand">${producto.producto.categoria || 'Sin Marca'}</p>
                 
                 <div class="rating">
                     <span class="rating-stars">★★★★★</span>
-                    <span class="rating-value">${producto.rating}</span>
+                    <!-- El rating no viene en el DTO de favoritos, se puede añadir en el futuro -->
                 </div>
                 
                 <div class="price-section">
-                    <span class="current-price">${producto.precio}</span>
+                    <span class="current-price">$${producto.producto.precio.toLocaleString('es-AR')}</span>
                 </div>
-                
-                <p class="added-date">Agregado el ${producto.fechaAgregado}</p>
 
                 <div class="product-title-group bottom-title">
-                    <h3 class="product-title">${producto.titulo}</h3>
-                    <button class="remove-btn" onclick="eliminarFavorito('${producto.id}')" aria-label="Eliminar producto">
+                    <h3 class="product-title">${producto.producto.nombre}</h3>
+                    <button class="remove-btn" data-product-id="${producto.producto.id}" aria-label="Eliminar producto">
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
                             <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/>
                         </svg>
@@ -172,45 +159,106 @@ function mostrarFavoritos() {
         `;
         contenedorFavoritos.appendChild(productoElement);
     });
-}
 
-// Agregar event listeners cuando el DOM esté cargado
-document.addEventListener('DOMContentLoaded', function() {
-    // Agregar listeners a todos los botones de favoritos
-    const botonesFavoritos = document.querySelectorAll('.btn-favorite');
-
-    botonesFavoritos.forEach(boton => {
-        boton.addEventListener('click', function(e) {
-            // 1. Verificar si el usuario está logueado
-            const token = localStorage.getItem('jwt_token');
-
-            if (!token) {
-                // 2. Si no está logueado, mostrar el modal de login y detener la ejecución
-                alert('Debes iniciar sesión para agregar productos a favoritos.');
-                toggleLoginModal(); // Esta función está en funciones.js y abre el modal
-                return; // Detiene el resto de la función
+    // Añadir listeners a los botones de eliminar recién creados
+    contenedorFavoritos.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            const productoId = e.currentTarget.dataset.productId;
+            if (confirm('¿Estás seguro de que quieres eliminar este producto de tus favoritos?')) {
+                try {
+                    await eliminarFavoritoAPI(productoId);
+                    alert('Producto eliminado de favoritos.');
+                    cargarDatosPerfil(); // Recargar todo el perfil
+                } catch (error) {
+                    alert('Error al eliminar el favorito: ' + error.message);
+                }
             }
-
-            // 3. Si está logueado, proceder con la animación y la lógica para agregar a favoritos
-            // Animación visual
-            boton.classList.remove('btn-animate');
-            void boton.offsetWidth; // reflow para reiniciar animación
-            boton.classList.add('btn-animate');
-            agregarFavorito(e);
         });
     });
+    }
 
-    // Mostrar los productos favoritos si estamos en la página de perfil
-    mostrarFavoritos();
+    // --- Lógica para mostrar el historial de compras ---
+    function mostrarHistorial(ventas) {
+        const contenedorHistorial = document.querySelector('.info-historial');
+        if (!contenedorHistorial) return;
+
+        contenedorHistorial.innerHTML = '';
+
+        if (ventas.length === 0) {
+            contenedorHistorial.innerHTML = '<div class="no-favorites"><p>No tienes compras en tu historial.</p></div>';
+            return;
+        }
+
+        ventas.forEach(venta => {
+            const ventaCard = document.createElement('div');
+            ventaCard.className = 'order-card';
+            const fecha = new Date(venta.fechaVenta).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+            const total = venta.total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+
+            ventaCard.innerHTML = `
+                <div class="order-header">
+                    <div class="order-info">
+                        <h3 class="order-id">Pedido #${venta.id}</h3>
+                        <p class="order-date">${fecha}</p>
+                    </div>
+                    <div class="status-badge ${venta.estado.toLowerCase()}">
+                        ${venta.estado}
+                    </div>
+                </div>
+                <div class="order-summary">
+                    <p class="summary-label">Total:</p>
+                    <p class="summary-value">${total}</p>
+                </div>
+                <div class="order-products">
+                    <p class="products-label">Productos (${venta.productos.length}):</p>
+                </div>
+                <div class="order-actions">
+                    <button class="btn btn-details">Ver detalles</button>
+                </div>
+            `;
+            contenedorHistorial.appendChild(ventaCard);
+        });
+    }
+
+    // --- Lógica para mostrar las direcciones ---
+    function mostrarDirecciones(domicilios) {
+        const contenedorDirecciones = document.querySelector('.info-direcciones');
+        if (!contenedorDirecciones) return;
+
+        contenedorDirecciones.innerHTML = '';
+
+        if (domicilios.length === 0) {
+            contenedorDirecciones.innerHTML = '<div class="no-favorites"><p>No tienes direcciones guardadas.</p></div>';
+            return;
+        }
+
+        domicilios.forEach(domicilio => {
+            const domicilioCard = document.createElement('div');
+            domicilioCard.className = 'address-card';
+            domicilioCard.innerHTML = `
+                <div class="address-icon-container">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
+                <div class="address-info">
+                    <div class="address-title-group">
+                        <span class="address-title">Domicilio</span>
+                    </div>
+                    <p class="address-line">${domicilio.direccion}</p>
+                    <p class="address-line">Código Postal: ${domicilio.codigo_area}</p>
+                </div>
+            `;
+            contenedorDirecciones.appendChild(domicilioCard);
+        });
+    }
 
     // --- Lógica para el botón de Cerrar Sesión ---
     const logoutLink = document.querySelector('.logout-link');
     if (logoutLink) {
         logoutLink.addEventListener('click', (e) => {
             e.preventDefault(); // Evita que el enlace navegue a "/logout"
-            logoutUser(); // Limpia el token y los roles del localStorage
+            logoutUser();
             alert('Has cerrado sesión.');
-            window.location.href = 'index.html'; // Redirige a la página de inicio
+            window.location.href = 'index.html';
         });
     }
 });

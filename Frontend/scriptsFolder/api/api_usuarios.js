@@ -1,31 +1,19 @@
-// c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\api\api_usuarios.js
-//
-// Funciones de ayuda para consumir los endpoints de usuarios desde el panel de administración.
-// Se apoyan en apiClient.js para resolver la URL base, adjuntar el token y manejar errores.
+// c:/Users/windows/Desktop/PROYECTO_YACOMO/Frontend/scriptsFolder/api/api_usuarios.js
 
 import callApi from './apiClient.js';
 
-export const getAllUsers = () => {
-    // GET /api/usuarios (requiere rol ADMIN)
-    return callApi('/usuarios', 'GET', null, true);
+/**
+ * Obtiene los datos del perfil del usuario actualmente autenticado.
+ * Requiere que el usuario esté logueado (token JWT válido).
+ * @returns {Promise<object>} - Los datos del perfil del usuario.
+ */
+export const obtenerMiPerfil = () => {
+    // Esta función asume que tienes un endpoint en el backend en GET /api/usuarios/me
+    // que devuelve los datos del usuario autenticado a través de su token.
+    return callApi('/usuarios/me', 'GET', null, true); // El 'true' final indica que es una ruta protegida.
 };
 
-export const getUserById = (id) => {
-    // GET /api/usuarios/{id}
-    return callApi(`/usuarios/${id}`, 'GET', null, true);
-};
-
-export const createUser = (userData) => {
-    // POST /api/usuarios
-    return callApi('/usuarios', 'POST', userData, true);
-};
-
-export const updateUser = (id, userData) => {
-    // PUT /api/usuarios/{id}
-    return callApi(`/usuarios/${id}`, 'PUT', userData, true);
-};
-
-export const deleteUser = (id) => {
-    // DELETE /api/usuarios/{id}
-    return callApi(`/usuarios/${id}`, 'DELETE', null, true);
-};
+// Aquí podrías agregar más funciones de admin en el futuro, como:
+// export const getAllUsers = () => callApi('/usuarios', 'GET', null, true);
+// export const updateUser = (id, data) => callApi(`/usuarios/${id}`, 'PUT', data, true);
+// export const deleteUser = (id) => callApi(`/usuarios/${id}`, 'DELETE', null, true);

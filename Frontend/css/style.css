@@ -295,16 +295,37 @@ body {
     position: relative;
 }
 
+/* Desplaza el contenido por debajo del header fijo (70px) */
+body { padding-top: 70px; }
+
+/* Proporción global del carrusel (basada en la imagen 1170x400) */
+:root { --carousel-ratio: 117 / 40; }
+
 
 /* Contenedor principal del carrusel */
 .carousel-container {
     position: relative;
-    width: 100vw;
-    height: 35vw;
+    width: 100%;
+    /* Mantener proporción constante usando aspect-ratio */
+    aspect-ratio: var(--carousel-ratio, 117 / 40);
+    height: auto;
     overflow: hidden;
     margin: 0;
     padding: 0;
     top: 0;
+}
+
+/* Hacer el carrusel más alto en pantallas pequeñas
+   ajustando solo la proporción vía variable */
+@media (max-width: 992px) {
+  /* +50% altura aprox respecto a 16/9 */
+  :root { --carousel-ratio: 6 / 5; }
+  .carousel-container { min-height: 42vh; }
+}
+@media (max-width: 520px) {
+  /* +50% altura aprox respecto a 4/3 */
+  :root { --carousel-ratio: 8 / 9; }
+  .carousel-container { min-height: 55vh; }
 }
 
 
@@ -536,17 +557,22 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center; /* 🔹 centra el h4 dentro de la sección */
 }
 
 .calidades h4 {
-    margin-top: 5rem;
-    font-family: Inter;
-    font-size: small;
-    color: #0051fff6;
-    background: linear-gradient(90deg,#95cfff67,#d4b4ff85);
-    border-radius: 20px;
-    padding: 0.5% 2%;
+  display: inline-block;
+  margin-top: 5rem;
+  font-family: Inter;
+  font-size: small;
+  color: #0051fff6;
+  background: linear-gradient(90deg, #95cfff67, #d4b4ff85);
+  border-radius: 20px;
+  padding: 6px 18px;
+  /* 🔹 centramos el h4 dentro del contenedor */
+  text-align: center;
 }
+
 
 .calidades h2 {
     margin: 0.8rem;
@@ -563,6 +589,12 @@ body {
     text-align: center;
 }
 
+/* Centra el texto pero deja el h4 ajustado al contenido */
+.calidades h2 { 
+  text-align: center; 
+  width: 100%; 
+}
+
 .card {
   text-align: center;
   padding: 25px 15px;
@@ -576,8 +608,15 @@ body {
 }
 
 .card-list {
-    display: flex;
-    list-style: none;
+  /* 4 ítems en la misma fila (desktop) */
+  display: grid;
+  list-style: none;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 1.5rem;
+  width: min(1200px, 95%);
+  margin: 2rem auto 0; /* centrado del contenedor */
+  justify-content: center; /* centra las columnas si sobra espacio */
+  justify-items: stretch;
 }
 
 /* Icono circular */
@@ -594,8 +633,8 @@ body {
 }
 
 .card-list li {
-    font-family: Inter;
-    width: 16.2rem;
+  font-family: Inter;
+  width: 100%;
 }
 
 .card-list {
@@ -603,6 +642,20 @@ body {
     margin-top: 2rem;
     gap: 1.5rem;
 }
+
+/* Evitar que las tarjetas de "Calidad" hereden alturas mínimas de estilos de productos */
+.calidades .card {
+  min-height: 0 !important; /* elimina 420px heredados de productos */
+  height: auto;
+  padding: 16px 14px;
+  text-align: center;            /* centra texto */
+  display: flex;                 /* centra contenido interior */
+  flex-direction: column;
+  align-items: center;
+}
+
+.calidades .card h3 { margin: 0.25rem 0 0.15rem; }
+.calidades .card p { margin: 0; }
 
 
 /* Estilos por categoría */
@@ -674,12 +727,24 @@ body {
     font-size: smaller;
 }
 
+/* Asegura estilos propios de las tarjetas de "Calidades" frente a estilos de productos */
+.calidades .card {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border-radius: 15px;
+}
+.calidades .card.profesional { background: #faf6ff; border: 1px solid #d9caff; }
+.calidades .card.alta        { background: #fff6f6; border: 1px solid #f8b5b5; }
+.calidades .card.media       { background: #f3f8ff; border: 1px solid #b5d3f8; }
+.calidades .card.baja        { background: #f6fff6; border: 1px solid #a8e6a2; }
+
 
 
 .custom-box {
-    margin: 5rem;
-    font-family: Inter;
+  /* centrado y responsive */
+  margin: 5rem auto;
+  font-family: Inter;
   max-width: 900px;
+  width: min(900px, 95%);
   text-align: center;
   padding: 5rem 3rem;
   border-radius: 25px;
@@ -734,11 +799,22 @@ body {
 
 /* ------------------------------------ */
 .Catalogo {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.5rem;
-    width: 75%;
-    
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr)); /* 4 productos por fila */
+  gap: 1.5rem;
+  width: min(1200px, 95%);
+  margin: 2rem auto;            /* centrar todo el bloque */
+  justify-content: center;      /* centrar las columnas si sobra espacio */
+}
+
+/* Responsive: 2 columnas en tablets, 1 en móviles */
+@media (max-width: 992px) {
+  .card-list { grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+  .Catalogo  { grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+}
+@media (max-width: 600px) {
+  .card-list { grid-template-columns: 1fr; }
+  .Catalogo  { grid-template-columns: 1fr; }
 }
 
 .card_producto {
@@ -1058,3 +1134,44 @@ footer {
 .Footer_Container h2 a:hover {
     color: #00c6ff;
 }
+
+/* ========================= */
+/* Ajustes responsive extra  */
+/* ========================= */
+@media (max-width: 992px) {
+  /* Mantener info del carrusel visible en mobile */
+  
+  .carousel-caption { padding: 1rem; }
+  .carousel-caption h2 { display: block !important; font-size: 1.2rem; margin-bottom: .25rem; }
+  .carousel-caption p  { display: block !important; font-size: .95rem; }
+  /* Ajustar tarjetas de "¿Por qué elegir Script-G?" */
+  .all_cards { gap: 1.2rem; padding: 0 1rem; }
+}
+
+/* ============================= */
+/* Footer - Responsive simplificado */
+/* A partir de cierto ancho, ocultar el logo y
+   reorganizar para mostrar solo Redes + Términos */
+@media (max-width: 820px) {
+  .Footer_Container {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 0;
+  }
+
+  /* Oculta el bloque del logo cuando no entra completo */
+  .Footer_Container .Logo_Pagina { display: none; }
+
+  /* Quita las líneas divisorias en mobile */
+  .Footer_Container::before,
+  .Footer_Container::after,
+  .Footer_Container>*+*::before { display: none; content: none; }
+
+  /* Centrado de las redes y términos */
+  .Redes_Sociales { text-align: center; }
+  .Redes_Sociales h2 { margin-bottom: 8px; }
+  .listas-redes { flex-wrap: wrap; gap: 20px; }
+  .Footer_Container h2 { text-align: center; }
+}
+

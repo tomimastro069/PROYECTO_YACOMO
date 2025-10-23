@@ -1,8 +1,13 @@
 // c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\admin.js
 
-import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from './api/api_productos.js';
-import { getAllUsers, updateUser, deleteUser } from './api/api_usuarios.js'; // Asumiendo que estos endpoints existen
-import { getAllSales } from './api/api_ventas.js'; // Asumiendo que este endpoint existe
+import { 
+    obtenerProductos as getProducts, 
+    obtenerProductoPorId as getProductById, 
+    crearProducto as createProduct, 
+    actualizarProducto as updateProduct, 
+    eliminarProducto 
+} from './api/api_productos.js';
+
 import { logoutUser } from './api/api_auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -170,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const productId = event.target.dataset.id;
                 if (confirm(`¿Estás seguro de que quieres eliminar el producto con ID ${productId}?`)) {
                     try {
-                        await deleteProduct(productId);
+                        await eliminarProducto(productId);
                         alert('Producto eliminado con éxito.');
                         loadProducts(); // Recargar la lista de productos
                     } catch (error) {
@@ -225,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (confirm(`¿Estás seguro de que quieres eliminar el producto con ID ${idToDelete}?`)) {
                 try {
-                    await deleteProduct(idToDelete);
+                    await eliminarProducto(idToDelete);
                     alert('Producto eliminado con éxito.');
                     productDeleteForm.reset();
                     loadProducts(); // Recargar la lista

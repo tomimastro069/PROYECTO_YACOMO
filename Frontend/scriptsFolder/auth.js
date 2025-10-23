@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('btn-logout').addEventListener('click', () => {
                 logoutUser();
                 alert('Has cerrado sesión.');
-                window.location.reload(); // Recargamos para restaurar la UI
+                window.location.href = 'index.html'; // Redirigimos al inicio
             });
         }
     }

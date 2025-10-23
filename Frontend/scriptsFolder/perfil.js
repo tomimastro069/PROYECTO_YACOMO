@@ -1,3 +1,6 @@
+// Importar la función de logout para poder usarla
+import { logoutUser } from './api/api_auth.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Seleccionar todos los enlaces de navegación con la clase 'nav-link'
     const navLinks = document.querySelectorAll('.nav-link');
@@ -199,4 +202,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mostrar los productos favoritos si estamos en la página de perfil
     mostrarFavoritos();
+
+    // --- Lógica para el botón de Cerrar Sesión ---
+    const logoutLink = document.querySelector('.logout-link');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita que el enlace navegue a "/logout"
+            logoutUser(); // Limpia el token y los roles del localStorage
+            alert('Has cerrado sesión.');
+            window.location.href = 'index.html'; // Redirige a la página de inicio
+        });
+    }
 });

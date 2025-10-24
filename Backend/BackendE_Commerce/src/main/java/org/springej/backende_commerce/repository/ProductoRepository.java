@@ -5,9 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long>,
         RevisionRepository<Producto, Long, Integer> {
+    List<Producto> findByNombreContainingIgnoreCase(String nombre);
+
 
 //    // Buscar por nombre parcial (ignorando mayúsculas/minúsculas)
 //    List<Producto> findByNombreContainingIgnoreCase(String nombre);

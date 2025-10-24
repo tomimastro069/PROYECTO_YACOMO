@@ -39,6 +39,7 @@ public class SecurityConfig {
                 // Rutas públicas para autenticación, documentación de API y visualización de productos
                 .requestMatchers("/api/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/productos", "/api/productos/**").permitAll()
+                .requestMatchers("/api/chat", "/api/price").permitAll()
 
                 // Rutas públicas para el flujo de pago de Mercado Pago
                 .requestMatchers("/api/payments/webhook", "/api/payments/success", "/api/payments/failure", "/api/payments/pending").permitAll()

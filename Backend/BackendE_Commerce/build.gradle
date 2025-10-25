@@ -47,6 +47,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Movido aquí para mejor organización
     implementation 'com.cloudinary:cloudinary-http44:1.39.0'
     implementation 'org.springframework.data:spring-data-envers'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 
     // Conector MySQL, versión gestionada por Spring Boot (ya está como runtimeOnly 'com.mysql:mysql-connector-j')
 }

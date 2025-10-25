@@ -1,14 +1,15 @@
 // Array para almacenar los productos del carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 // Keep the previous count to trigger a small "pop" animation when the count changes
-let previousCartCount = 0;
+let previousCartCount = getCartProductCount(); // Inicializar con el conteo actual
 
 // Función para renderizar el carrito en el DOM
-function renderizarCarrito() {
+export function renderizarCarrito() {
   const carritoBody = document.querySelector('.ts-cart__body');
   if (!carritoBody) return;
   carritoBody.innerHTML = '';
   let totalCantidad = 0;
+  let subtotal = 0; // Para calcular el subtotal
   carrito.forEach(producto => {
     totalCantidad += producto.cantidad || 1;
     const item = document.createElement('article');
@@ -16,16 +17,16 @@ function renderizarCarrito() {
     // expose the product id on the DOM element so delete/qty handlers can find it reliably
     item.dataset.id = producto.id;
     item.innerHTML = `
-      <img class="ts-item__img" src="${producto.imagen}" alt="${producto.titulo}">
+      <img class="ts-item__img" src="${producto.imagen || 'https://via.placeholder.com/100'}" alt="${producto.titulo}">
       <div class="ts-item__main">
         <div class="ts-item__title">${producto.titulo}</div>
         <div class="ts-item__brand">${producto.marca || ''}</div>
         <div class="ts-item__row">
-          <strong class="ts-price">${producto.precio}</strong>
+          <strong class="ts-price">${producto.precio}</strong> <!-- Precio ya formateado -->
           <div class="ts-qty">
-            <button class="ts-qty__btn" aria-label="Restar">−</button>
+            <button class="ts-qty__btn decrease" aria-label="Restar">−</button>
             <span class="ts-qty__num">${producto.cantidad || 1}</span>
-            <button class="ts-qty__btn" aria-label="Sumar">+</button>
+            <button class="ts-qty__btn increase" aria-label="Sumar">+</button>
           </div>
         </div>
       </div>
@@ -34,48 +35,45 @@ function renderizarCarrito() {
       </button>
     `;
     carritoBody.appendChild(item);
+
+    // Sumar al subtotal (convertir el precio a número, quitando el símbolo y el separador de miles)
+    const precioNumerico = parseFloat(producto.precio.replace(/[^0-9,-]+/g, "").replace(",", "."));
+    subtotal += precioNumerico * (producto.cantidad || 1);
   });
+
   // Actualizar el mensaje de cantidad en la parte superior
   const countMsg = document.querySelector('.ts-cart__count');
   if (countMsg) {
     countMsg.textContent = `${totalCantidad} producto${totalCantidad === 1 ? '' : 's'}`;
   }
-  // Update the small cart badge in the header/nav when the cart is re-rendered
-  updateCartCount();
+
+  // Actualizar el subtotal y el total en el footer
+  const subtotalSpan = document.querySelector('.ts-summary__row span:first-child');
+  const subtotalStrong = document.querySelector('.ts-summary__row strong');
+  const totalPriceStrong = document.querySelector('.ts-total-price');
+
+  if (subtotalSpan) subtotalSpan.textContent = `Subtotal (${totalCantidad} item${totalCantidad === 1 ? '' : 's'})`;
+  if (subtotalStrong) subtotalStrong.textContent = `$${subtotal.toLocaleString('es-AR')}`;
+  if (totalPriceStrong) totalPriceStrong.textContent = `$${subtotal.toLocaleString('es-AR')}`; // Asumiendo que el envío es gratis o ya incluido
+
+  updateCartCount(); // Actualizar el badge del carrito en el header/nav
 }
 
 // Función para agregar un producto al carrito
-
-function agregarAlCarrito(event) {
+export function agregarAlCarrito(event, productData) { // Ahora recibe el objeto productData
   const boton = event.target.closest('.btn-cart');
   if (boton) {
     boton.classList.remove('btn-animate');
     void boton.offsetWidth;
     boton.classList.add('btn-animate');
   }
-  const card = event.target.closest('.card, .card_producto');
-  if (!card) return;
-  const titulo = card.querySelector('.Titulo')?.textContent || card.querySelector('.ts-item__title')?.textContent;
-  const precio = card.querySelector('.Precio')?.textContent || card.querySelector('.ts-price')?.textContent;
-  const imagen = card.querySelector('.Imagen_Producto, .ts-item__img')?.src;
-  const marca = card.querySelector('.content h3')?.textContent || '';
-  // Build a stable id for the product. Prefer a normalized title when available
-  const rawTitulo = (titulo || '').trim();
-  const rawImagen = imagen || '';
-  let id;
-  if (rawTitulo) {
-    // normalize title to a slug-like string
-    id = rawTitulo.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
-  } else if (rawImagen) {
-    // fallback to image filename
-    try {
-      id = rawImagen.split('/').pop();
-    } catch (e) {
-      id = String(Date.now());
-    }
-  } else {
-    id = String(Date.now());
-  }
+
+  // Usar los datos del objeto productData directamente
+  const id = productData.id;
+  const titulo = productData.nombre;
+  const precio = `$${productData.precio.toLocaleString('es-AR')}`; // Formatear el precio para mostrar
+  const imagen = productData.imagenes?.[0]?.url || 'https://via.placeholder.com/200'; // Usar la primera imagen o un placeholder
+  const marca = productData.categoria || ''; // Asumiendo que la categoría puede actuar como marca
 
   // Verificar si el producto ya está en el carrito
   let producto = carrito.find(item => item.id === id);
@@ -89,48 +87,76 @@ function agregarAlCarrito(event) {
   renderizarCarrito();
 }
 
-// Delegación de eventos para agregar al carrito
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.btn-cart').forEach(boton => {
-    boton.addEventListener('click', agregarAlCarrito);
-  });
-  renderizarCarrito();
-  // Ensure badge reflects current storage on page load
-  updateCartCount();
-  // ...existing code...
-});
+// La inicialización del carrito y el contador se hará en el script de productos.html
+// o en el script principal de la página donde se use el carrito.
 
-function toggleCart() {
+export function toggleCart() {
   document.getElementById("cart").classList.toggle("open");
 }
 
-// Lógica para eliminar productos del carrito
+// --- Lógica para eliminar/ajustar cantidad de productos en el carrito ---
+
+// Lógica para interactuar con el carrito (cerrar, eliminar, ajustar cantidad)
 document.addEventListener('DOMContentLoaded', function() {
-  // Delegación de eventos para el botón eliminar en el carrito
-  const cartBody = document.querySelector('.ts-cart__body');
+  const cart = document.getElementById('cart');
+  if (!cart) return;
+
+  // 1. Lógica para cerrar el carrito
+  const closeButton = cart.querySelector('.ts-x');
+  const overlay = cart.querySelector('.ts-cart__overlay');
+
+  const closeCart = (e) => {
+    e.preventDefault();
+    toggleCart();
+  };
+
+  if (closeButton) closeButton.addEventListener('click', closeCart);
+  if (overlay) overlay.addEventListener('click', closeCart);
+
+  // 2. Delegación de eventos para acciones dentro del carrito (eliminar, cantidad)
+  const cartBody = cart.querySelector('.ts-cart__body');
   if (cartBody) {
     cartBody.addEventListener('click', function(e) {
       if (e.target.closest('.ts-remove')) {
         const item = e.target.closest('.ts-item');
         if (item) {
           // Use the data-id set on the rendered cart item to identify the product
-          const itemId = item.dataset.id;
-          const index = carrito.findIndex(p => p.id === itemId);
-          if (index !== -1) {
-            carrito.splice(index, 1);
-            localStorage.setItem('carrito', JSON.stringify(carrito));
+          const itemId = item.dataset.id; // Asegúrate de que el ID sea una cadena si lo comparas con cadenas
+          let productoIndex = carrito.findIndex(p => String(p.id) === itemId);
+
+          if (e.target.closest('.ts-remove')) {
+            if (productoIndex !== -1) {
+              carrito.splice(productoIndex, 1);
+              localStorage.setItem('carrito', JSON.stringify(carrito));
+              renderizarCarrito();
+            }
+          } else if (e.target.closest('.ts-qty__btn.increase')) {
+            if (productoIndex !== -1) {
+              carrito[productoIndex].cantidad = (carrito[productoIndex].cantidad || 1) + 1;
+              localStorage.setItem('carrito', JSON.stringify(carrito));
+              renderizarCarrito();
+            }
+          } else if (e.target.closest('.ts-qty__btn.decrease')) {
+            if (productoIndex !== -1) {
+              if (carrito[productoIndex].cantidad > 1) {
+                carrito[productoIndex].cantidad--;
+              } else {
+                // Si la cantidad es 1 y se presiona decrementar, eliminar el producto
+                carrito.splice(productoIndex, 1);
+              }
+              localStorage.setItem('carrito', JSON.stringify(carrito));
+              renderizarCarrito();
+            }
           }
-          // Actualizar la vista y el contador en tiempo real
-          renderizarCarrito();
         }
       }
     });
   }
 });
-function updateCartCount() {
+
+export function updateCartCount() {
   // Compute current total of items in the cart
   const count = getCartProductCount();
-
   // Format the display: cap at 9+
   const display = count > 9 ? '9+' : String(count);
 
@@ -155,8 +181,7 @@ function updateCartCount() {
   previousCartCount = count;
 }
 
-// Helper: reads the cart (from memory or localStorage) and sums quantities
-function getCartProductCount() {
+export function getCartProductCount() {
   try {
     // prefer live `carrito` array if available
     const source = Array.isArray(carrito) ? carrito : JSON.parse(localStorage.getItem('carrito')) || [];
@@ -165,75 +190,4 @@ function getCartProductCount() {
     return 0;
   }
 }
-// Función global para alternar la visibilidad del modal de login
-function toggleLoginModal() {
-    const modal = document.getElementById('loginModal');
-    if (modal) {
-        modal.classList.toggle('modal-cerrado');
-    }
-}
-
-// Inicialización del modal de login
-document.addEventListener('DOMContentLoaded', () => {
-    // Login Modal
-    const botonLogin = document.getElementById('btn-login');
-    const loginModal = document.getElementById('loginModal');
-    const botonCerrarLogin = loginModal?.querySelector('.cerrar-modal');
-
-    // Signup Modal
-    const signupModal = document.getElementById('signupModal');
-    const btnSignup = document.querySelector('.button2');
-    const botonCerrarSignup = signupModal?.querySelector('.cerrar-modal');
-    const switchToLogin = document.getElementById('switchToLogin');
-
-    // Login Modal Events
-    if (botonLogin) {
-        botonLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleLoginModal();
-        });
-    }
-
-    if (botonCerrarLogin) {
-        botonCerrarLogin.addEventListener('click', toggleLoginModal);
-    }
-
-    if (loginModal) {
-        loginModal.addEventListener('click', (evento) => {
-            if (evento.target === loginModal) {
-                loginModal.classList.add('modal-cerrado');
-            }
-        });
-    }
-
-    // Signup Modal Events
-    if (btnSignup) {
-        btnSignup.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.classList.add('modal-cerrado');
-            signupModal.classList.remove('modal-cerrado');
-        });
-    }
-
-    if (botonCerrarSignup) {
-        botonCerrarSignup.addEventListener('click', () => {
-            signupModal.classList.add('modal-cerrado');
-        });
-    }
-
-    if (switchToLogin) {
-        switchToLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            signupModal.classList.add('modal-cerrado');
-            loginModal.classList.remove('modal-cerrado');
-        });
-    }
-
-    if (signupModal) {
-        signupModal.addEventListener('click', (e) => {
-            if (e.target === signupModal) {
-                signupModal.classList.add('modal-cerrado');
-            }
-        });
-    }
-});
+// La lógica de los modales de login/registro se ha movido a scriptsFolder/modalHandler.js

@@ -1,6 +1,7 @@
 // c:/Users/windows/Desktop/PROYECTO_YACOMO/Frontend/scriptsFolder/auth.js
 
 import { iniciarSesion, registrarUsuario, cerrarSesion } from './api/api_auth.js';
+import { toggleLoginModal } from './modalHandler.js'; // Importar desde el nuevo manejador de modales
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginModal = document.getElementById('loginModal');
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('user_roles', JSON.stringify(data.roles));
                     
                     alert('¡Inicio de sesión exitoso!');
-                    toggleLoginModal(); // Cierra el modal de login
+                    toggleLoginModal(); // Usar la función importada
 
                     const userRoles = data.roles;
                     if (userRoles.includes('ROLE_ADMIN')) {

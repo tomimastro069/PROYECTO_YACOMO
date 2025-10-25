@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="../css/productosStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="../scriptsFolder/productos.js"></script>
-    <script src="../scriptsFolder/funciones.js"></script>
+    <script type="module" src="../scriptsFolder/modalHandler.js"></script>
+    <script type="module" src="../scriptsFolder/funciones.js"></script>
 
 </head>
 
@@ -21,46 +21,20 @@
         <header class="ts-cart__header">
             <div>
                 <h4 id="cartTitle">Carrito de Compras</h4>
-                <small class="ts-cart__count">1 producto</small>
+                <small class="ts-cart__count">0 productos</small>
             </div>
             <a href="#" class="ts-x" aria-label="Cerrar">✕</a>
         </header>
 
         <div class="ts-cart__body">
-           
-            <article class="ts-item">
-                <img class="ts-item__img"
-                    src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_43863_Gabinete_HYTE_Y70_TOUCH_INFINITE_Black_Vidrio_Templado_Pantalla_Tactil_2.5K_LCD_IPS_60Hz_Inc._Cable_Riser_PCIe_4x16_USB-C_3.2_7b72188b-grn.jpg"
-                    alt="HYTE Y70 TOUCH INFINITE Black">
-
-                <div class="ts-item__main">
-                    <div class="ts-item__title">HYTE Y70 TOUCH INFINITE Black</div>
-                    <div class="ts-item__brand">HYTE</div>
-
-                    <div class="ts-item__row">
-                        <strong class="ts-price">$696.658</strong>
-
-                        <div class="ts-qty">
-                            <button class="ts-qty__btn" aria-label="Restar">−</button>
-                            <span class="ts-qty__num">1</span>
-                            <button class="ts-qty__btn" aria-label="Sumar">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="ts-remove" aria-label="Eliminar">
-                    <i class="fa-regular fa-trash-can"></i>
-                </button>
-            </article>
-
-            <!-- /tarjeta -->
+           <!-- El contenido del carrito se generará dinámicamente aquí -->
         </div>
 
         <footer class="ts-cart__footer">
             <div class="ts-summary">
                 <div class="ts-summary__row">
-                    <span>Subtotal (1 item)</span>
-                    <strong>$696.658</strong>
+                    <span>Subtotal (0 items)</span>
+                    <strong>$0</strong>
                 </div>
                 <div class="ts-summary__row">
                     <span>Envío</span>
@@ -68,7 +42,7 @@
                 </div>
                 <div class="ts-summary__total">
                     <span>Total</span>
-                    <strong class="ts-total-price">$696.658</strong>
+                    <strong class="ts-total-price">$0</strong>
                 </div>
             </div>
 
@@ -488,11 +462,11 @@
         
         <div class="menu">
             <nav>
-                <ul>
+                <ul class="main-nav-list">
                     <li><a href="../html/index.html" class="menu-btn"><i class="fa-solid fa-house"></i> Inicio</a></li>
                     <li><a href="../html/productos.html" class="menu-btn"><i class="fa-solid fa-box"></i> Productos</a></li>
                     <li>
-                        <button class="menu-btn" id="btn-login">
+                        <button class="menu-btn" id="btn-login" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" fill="currentColor"
                                 class="bi bi-person-fill" viewBox="0 0 16 16">
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
@@ -500,7 +474,7 @@
                         </button>
                     </li>
                     <li>
-                        <a href="#cart" class="menu-btn" onclick="toggleCart()">
+                        <a href="#cart" class="menu-btn" id="header-cart-button">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Carrito
                             <span id="cart-count" class="cart-notification"></span>
@@ -684,12 +658,33 @@
         </div>
     </footer>
     <script type="module">
-  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
-  import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js'; // Importar la función de favoritos
+  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js'; // Importar la función de favoritos
+  import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
+  import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js'; // Importar funciones del carrito
+  import { toggleLoginModal } from '../scriptsFolder/modalHandler.js'; // Importar la función del modal de login
 
   document.addEventListener('DOMContentLoaded', async () => {
     const contenedor = document.getElementById('catalogo-productos');
 
+    let allProducts = []; // Para almacenar todos los productos obtenidos de la API
+
+    // Adjuntar event listener para el botón del carrito en el header
+    const headerCartButton = document.getElementById('header-cart-button');
+    if (headerCartButton) {
+        headerCartButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevenir el comportamiento por defecto del ancla
+            toggleCart();
+        });
+    }
+
+    // Adjuntar event listener para el botón de login en el header
+    const headerLoginButton = document.getElementById('btn-login');
+    if (headerLoginButton) {
+        headerLoginButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleLoginModal();
+        });
+    }
     try {
       const productos = await obtenerProductos();
 
@@ -699,15 +694,16 @@
       }
 
       contenedor.innerHTML = ''; // Borra los hardcodeados
+      allProducts = productos; // Guardar los productos para la lógica del carrito
 
       productos.forEach((p) => {
         const card = document.createElement('div');
         card.classList.add('card');
         card.dataset.id = `producto-${p.id}`;
-
+        // Usar p.imagenes?.[0]?.url para la URL de la imagen
         card.innerHTML = `
           <img class="Imagen_Producto"
-               src="${p.imagenes?.[0] || 'https://via.placeholder.com/200'}"
+               src="${p.imagenes?.[0]?.url || 'https://via.placeholder.com/200'}"
                alt="${p.nombre}">
 
           <div class="content">
@@ -718,7 +714,7 @@
 
             <ul class="Especificaciones"></ul>
             <div class="actions">
-              <button class="btn-cart">Agregar al Carrito</button>
+              <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
               <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
               <a class="btn-details" href="#">Ver Detalles</a>
             </div>
@@ -742,10 +738,29 @@
         contenedor.appendChild(card);
       });
 
+      // Delegación de eventos para los botones "Agregar al Carrito"
+      contenedor.addEventListener('click', (event) => {
+        const addToCartButton = event.target.closest('.btn-cart');
+        if (addToCartButton) {
+          const productId = addToCartButton.dataset.productId;
+          // Buscar el producto completo en el array allProducts
+          const productToAdd = allProducts.find(p => String(p.id) === productId);
+          if (productToAdd) {
+            agregarAlCarrito(event, productToAdd); // Pasar el evento y el objeto de producto
+          } else {
+            console.error('Producto no encontrado para el ID:', productId);
+          }
+        }
+      });
+
     } catch (error) {
       console.error('Error al obtener productos:', error);
       contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
     }
+  });
+  // Inicializar el carrito al cargar la página para que refleje el estado de localStorage
+  document.addEventListener('DOMContentLoaded', () => {
+      renderizarCarrito();
   });
 </script>
 

@@ -1132,6 +1132,18 @@ footer {
     transition: visibility 0.3s;
 }
 
+/* Regla para hacer el carrito visible cuando tiene la clase 'open' */
+.ts-cart.open {
+    display: block;
+    visibility: visible;
+}
+
+/* Regla para el overlay cuando el carrito está abierto con la clase 'open' */
+.ts-cart.open .ts-cart__overlay {
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(2px);
+}
+
 .ts-cart:target {
     display: block;
     visibility: visible;
@@ -1164,6 +1176,12 @@ footer {
     transform: translateX(100%);
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Regla para el panel cuando el carrito está abierto con la clase 'open' */
+.ts-cart.open .ts-cart__panel {
+    transform: translateX(0);
+    opacity: 1;
 }
 
 .ts-cart:target .ts-cart__panel {

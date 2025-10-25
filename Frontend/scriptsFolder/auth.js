@@ -1,6 +1,6 @@
 // c:/Users/windows/Desktop/PROYECTO_YACOMO/Frontend/scriptsFolder/auth.js
 
-import { loginUser, registerUser, logoutUser } from './api/api_auth.js';
+import { iniciarSesion, registrarUsuario, cerrarSesion } from './api/api_auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginModal = document.getElementById('loginModal');
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 heading.textContent = 'Iniciando sesión...';
-                const data = await loginUser({ email, password });
+                const data = await iniciarSesion({ email, password });
 
                 if (data.token && data.roles) {
                     localStorage.setItem('jwt_token', data.token);
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 heading.textContent = 'Registrando...';
-                await registerUser(userData);
+                await registrarUsuario(userData);
                 alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
                 
                 // Cambia al modal de login para que el usuario pueda ingresar
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Añadimos el evento al nuevo botón de logout
             document.getElementById('btn-logout').addEventListener('click', () => {
-                logoutUser();
+                cerrarSesion();
                 alert('Has cerrado sesión.');
                 window.location.href = 'index.html'; // Redirigimos al inicio
             });

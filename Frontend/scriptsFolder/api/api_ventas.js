@@ -1,6 +1,6 @@
 // c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\api\api_ventas.js
 
-import callApi from './apiClient.js';
+import llamarApi from './apiClient.js';
 
 /**
  * ================================================================
@@ -41,7 +41,7 @@ import callApi from './apiClient.js';
  * @returns {Promise<VentaDTO[]>} - Lista de ventas propias del usuario.
  */
 export const obtenerMisCompras = async () => {
-  return await callApi('/ventas/mis-compras', 'GET', null, true);
+  return await llamarApi('/ventas/mis-compras', 'GET', null, true);
 };
 
 // =============================================================
@@ -56,7 +56,7 @@ export const obtenerMisCompras = async () => {
  * @returns {Promise<VentaDTO[]>} - Lista completa de ventas registradas.
  */
 export const obtenerTodasLasVentas = async (filtros = null) => {
-  return await callApi('/ventas', 'GET', null, true, filtros);
+  return await llamarApi('/ventas', 'GET', null, true, filtros);
 };
 
 /**
@@ -66,5 +66,5 @@ export const obtenerTodasLasVentas = async (filtros = null) => {
  * @returns {Promise<VentaDTO[]>} - Lista de ventas de ese usuario.
  */
 export const obtenerVentasPorUsuario = async (idUsuario) => {
-  return await callApi(`/ventas/usuario/${idUsuario}`, 'GET', null, true);
+  return await llamarApi(`/ventas/usuario/${idUsuario}`, 'GET', null, true);
 };

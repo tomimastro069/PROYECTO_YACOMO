@@ -685,6 +685,7 @@
     </footer>
     <script type="module">
   import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
+  import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js'; // Importar la función de favoritos
 
   document.addEventListener('DOMContentLoaded', async () => {
     const contenedor = document.getElementById('catalogo-productos');
@@ -716,14 +717,27 @@
             <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
 
             <ul class="Especificaciones"></ul>
-
             <div class="actions">
               <button class="btn-cart">Agregar al Carrito</button>
-              <button class="btn-favorite" type="button">Agregar a Favoritos</button>
+              <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
               <a class="btn-details" href="#">Ver Detalles</a>
             </div>
           </div>
         `;
+        
+        // Añadir el event listener para el botón de favoritos
+        const favoriteButton = card.querySelector('.btn-favorite');
+        if (favoriteButton) {
+            favoriteButton.addEventListener('click', async (event) => {
+                const productId = event.target.dataset.productId;
+                try {
+                    await agregarFavorito(productId);
+                    alert('Producto agregado a favoritos con éxito!');
+                } catch (error) {
+                    alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
+                }
+            });
+        }
 
         contenedor.appendChild(card);
       });

@@ -1,6 +1,6 @@
 // c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\api\api_favoritos.js
 
-import callApi from './apiClient.js';
+import llamarApi from './apiClient.js';
 
 // --- Funciones para Usuarios Autenticados (USER y ADMIN) ---
 
@@ -9,9 +9,9 @@ import callApi from './apiClient.js';
  * @param {number} productId - El ID del producto a agregar.
  * @returns {Promise<object>} - El objeto Favorito creado.
  */
-export const addFavorite = (productId) => {
+export const agregarFavorito = (productId) => {
     // Llama a POST /api/favoritos/agregar?idProducto={productId}
-    return callApi(`/favoritos/agregar?idProducto=${productId}`, 'POST', null, true);
+    return llamarApi(`/favoritos/agregar?idProducto=${productId}`, 'POST', null, true);
 };
 
 /**
@@ -19,16 +19,16 @@ export const addFavorite = (productId) => {
  * @param {number} productId - El ID del producto a eliminar.
  * @returns {Promise<null>} - Una promesa que se resuelve si se elimina correctamente.
  */
-export const removeFavorite = (productId) => {
+export const eliminarFavorito = (productId) => {
     // Llama a DELETE /api/favoritos/eliminar?idProducto={productId}
-    return callApi(`/favoritos/eliminar?idProducto=${productId}`, 'DELETE', null, true);
+    return llamarApi(`/favoritos/eliminar?idProducto=${productId}`, 'DELETE', null, true);
 };
 
 /**
  * Obtiene la lista de productos favoritos del usuario autenticado.
  * @returns {Promise<object[]>} - Un array con los objetos Favorito.
  */
-export const getFavorites = () => {
+export const obtenerFavoritos = () => {
     // Llama a GET /api/favoritos
-    return callApi('/favoritos', 'GET', null, true);
+    return llamarApi('/favoritos', 'GET', null, true);
 };

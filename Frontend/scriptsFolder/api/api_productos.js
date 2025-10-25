@@ -1,6 +1,6 @@
 // c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\api\api_productos.js
 
-import callApi from './apiClient.js';
+import llamarApi from './apiClient.js';
 
 /**
  * ================================================================
@@ -33,7 +33,7 @@ import callApi from './apiClient.js';
  * @returns {Promise<Producto[]>} - Lista de productos.
  */
 export const obtenerProductos = async () => {
-  return await callApi('/productos', 'GET', null, false);
+  return await llamarApi('/productos', 'GET', null, false);
 };
 
 /**
@@ -42,7 +42,7 @@ export const obtenerProductos = async () => {
  * @returns {Promise<Producto>} - Detalle del producto.
  */
 export const obtenerProductoPorId = async (id) => {
-  return await callApi(`/productos/${id}`, 'GET', null, false);
+  return await llamarApi(`/productos/${id}`, 'GET', null, false);
 };
 
 // =============================================================
@@ -55,7 +55,7 @@ export const obtenerProductoPorId = async (id) => {
  * @returns {Promise<Producto>} - Producto creado.
  */
 export const crearProducto = async (datosProducto) => {
-  return await callApi('/productos', 'POST', datosProducto, true);
+  return await llamarApi('/productos', 'POST', datosProducto, true);
 };
 
 /**
@@ -65,7 +65,7 @@ export const crearProducto = async (datosProducto) => {
  * @returns {Promise<Producto>} - Producto actualizado.
  */
 export const actualizarProducto = async (id, datosProducto) => {
-  return await callApi(`/productos/${id}`, 'PUT', datosProducto, true);
+  return await llamarApi(`/productos/${id}`, 'PUT', datosProducto, true);
 };
 
 /**
@@ -75,7 +75,7 @@ export const actualizarProducto = async (id, datosProducto) => {
  * @returns {Promise<Producto>} - Producto actualizado parcialmente.
  */
 export const modificarProducto = async (id, datosParciales) => {
-  return await callApi(`/productos/${id}`, 'PATCH', datosParciales, true);
+  return await llamarApi(`/productos/${id}`, 'PATCH', datosParciales, true);
 };
 
 /**
@@ -84,5 +84,5 @@ export const modificarProducto = async (id, datosParciales) => {
  * @returns {Promise<null>} - Null si se elimina correctamente.
  */
 export const eliminarProducto = async (id) => {
-  return await callApi(`/productos/${id}`, 'DELETE', null, true);
+  return await llamarApi(`/productos/${id}`, 'DELETE', null, true);
 };

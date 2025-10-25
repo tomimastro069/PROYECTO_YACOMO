@@ -20,7 +20,7 @@ export const BASE_URL = 'http://localhost:8080/api';
  * @returns {Promise<object|null>} - La respuesta JSON o null si no hay contenido (204).
  * @throws {Error} - Si la petición falla.
  */
-export async function callApi(
+export async function llamarApi(
   endpoint,
   method = 'GET',
   data = null,
@@ -133,4 +133,4 @@ function handleUnauthorized() {
   redirectToLogin();
 }
 
-export default callApi;
+export default llamarApi;

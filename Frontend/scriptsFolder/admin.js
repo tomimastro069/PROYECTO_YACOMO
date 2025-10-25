@@ -8,7 +8,7 @@ import {
     eliminarProducto 
 } from './api/api_productos.js';
 
-import { logoutUser } from './api/api_auth.js';
+import { cerrarSesion } from './api/api_auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica de verificación de rol de administrador ---
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
-            logoutUser(); // Limpia el token y los roles del localStorage
+            cerrarSesion(); // Limpia el token y los roles del localStorage
             window.location.href = 'index.html'; // Redirige a la página de inicio de sesión
         });
     }

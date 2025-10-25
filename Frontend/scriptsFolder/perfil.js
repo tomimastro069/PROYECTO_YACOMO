@@ -1,8 +1,8 @@
 // Importar la función de logout para poder usarla
-import { logoutUser } from './api/api_auth.js';
+import { cerrarSesion } from './api/api_auth.js';
 // Importar la nueva función para obtener los datos del perfil
 import { obtenerMiPerfil } from './api/api_usuarios.js'; // Obtiene PerfilDTO
-import { eliminarFavorito as eliminarFavoritoAPI } from './api/api_favoritos.js'; // API para eliminar favoritos
+import { eliminarFavorito } from './api/api_favoritos.js'; // API para eliminar favoritos
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica de Carga de Datos del Perfil ---
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const productoId = e.currentTarget.dataset.productId;
             if (confirm('¿Estás seguro de que quieres eliminar este producto de tus favoritos?')) {
                 try {
-                    await eliminarFavoritoAPI(productoId);
+                    await eliminarFavorito(productoId);
                     alert('Producto eliminado de favoritos.');
                     cargarDatosPerfil(); // Recargar todo el perfil
                 } catch (error) {
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoutLink) {
         logoutLink.addEventListener('click', (e) => {
             e.preventDefault(); // Evita que el enlace navegue a "/logout"
-            logoutUser();
+            cerrarSesion();
             alert('Has cerrado sesión.');
             window.location.href = 'index.html';
         });

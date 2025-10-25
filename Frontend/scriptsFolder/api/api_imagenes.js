@@ -1,6 +1,6 @@
 // c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\api\api_imagenes.js
 
-import callApi, { BASE_URL } from './apiClient.js';
+import llamarApi, { BASE_URL } from './apiClient.js';
 
 // --- Funciones de Administrador (requieren autenticación y rol ADMIN) ---
 
@@ -10,7 +10,7 @@ import callApi, { BASE_URL } from './apiClient.js';
  * @param {File[]} files - Un array de objetos File a subir.
  * @returns {Promise<object>} - La respuesta de la API.
  */
-export const uploadProductImages = async (productoId, files) => {
+export const subirImagenesProducto = async (productoId, files) => {
     const token = localStorage.getItem('jwt_token');
     if (!token) {
         console.warn('Authentication required but no JWT token found. Redirecting to login.');
@@ -58,8 +58,8 @@ export const uploadProductImages = async (productoId, files) => {
  * @param {number} idImagen - El ID de la imagen a eliminar.
  * @returns {Promise<null>} - Una promesa que se resuelve si la imagen se elimina correctamente.
  */
-export const deleteProductImage = (productoId, idImagen) => {
+export const eliminarImagenProducto = (productoId, idImagen) => {
     // Llama a DELETE /api/producto-imagenes/{idImagen}/producto/{productoId}
     // Requiere autenticación (ADMIN)
-    return callApi(`/producto-imagenes/${idImagen}/producto/${productoId}`, 'DELETE', null, true);
+    return llamarApi(`/producto-imagenes/${idImagen}/producto/${productoId}`, 'DELETE', null, true);
 };

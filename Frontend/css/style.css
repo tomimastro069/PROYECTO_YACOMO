@@ -1175,3 +1175,123 @@ footer {
   .Footer_Container h2 { text-align: center; }
 }
 
+/* === BURBUJA FLOTANTE === */
+#chatbot-bubble {
+  position: fixed;
+  bottom: 20px;
+  right: 20px; /* ahora está a la derecha */
+  background-color: #8a2be2; /* morado */
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 999;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+#chatbot-bubble:hover {
+  transform: scale(1.1);
+  background-color: #a145f0;
+}
+
+/* === VENTANA DEL CHAT === */
+#chatbot-window {
+  position: fixed;
+  bottom: 90px;
+  right: 20px; /* alineado con la burbuja */
+  width: 320px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  transform: scale(0); /* inicia invisible para animación */
+  transform-origin: bottom right; /* desde donde “sale” */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+#chatbot-window.show {
+  transform: scale(1); /* aparece “emergiendo” */
+  opacity: 1;
+}
+.hidden {
+  display: none;
+}
+.chat-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+}
+
+.chat-icon span {
+  display: block;
+  height: 3px;
+  width: 18px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.chatbot-header {
+  background-color: #7b18af;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-messages {
+  height: 280px;
+  overflow-y: auto;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+.chatbot-input input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.chatbot-input button {
+  background-color: #7b069e;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.chatbot-input button:hover {
+  background-color: #5c21c9;
+}
+
+.message {
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.message.user {
+  text-align: right;
+  color: #333;
+}
+
+.message.bot {
+  text-align: left;
+  color: #4a90e2;
+}
+#chatbot-window.open {
+  display: flex; /* Se muestra cuando tiene la clase open */
+}

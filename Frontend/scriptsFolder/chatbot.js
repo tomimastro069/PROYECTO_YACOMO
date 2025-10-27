@@ -7,9 +7,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Mostrar / ocultar chat
   bubble.addEventListener("click", () => {
-    const isOpen = windowChat.classList.toggle("show");
-    windowChat.style.display = isOpen ? "flex" : "none";
-  });<
+    if (windowChat.classList.contains("show")) {
+      // Ocultar con animación
+      windowChat.classList.remove("show");
+      setTimeout(() => {
+        windowChat.style.display = "none";
+      }, 300); // coincide con la duración de la animación CSS
+    } else {
+      // Mostrar con animación
+      windowChat.style.display = "flex";
+      setTimeout(() => {
+        windowChat.classList.add("show");
+      }, 10); // permite que el navegador procese el display antes de animar
+    }
+  });
 
   // Enviar mensaje
   sendBtn.addEventListener("click", sendMessage);
@@ -24,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     appendMessage("user", text);
     input.value = "";
 
-    // Petición al backend
     fetch("http://localhost:8080/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

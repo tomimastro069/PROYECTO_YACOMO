@@ -562,22 +562,27 @@
       })();
     </script>
     <!-- Burbuja del chatbot -->
-        <div id="chatbot-bubble">
-
+    <div id="chatbot-bubble">
+        <div class="chat-icon">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
+    </div>
 
-        <!-- Ventana del chatbot -->
-        <div id="chatbot-window" class="hidden">
+    <!-- Ventana del chatbot -->
+    <div id="chatbot-window">
         <div class="chatbot-header">
             <span>Asistente Virtual</span>
-           <!-- <button id="chatbot-close">&times;</button> -->
         </div>
         <div class="chatbot-messages" id="chatbot-messages"></div>
         <div class="chatbot-input">
             <input type="text" id="chatbot-text" placeholder="Escribí tu mensaje..." />
             <button id="chatbot-send">Enviar</button>
         </div>
-        </div>
-        <script src="../scriptsFolder/chatbot.js"></script>
+    </div>
+
+    <script src="../scriptsFolder/chatbot.js"></script>
+
 </body>
 </html>

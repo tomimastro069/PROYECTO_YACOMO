@@ -1179,8 +1179,8 @@ footer {
 #chatbot-bubble {
   position: fixed;
   bottom: 20px;
-  right: 20px; /* ahora está a la derecha */
-  background-color: #8a2be2; /* morado */
+  right: 20px;
+  background-color: #8a2be2;
   width: 55px;
   height: 55px;
   border-radius: 50%;
@@ -1198,31 +1198,7 @@ footer {
   background-color: #a145f0;
 }
 
-/* === VENTANA DEL CHAT === */
-#chatbot-window {
-  position: fixed;
-  bottom: 90px;
-  right: 20px; /* alineado con la burbuja */
-  width: 320px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 1000;
-  transform: scale(0); /* inicia invisible para animación */
-  transform-origin: bottom right; /* desde donde “sale” */
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  opacity: 0;
-}
-#chatbot-window.show {
-  transform: scale(1); /* aparece “emergiendo” */
-  opacity: 1;
-}
-.hidden {
-  display: none;
-}
+/* Icono interno (líneas) */
 .chat-icon {
   display: flex;
   flex-direction: column;
@@ -1238,13 +1214,37 @@ footer {
   border-radius: 2px;
 }
 
+/* === VENTANA DEL CHAT === */
+#chatbot-window {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  transform: scale(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  display: none;
+}
+
+#chatbot-window.show {
+  display: flex;
+  transform: scale(1);
+  opacity: 1;
+}
+
 .chatbot-header {
-  background-color: #7b18af;
+  background-color: #8a2be2;
   color: white;
   padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
+  font-weight: bold;
 }
 
 .chatbot-messages {
@@ -1267,7 +1267,7 @@ footer {
 }
 
 .chatbot-input button {
-  background-color: #7b069e;
+  background-color: #8a2be2;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -1275,7 +1275,7 @@ footer {
 }
 
 .chatbot-input button:hover {
-  background-color: #5c21c9;
+  background-color: #a145f0;
 }
 
 .message {
@@ -1290,8 +1290,5 @@ footer {
 
 .message.bot {
   text-align: left;
-  color: #4a90e2;
-}
-#chatbot-window.open {
-  display: flex; /* Se muestra cuando tiene la clase open */
+  color: #8a2be2;
 }

@@ -1,19 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   const bubble = document.getElementById("chatbot-bubble");
   const windowChat = document.getElementById("chatbot-window");
-  const closeBtn = document.getElementById("chatbot-close");
   const sendBtn = document.getElementById("chatbot-send");
   const input = document.getElementById("chatbot-text");
   const messages = document.getElementById("chatbot-messages");
 
-  // Mostrar/Ocultar chat
+  // Mostrar / ocultar chat
   bubble.addEventListener("click", () => {
-    windowChat.classList.toggle("show");
-  });
-
-  closeBtn.addEventListener("click", () => {
-    windowChat.classList.add("show");
-  });
+    const isOpen = windowChat.classList.toggle("show");
+    windowChat.style.display = isOpen ? "flex" : "none";
+  });<
 
   // Enviar mensaje
   sendBtn.addEventListener("click", sendMessage);
@@ -24,19 +20,19 @@ document.addEventListener("DOMContentLoaded", () => {
   function sendMessage() {
     const text = input.value.trim();
     if (!text) return;
+
     appendMessage("user", text);
     input.value = "";
 
-    // Petición al backend (ajustá la URL según tu API)
+    // Petición al backend
     fetch("http://localhost:8080/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: text })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text }),
     })
-    .then(res => res.json())
-    .then(data => appendMessage("bot", data.answer))
-    .catch(() => appendMessage("bot", "Error al conectar con el chatbot."));
-
+      .then((res) => res.json())
+      .then((data) => appendMessage("bot", data.answer))
+      .catch(() => appendMessage("bot", "Error al conectar con el chatbot."));
   }
 
   function appendMessage(sender, text) {

@@ -1,3 +1,5 @@
+import { crearPreferencia } from './api/api_mercadopago.js';
+
 // Array para almacenar los productos del carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 // Keep the previous count to trigger a small "pop" animation when the count changes
@@ -149,6 +151,54 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
         }
+      }
+    });
+  }
+
+  // 3. Lógica para el botón "Pagar Ahora"
+  const payButton = cart.querySelector('.ts-pay');
+  if (payButton) {
+    payButton.addEventListener('click', async (e) => {
+      e.preventDefault(); // Prevenir la navegación del enlace
+
+      // Mostrar feedback al usuario
+      payButton.textContent = 'Procesando...';
+      payButton.style.pointerEvents = 'none'; // Deshabilitar clics repetidos
+
+      const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
+
+      // Validar que el usuario esté logueado y el carrito no esté vacío
+      if (!localStorage.getItem('jwt_token')) {
+        alert('Debes iniciar sesión para poder pagar.');
+        payButton.textContent = 'Pagar Ahora';
+        payButton.style.pointerEvents = 'auto';
+        return;
+      }
+
+      if (carritoActual.length === 0) {
+        alert('Tu carrito está vacío.');
+        payButton.textContent = 'Pagar Ahora';
+        payButton.style.pointerEvents = 'auto';
+        return;
+      }
+
+      // Mapear los productos al formato que espera el backend
+      const datosOrden = {
+        productos: carritoActual.map(item => ({
+          idProducto: item.id,
+          cantidad: item.cantidad
+        }))
+      };
+
+      try {
+        const respuesta = await crearPreferencia(datosOrden);
+        if (respuesta && respuesta.init_point) {
+          window.location.href = respuesta.init_point; // Redirigir a Mercado Pago
+        }
+      } catch (error) {
+        alert(`Error al iniciar el pago: ${error.message}`);
+        payButton.textContent = 'Pagar Ahora';
+        payButton.style.pointerEvents = 'auto';
       }
     });
   }

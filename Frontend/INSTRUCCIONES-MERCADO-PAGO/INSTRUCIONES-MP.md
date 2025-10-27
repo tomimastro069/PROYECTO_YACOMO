@@ -1,51 +1,40 @@
-# Guía de Integración de Mercado Pago en el Frontend
+# Guía de Funcionamiento de Mercado Pago en el Frontend
 
-Hola equipo,
+Este documento describe el flujo de pago con Mercado Pago tal como está implementado en la aplicación. La integración ya no se basa en un script de ejemplo, sino que está completamente integrada en la lógica del carrito de compras.
 
-Esta carpeta (`mercado-pago-guia`) contiene un ejemplo funcional y autocontenido para integrar el checkout de Mercado Pago con nuestro backend.
-
-## Archivos Incluidos
-
-- `checkout-mp.html`: Una página de ejemplo que simula el checkout y contiene el botón de pago.
-- `checkout-mp.js`: El script con toda la lógica para comunicarse con nuestro backend e iniciar el pago. **Este es el archivo clave.**
-- `success.html`, `failure.html`, `pending.html`: Páginas estáticas a las que el usuario será redirigido después de intentar el pago.
-
-## ¿Cómo funciona?
+## ¿Cómo funciona el flujo de pago?
 
 El flujo es el siguiente:
 
-1.  **Lógica en `checkout-mp.js`:**
+1.  **Interacción del Usuario:**
+    - El usuario hace clic en el botón "Pagar Ahora" (clase `.ts-pay`) que se encuentra en el pie del panel del carrito de compras (definido en `productos.html` y otros archivos).
 
-    - Cuando el usuario hace clic en el botón con `id="checkout-btn"`, el script se activa.
-    - Se crea un objeto `ventaData` que representa la venta, incluyendo la fecha y una lista de los productos en el carrito.
-      **IMPORTANTE:** Los datos de los productos (ID, cantidad, promoción) deben ser dinámicos, tomados del estado del carrito de compras en la aplicación final.
-      Ejemplo de estructura esperada por el backend:
-      ```json
-      {
-        "fechaVenta": "YYYY-MM-DD",
-        "productos": [{ "idProducto": 1, "cantidad": 2, "idPromocion": null }]
-      }
-      ```
-    - Se realiza una petición `POST` a nuestro endpoint del backend: `/api/payments/create-order`, enviando este objeto `ventaData`.
-      El backend calculará el total de la venta a partir de los productos enviados.
-    - El backend procesa la petición y responde con una URL de pago (`init_point`).
-    - El script recibe esta URL y redirige automáticamente al usuario (`window.location.href = data.init_point;`).
+2.  **Lógica en `scriptsFolder/funciones.js`:**
+    - Un `event listener` captura el clic en el botón "Pagar Ahora".
+    - **Validación:** El script verifica dos condiciones cruciales:
+        1.  Que el usuario haya iniciado sesión (buscando `jwt_token` en `localStorage`).
+        2.  Que el carrito de compras no esté vacío.
+    - **Preparación de Datos:** Se leen los productos del carrito desde `localStorage` y se transforman al formato que espera el backend. La estructura enviada es:
+        ```json
+        {
+          "productos": [{ "idProducto": 1, "cantidad": 2 }]
+        }
+        ```
+    - **Llamada a la API:** En lugar de usar `fetch` directamente, el script invoca a la función `crearPreferencia` del módulo `scriptsFolder/api/api_mercadopago.js`.
 
-2.  **Redirección desde el Backend:**
-    - Una vez que el usuario completa el pago en el sitio de Mercado Pago, nuestro backend ya está configurado para recibir al usuario en las rutas `/success`, `/failure` o `/pending`.
-    - Actualmente, el backend redirige a los archivos `success.html`, `failure.html` y `pending.html` que están en esta guía.
+3.  **Módulo `api_mercadopago.js`:**
+    - La función `crearPreferencia` encapsula la llamada al backend.
+    - Utiliza nuestro cliente de API centralizado (`llamarApi`), que se encarga automáticamente de:
+        - Construir la URL completa del endpoint (`/api/payments/create-order`).
+        - Configurar el método `POST`.
+        - Adjuntar el token de autenticación (`Authorization: Bearer ...`) a la cabecera.
+    - El backend procesa la petición, registra la venta como "PENDIENTE" y responde con una URL de pago (`init_point`).
 
-## Pasos para la Integración en el Frontend Final
+4.  **Redirección a Mercado Pago:**
+    - De vuelta en `funciones.js`, el script recibe la respuesta del backend.
+    - Si la respuesta contiene la propiedad `init_point`, se redirige al usuario a la pasarela de pago de Mercado Pago usando `window.location.href`.
 
-1.  **Botón de Pago:** Asegúrense de que el botón final de "Pagar" en el checkout tenga un `id` único (por ejemplo, `id="checkout-btn"`) para que el JavaScript pueda encontrarlo.
+5.  **Páginas de Resultado:**
+    - Una vez que el usuario completa o cancela el pago, Mercado Pago lo redirige a las URLs configuradas en el backend (`frontend.url.success`, `frontend.url.failure`, etc.), que apuntan a las páginas correspondientes en nuestro frontend.
 
-2.  **Adaptar el Script (`checkout-mp.js`):**
-
-    - Copien la lógica de este script a su archivo JavaScript principal o componente de checkout.
-    - **Modifiquen la línea `total: 150.00`** para que obtenga el valor real y dinámico del carrito de compras.
-    - Pueden adaptar los mensajes de `statusContainer` para que se integren con el sistema de notificaciones o spinners de carga de la aplicación.
-
-3.  **Páginas de Resultado:**
-    - Integren el contenido de `success.html`, `failure.html` y `pending.html` en los componentes o páginas correspondientes de la aplicación final (por ejemplo, en rutas como `/checkout/success`). El diseño debe coincidir con el resto de la web.
-
-¡Y eso es todo! La lógica del backend ya está lista para manejar el resto. Si tienen alguna duda, avísenme.
+¡Y eso es todo! La lógica está centralizada, es reutilizable y sigue las mejores prácticas que hemos establecido para el proyecto.

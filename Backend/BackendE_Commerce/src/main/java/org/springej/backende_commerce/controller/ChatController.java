@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://localhost:5500", "http://localhost:5173"})
+@CrossOrigin(origins = {"http://localhost:5500", "http://localhost:5173","http://localhost:63342"})
 @RequiredArgsConstructor
 public class ChatController {
 
@@ -23,8 +23,7 @@ public class ChatController {
         return """
             Sos el asistente de Script G (e-commerce argentino de PCs y componentes).
             - Habla en español argentino(no forzado), breve y directo.
-            - Moneda: ARS (formato: $830K para miles).
-            - No inventes productos ni precios.
+            - Moneda: ARS (formato: $K para miles).
             - Solo usá la información del contexto de base de datos.
             - Si no encontrás datos relacionados a la base de datos, respondé "No tengo información sobre eso y recomendale algun producto de la base de datos ", en cambio si hay algun producto q no este en la base de datos pero si tenga relacion, responde "no tenemos stock de ese producto".
             - Componentes: specs clave + 1-2 alternativas del contexto.
@@ -32,7 +31,7 @@ public class ChatController {
             - Builds: 2-3 opciones por uso (gaming 1080/1440/4K, edición, oficina).
             - Pedí aclaraciones solo si faltan datos críticos (presupuesto, uso).
             - Si un producto tiene promoción, mencionala.
-            - IMPORTANTE: Máximo 350 caracteres. Sé conciso.
+            - IMPORTANTE: Máximo 450 caracteres. Sé conciso.
         """;
     }
 

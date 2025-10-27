@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href ="../css/chatbot.css">
     <link rel="stylesheet" href="../css/productosStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -561,28 +562,37 @@
         document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { closeMenu(); closeSearch(); } });
       })();
     </script>
-    <!-- Burbuja del chatbot -->
-    <div id="chatbot-bubble">
-        <div class="chat-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
+<!-- Burbuja del chatbot -->
+<div id="chatbot-bubble">
+  <div class="chat-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
 
-    <!-- Ventana del chatbot -->
-    <div id="chatbot-window">
-        <div class="chatbot-header">
-            <span>Asistente Virtual</span>
-        </div>
-        <div class="chatbot-messages" id="chatbot-messages"></div>
-        <div class="chatbot-input">
-            <input type="text" id="chatbot-text" placeholder="Escribí tu mensaje..." />
-            <button id="chatbot-send">Enviar</button>
-        </div>
-    </div>
+<!-- Ventana del chatbot -->
+<div id="chatbot-window">
+  <div class="chatbot-header">
+    <span>Ayudante SCRIPT-G</span>
+    <button id="new-chat-btn">➕ Nuevo Chat</button>
+  </div>
 
-    <script src="../scriptsFolder/chatbot.js"></script>
+  <!-- Sidebar de chats -->
+  <div class="chatbot-sidebar" id="chat-sidebar"></div>
+
+  <!-- Área de mensajes -->
+  <div class="chatbot-messages" id="chatbot-messages"></div>
+
+  <!-- Input -->
+  <div class="chatbot-input">
+    <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
+    <button id="chatbot-send">Enviar</button>
+  </div>
+</div>
+
+<script src="../scriptsFolder/chatbot.js"></script>
+
 
 </body>
 </html>

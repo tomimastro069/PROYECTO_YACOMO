@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/productosStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href ="../css/chatbot.css">
     <script type="module" src="../scriptsFolder/modalHandler.js"></script>
     <script type="module" src="../scriptsFolder/funciones.js"></script>
 
@@ -763,6 +764,34 @@
     renderizarCarrito();
   });
 </script>
+<!-- Burbuja del chatbot -->
+<div id="chatbot-bubble">
+  <div class="chat-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<!-- Ventana del chatbot -->
+<div id="chatbot-window">
+  <div class="chatbot-header">
+    <span>Ayudante SCRIPT-G</span>
+    <select id="chat-selector"></select>
+    <button id="new-chat-btn">➕</button>
+    <button id="delete-chat-btn">🗑️ Eliminar</button>
+  </div>
+
+  <div class="chatbot-messages" id="chatbot-messages"></div>
+
+  <div class="chatbot-input">
+    <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
+    <button id="chatbot-send">Enviar</button>
+  </div>
+</div>
+
+<!-- JS del chatbot -->
+<script src="../scriptsFolder/chatbot.js"></script>
 
 </body>
 

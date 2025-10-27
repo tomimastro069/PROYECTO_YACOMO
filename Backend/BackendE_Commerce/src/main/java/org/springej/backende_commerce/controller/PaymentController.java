@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Value;
 @RestController
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://127.0.0.1:5500") // Allow requests from your frontend
 public class PaymentController {
 
     private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);

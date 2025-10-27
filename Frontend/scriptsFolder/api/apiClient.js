@@ -1,6 +1,6 @@
 // c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\api\apiClient.js
 
-export const BASE_URL = 'http://localhost:8787/api';
+export const BASE_URL = 'http://localhost:8080/api';
 
 /**
  * Función genérica y robusta para realizar llamadas a la API.

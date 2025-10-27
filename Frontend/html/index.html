@@ -578,21 +578,22 @@
     <button id="new-chat-btn">➕ Nuevo Chat</button>
   </div>
 
-  <!-- Sidebar de chats -->
-  <div class="chatbot-sidebar" id="chat-sidebar"></div>
+  <div class="chatbot-body">
+    <!-- Sidebar de chats (a la izquierda) -->
+    <div class="chatbot-sidebar" id="chat-sidebar"></div>
 
-  <!-- Área de mensajes -->
-  <div class="chatbot-messages" id="chatbot-messages"></div>
+    <!-- Área de mensajes -->
+    <div class="chatbot-main">
+      <div class="chatbot-messages" id="chatbot-messages"></div>
 
-  <!-- Input -->
-  <div class="chatbot-input">
-    <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
-    <button id="chatbot-send">Enviar</button>
+      <div class="chatbot-input">
+        <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
+        <button id="chatbot-send">Enviar</button>
+      </div>
+    </div>
   </div>
 </div>
-
+<div id="toast-container"></div>
 <script src="../scriptsFolder/chatbot.js"></script>
-
-
 </body>
 </html>

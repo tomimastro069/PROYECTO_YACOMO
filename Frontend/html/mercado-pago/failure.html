@@ -1,28 +1,32 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago Fallido</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            padding-top: 50px;
-            background-color: #ffebee;
-            margin: 0;
-        }
-        h1 {
-            color: #c62828;
-        }
-        a {
-            color: #007ab8;
-        }
-    </style>
+    <title>Pago Rechazado</title>
+    <link rel="icon" href="../../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="../../css/mp-result.css">
 </head>
 <body>
-    <h1>❌ Hubo un problema con tu pago.</h1>
-    <p>El pago fue rechazado. Por favor, intenta con otro medio de pago o contacta a tu banco.</p>
-    <p><a href="/ruta-al-checkout">Volver a intentar</a> | <a href="/">Volver a la tienda</a></p>
+  <main class="mp-shell">
+    <section class="mp-card is-failure">
+      <header class="mp-head">
+        <div class="mp-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="11" fill="rgba(255,255,255,.15)"/>
+            <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h1 class="mp-title">No pudimos procesar tu pago</h1>
+      </header>
+      <p class="mp-sub">El pago fue rechazado. Intentá con otro medio de pago o comunícate con tu banco.</p>
+      <div class="mp-divider"></div>
+      <div class="mp-actions">
+        <a class="btn" href="../checkout-pago.html">Volver al checkout</a>
+        <a class="btn btn--primary" href="../index.html">Ir al inicio</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
+

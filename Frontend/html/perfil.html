@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/perfilStyle.css">
     <title>Script-G</title>
@@ -19,35 +20,14 @@
         </a>
 
         <nav>
-           <form class="form">
-                <button>
-                    <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="search">
-                        <path d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9" stroke="currentColor" stroke-width="1.333" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </button>
-                <input class="input" placeholder="Search" required="" type="text">
-                <button class="reset" type="reset">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </form>
-            <div class="notificaciones-header">
-                <button class="notificaciones">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
-                    </svg>
-                </button>
-            </div>
-
             <div class="user-profile">
                 <a href="/profile" class="profile-link" aria-label="Ver mi perfil">
                     <div class="profile-picture-container">
                         <i class="bi bi-person-fill"></i>
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Nombre del Usuario</span>
-                        <span class="user-email">correo.usuario@ejemplo.com</span>
+                        <span class="user-name" data-header-username>Nombre del Usuario</span>
+                        <span class="user-email" data-header-email>correo.usuario@ejemplo.com</span>
                     </div>
                 </a>
             </div>
@@ -59,8 +39,8 @@
                 <div class="user-profile-header">
                     <img src="https://via.placeholder.com/80" alt="Foto de perfil del usuario" class="profile-photo">
                     <div class="user-details">
-                        <h2 class="user-name">Cargando...</h2>
-                        <span class="user-membership"></span>
+                        <h2 class="user-name" data-sidebar-username>Cargando...</h2>
+                        <span class="user-membership" data-sidebar-membership></span>
                     </div>
                 </div>
 
@@ -117,16 +97,10 @@
                     <a class="nav-link" href="#" data-target="info-historial">Historial</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-target="info-pedidos">Pedidos</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#" data-target="info-fav">Favoritos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-target="info-soporte">Soporte</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-target="info-pagos">Pagos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-target="info-direcciones">Direcciones</a>
@@ -136,43 +110,42 @@
                 <h2 class="section-title">Informacion Personal</h2>
                 <div class="miniperfil">
                     <div class="miniperfil-header"> 
-                        <img src="https://via.placeholder.com/80" alt="Foto de perfil del usuario" class="profile-photo">
                         <div class="encabezado">
-                            <h2 class="user-name">Cargando...</h2>
-                            <span class="user-membership"></span>
+                            <h2 class="user-name" data-mini-name>Cargando...</h2>
+                            <span class="user-membership" data-mini-membership></span>
                         </div>
                     </div>
                     <div class="perfil-details">
                         <ul class="perfil-detalles">
                             <li>
-                                <span>Nombre completo</Span>
-                                <p>Nombre Apellido</p>
+                                <span>Nombre completo</span>
+                                <p data-detail-fullname>Nombre Apellido</p>
                             </li>
                             <li>
                                 <span>Correo electrónico</span>
-                                <p>cargando@email.com</p>
+                                <p data-detail-email>cargando@email.com</p>
                             </li>
                             <li>
-                                <span>Telefono</span>
-                                <p>No disponible</p>
+                                <span>Tel&eacute;fono</span>
+                                <p data-detail-phone>No disponible</p>
                             </li>
                             <li>
                                 <span>Fecha de registro</span>
-                                <p>--/--/----</p>
+                                <p data-detail-date>--/--/----</p>
                             </li>
                         </ul>
                     
                         <ul class="perfil-detalles-extra">
                             <li>
-                                <i class="bi bi-calendar-check">24</i><br>
+                                <i class="bi bi-calendar-check" data-orders-count>0</i><br>
                                 <span class="aclaracion">Pedidos realizados</span>
                             </li>
                             <li>
-                                <i class="bi bi-currency-dollar">125.000</i><br>
+                                <i class="bi bi-currency-dollar" data-total-spent>$0</i><br>
                                 <span class="aclaracion">Total gastado</span>
                             </li>
                             <li>
-                                <i class="bi bi-person-badge">Gold</i><br>
+                                <i class="bi bi-person-badge" data-membership>Cliente Script-G</i><br>
                                 <span class="aclaracion">Nivel de membresía</span>
                             </li>
                         </ul>
@@ -200,7 +173,30 @@
             </section>
 
             <section class="info info-direcciones">
-                <!-- Las direcciones se cargarán aquí dinámicamente -->
+                <div class="direcciones-layout">
+                    <article class="address-form-card">
+                        <h3>Agregar domicilio</h3>
+                        <p class="form-hint">Completa los datos para guardar un nuevo punto de entrega.</p>
+                        <form id="address-form" autocomplete="off">
+                            <label for="direccion">Direcci&oacute;n</label>
+                            <input type="text" id="direccion" name="direccion" placeholder="Ej: Av. Siempre Viva 742" required>
+
+                            <label for="codigo_area">C&oacute;digo de &aacute;rea</label>
+                            <input type="number" id="codigo_area" name="codigo_area" min="0" placeholder="Ej: 1414" required>
+
+                            <button type="submit" class="btn btn-primary">Guardar domicilio</button>
+                            <p class="form-feedback" data-address-feedback></p>
+                        </form>
+                    </article>
+
+                    <article class="address-list-card">
+                        <div class="address-list-header">
+                            <h3>Domicilios guardados</h3>
+                            <p class="address-list-caption">Administra los lugares disponibles para tus pedidos.</p>
+                        </div>
+                        <div class="address-list" data-address-list></div>
+                    </article>
+                </div>
             </section>
 
             <section class="info info-soporte">
@@ -255,7 +251,7 @@
                                     <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                                     <div class="channel-text">
                                         <p class="channel-name">Email</p>
-                                        <p class="channel-email">soporte@tienda.com</p>
+                                        <p class="channel-email">scriptgangecommerce@gmail.com</p>
                                     </div>
                                 </div>
                             </div>

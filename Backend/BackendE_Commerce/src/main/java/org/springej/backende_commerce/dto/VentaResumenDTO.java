@@ -28,7 +28,8 @@ public class VentaResumenDTO {
                 .map(pv -> new VentaDTO.ProductoVentaDTO(
                         pv.getProducto().getId(),
                         pv.getCantidad(),
-                        pv.getPrecioUnitario()
+                        pv.getPrecioUnitario(),
+                        pv.getProducto().getNombre()
                 ))
                 .collect(Collectors.toList());
         // Calculamos el total de la venta sumando los subtotales de cada item

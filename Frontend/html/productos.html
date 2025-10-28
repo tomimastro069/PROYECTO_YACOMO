@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Script-G</title>
+    <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/productosStyle.css">
@@ -54,7 +55,6 @@
                 Pagar Ahora
             </a>
         </footer>
-
     </aside>
 </div>
 
@@ -600,7 +600,6 @@
             <div class="Catalogo-Header">
                 <div class="Catalogo-texto">
                     <h2>Catalogo de Productos</h2>
-                    <p class="Cantidad-de-productos">4 productos encontrados</p>
                 </div>
                 <select id="sort-options">
                     <option value="default">Ordenar por</option>
@@ -661,6 +660,7 @@
             <h2><a href="Terminos_condiciones">Terminos y Condiciones</a></h2>
         </div>
     </footer>
+    <script type='module' src='../scriptsFolder/auth.js'></script>
     <script type="module">
   import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
   import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
@@ -808,3 +808,5 @@
 </body>
 
 </html>
+
+

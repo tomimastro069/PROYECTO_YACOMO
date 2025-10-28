@@ -10,6 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = loginModal?.querySelector('.form');
     const signupForm = signupModal?.querySelector('.form.signup');
 
+    const handleLoginButtonClick = (event) => {
+        event.preventDefault();
+        toggleLoginModal();
+    };
+
+    const bindLoginButton = (button) => {
+        if (!button || button.dataset.loginHandlerBound === 'true') {
+            return;
+        }
+        button.addEventListener('click', handleLoginButtonClick);
+        button.dataset.loginHandlerBound = 'true';
+    };
+
     // --- Lógica de Login ---
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
@@ -84,36 +97,80 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica para actualizar la UI al cargar la página ---
     function updateUIForLoggedInUser() {
         const token = localStorage.getItem('jwt_token');
-        const loginButtonContainer = document.getElementById('btn-login')?.parentElement;
+        const loginButton = document.getElementById('btn-login');
+        const profileLink = document.getElementById('nav-profile-link');
+        const loginListItem = loginButton?.closest('li') || profileLink?.closest('li');
+        const navList = loginListItem?.parentElement;
+        const existingLogoutItem = document.getElementById('nav-logout-item');
 
-        if (token && loginButtonContainer) {
-            const userRoles = JSON.parse(localStorage.getItem('user_roles') || '[]');
+        if (!navList || !loginListItem) {
+            return;
+        }
 
-            // Si el usuario es administrador y está logueado, redirigirlo inmediatamente a admin.html
-            if (userRoles.includes('ROLE_ADMIN')) {
-                window.location.href = 'admin.html'; // Redirige a la página de administración
-                return; // Detiene la ejecución para evitar actualizar la UI de usuario normal
+        if (existingLogoutItem) {
+            existingLogoutItem.remove();
+        }
+
+        if (!token) {
+            if (loginButton) {
+                bindLoginButton(loginButton);
+                return;
             }
 
-            // Si hay token, reemplazamos el botón de login
-            loginButtonContainer.innerHTML = `
-                <a href="perfil.html" class="menu-btn">
+            if (!loginButton) {
+                const restoredButton = document.createElement('button');
+                restoredButton.className = 'menu-btn';
+                restoredButton.type = 'button';
+                restoredButton.id = 'btn-login';
+                restoredButton.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                    </svg> Mi Perfil
-                </a>
-                <button class="menu-btn" id="btn-logout" style="background: transparent; border: none; color: inherit; font: inherit; cursor: pointer;">
-                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
-                </button>
-            `;
-
-            // Añadimos el evento al nuevo botón de logout
-            document.getElementById('btn-logout').addEventListener('click', () => {
-                cerrarSesion();
-                alert('Has cerrado sesión.');
-                window.location.href = 'index.html'; // Redirigimos al inicio
-            });
+                    </svg>Log in
+                `;
+                loginListItem.innerHTML = '';
+                loginListItem.appendChild(restoredButton);
+                bindLoginButton(restoredButton);
+            }
+            return;
         }
+
+        const userRoles = JSON.parse(localStorage.getItem('user_roles') || '[]');
+
+        if (userRoles.includes('ROLE_ADMIN')) {
+            window.location.href = 'admin.html';
+            return;
+        }
+
+        loginListItem.innerHTML = `
+            <a href="perfil.html" class="menu-btn menu-btn--profile" id="nav-profile-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                </svg> Mi Perfil
+            </a>
+        `;
+
+        const logoutListItem = document.createElement('li');
+        logoutListItem.id = 'nav-logout-item';
+        logoutListItem.innerHTML = `
+            <button type="button" class="menu-btn menu-btn--logout" id="btn-logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion
+            </button>
+        `;
+
+        const cartItem = document.getElementById('header-cart-button')?.closest('li');
+        const insertionPoint = cartItem?.nextElementSibling;
+
+        if (insertionPoint) {
+            navList.insertBefore(logoutListItem, insertionPoint);
+        } else {
+            navList.appendChild(logoutListItem);
+        }
+
+        document.getElementById('btn-logout')?.addEventListener('click', () => {
+            cerrarSesion();
+            alert('Has cerrado sesion.');
+            window.location.href = 'index.html';
+        });
     }
 
     // Ejecutar al cargar la página para verificar si ya hay una sesión activa
@@ -130,3 +187,4 @@ if (typeof window.toggleLoginModal === 'undefined') {
         }
     }
 }
+

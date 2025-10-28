@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Script-G</title>
+    <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
@@ -54,7 +55,7 @@
                         </button>
                     </li>
                     <li>
-                        <a href="#cart" class="menu-btn" onclick="toggleCart()">
+                        <a href="#cart" class="menu-btn" id="header-cart-button">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Carrito
                             <span id="cart-count" class="cart-notification"></span>
@@ -405,13 +406,10 @@
         <div class="custom-box">
             <h2>¿Necesitas algo personalizado?</h2>
             <p>
-            Nuestros expertos pueden armar la PC perfecta para tus necesidades específicas. 
+            Nuestro servicio de IA puede ayudarte a encontrar los componentes ideales para la PC perfecta acorde a tus necesidades específicas. 
             Desde gaming competitivo hasta workstations profesionales, garantizamos la mejor calidad.
             </p>
-            <div class="buttons">
-                <button class="btn primary">Personalizar PC</button>
-                <button class="btn">Otra opción</button>
-            </div>
+           
         </div>
     <section class="seccion-ofertas">
         <div class="titulo-ofertas">
@@ -480,7 +478,7 @@
         <h2>¿Listo para armar tu PC ideal?</h2>
         <p>Explora nuestro catálogo completo con más de 100 productos</p>
         <div class="buttons">
-            <button class="btn primary">Ir al Catálogo</button>
+            <button class="btn primary"><a href="productos.html">Ir al Catálogo</a></button>
         </div> 
     </div>      
     </section>
@@ -512,8 +510,74 @@
         </div>
     </footer>
     <script src="../scriptsFolder/Inicio.js"></script>
-    <script src="../scriptsFolder/funciones.js"></script>
     <script type="module" src="../scriptsFolder/auth.js"></script>
+    <script type="module">
+      import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js';
+
+      const parsePrice = (texto) => {
+        if (!texto) return 0;
+        const sanitized = texto.replace(/[^0-9,.-]+/g, '').replace(/\./g, '').replace(',', '.');
+        const value = Number.parseFloat(sanitized);
+        return Number.isFinite(value) ? value : 0;
+      };
+
+      const buildProductFromCard = (card) => {
+        const idAttr =
+          card.dataset.id ||
+          card.dataset.productId ||
+          card.id ||
+          (window.crypto?.randomUUID?.() ?? `card-${Date.now()}-${Math.random().toString(16).slice(2)}`);
+        const title = card.querySelector('.Titulo')?.textContent.trim() || 'Producto';
+        const priceText = card.querySelector('.Precio')?.textContent || '$0';
+        const priceValue = parsePrice(priceText);
+        const imageUrl = card.querySelector('img')?.src || 'https://via.placeholder.com/200';
+        const categoria = card.querySelector('.stock')?.textContent.trim() || '';
+
+        return {
+          id: idAttr,
+          nombre: title,
+          precio: priceValue,
+          imagenes: [{ url: imageUrl }],
+          categoria
+        };
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        renderizarCarrito();
+        updateCartCount();
+
+        const cartButton = document.getElementById('header-cart-button');
+        if (cartButton) {
+          cartButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            toggleCart();
+          });
+        }
+
+        const cards = document.querySelectorAll('.card_producto');
+        cards.forEach((card) => {
+          const button = card.querySelector('.btn-cart');
+          if (!button) return;
+          button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const productData = buildProductFromCard(card);
+            agregarAlCarrito(event, productData);
+          });
+        });
+
+        const loginButton = document.getElementById('btn-login');
+        if (loginButton) {
+          import('../scriptsFolder/modalHandler.js')
+            .then(({ toggleLoginModal }) => {
+              loginButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                toggleLoginModal();
+              });
+            })
+            .catch(() => {});
+        }
+      });
+    </script>
     <script>
       (function(){
         const btn = document.getElementById('hamburgerBtn');

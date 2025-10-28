@@ -1,6 +1,8 @@
 package org.springej.backende_commerce.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springej.backende_commerce.dto.DomicilioDTO;
+import org.springej.backende_commerce.dto.DomicilioRequest;
 import org.springej.backende_commerce.dto.RegisterRequest;
 import org.springej.backende_commerce.entity.Domicilio;
 import org.springej.backende_commerce.exception.AlreadyExistsException;
@@ -8,6 +10,7 @@ import org.springej.backende_commerce.exception.ResourceNotFoundException;
 import org.springej.backende_commerce.entity.Rol;
 import org.springej.backende_commerce.entity.Usuario;
 import org.springej.backende_commerce.repository.RolRepository;
+import org.springej.backende_commerce.repository.DomicilioRepository;
 import org.springej.backende_commerce.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
+    private final DomicilioRepository domicilioRepository;
     private final PasswordEncoder passwordEncoder;
 
     /**
@@ -61,6 +65,28 @@ public class UsuarioService {
             usuario.setDomicilios(domicilios);
         }
         return usuarioRepository.save(usuario);
+    }
+
+    public DomicilioDTO agregarDomicilio(Usuario usuario, DomicilioRequest request) {
+        Domicilio domicilio = new Domicilio();
+        domicilio.setDireccion(request.getDireccion());
+        domicilio.setCodigo_area(request.getCodigo_area());
+        domicilio.setUsuario(usuario);
+
+        Domicilio guardado = domicilioRepository.save(domicilio);
+        usuario.getDomicilios().add(guardado);
+        return new DomicilioDTO(guardado);
+    }
+
+    public void eliminarDomicilio(Usuario usuario, Long domicilioId) {
+        Domicilio domicilio = domicilioRepository.findById(domicilioId)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontro el domicilio con id: " + domicilioId));
+
+        if (!domicilio.getUsuario().getId().equals(usuario.getId())) {
+            throw new ResourceNotFoundException("El domicilio no pertenece al usuario autenticado.");
+        }
+
+        domicilioRepository.delete(domicilio);
     }
 
     /**

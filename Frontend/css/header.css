@@ -128,6 +128,28 @@
     position: relative;
 }
 
+.menu-btn--profile {
+    white-space: nowrap;
+}
+
+.menu-btn--profile svg {
+    margin-right: 4px;
+}
+
+.menu-btn--logout {
+    background: transparent;
+    border: 2px solid rgba(225, 244, 255, 0.65);
+    color: #e1f4ff;
+    box-shadow: none;
+}
+
+.menu-btn--logout:hover,
+.menu-btn--logout:focus {
+    background: rgba(225, 244, 255, 0.15);
+    border-color: rgba(225, 244, 255, 0.85);
+    color: #ffffff;
+}
+
 .menu-btn:hover {
     background: linear-gradient(90deg, #00c6ff, #ad00ff);
     color: #fff;

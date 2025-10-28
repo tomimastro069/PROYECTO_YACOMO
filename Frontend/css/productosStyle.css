@@ -161,7 +161,10 @@ body {
     flex-direction: column;
     gap: 14px;
     flex: 0 0 300px;
-    position: relative;
+    position: sticky; /* Hace que el contenedor se quede fijo al hacer scroll */
+    top: 94px;       /* Se pega 94px desde la parte superior de la ventana (70px del header + 24px de margen del contenedor principal) */
+    align-self: flex-start; /* Asegura que se alinee al inicio de su contenedor flex */
+    height: fit-content; /* Permite que la altura se ajuste al contenido */
 }
 
 .Categorias,
@@ -282,7 +285,7 @@ body {
 
 .Catalogo {
     display: grid;
-    grid-template-columns: repeat(auto-fill); /*, minmax(220px, 1fr));*/
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 18px;
 }
 

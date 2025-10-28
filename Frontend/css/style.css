@@ -776,6 +776,11 @@ body { padding-top: 70px; }
   gap: 15px;
 }
 
+.btn.primary a {
+  text-decoration: none;
+  color: #2563eb;
+}
+
 .btn {
   background: #fff;
   color: #2563eb;

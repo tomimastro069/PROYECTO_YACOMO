@@ -2,6 +2,7 @@
 
 import { iniciarSesion, registrarUsuario, cerrarSesion } from './api/api_auth.js';
 import { toggleLoginModal } from './modalHandler.js'; // Importar desde el nuevo manejador de modales
+import { showAlert } from './funciones.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginModal = document.getElementById('loginModal');
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('jwt_token', data.token);
                     localStorage.setItem('user_roles', JSON.stringify(data.roles));
                     
-                    alert('¡Inicio de sesión exitoso!');
+                    showAlert({ title: '¡Bienvenido!', message: 'Inicio de sesión exitoso.', type: 'success' });
                     toggleLoginModal(); // Usar la función importada
 
                     const userRoles = data.roles;
@@ -57,7 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (error) {
                 console.error('Error en el login:', error);
-                alert(`Error al iniciar sesión: ${error.message || 'Credenciales incorrectas.'}`);
+                showAlert({
+                    title: 'Error de Autenticación',
+                    message: error.message || 'Credenciales incorrectas.',
+                    type: 'error'
+                });
                 heading.textContent = originalText;
             }
         });
@@ -79,15 +84,18 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 heading.textContent = 'Registrando...';
                 await registrarUsuario(userData);
-                alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+                showAlert({
+                    title: '¡Registro Exitoso!',
+                    message: 'Tu cuenta ha sido creada. Ahora puedes iniciar sesión.',
+                    type: 'success'
+                });
                 
                 // Cambia al modal de login para que el usuario pueda ingresar
                 signupModal.classList.add('modal-cerrado');
                 loginModal.classList.remove('modal-cerrado');
                 
             } catch (error) {
-                console.error('Error en el registro:', error);
-                alert(`Error en el registro: ${error.message || 'No se pudo completar el registro.'}`);
+                showAlert({ title: 'Error en el Registro', message: error.message || 'No se pudo completar el registro.', type: 'error' });
             } finally {
                 heading.textContent = originalText;
             }
@@ -168,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('btn-logout')?.addEventListener('click', () => {
             cerrarSesion();
-            alert('Has cerrado sesion.');
+            showAlert({ title: 'Sesión Cerrada', message: 'Has cerrado sesión exitosamente.', type: 'info' });
             window.location.href = 'index.html';
         });
     }
@@ -187,4 +195,3 @@ if (typeof window.toggleLoginModal === 'undefined') {
         }
     }
 }
-

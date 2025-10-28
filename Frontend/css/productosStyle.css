@@ -224,6 +224,44 @@ body {
     box-shadow: 0 6px 20px rgba(20, 18, 50, .06);
 }
 
+.Categorias-Lista form {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 10px 0 0;
+    border-top: 1px solid #eef0f4; /* línea superior suave, como antes */
+}
+
+.Categorias-Lista label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* texto a la izq, checkbox a la der */
+    gap: 8px;
+    text-decoration: none;
+    color: #1f2533;
+    font-size: 13.8px;
+    font-weight: 600;
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(0,0,0,.06); /* separadores entre filas */
+}
+
+.Categorias-Lista label:last-child {
+    border-bottom: none;
+}
+
+.Categorias-Lista input[type='checkbox'] {
+    margin-left: 12px;
+    inline-size: 16px;
+    block-size: 16px;
+    accent-color: #5b4dff; /* color acorde al tema */
+    cursor: pointer;
+}
+
+.Categorias-Lista label:hover {
+    background: #f2f3fb;
+    color: #5b4dff;
+}
+
 .Categorias-Lista ul {
     list-style: none;
     margin: 0;

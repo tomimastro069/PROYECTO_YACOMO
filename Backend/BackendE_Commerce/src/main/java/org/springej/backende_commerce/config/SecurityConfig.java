@@ -60,6 +60,15 @@ public class SecurityConfig {
                 .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
                 .requestMatchers("/api/producto-imagenes/**").hasRole("ADMIN")
 
+                // Usuarios (perfil y domicilios) autenticados; CRUD de usuarios solo ADMIN
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/usuarios/me").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/usuarios/domicilios").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/usuarios/domicilios/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/usuarios", "/api/usuarios/**").hasRole("ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/usuarios").hasRole("ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/usuarios/**").hasRole("ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/usuarios/**").hasRole("ADMIN")
+
                 // Todas las demás rutas requieren autenticación
                 .anyRequest().authenticated()
         );

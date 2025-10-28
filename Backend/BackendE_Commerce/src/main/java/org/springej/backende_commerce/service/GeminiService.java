@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,40 +40,76 @@ public class GeminiService {
         this.objectMapper = new ObjectMapper();
     }
 
-    public String generateWithContext(String systemPrompt, String userMessage, String contexto) {
+    /**
+     * Genera respuesta CON historial de conversación
+     */
+    public String generateWithHistory(String systemPrompt, String userMessage,
+                                      String contexto, List<ConversationService.Message> history) {
         try {
-            String prompt = systemPrompt + "\n\nContexto de productos:\n" + contexto + "\n\nUsuario: " + userMessage;
-
             String url = String.format(
                     "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s",
                     model, apiKey
             );
 
-            // JSON para Gemini API - AUMENTAR maxOutputTokens
-            String body = """
-                    {
-                      "contents": [
+            // Construir el array de contents con historial
+            StringBuilder contentsJson = new StringBuilder();
+            contentsJson.append("\"contents\": [\n");
+
+            // Agregar mensaje del sistema como primer mensaje
+            contentsJson.append("""
+                {
+                  "parts": [{"text": "%s\\n\\nContexto de productos:\\n%s"}],
+                  "role": "user"
+                },
+                {
+                  "parts": [{"text": "Entendido. Soy el asistente de Script G y responderé según las instrucciones."}],
+                  "role": "model"
+                }
+                """.formatted(escapeJson(systemPrompt), escapeJson(contexto)));
+
+            // Agregar historial
+            if (history != null && !history.isEmpty()) {
+                for (ConversationService.Message msg : history) {
+                    contentsJson.append(",\n");
+                    String role = msg.getRole().equals("user") ? "user" : "model";
+                    contentsJson.append("""
                         {
-                          "parts": [
-                            {
-                              "text": "%s"
-                            }
-                          ]
+                          "parts": [{"text": "%s"}],
+                          "role": "%s"
                         }
-                      ],
-                      "generationConfig": {
-                        "temperature": 0.7,
-                        "maxOutputTokens": 2048
-                      }
-                    }
-                    """.formatted(escapeJson(prompt));
+                        """.formatted(escapeJson(msg.getContent()), role));
+                }
+            }
+
+            // Agregar mensaje actual del usuario
+            contentsJson.append(",\n");
+            contentsJson.append("""
+                {
+                  "parts": [{"text": "%s"}],
+                  "role": "user"
+                }
+                """.formatted(escapeJson(userMessage)));
+
+            contentsJson.append("]");
+
+            // Construir JSON completo
+            String body = String.format("""
+                {
+                  %s,
+                  "generationConfig": {
+                    "temperature": 0.7,
+                    "maxOutputTokens": 2048
+                  }
+                }
+                """, contentsJson.toString());
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> request = new HttpEntity<>(body, headers);
 
-            log.info("Llamando a Gemini con modelo: {}", model);
+            log.info("Llamando a Gemini con modelo: {} (historial: {} mensajes)",
+                    model, history != null ? history.size() : 0);
 
             ResponseEntity<String> response = http.exchange(url, HttpMethod.POST, request, String.class);
 
@@ -93,24 +127,28 @@ public class GeminiService {
         }
     }
 
+    /**
+     * Método legacy sin historial (mantener para compatibilidad)
+     */
+    public String generateWithContext(String systemPrompt, String userMessage, String contexto) {
+        return generateWithHistory(systemPrompt, userMessage, contexto, null);
+    }
+
     private String extractTextFromResponse(String jsonResponse) {
         try {
             JsonNode root = objectMapper.readTree(jsonResponse);
 
-            // Verificar si hay error
             if (root.has("error")) {
                 String errorMsg = root.path("error").path("message").asText("Error desconocido");
                 log.error("Error en respuesta de Gemini: {}", errorMsg);
                 return "Error de Gemini: " + errorMsg;
             }
 
-            // Intentar extraer el texto
             JsonNode candidates = root.path("candidates");
 
             if (candidates.isArray() && candidates.size() > 0) {
                 JsonNode firstCandidate = candidates.get(0);
 
-                // Verificar finishReason
                 String finishReason = firstCandidate.path("finishReason").asText("");
                 if ("MAX_TOKENS".equals(finishReason)) {
                     log.warn("Respuesta truncada por MAX_TOKENS");
@@ -127,9 +165,8 @@ public class GeminiService {
                     }
                 }
 
-                // Si llegamos acá, parts está vacío o no tiene texto
                 log.error("La respuesta no contiene texto. FinishReason: {}", finishReason);
-                return "La IA no pudo generar una respuesta completa. Intentá reformular tu consulta o reducir el contexto.";
+                return "La IA no pudo generar una respuesta completa. Intentá reformular tu consulta.";
             }
 
             log.error("No se encontraron candidates en la respuesta");
@@ -152,12 +189,15 @@ public class GeminiService {
 
     public String generarContextoProductos() {
         List<Producto> productos = productoRepository.findAll();
-        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
-        nf.setMaximumFractionDigits(0);
-
         return productos.stream()
-                .map(p -> String.format("- %s — Precio: %s — Stock: %d — Promoción: %s",
-                        p.getNombre(), nf.format(p.getPrecio()), p.getStock(), p.getPromocion()))
+                .map(p -> {
+                    double precioK = p.getPrecio() / 1000.0;
+                    String promo = (p.getPromocion() != null && !p.getPromocion().isBlank())
+                            ? " — Promo: " + p.getPromocion()
+                            : "";
+                    return String.format("- %s — $%.0fK — Stock: %d%s",
+                            p.getNombre(), precioK, p.getStock(), promo);
+                })
                 .collect(Collectors.joining("\n"));
     }
 }

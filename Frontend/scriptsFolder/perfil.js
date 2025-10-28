@@ -1,4 +1,4 @@
-﻿import { cerrarSesion } from './api/api_auth.js';
+﻿﻿import { cerrarSesion } from './api/api_auth.js';
 import { obtenerMiPerfil, crearDomicilio, eliminarDomicilio } from './api/api_usuarios.js';
 import { eliminarFavorito } from './api/api_favoritos.js';
 
@@ -162,36 +162,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const productos = Array.isArray(venta?.productos) ? venta.productos : [];
 
             const card = document.createElement('div');
-            card.className = 'order-card';
+            card.className = 'history-card'; // Cambiamos la clase para el nuevo estilo
             card.innerHTML = `
-                <div class="order-header">
-                    <div class="order-info">
-                        <h3 class="order-id">Pedido #${venta?.id ?? '---'}</h3>
-                        <p class="order-date">${fecha}</p>
+                <div class="history-card-header">
+                    <div class="history-card-info">
+                        <strong class="history-card-id">Pedido #${venta?.id ?? '---'}</strong>
+                        <span class="history-card-date">Realizado el ${fecha}</span>
                     </div>
-                    <div class="status-badge ${estado.toLowerCase()}">
-                        ${estado}
+                    <div class="history-card-summary">
+                        <strong class="history-card-total">${total}</strong>
+                        <span class="history-card-status history-card-status--${estado.toLowerCase()}">${estado}</span>
                     </div>
                 </div>
-                <div class="order-summary">
-                    <p class="summary-label">Total:</p>
-                    <p class="summary-value">${total}</p>
-                </div>
-                <div class="order-products">
-                    <p class="products-label">Productos (${productos.length}):</p>
+                <div class="history-card-body">
+                    <div class="history-card-products">
+                        ${productos.map(item => `
+                            <div class="history-product">
+                                <span class="history-product-qty">${item.cantidad}x</span>
+                                <span class="history-product-name">${item.nombreProducto || 'Producto'}</span>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
-
-            const productsContainer = card.querySelector('.order-products');
-            if (productsContainer) {
-                const detail = document.createElement('p');
-                detail.className = 'products-detail';
-                const resumen = productos
-                    .map((item) => `x${item?.cantidad ?? 0}`)
-                    .join(' Â· ');
-                detail.textContent = resumen || 'Sin detalles disponibles';
-                productsContainer.appendChild(detail);
-            }
 
             fragment.appendChild(card);
         });
@@ -411,4 +404,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cargarDatosPerfil();
 });
-

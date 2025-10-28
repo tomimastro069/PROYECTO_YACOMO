@@ -764,42 +764,39 @@
     renderizarCarrito();
   });
 </script>
-   <!-- Burbuja del chatbot -->
-        <div id="chatbot-bubble">
-        <div class="chat-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        </div>
+<!-- Burbuja del chatbot -->
+<div id="chatbot-bubble">
+  <div class="chat-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
 
 <!-- Ventana del chatbot -->
 <div id="chatbot-window">
   <div class="chatbot-header">
     <span>Ayudante SCRIPT-G</span>
-    <select id="chat-selector"></select>
-    <button id="new-chat-btn">➕</button>
-    <button id="delete-chat-btn">🗑️ Eliminar</button>
+    <button id="new-chat-btn">➕ Nuevo Chat</button>
   </div>
 
-        <div class="chatbot-body">
-            <!-- Sidebar de chats (a la izquierda) -->
-            <div class="chatbot-sidebar" id="chat-sidebar"></div>
+  <div class="chatbot-body">
+    <!-- Sidebar de chats (a la izquierda) -->
+    <div class="chatbot-sidebar" id="chat-sidebar"></div>
 
-            <!-- Área de mensajes -->
-            <div class="chatbot-main">
-            <div class="chatbot-messages" id="chatbot-messages"></div>
+    <!-- Área de mensajes -->
+    <div class="chatbot-main">
+      <div class="chatbot-messages" id="chatbot-messages"></div>
 
-            <div class="chatbot-input">
-                <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
-                <button id="chatbot-send">Enviar</button>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div id="toast-container"></div>
-        <script src="../scriptsFolder/chatbot.js"></script>
-    
+      <div class="chatbot-input">
+        <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
+        <button id="chatbot-send">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toast-container"></div>
+<script src="../scriptsFolder/chatbot.js"></script>
 </body>
 
 </html>

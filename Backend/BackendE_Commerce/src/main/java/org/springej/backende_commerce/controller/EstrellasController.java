@@ -25,4 +25,9 @@ public class EstrellasController {
         estrellasService.guardarPuntuacion(estrellasDTO, usuarioLogeado);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @GetMapping("/promedio/{productoId}")
+    public ResponseEntity<Double> obtenerPromedioEstrellas(@PathVariable Long productoId) {
+    Double promedio = estrellasService.obtenerPromedioEstrellas(productoId);
+    return ResponseEntity.ok(promedio != null ? promedio : 0.0);
+}
 }

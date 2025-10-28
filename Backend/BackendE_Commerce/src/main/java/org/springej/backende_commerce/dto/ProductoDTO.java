@@ -14,6 +14,8 @@ public class ProductoDTO {
     private String descripcion;
     private double precio;
     private Integer stock;
+    private Double estrellas; 
+
 
     public ProductoDTO(Producto producto) {
         this.id = producto.getId();

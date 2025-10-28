@@ -1,19 +1,20 @@
-// c:/Users/windows/Desktop/PROYECTO_YACOMO/Frontend/scriptsFolder/api/api_usuarios.js
-
 import llamarApi from './apiClient.js';
 
 /**
  * Obtiene los datos del perfil del usuario actualmente autenticado.
- * Requiere que el usuario esté logueado (token JWT válido).
+ * Requiere que el usuario este logueado (token JWT valido).
  * @returns {Promise<object>} - Los datos del perfil del usuario.
  */
 export const obtenerMiPerfil = () => {
-    // Esta función asume que tienes un endpoint en el backend en GET /api/usuarios/me
-    // que devuelve los datos del usuario autenticado a través de su token.
-    return llamarApi('/usuarios/me', 'GET', null, true); // El 'true' final indica que es una ruta protegida.
+    // Esta funcion asume un endpoint en GET /api/usuarios/me que devuelve el usuario autenticado mediante JWT.
+    return llamarApi('/usuarios/me', 'GET', null, true);
 };
 
-// Aquí podrías agregar más funciones de admin en el futuro, como:
-// export const obtenerTodosLosUsuarios = () => callApi('/usuarios', 'GET', null, true);
-// export const actualizarUsuario = (id, data) => callApi(`/usuarios/${id}`, 'PUT', data, true);
-// export const eliminarUsuario = (id) => callApi(`/usuarios/${id}`, 'DELETE', null, true);
+export const crearDomicilio = (payload) => {
+    return llamarApi('/usuarios/domicilios', 'POST', payload, true);
+};
+
+export const eliminarDomicilio = (domicilioId) => {
+    return llamarApi(`/usuarios/domicilios/${domicilioId}`, 'DELETE', null, true);
+};
+

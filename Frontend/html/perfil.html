@@ -46,8 +46,8 @@
                         <i class="bi bi-person-fill"></i>
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Nombre del Usuario</span>
-                        <span class="user-email">correo.usuario@ejemplo.com</span>
+                        <span class="user-name" data-header-username>Nombre del Usuario</span>
+                        <span class="user-email" data-header-email>correo.usuario@ejemplo.com</span>
                     </div>
                 </a>
             </div>
@@ -59,8 +59,8 @@
                 <div class="user-profile-header">
                     <img src="https://via.placeholder.com/80" alt="Foto de perfil del usuario" class="profile-photo">
                     <div class="user-details">
-                        <h2 class="user-name">Cargando...</h2>
-                        <span class="user-membership"></span>
+                        <h2 class="user-name" data-sidebar-username>Cargando...</h2>
+                        <span class="user-membership" data-sidebar-membership></span>
                     </div>
                 </div>
 
@@ -138,41 +138,41 @@
                     <div class="miniperfil-header"> 
                         <img src="https://via.placeholder.com/80" alt="Foto de perfil del usuario" class="profile-photo">
                         <div class="encabezado">
-                            <h2 class="user-name">Cargando...</h2>
-                            <span class="user-membership"></span>
+                            <h2 class="user-name" data-mini-name>Cargando...</h2>
+                            <span class="user-membership" data-mini-membership></span>
                         </div>
                     </div>
                     <div class="perfil-details">
                         <ul class="perfil-detalles">
                             <li>
-                                <span>Nombre completo</Span>
-                                <p>Nombre Apellido</p>
+                                <span>Nombre completo</span>
+                                <p data-detail-fullname>Nombre Apellido</p>
                             </li>
                             <li>
                                 <span>Correo electrónico</span>
                                 <p>cargando@email.com</p>
                             </li>
                             <li>
-                                <span>Telefono</span>
-                                <p>No disponible</p>
+                                <span>Tel&eacute;fono</span>
+                                <p data-detail-phone>No disponible</p>
                             </li>
                             <li>
                                 <span>Fecha de registro</span>
-                                <p>--/--/----</p>
+                                <p data-detail-date>--/--/----</p>
                             </li>
                         </ul>
                     
                         <ul class="perfil-detalles-extra">
                             <li>
-                                <i class="bi bi-calendar-check">24</i><br>
+                                <i class="bi bi-calendar-check" data-orders-count>0</i><br>
                                 <span class="aclaracion">Pedidos realizados</span>
                             </li>
                             <li>
-                                <i class="bi bi-currency-dollar">125.000</i><br>
+                                <i class="bi bi-currency-dollar" data-total-spent>$0</i><br>
                                 <span class="aclaracion">Total gastado</span>
                             </li>
                             <li>
-                                <i class="bi bi-person-badge">Gold</i><br>
+                                <i class="bi bi-person-badge" data-membership>Cliente Script-G</i><br>
                                 <span class="aclaracion">Nivel de membresía</span>
                             </li>
                         </ul>
@@ -200,7 +200,30 @@
             </section>
 
             <section class="info info-direcciones">
-                <!-- Las direcciones se cargarán aquí dinámicamente -->
+                <div class="direcciones-layout">
+                    <article class="address-form-card">
+                        <h3>Agregar domicilio</h3>
+                        <p class="form-hint">Completa los datos para guardar un nuevo punto de entrega.</p>
+                        <form id="address-form" autocomplete="off">
+                            <label for="direccion">Direcci&oacute;n</label>
+                            <input type="text" id="direccion" name="direccion" placeholder="Ej: Av. Siempre Viva 742" required>
+
+                            <label for="codigo_area">C&oacute;digo de &aacute;rea</label>
+                            <input type="number" id="codigo_area" name="codigo_area" min="0" placeholder="Ej: 1414" required>
+
+                            <button type="submit" class="btn btn-primary">Guardar domicilio</button>
+                            <p class="form-feedback" data-address-feedback></p>
+                        </form>
+                    </article>
+
+                    <article class="address-list-card">
+                        <div class="address-list-header">
+                            <h3>Domicilios guardados</h3>
+                            <p class="address-list-caption">Administra los lugares disponibles para tus pedidos.</p>
+                        </div>
+                        <div class="address-list" data-address-list></div>
+                    </article>
+                </div>
             </section>
 
             <section class="info info-soporte">
@@ -275,3 +298,7 @@
     <script src="../scriptsFolder/funciones.js"></script>
 </body>
 </html>
+
+
+
+

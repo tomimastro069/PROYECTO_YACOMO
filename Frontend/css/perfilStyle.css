@@ -1179,6 +1179,142 @@ input:not(:placeholder-shown) ~ .reset {
     height: 18px;
 }
 
+.direcciones-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) 1fr;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+@media (max-width: 960px) {
+    .direcciones-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.address-form-card,
+.address-list-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    padding: 24px;
+}
+
+.address-form-card h3,
+.address-list-header h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--color-primary-text);
+}
+
+.address-list-caption,
+.form-hint {
+    font-size: 0.9rem;
+    color: var(--color-secondary-text);
+    margin-bottom: 16px;
+}
+
+#address-form label {
+    display: block;
+    font-weight: 600;
+    color: var(--color-primary-text);
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+#address-form input {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-btn);
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#address-form input:focus {
+    outline: none;
+    border-color: #5f53ff;
+    box-shadow: 0 0 0 3px rgba(95, 83, 255, 0.15);
+}
+
+.btn-primary {
+    width: 100%;
+    margin-top: 18px;
+    border: none;
+    border-radius: var(--radius-btn);
+    padding: 11px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, #5f53ff, #9f3eff);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(95, 83, 255, 0.25);
+}
+
+.btn-primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+.form-feedback {
+    min-height: 18px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--color-secondary-text);
+}
+
+.form-feedback.error {
+    color: #c0392b;
+}
+
+.form-feedback.success {
+    color: #1f8d3f;
+}
+
+.address-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.address-list-header {
+    margin-bottom: 16px;
+}
+
+.address-empty {
+    padding: 24px;
+    text-align: center;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-card);
+    background-color: var(--color-bg-light);
+    color: var(--color-secondary-text);
+    font-size: 0.95rem;
+}
+
+.btn-danger {
+    border: 1px solid #d23b57;
+    border-radius: var(--radius-btn);
+    background-color: #ffe8ed;
+    color: #c02c4a;
+    font-weight: 600;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-danger:hover {
+    background-color: #ffd5de;
+    color: #a91f3a;
+}
+
 /* ---INFO DE SOPORTE--- */
 /* --- 1. VARIABLES --- */
 :root {

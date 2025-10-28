@@ -50,6 +50,9 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind'
 
     // Conector MySQL, versión gestionada por Spring Boot (ya está como runtimeOnly 'com.mysql:mysql-connector-j')
+    //PDF generation library
+    implementation 'com.github.librepdf:openpdf:1.3.30'
+
 }
 
 tasks.named('test') {

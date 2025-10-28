@@ -1,25 +1,23 @@
 package org.springej.backende_commerce.controller;
 
-//import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springej.backende_commerce.dto.VentaCreationResult;
-//import org.springej.backende_commerce.dto.VentaDTO;
 import org.springej.backende_commerce.dto.UsuarioDTO;
 import org.springej.backende_commerce.dto.VentaDTO;
 import org.springej.backende_commerce.entity.Usuario;
 import org.springej.backende_commerce.entity.Venta;
 import org.springej.backende_commerce.service.AuthService;
+import org.springej.backende_commerce.service.PDFService;
 import org.springej.backende_commerce.service.VentaService;
-//import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5500") // Asegurarse que esta anotación esté presente
+@CrossOrigin(origins = {"http://localhost:5500", "http://127.0.0.1:5500"}) // Asegurarse que esta anotación esté presente
 @RestController
 @RequestMapping("/api/ventas")
 @RequiredArgsConstructor
@@ -155,6 +153,32 @@ public class VentaController {
         }).toList();
 
         return ResponseEntity.ok(dtos);
+    }
+
+
+    /**
+     * Descarga del comprobante PDF de una venta especifica (perteneciente al usuario autenticado).
+     * Ruta: GET /api/ventas/{idVenta}/comprobante.pdf
+     */
+    @GetMapping(value = "/{idVenta}/comprobante.pdf")
+    public ResponseEntity<byte[]> descargarComprobante(@PathVariable Long idVenta) {
+        Usuario usuario = authService.getUsuarioLogeado();
+        Venta venta = ventaService.obtenerVentaCompletaPorId(idVenta);
+
+        if (!venta.getUsuario().getId().equals(usuario.getId())) {
+            return ResponseEntity.status(403).build();
+        }
+
+        byte[] pdf = PDFService.generarPdf(venta);
+
+        org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+        headers.setContentType(org.springframework.http.MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(org.springframework.http.ContentDisposition
+                .attachment()
+                .filename("comprobante-venta-" + idVenta + ".pdf")
+                .build());
+
+        return new ResponseEntity<>(pdf, headers, org.springframework.http.HttpStatus.OK);
     }
 
 }

@@ -21,10 +21,52 @@
         <p class="mp-sub">Gracias por tu compra. En breve recibirás un correo con los detalles de tu pedido.</p>
         <div class="mp-divider"></div>
         <div class="mp-actions">
-          <a class="btn" href="../checkout-pago.html">Ver resumen</a>
+          <a class="btn" href="#" data-action="download-receipt">Ver resumen</a>
           <a class="btn btn--primary" href="../index.html">Ir al inicio</a>
         </div>
       </section>
     </main>
+        <script type="module">
+      import { BASE_URL } from '../../scriptsFolder/api/apiClient.js';
+
+      // Limpiar el carrito de compras al llegar a la página de éxito.
+      // Esto es crucial para que el usuario no vea los productos que acaba de comprar.
+      try {
+        localStorage.removeItem('carrito');
+        console.log('Carrito de compras limpiado tras pago exitoso.');
+      } catch (e) { console.error('No se pudo limpiar el carrito:', e); }
+
+      const btn = document.querySelector('[data-action="download-receipt"]');
+      btn?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const params = new URLSearchParams(location.search);
+        const ventaId = params.get('external_reference') || params.get('merchant_order_id');
+        if (!ventaId) {
+          alert('No se encontro el identificador de la venta.');
+          return;
+        }
+        try {
+          const token = localStorage.getItem('jwt_token');
+          const url = `${BASE_URL}/ventas/${ventaId}/comprobante.pdf`;
+          const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+          const resp = await fetch(url, { headers });
+          if (!resp.ok) {
+            const text = await resp.text();
+            throw new Error(text || `Error ${resp.status}`);
+          }
+          const blob = await resp.blob();
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = `comprobante-venta-${ventaId}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+        } catch (err) {
+          console.error('Error descargando comprobante:', err);
+          alert('No se pudo descargar el comprobante.');
+        }
+      });
+
+    </script>
   </body>
 </html>

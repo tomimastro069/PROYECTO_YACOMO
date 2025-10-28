@@ -1,5 +1,7 @@
 package org.springej.backende_commerce.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import java.math.BigDecimal;
@@ -17,13 +19,13 @@ import org.springej.backende_commerce.entity.Usuario;
 import org.springej.backende_commerce.entity.Venta;
 import org.springej.backende_commerce.service.AuthService;
 import org.springej.backende_commerce.service.PaymentService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import com.mercadopago.resources.payment.Payment;
-import org.springframework.web.servlet.view.RedirectView;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import java.net.URI;
 import org.springej.backende_commerce.service.RegistroPagoService;
 import org.springej.backende_commerce.service.VentaService;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,7 +45,7 @@ public class PaymentController {
     @Value("${mercadopago.base.url}")
     private String baseUrl;
 
-    // URLs de redirección para el frontend
+    // URLs de redirecciÃ³n para el frontend
     @Value("${frontend.url.success}")
     private String frontendSuccessUrl;
 
@@ -107,13 +109,13 @@ public class PaymentController {
 
         String type = (String) payload.get("type");
         if (!"payment".equals(type)) {
-            return ResponseEntity.ok("Notificación ignorada (no es de tipo 'payment').");
+            return ResponseEntity.ok("NotificaciÃ³n ignorada (no es de tipo 'payment').");
         }
 
         try {
             Object dataObj = payload.get("data");
             if (!(dataObj instanceof Map)) {
-                throw new IllegalArgumentException("El payload del webhook no contiene un objeto 'data' válido.");
+                throw new IllegalArgumentException("El payload del webhook no contiene un objeto 'data' vÃ¡lido.");
             }
             Map<?, ?> dataMap = (Map<?, ?>) dataObj;
 
@@ -131,7 +133,7 @@ public class PaymentController {
 
             Long ventaId = Long.valueOf(externalReference);
 
-            // Usar servicios para manejar la lógica de negocio
+            // Usar servicios para manejar la lÃ³gica de negocio
             registroPagoService.procesarPago(payment, ventaId);
 
             logger.info("Webhook para el pago {} procesado correctamente.", paymentId);
@@ -148,11 +150,29 @@ public class PaymentController {
 
     // Redirecciones al Frontend
     @GetMapping("/success")
-    public RedirectView pagoExitoso() { return new RedirectView(frontendSuccessUrl); }
+    public ResponseEntity<Void> pagoExitoso(HttpServletRequest request) {
+        String qs = request.getQueryString();
+        String url = frontendSuccessUrl + (qs != null && !qs.isBlank() ? (frontendSuccessUrl.contains("?") ? "&" : "?") + qs : "");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(url));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND); // 302 Found
+    }
 
     @GetMapping("/failure")
-    public RedirectView pagoFallido() { return new RedirectView(frontendFailureUrl); }
+    public ResponseEntity<Void> pagoFallido(HttpServletRequest request) {
+        String qs = request.getQueryString();
+        String url = frontendFailureUrl + (qs != null && !qs.isBlank() ? (frontendFailureUrl.contains("?") ? "&" : "?") + qs : "");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(url));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+    }
 
     @GetMapping("/pending")
-    public RedirectView pagoPendiente() { return new RedirectView(frontendPendingUrl); }
+    public ResponseEntity<Void> pagoPendiente(HttpServletRequest request) {
+        String qs = request.getQueryString();
+        String url = frontendPendingUrl + (qs != null && !qs.isBlank() ? (frontendPendingUrl.contains("?") ? "&" : "?") + qs : "");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create(url));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+    }
 }

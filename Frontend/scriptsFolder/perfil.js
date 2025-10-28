@@ -1,4 +1,4 @@
-import { cerrarSesion } from './api/api_auth.js';
+﻿import { cerrarSesion } from './api/api_auth.js';
 import { obtenerMiPerfil, crearDomicilio, eliminarDomicilio } from './api/api_usuarios.js';
 import { eliminarFavorito } from './api/api_favoritos.js';
 
@@ -60,6 +60,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     navLinks.forEach((link) => link.addEventListener('click', switchTab));
+    // Activar pestaña desde query string (?tab=historial|pedidos|...)
+    (function activateTabFromQuery(){
+        try {
+            const params = new URLSearchParams(location.search);
+            const tab = (params.get('tab') || '').toLowerCase();
+            if (!tab) return;
+            const map = {
+                'perfil':'info-perfil',
+                'historial':'info-historial',
+                'pedidos':'info-pedidos',
+                'favoritos':'info-fav',
+                'soporte':'info-soporte',
+                'pagos':'info-pagos',
+                'direcciones':'info-direcciones'
+            };
+            const target = map[tab];
+            if (!target) return;
+            const link = document.querySelector(`.nav-link[data-target="${target}"]`);
+            if (link) {
+                link.click();
+            }
+        } catch {}
+    })();
 
     async function cargarDatosPerfil() {
         try {
@@ -165,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 detail.className = 'products-detail';
                 const resumen = productos
                     .map((item) => `x${item?.cantidad ?? 0}`)
-                    .join(' · ');
+                    .join(' Â· ');
                 detail.textContent = resumen || 'Sin detalles disponibles';
                 productsContainer.appendChild(detail);
             }
@@ -388,3 +411,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cargarDatosPerfil();
 });
+

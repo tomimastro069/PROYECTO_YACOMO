@@ -41,4 +41,5 @@ public class RegistroPago {
     @JsonIgnore
     @ToString.Exclude
     private Venta venta;
+
 }

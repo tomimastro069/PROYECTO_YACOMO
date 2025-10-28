@@ -39,13 +39,13 @@ public class VentaService {
 
         if (ventaDTO.getProductos() == null || ventaDTO.getProductos().isEmpty()) {
             logger.warn("Intento de registrar una venta sin productos para el usuario ID: {}", usuario.getId());
-            throw new IllegalArgumentException("La lista de productos no puede estar vacía.");
+            throw new IllegalArgumentException("La lista de productos no puede estar vacÃ­a.");
         }
 
         Venta venta = new Venta();
         venta.setUsuario(usuario);
         venta.setFechaVenta(ventaDTO.getFechaVenta());
-        venta.setEstado("PENDIENTE"); // Establecer estado inicial para la integración con Mercado Pago
+        venta.setEstado("PENDIENTE"); // Establecer estado inicial para la integraciÃ³n con Mercado Pago
 
         BigDecimal totalVenta = BigDecimal.ZERO;
 
@@ -67,18 +67,18 @@ public class VentaService {
             BigDecimal precioUnitario = BigDecimal.valueOf(producto.getPrecio());
             String promocion = producto.getPromocion();
 
-            // Lógica para aplicar el descuento desde el String de promoción (ej: "10%")
+            // LÃ³gica para aplicar el descuento desde el String de promociÃ³n (ej: "10%")
             if (promocion != null && !promocion.isBlank() && promocion.endsWith("%")) {
                 try {
                     String valorPorcentajeStr = promocion.replace("%", "").trim();
                     double valorPorcentaje = Double.parseDouble(valorPorcentajeStr);
                     if (valorPorcentaje > 0) {
-                        logger.debug("Aplicando promoción del {}% al producto ID: {}", valorPorcentaje, producto.getId());
+                        logger.debug("Aplicando promociÃ³n del {}% al producto ID: {}", valorPorcentaje, producto.getId());
                         BigDecimal multiplicadorDescuento = BigDecimal.ONE.subtract(BigDecimal.valueOf(valorPorcentaje / 100.0));
                         precioUnitario = precioUnitario.multiply(multiplicadorDescuento);
                     }
                 } catch (NumberFormatException e) {
-                    logger.warn("No se pudo parsear el valor de la promoción '{}' para el producto ID: {}. Se usará el precio base.", promocion, producto.getId());
+                    logger.warn("No se pudo parsear el valor de la promociÃ³n '{}' para el producto ID: {}. Se usarÃ¡ el precio base.", promocion, producto.getId());
                 }
             }
             totalVenta = totalVenta.add(precioUnitario.multiply(BigDecimal.valueOf(productoDTO.getCantidad())));
@@ -92,7 +92,7 @@ public class VentaService {
             venta.getProductos().add(productoVenta);
         }
 
-        // El campo 'total' fue eliminado de la entidad Venta. El total se calcula aquí y se devuelve.
+        // El campo 'total' fue eliminado de la entidad Venta. El total se calcula aquÃ­ y se devuelve.
         Venta ventaGuardada = ventaRepository.save(venta);
 
         logger.info("Venta registrada exitosamente. ID: {}, Usuario: {}, Total calculado: {:.2f}",
@@ -102,7 +102,7 @@ public class VentaService {
     }
 
     /**
-     * Obtiene todas las ventas de un usuario específico
+     * Obtiene todas las ventas de un usuario especÃ­fico
      */
     @Transactional(readOnly = true)
     public List<Venta> obtenerVentasPorUsuario(Long idUsuario) {
@@ -127,5 +127,22 @@ public class VentaService {
     public List<Venta> listarTodasLasVentas() {
         logger.info("Listando todas las ventas del sistema");
         return ventaRepository.findAll();
+    }
+
+    /**
+     * Obtiene una venta por ID y asegura cargar sus asociaciones necesarias
+     * para uso fuera del contexto de persistencia (productos y producto asociado).
+     */
+    @Transactional(readOnly = true)
+    public Venta obtenerVentaCompletaPorId(Long idVenta) {
+        Venta venta = ventaRepository.findById(idVenta)
+                .orElseThrow(() -> new ResourceNotFoundException("Venta no encontrada con ID: " + idVenta));
+        // Inicializar colecciones perezosas
+        venta.getProductos().forEach(pv -> {
+            if (pv.getProducto() != null) {
+                pv.getProducto().getNombre();
+            }
+        });
+        return venta;
     }
 }

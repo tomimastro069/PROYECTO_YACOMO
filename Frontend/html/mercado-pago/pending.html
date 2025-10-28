@@ -1,28 +1,30 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pago Pendiente</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            padding-top: 50px;
-            background-color: #fffde7;
-            margin: 0;
-        }
-        h1 {
-            color: #f9a825;
-        }
-        a {
-            color: #007ab8;
-        }
-    </style>
+    <link rel="stylesheet" href="../../css/mp-result.css">
 </head>
 <body>
-    <h1>⏳ Tu pago está pendiente de confirmación.</h1>
-    <p>Estamos esperando que el medio de pago (ej. pago en efectivo) confirme la transacción. Te notificaremos por correo cuando se apruebe.</p>
-    <p><a href="/">Volver a la tienda</a></p>
+  <main class="mp-shell">
+    <section class="mp-card is-pending">
+      <header class="mp-head">
+        <div class="mp-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="11" fill="rgba(255,255,255,.15)"/>
+            <path d="M12 6v6l4 2" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h1 class="mp-title">Tu pago está pendiente</h1>
+      </header>
+      <p class="mp-sub">Estamos esperando la confirmación del medio de pago. Te avisaremos por correo cuando se apruebe.</p>
+      <div class="mp-divider"></div>
+      <div class="mp-actions">
+        <a class="btn" href="../checkout-pago.html">Volver al checkout</a>
+        <a class="btn btn--primary" href="../index.html">Ir al inicio</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>

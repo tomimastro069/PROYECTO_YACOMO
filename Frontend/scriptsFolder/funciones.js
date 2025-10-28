@@ -1,9 +1,9 @@
-// Array para almacenar los productos del carrito
+﻿// Array para almacenar los productos del carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 // Keep the previous count to trigger a small "pop" animation when the count changes
 let previousCartCount = getCartProductCount(); // Inicializar con el conteo actual
 
-// Función para renderizar el carrito en el DOM
+// FunciÃ³n para renderizar el carrito en el DOM
 export function renderizarCarrito() {
   const carritoBody = document.querySelector('.ts-cart__body');
   if (!carritoBody) return;
@@ -24,7 +24,7 @@ export function renderizarCarrito() {
         <div class="ts-item__row">
           <strong class="ts-price">${producto.precio}</strong> <!-- Precio ya formateado -->
           <div class="ts-qty">
-            <button class="ts-qty__btn decrease" aria-label="Restar">−</button>
+            <button class="ts-qty__btn decrease" aria-label="Restar">-</button>
             <span class="ts-qty__num">${producto.cantidad || 1}</span>
             <button class="ts-qty__btn increase" aria-label="Sumar">+</button>
           </div>
@@ -36,7 +36,7 @@ export function renderizarCarrito() {
     `;
     carritoBody.appendChild(item);
 
-    // Sumar al subtotal (convertir el precio a número, quitando el símbolo y el separador de miles)
+    // Sumar al subtotal (convertir el precio a nÃºmero, quitando el sÃ­mbolo y el separador de miles)
     const precioNumerico = parseFloat(producto.precio.replace(/[^0-9,-]+/g, "").replace(",", "."));
     subtotal += precioNumerico * (producto.cantidad || 1);
   });
@@ -54,12 +54,12 @@ export function renderizarCarrito() {
 
   if (subtotalSpan) subtotalSpan.textContent = `Subtotal (${totalCantidad} item${totalCantidad === 1 ? '' : 's'})`;
   if (subtotalStrong) subtotalStrong.textContent = `$${subtotal.toLocaleString('es-AR')}`;
-  if (totalPriceStrong) totalPriceStrong.textContent = `$${subtotal.toLocaleString('es-AR')}`; // Asumiendo que el envío es gratis o ya incluido
+  if (totalPriceStrong) totalPriceStrong.textContent = `$${subtotal.toLocaleString('es-AR')}`; // Asumiendo que el envÃ­o es gratis o ya incluido
 
   updateCartCount(); // Actualizar el badge del carrito en el header/nav
 }
 
-// Función para agregar un producto al carrito
+// FunciÃ³n para agregar un producto al carrito
 export function agregarAlCarrito(event, productData) { // Ahora recibe el objeto productData
   const boton = event.target.closest('.btn-cart');
   if (boton) {
@@ -73,9 +73,9 @@ export function agregarAlCarrito(event, productData) { // Ahora recibe el objeto
   const titulo = productData.nombre;
   const precio = `$${productData.precio.toLocaleString('es-AR')}`; // Formatear el precio para mostrar
   const imagen = productData.imagenes?.[0]?.url || 'https://via.placeholder.com/200'; // Usar la primera imagen o un placeholder
-  const marca = productData.categoria || ''; // Asumiendo que la categoría puede actuar como marca
+  const marca = productData.categoria || ''; // Asumiendo que la categorÃ­a puede actuar como marca
 
-  // Verificar si el producto ya está en el carrito
+  // Verificar si el producto ya estÃ¡ en el carrito
   let producto = carrito.find(item => item.id === id);
   if (producto) {
     producto.cantidad = (producto.cantidad || 1) + 1;
@@ -87,21 +87,21 @@ export function agregarAlCarrito(event, productData) { // Ahora recibe el objeto
   renderizarCarrito();
 }
 
-// La inicialización del carrito y el contador se hará en el script de productos.html
-// o en el script principal de la página donde se use el carrito.
+// La inicializaciÃ³n del carrito y el contador se harÃ¡ en el script de productos.html
+// o en el script principal de la pÃ¡gina donde se use el carrito.
 
 export function toggleCart() {
   document.getElementById("cart").classList.toggle("open");
 }
 
-// --- Lógica para eliminar/ajustar cantidad de productos en el carrito ---
+// --- LÃ³gica para eliminar/ajustar cantidad de productos en el carrito ---
 
-// Lógica para interactuar con el carrito (cerrar, eliminar, ajustar cantidad)
+// LÃ³gica para interactuar con el carrito (cerrar, eliminar, ajustar cantidad)
 document.addEventListener('DOMContentLoaded', function() {
   const cart = document.getElementById('cart');
   if (!cart) return;
 
-  // 1. Lógica para cerrar el carrito
+  // 1. LÃ³gica para cerrar el carrito
   const closeButton = cart.querySelector('.ts-x');
   const overlay = cart.querySelector('.ts-cart__overlay');
 
@@ -113,60 +113,54 @@ document.addEventListener('DOMContentLoaded', function() {
   if (closeButton) closeButton.addEventListener('click', closeCart);
   if (overlay) overlay.addEventListener('click', closeCart);
 
-  // 2. Delegación de eventos para acciones dentro del carrito (eliminar, cantidad)
+  // 2. DelegaciÃ³n de eventos para acciones dentro del carrito (eliminar, cantidad)
   const cartBody = cart.querySelector('.ts-cart__body');
   if (cartBody) {
     cartBody.addEventListener('click', function(e) {
-      if (e.target.closest('.ts-remove')) {
-        const item = e.target.closest('.ts-item');
-        if (item) {
-          // Use the data-id set on the rendered cart item to identify the product
-          const itemId = item.dataset.id; // Asegúrate de que el ID sea una cadena si lo comparas con cadenas
-          let productoIndex = carrito.findIndex(p => String(p.id) === itemId);
+  const removeBtn = e.target.closest('.ts-remove');
+  const incBtn = e.target.closest('.ts-qty__btn.increase');
+  const decBtn = e.target.closest('.ts-qty__btn.decrease');
 
-          if (e.target.closest('.ts-remove')) {
-            if (productoIndex !== -1) {
-              carrito.splice(productoIndex, 1);
-              localStorage.setItem('carrito', JSON.stringify(carrito));
-              renderizarCarrito();
-            }
-          } else if (e.target.closest('.ts-qty__btn.increase')) {
-            if (productoIndex !== -1) {
-              carrito[productoIndex].cantidad = (carrito[productoIndex].cantidad || 1) + 1;
-              localStorage.setItem('carrito', JSON.stringify(carrito));
-              renderizarCarrito();
-            }
-          } else if (e.target.closest('.ts-qty__btn.decrease')) {
-            if (productoIndex !== -1) {
-              if (carrito[productoIndex].cantidad > 1) {
-                carrito[productoIndex].cantidad--;
-              } else {
-                // Si la cantidad es 1 y se presiona decrementar, eliminar el producto
-                carrito.splice(productoIndex, 1);
-              }
-              localStorage.setItem('carrito', JSON.stringify(carrito));
-              renderizarCarrito();
-            }
-          }
-        }
-      }
-    });
+  if (!removeBtn && !incBtn && !decBtn) return;
+
+  const item = e.target.closest('.ts-item');
+  if (!item) return;
+
+  const itemId = item.dataset.id;
+  const productoIndex = carrito.findIndex(p => String(p.id) === String(itemId));
+  if (productoIndex === -1) return;
+
+  if (removeBtn) {
+    carrito.splice(productoIndex, 1);
+  } else if (incBtn) {
+    carrito[productoIndex].cantidad = (carrito[productoIndex].cantidad || 1) + 1;
+  } else if (decBtn) {
+    if ((carrito[productoIndex].cantidad || 1) > 1) {
+      carrito[productoIndex].cantidad--;
+    } else {
+      carrito.splice(productoIndex, 1);
+    }
   }
 
-  // 3. Lógica para el botón "Pagar Ahora"
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+  renderizarCarrito();
+});
+  }
+
+  // 3. LÃ³gica para el botÃ³n "Pagar Ahora"
   const payButton = cart.querySelector('.ts-pay');
   if (payButton) {
     payButton.addEventListener('click', (e) => {
       e.preventDefault();
 
       if (!localStorage.getItem('jwt_token')) {
-        alert('Debes iniciar sesión para poder pagar.');
+        alert('Debes iniciar sesiÃ³n para poder pagar.');
         return;
       }
 
       const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
       if (carritoActual.length === 0) {
-        alert('Tu carrito está vacío.');
+        alert('Tu carrito estÃ¡ vacÃ­o.');
         return;
       }
 
@@ -211,4 +205,7 @@ export function getCartProductCount() {
     return 0;
   }
 }
-// La lógica de los modales de login/registro se ha movido a scriptsFolder/modalHandler.js
+// La lÃ³gica de los modales de login/registro se ha movido a scriptsFolder/modalHandler.js
+
+
+

@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
           title: 'Carrito Vacío',
           message: 'Tu carrito está vacío. Agrega productos antes de continuar.',
           type: 'info'
-        });
+        });0
         return;
       }
       window.location.href = 'checkout-pago.html';

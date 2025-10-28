@@ -5,7 +5,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: linear-gradient(90deg, #2563eb, #7e22ce);
+  background-color: #8a2be2;
   width: 55px;
   height: 55px;
   border-radius: 50%;
@@ -19,8 +19,7 @@
 }
 
 #chatbot-bubble:hover {
-  background: linear-gradient(90deg, #2563eb, #7e22ce);
-  filter: brightness(1.05);
+  background-color: #7326b8;
   transform: scale(1.1);
 }
 
@@ -71,7 +70,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #2563eb, #7e22ce);
+  background-color: #8a2be2;
   color: white;
   padding: 10px;
   font-weight: bold;
@@ -84,14 +83,14 @@
   border-radius: 8px;
   padding: 4px 8px;
   cursor: pointer;
-  background: transparent;
-  color: #fff;
+  background-color: white;
+  color: #8a2be2;
   font-weight: bold;
 }
 
 .chatbot-header button:hover {
-  background: rgba(0, 0, 0, 0.15);
-  color: #fff;
+  background-color: #a145f0;
+  color: white;
 }
 
 /* Estructura del cuerpo */
@@ -127,20 +126,20 @@
 }
 
 .chat-btn.active {
-  background: linear-gradient(90deg, #2563eb, #7e22ce);
+  background-color: #8a2be2;
   color: white;
 }
 
 .delete-btn {
   background: none;
   border: none;
-  color: transparent;
+  color: black;
   cursor: pointer;
   font-weight: bold;
 }
 
 .delete-btn:hover {
-  color: rgb(3, 0, 0);
+  color: red;
 }
 
 /* Área principal del chat */
@@ -172,7 +171,7 @@
 
 .user-message {
   align-self: flex-end;
-  background: linear-gradient(90deg, #2563eb, #7e22ce);
+  background-color: #8a2be2;
   color: white;
   border-bottom-right-radius: 0;
 }
@@ -202,7 +201,7 @@
 
 .chatbot-input button {
   margin-left: 8px;
-  background: linear-gradient(90deg, #2563eb, #7e22ce);
+  background-color: #8a2be2;
   color: white;
   border: none;
   border-radius: 20px;
@@ -211,8 +210,7 @@
 }
 
 .chatbot-input button:hover {
-  background: linear-gradient(90deg, #2563eb, #7e22ce);
-  filter: brightness(1.05);
+  background-color: #a145f0;
 }
 
 /* Animación de "escribiendo..." */

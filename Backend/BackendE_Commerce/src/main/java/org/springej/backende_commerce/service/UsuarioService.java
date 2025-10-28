@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springej.backende_commerce.dto.DomicilioDTO;
 import org.springej.backende_commerce.dto.DomicilioRequest;
 import org.springej.backende_commerce.dto.RegisterRequest;
+import org.springej.backende_commerce.dto.AdminUsuarioRequest;
+import org.springej.backende_commerce.dto.UsuarioAdminDTO;
 import org.springej.backende_commerce.entity.Domicilio;
 import org.springej.backende_commerce.exception.AlreadyExistsException;
 import org.springej.backende_commerce.exception.ResourceNotFoundException;
@@ -139,5 +141,79 @@ public class UsuarioService {
      */
     public void enviarEmailRecuperacion(String email, String resetLink, EmailService emailService) {
         emailService.sendPasswordResetEmail(email, resetLink);
+    }
+
+    // ========================= ADMIN CRUD =========================
+    public List<UsuarioAdminDTO> listarTodosAdmin() {
+        return usuarioRepository.findAll().stream().map(this::toAdminDTO).toList();
+    }
+
+    public UsuarioAdminDTO obtenerPorIdAdmin(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + id));
+        return toAdminDTO(usuario);
+    }
+
+    public UsuarioAdminDTO crearUsuarioAdmin(AdminUsuarioRequest request) {
+        usuarioRepository.findByEmail(request.getEmail()).ifPresent(u -> {
+            throw new AlreadyExistsException("El email '" + request.getEmail() + "' ya está registrado.");
+        });
+
+        Usuario usuario = Usuario.builder()
+                .nombre(request.getNombre())
+                .apellido(request.getApellido())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(
+                        java.util.Optional.ofNullable(request.getPassword())
+                                .orElseThrow(() -> new IllegalArgumentException("La contraseña es obligatoria"))
+                ))
+                .build();
+
+        asignarRol(usuario, request.getRol());
+        Usuario guardado = usuarioRepository.save(usuario);
+        return toAdminDTO(guardado);
+    }
+
+    public UsuarioAdminDTO actualizarUsuarioAdmin(Long id, AdminUsuarioRequest request) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + id));
+
+        usuario.setNombre(request.getNombre());
+        usuario.setApellido(request.getApellido());
+        usuario.setEmail(request.getEmail());
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            usuario.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+        usuario.getRoles().clear();
+        asignarRol(usuario, request.getRol());
+
+        Usuario guardado = usuarioRepository.save(usuario);
+        return toAdminDTO(guardado);
+    }
+
+    public void eliminarUsuarioAdmin(Long id) {
+        if (!usuarioRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Usuario no encontrado con id: " + id);
+        }
+        usuarioRepository.deleteById(id);
+    }
+
+    private void asignarRol(Usuario usuario, String rolNombre) {
+        String nombreNormalizado = (rolNombre == null) ? "" : rolNombre.trim().toUpperCase();
+        Rol rol = rolRepository.findByNombre(nombreNormalizado)
+                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el rol '" + nombreNormalizado + "'"));
+        usuario.getRoles().add(rol);
+    }
+
+    private UsuarioAdminDTO toAdminDTO(Usuario usuario) {
+        List<String> roles = usuario.getRoles().stream().map(Rol::getNombre).toList();
+        return new UsuarioAdminDTO(
+                usuario.getId(),
+                usuario.getNombre(),
+                usuario.getApellido(),
+                usuario.getEmail(),
+                usuario.getFechaRegistro(),
+                roles
+        );
     }
 }

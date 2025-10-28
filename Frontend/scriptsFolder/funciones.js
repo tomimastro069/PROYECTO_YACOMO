@@ -227,7 +227,14 @@ export function showAlert({ title, message, type }) {
         icon: type || 'info',
         confirmButtonText: 'OK',
         background: '#202020',
-        color: '#fff'
+        color: '#fff',
+        // ============================>
+        // Esto hace que el modal quede arriba de todo
+        customClass: {
+          container: 'swal-container-top' // clase que vamos a definir en CSS
+        },
+        // ============================>
+        allowOutsideClick: false, // opcional: evita cerrar al click afuera
       });
       return;
     }

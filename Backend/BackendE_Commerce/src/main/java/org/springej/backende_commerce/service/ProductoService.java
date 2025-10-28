@@ -68,6 +68,23 @@ public class ProductoService {
             throw e;
         }
     }
+    // En ProductoService.java - AGREGAR este método
+public Optional<Producto> buscarPorIdConImagenes(Long id) {
+    logger.info("Buscando producto con imágenes con ID: {}", id);
+    Optional<Producto> producto = productoRepository.findById(id);
+    
+    if (producto.isPresent()) {
+        // Forzar la carga de las imágenes
+        Producto p = producto.get();
+        if (p.getProductoImagenes() != null) {
+            p.getProductoImagenes().size(); // Esto forza la carga lazy
+        }
+        logger.info("Producto encontrado con {} imágenes", 
+                   p.getProductoImagenes() != null ? p.getProductoImagenes().size() : 0);
+    }
+    
+    return producto;
+}
 
     // Eliminar producto por ID
     public void eliminar(Long id) {

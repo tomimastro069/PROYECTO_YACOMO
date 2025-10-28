@@ -7,6 +7,8 @@ import org.springej.backende_commerce.dto.DomicilioRequest;
 import org.springej.backende_commerce.dto.FavoritoResponseDTO;
 import org.springej.backende_commerce.dto.PerfilDTO;
 import org.springej.backende_commerce.dto.VentaResumenDTO;
+import org.springej.backende_commerce.dto.AdminUsuarioRequest;
+import org.springej.backende_commerce.dto.UsuarioAdminDTO;
 import org.springej.backende_commerce.entity.Usuario;
 import org.springej.backende_commerce.service.AuthService;
 import org.springej.backende_commerce.service.UsuarioService;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.stream.Collectors;
 
@@ -77,6 +81,40 @@ public class UsuarioController {
     public ResponseEntity<Void> eliminarDomicilio(@PathVariable Long id) {
         Usuario usuarioLogeado = authService.getUsuarioLogeado();
         usuarioService.eliminarDomicilio(usuarioLogeado, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // ===================== ADMIN CRUD =====================
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<java.util.List<UsuarioAdminDTO>> listarUsuarios() {
+        return ResponseEntity.ok(usuarioService.listarTodosAdmin());
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UsuarioAdminDTO> obtenerUsuario(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.obtenerPorIdAdmin(id));
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UsuarioAdminDTO> crearUsuario(@Valid @RequestBody AdminUsuarioRequest request) {
+        UsuarioAdminDTO creado = usuarioService.crearUsuarioAdmin(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UsuarioAdminDTO> actualizarUsuario(@PathVariable Long id,
+                                                             @Valid @RequestBody AdminUsuarioRequest request) {
+        return ResponseEntity.ok(usuarioService.actualizarUsuarioAdmin(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
+        usuarioService.eliminarUsuarioAdmin(id);
         return ResponseEntity.noContent().build();
     }
 }

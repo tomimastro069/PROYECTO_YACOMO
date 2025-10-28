@@ -18,3 +18,25 @@ export const eliminarDomicilio = (domicilioId) => {
     return llamarApi(`/usuarios/domicilios/${domicilioId}`, 'DELETE', null, true);
 };
 
+// =============== Admin: Gestión de Usuarios ===============
+export const listarUsuarios = () => {
+    return llamarApi('/usuarios', 'GET', null, true);
+};
+
+export const obtenerUsuarioPorId = (id) => {
+    return llamarApi(`/usuarios/${id}`, 'GET', null, true);
+};
+
+export const crearUsuario = (data) => {
+    // data: { nombre, apellido, email, password, rol }
+    return llamarApi('/usuarios', 'POST', data, true);
+};
+
+export const actualizarUsuario = (id, data) => {
+    // data: { nombre, apellido, email, password?, rol }
+    return llamarApi(`/usuarios/${id}`, 'PUT', data, true);
+};
+
+export const eliminarUsuario = (id) => {
+    return llamarApi(`/usuarios/${id}`, 'DELETE', null, true);
+};

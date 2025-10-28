@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Panel de Administración</title>
     <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
 </head>
@@ -121,14 +122,18 @@
         <section id="usuario-add-mod" class="admin-tab-content">
             <fieldset>
                 <legend><h3>Añadir / Modificar Usuario</h3></legend>
-                <form action="/api/auth/register" method="post"> <!-- O una ruta de admin para modificar -->
+                <form> <!-- Gestionado por JS -->
                     <p>
                         <label for="usuario_id">ID del Usuario (para modificar):</label><br>
                         <input type="text" id="usuario_id" name="usuario_id">
                     </p>
                     <p>
-                        <label for="usuario_nombre">Nombre de Usuario:</label><br>
+                        <label for="usuario_nombre">Nombre:</label><br>
                         <input type="text" id="usuario_nombre" name="usuario_nombre" required>
+                    </p>
+                    <p>
+                        <label for="usuario_apellido">Apellido:</label><br>
+                        <input type="text" id="usuario_apellido" name="usuario_apellido" required>
                     </p>
                     <p>
                         <label for="usuario_email">Email:</label><br>
@@ -176,7 +181,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="usuarios-table-body">
                     <tr>
                         <td>101</td>
                         <td>admin_user</td>
@@ -207,6 +212,10 @@
     <!-- ================= SECCIÓN DE VENTAS ================= -->
     <details>
         <summary><h2>Gestión de Ventas</h2></summary>
+        <nav>
+            <a href="#ventas-list" class="admin-tab-link">Ver Ventas</a>
+        </nav>
+        <section id="ventas-list" class="admin-tab-content">
         <h3>Listado de Todas las Ventas</h3>
         <table>
             <thead>
@@ -218,7 +227,7 @@
                     <th>Detalles</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="ventas-table-body">
                 <tr>
                     <td>V-001</td>
                     <td>102</td>
@@ -235,6 +244,7 @@
                 </tr>
             </tbody>
         </table>
+        </section>
     </details>
 
     <!-- El script se carga aquí para asegurar que el HTML esté disponible -->

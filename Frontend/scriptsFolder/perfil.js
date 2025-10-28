@@ -1,6 +1,7 @@
 ﻿﻿import { cerrarSesion } from './api/api_auth.js';
 import { obtenerMiPerfil, crearDomicilio, eliminarDomicilio } from './api/api_usuarios.js';
 import { eliminarFavorito } from './api/api_favoritos.js';
+import { showAlert } from './funciones.js';
 
 let perfilActual = null;
 
@@ -137,7 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarDirecciones(domicilios);
         } catch (error) {
             console.error('Error al cargar el perfil:', error);
-            alert('No se pudieron cargar los datos del perfil. Seras redirigido al inicio.');
+            showAlert({
+                title: 'Error de Carga',
+                message: 'No se pudieron cargar los datos del perfil. Serás redirigido al inicio.',
+                type: 'error'
+            });
             window.location.href = 'index.html';
         }
     }
@@ -246,14 +251,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 const favoritoId = Number(event.currentTarget.dataset.favoriteId);
                 if (!favoritoId) return;
 
-                const confirmation = confirm('Estas seguro de que quieres eliminar este producto de tus favoritos?');
-                if (!confirmation) return;
+                const result = await Swal.fire({
+                    title: '¿Eliminar Favorito?',
+                    text: '¿Estás seguro de que quieres eliminar este producto de tus favoritos?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    background: '#202020',
+                    color: '#fff'
+                });
+
+                if (!result.isConfirmed) return;
 
                 try {
                     await eliminarFavorito(favoritoId);
                     await cargarDatosPerfil();
                 } catch (error) {
-                    alert(`Error al eliminar el favorito: ${error.message ?? 'Intenta nuevamente.'}`);
+                    showAlert({ title: 'Error', message: `Error al eliminar el favorito: ${error.message ?? 'Intenta nuevamente.'}`, type: 'error' });
                 }
             });
         });
@@ -368,11 +383,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const domicilioId = Number(button.dataset.deleteAddress);
         if (!domicilioId) return;
 
-        const confirmation = confirm('Eliminar este domicilio?');
-        if (!confirmation) return;
+        const result = await Swal.fire({
+            title: '¿Eliminar Domicilio?',
+            text: '¿Estás seguro de que quieres eliminar este domicilio?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            background: '#202020',
+            color: '#fff'
+        });
+
+        if (!result.isConfirmed) return;
 
         button.disabled = true;
-        setAddressFeedback('Eliminando domicilio...');
+        setAddressFeedback('Eliminando domicilio...', 'info');
 
         try {
             await eliminarDomicilio(domicilioId);
@@ -397,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutLink.addEventListener('click', (event) => {
             event.preventDefault();
             cerrarSesion();
-            alert('Has cerrado sesion.');
+            showAlert({ title: 'Sesión Cerrada', message: 'Has cerrado sesión exitosamente.', type: 'info' });
             window.location.href = 'index.html';
         });
     }

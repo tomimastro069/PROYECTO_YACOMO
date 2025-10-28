@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,104 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/productosStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 global -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/chatbot.css">
-    
-    <style>
-        /* Estilos adicionales para el modal de detalles */
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            gap: 10px;
-        }
+    <link rel="stylesheet" href ="../css/chatbot.css">
+    <script type="module" src="../scriptsFolder/modalHandler.js"></script>
+    <script type="module" src="../scriptsFolder/funciones.js"></script>
 
-        .quantity-btn {
-            width: 35px;
-            height: 35px;
-            border: 1px solid #ddd;
-            background: #f5f5f5;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .quantity-input {
-            width: 60px;
-            height: 35px;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .x-thumbs {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .x-thumb {
-            width: 60px;
-            height: 60px;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            cursor: pointer;
-            overflow: hidden;
-        }
-
-        .x-thumb.active {
-            border-color: #4a90e2;
-        }
-
-        .x-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .btn-favorite.active {
-            background-color: #ff6b6b;
-            color: white;
-        }
-
-        .en-stock {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .sin-stock {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        /* Toast messages */
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .toast-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 4px;
-            z-index: 10000;
-            animation: slideIn 0.3s ease;
-        }
-    </style>
 </head>
 
 <body>
@@ -275,7 +184,8 @@
                 <p>Explora por tipo de componente</p>
                 <button>🎮 Todos los productos</button>
             </div>
-            <div class="Categorias-Lista">
+
+            <Div class="Categorias-Lista">
                 <nav>
                     <ul>
                         <li><a href="#Procesadores">Procesadores</a></li>
@@ -289,7 +199,7 @@
                         <li><a href="#Perifericos">Perifericos</a></li>
                     </ul>
                 </nav>
-            </div>
+            </Div>
         </div>
         
         <div class="Catalogo-Container">
@@ -368,126 +278,145 @@
     <script type="module" src="../scriptsFolder/busqueda.js"></script>
     
     <script type="module">
-        import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
-        import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
-        import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js';
-        import { toggleLoginModal } from '../scriptsFolder/modalHandler.js';
-        import { buscarProductos } from '../scriptsFolder/api/api_busqueda.js';
-        import { mostrarDetallesProducto } from '../scriptsFolder/detallesProducto.js';
+  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js'; // Importar la función de favoritos
+  import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
+  import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js'; // Importar funciones del carrito
+  import { toggleLoginModal } from '../scriptsFolder/modalHandler.js'; // Importar la función del modal de login
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const contenedor = document.getElementById('catalogo-productos');
-            const urlParams = new URLSearchParams(window.location.search);
-            const busquedaParam = urlParams.get('busqueda');
-            
-            let allProducts = [];
+  document.addEventListener('DOMContentLoaded', async () => {
+    const contenedor = document.getElementById('catalogo-productos');
 
-            // Adjuntar event listener para el botón del carrito en el header
-            const headerCartButton = document.getElementById('header-cart-button');
-            if (headerCartButton) {
-                headerCartButton.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    toggleCart();
-                });
-            }
+    let allProducts = []; // Para almacenar todos los productos obtenidos de la API
 
-            // Adjuntar event listener para el botón de login en el header
-            const headerLoginButton = document.getElementById('btn-login');
-            if (headerLoginButton) {
-                headerLoginButton.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    toggleLoginModal();
-                });
-            }
+    // Adjuntar event listener para el botón del carrito en el header
+    const headerCartButton = document.getElementById('header-cart-button');
+    if (headerCartButton) {
+        headerCartButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevenir el comportamiento por defecto del ancla
+            toggleCart();
+        });
+    }
 
-            try {
-                // Verificar si hay parámetro de búsqueda en la URL
-                if (busquedaParam) {
-                    document.querySelector('.Catalogo-Header h2').textContent = `Resultados para: "${busquedaParam}"`;
-                    allProducts = await buscarProductos(busquedaParam);
-                } else {
-                    allProducts = await obtenerProductos();
+    // Adjuntar event listener para el botón de login en el header
+    const headerLoginButton = document.getElementById('btn-login');
+    if (headerLoginButton) {
+        headerLoginButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleLoginModal();
+        });
+    }
+    try {
+      const productos = await obtenerProductos();
+
+      if (!productos || productos.length === 0) {
+        contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
+        return;
+      }
+
+      contenedor.innerHTML = ''; // Borra los hardcodeados
+      allProducts = productos; // Guardar los productos para la lógica del carrito
+
+      productos.forEach((p) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.id = `producto-${p.id}`;
+        // Usar p.imagenes?.[0]?.url para la URL de la imagen
+        card.innerHTML = `
+          <img class="Imagen_Producto"
+               src="${p.imagenes?.[0]?.url || 'https://via.placeholder.com/200'}"
+               alt="${p.nombre}">
+
+          <div class="content">
+            <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
+            <h3 class="Titulo">${p.nombre}</h3>
+            <div class="rating">★5/5</div>
+            <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
+
+            <ul class="Especificaciones"></ul>
+            <div class="actions">
+              <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
+              <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
+              <a class="btn-details" href="#">Ver Detalles</a>
+            </div>
+          </div>
+        `;
+        
+        // Añadir el event listener para el botón de favoritos
+        const favoriteButton = card.querySelector('.btn-favorite');
+        if (favoriteButton) {
+            favoriteButton.addEventListener('click', async (event) => {
+                const productId = event.target.dataset.productId;
+                try {
+                    await agregarFavorito(productId);
+                    alert('Producto agregado a favoritos con éxito!');
+                } catch (error) {
+                    alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
                 }
+            });
+        }
 
-                if (!allProducts || allProducts.length === 0) {
-                    contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
-                    return;
-                }
+        contenedor.appendChild(card);
+      });
 
-                contenedor.innerHTML = '';
-
-                allProducts.forEach((p) => {
-                    const card = document.createElement('div');
-                    card.classList.add('card');
-                    card.dataset.id = `producto-${p.id}`;
-                    
-                    card.innerHTML = `
-                        <img class="Imagen_Producto"
-                            src="${p.imagenes?.[0]?.url || 'https://via.placeholder.com/200'}"
-                            alt="${p.nombre}">
-                        <div class="content">
-                            <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
-                            <h3 class="Titulo">${p.nombre}</h3>
-                            <div class="rating">★5/5</div>
-                            <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
-                            <ul class="Especificaciones"></ul>
-                            <div class="actions">
-                                <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
-                                <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
-                                <button class="btn-details" data-product-id="${p.id}">Ver Detalles</button>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Event listener para favoritos
-                    const favoriteButton = card.querySelector('.btn-favorite');
-                    if (favoriteButton) {
-                        favoriteButton.addEventListener('click', async (event) => {
-                            const productId = event.target.dataset.productId;
-                            try {
-                                await agregarFavorito(productId);
-                                alert('Producto agregado a favoritos con éxito!');
-                            } catch (error) {
-                                alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
-                            }
-                        });
-                    }
-
-                    // Event listener para ver detalles
-                    const detailsButton = card.querySelector('.btn-details');
-                    if (detailsButton) {
-                        detailsButton.addEventListener('click', (event) => {
-                            const productId = event.target.dataset.productId;
-                            mostrarDetallesProducto(productId);
-                        });
-                    }
-
-                    contenedor.appendChild(card);
-                });
-
-                // Delegación de eventos para carrito
-                contenedor.addEventListener('click', (event) => {
-                    const addToCartButton = event.target.closest('.btn-cart');
-                    if (addToCartButton) {
-                        const productId = addToCartButton.dataset.productId;
-                        const productToAdd = allProducts.find(p => String(p.id) === productId);
-                        if (productToAdd) {
-                            agregarAlCarrito(event, productToAdd);
-                        } else {
-                            console.error('Producto no encontrado para el ID:', productId);
-                        }
-                    }
-                });
+      // Delegación de eventos para los botones "Agregar al Carrito"
+      contenedor.addEventListener('click', (event) => {
+        const addToCartButton = event.target.closest('.btn-cart');
+        if (addToCartButton) {
+          const productId = addToCartButton.dataset.productId;
+          // Buscar el producto completo en el array allProducts
+          const productToAdd = allProducts.find(p => String(p.id) === productId);
+          if (productToAdd) {
+            agregarAlCarrito(event, productToAdd); // Pasar el evento y el objeto de producto
+          } else {
+            console.error('Producto no encontrado para el ID:', productId);
+          }
+        }
+      });
 
             } catch (error) {
                 console.error('Error al obtener productos:', error);
                 contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
             }
 
-            // Inicializar el carrito al cargar la página
-            renderizarCarrito();
-        });
-    </script>
-    <script src="../scriptsFolder/chatbot.js"></script>
+    // Inicializar el carrito al cargar la página para que refleje el estado de localStorage
+    renderizarCarrito();
+  });
+</script>
+<!-- Burbuja del chatbot -->
+<div id="chatbot-bubble">
+  <div class="chat-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<!-- Ventana del chatbot -->
+<div id="chatbot-window">
+  <div class="chatbot-header">
+    <span>Ayudante SCRIPT-G</span>
+    <button id="new-chat-btn">➕ Nuevo Chat</button>
+  </div>
+
+  <div class="chatbot-body">
+    <!-- Sidebar de chats (a la izquierda) -->
+    <div class="chatbot-sidebar" id="chat-sidebar"></div>
+
+    <!-- Área de mensajes -->
+    <div class="chatbot-main">
+      <div class="chatbot-messages" id="chatbot-messages"></div>
+
+      <div class="chatbot-input">
+        <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
+        <button id="chatbot-send">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toast-container"></div>
+<script src="../scriptsFolder/chatbot.js"></script>
 </body>
+
 </html>
+
+

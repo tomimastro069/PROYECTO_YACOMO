@@ -9,6 +9,8 @@ import {
 } from './api/api_productos.js';
 
 import { cerrarSesion } from './api/api_auth.js';
+import { showAlert } from './funciones.js';
+import { renderizarEstrellas, obtenerPromedioEstrellas } from './estrellas.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica de verificación de rol de administrador ---
@@ -28,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // La verificación de JWT y rol se hace aquí. Si no se cumple, se detiene todo.
     if (!jwtToken || !userRoles.includes('ROLE_ADMIN')) {
         // 1. Muestra un mensaje claro al usuario.
-        alert('Acceso denegado. No tienes los permisos necesarios para ver esta página.');
+        showAlert({
+            title: 'Acceso Denegado',
+            message: 'No tienes los permisos necesarios para ver esta página.',
+            type: 'error'
+        });
         // 2. Redirige al usuario a la página principal.
         window.location.href = 'index.html';
         // 3. Detenemos la ejecución del script para que no intente hacer nada más.
@@ -122,7 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const products = await getProducts();
             renderProductsTable(products);
         } catch (error) {
-            alert('Error al cargar productos: ' + error.message);
+            showAlert({
+                title: 'Error',
+                message: `Error al cargar productos: ${error.message}`,
+                type: 'error'
+            });
         }
     }
 
@@ -165,7 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Cambiar a la pestaña de "Añadir / Modificar"
                     document.querySelector('a[href="#producto-add-mod"]').click();
                 } catch (error) {
-                    alert('Error al cargar el producto para modificar: ' + error.message);
+                    showAlert({
+                        title: 'Error',
+                        message: `Error al cargar el producto para modificar: ${error.message}`,
+                        type: 'error'
+                    });
                 }
             });
         });
@@ -173,14 +187,25 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.btn-delete-product').forEach(button => {
             button.addEventListener('click', async (event) => {
                 const productId = event.target.dataset.id;
-                if (confirm(`¿Estás seguro de que quieres eliminar el producto con ID ${productId}?`)) {
-                    try {
-                        await eliminarProducto(productId);
-                        alert('Producto eliminado con éxito.');
-                        loadProducts(); // Recargar la lista de productos
-                    } catch (error) {
-                        alert('Error al eliminar el producto: ' + error.message);
-                    }
+                const result = await Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: `Quieres eliminar el producto con ID ${productId}?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    background: '#202020',
+                    color: '#fff'
+                });
+
+                if (!result.isConfirmed) return;
+
+                try {
+                    await eliminarProducto(productId);
+                    showAlert({ title: 'Éxito', message: 'Producto eliminado con éxito.', type: 'success' });
+                    loadProducts(); // Recargar la lista de productos
+                } catch (error) {
+                    showAlert({ title: 'Error', message: `Error al eliminar el producto: ${error.message}`, type: 'error' });
                 }
             });
         });
@@ -203,18 +228,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (id) {
                     // Si hay un ID, actualizamos el producto existente
                     await updateProduct(id, productData);
-                    alert('Producto actualizado con éxito.');
+                    showAlert({ title: 'Éxito', message: 'Producto actualizado con éxito.', type: 'success' });
                 } else {
                     // Si no hay ID, creamos un nuevo producto
                     await createProduct(productData);
-                    alert('Producto creado con éxito.');
+                    showAlert({ title: 'Éxito', message: 'Producto creado con éxito.', type: 'success' });
                 }
                 productForm.reset();
                 productIdInput.value = ''; // Limpiar el campo ID
                 loadProducts(); // Recargar la lista
                 document.querySelector('a[href="#producto-list"]').click(); // Volver a la pestaña de listado
             } catch (error) {
-                alert('Error al guardar el producto: ' + error.message);
+                showAlert({ title: 'Error', message: `Error al guardar el producto: ${error.message}`, type: 'error' });
             }
         });
     }
@@ -225,18 +250,29 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const idToDelete = document.getElementById('producto_id_eliminar').value;
             if (!idToDelete) {
-                alert('Por favor, introduce un ID de producto para eliminar.');
+                showAlert({ title: 'Atención', message: 'Por favor, introduce un ID de producto para eliminar.', type: 'warning' });
                 return;
             }
-            if (confirm(`¿Estás seguro de que quieres eliminar el producto con ID ${idToDelete}?`)) {
-                try {
-                    await eliminarProducto(idToDelete);
-                    alert('Producto eliminado con éxito.');
-                    productDeleteForm.reset();
-                    loadProducts(); // Recargar la lista
-                } catch (error) {
-                    alert('Error al eliminar el producto: ' + error.message);
-                }
+            const result = await Swal.fire({
+                title: '¿Estás seguro?',
+                text: `Quieres eliminar el producto con ID ${idToDelete}?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                background: '#202020',
+                color: '#fff'
+            });
+
+            if (!result.isConfirmed) return;
+
+            try {
+                await eliminarProducto(idToDelete);
+                showAlert({ title: 'Éxito', message: 'Producto eliminado con éxito.', type: 'success' });
+                productDeleteForm.reset();
+                loadProducts(); // Recargar la lista
+            } catch (error) {
+                showAlert({ title: 'Error', message: `Error al eliminar el producto: ${error.message}`, type: 'error' });
             }
         });
     }

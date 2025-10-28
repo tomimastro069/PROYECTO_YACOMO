@@ -1,4 +1,4 @@
-﻿﻿﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,9 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/productosStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 global -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href ="../css/chatbot.css">
+    <script type="module" src="../scriptsFolder/productos.js"></script>
+    
     <script type="module" src="../scriptsFolder/modalHandler.js"></script>
     <script type="module" src="../scriptsFolder/funciones.js"></script>
 
@@ -658,26 +661,24 @@
     </footer>
     <script type='module' src='../scriptsFolder/auth.js'></script>
     <script type="module">
-  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js'; // Importar la función de favoritos
+  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
   import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
-  import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js'; // Importar funciones del carrito
-  import { toggleLoginModal } from '../scriptsFolder/modalHandler.js'; // Importar la función del modal de login
+  import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js';
+  import { toggleLoginModal } from '../scriptsFolder/modalHandler.js';
+  import { renderizarEstrellas, obtenerPromedioEstrellas } from '../scriptsFolder/estrellas.js'; // ← IMPORTAR
 
   document.addEventListener('DOMContentLoaded', async () => {
     const contenedor = document.getElementById('catalogo-productos');
+    let allProducts = [];
 
-    let allProducts = []; // Para almacenar todos los productos obtenidos de la API
-
-    // Adjuntar event listener para el botón del carrito en el header
     const headerCartButton = document.getElementById('header-cart-button');
     if (headerCartButton) {
         headerCartButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevenir el comportamiento por defecto del ancla
+            e.preventDefault();
             toggleCart();
         });
     }
 
-    // Adjuntar event listener para el botón de login en el header
     const headerLoginButton = document.getElementById('btn-login');
     if (headerLoginButton) {
         headerLoginButton.addEventListener('click', (e) => {
@@ -685,6 +686,7 @@
             toggleLoginModal();
         });
     }
+
     try {
       const productos = await obtenerProductos();
 
@@ -693,14 +695,23 @@
         return;
       }
 
-      contenedor.innerHTML = ''; // Borra los hardcodeados
-      allProducts = productos; // Guardar los productos para la lógica del carrito
+      contenedor.innerHTML = '';
+      allProducts = productos;
 
-      productos.forEach((p) => {
+      // Actualizar contador de productos
+      const cantidadProductos = document.querySelector('.Cantidad-de-productos');
+      if (cantidadProductos) {
+        cantidadProductos.textContent = `${productos.length} productos encontrados`;
+      }
+
+      // Cargar productos con estrellas
+      for (const p of productos) {
+        const promedio = await obtenerPromedioEstrellas(p.id); // ← OBTENER PROMEDIO
+        
         const card = document.createElement('div');
         card.classList.add('card');
         card.dataset.id = `producto-${p.id}`;
-        // Usar p.imagenes?.[0]?.url para la URL de la imagen
+        
         card.innerHTML = `
           <img class="Imagen_Producto"
                src="${p.imagenes?.[0]?.url || 'https://via.placeholder.com/200'}"
@@ -709,7 +720,9 @@
           <div class="content">
             <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
             <h3 class="Titulo">${p.nombre}</h3>
-            <div class="rating">★5/5</div>
+            <div class="rating">
+                ${renderizarEstrellas(promedio)}
+            </div>
             <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
 
             <ul class="Especificaciones"></ul>
@@ -721,7 +734,6 @@
           </div>
         `;
         
-        // Añadir el event listener para el botón de favoritos
         const favoriteButton = card.querySelector('.btn-favorite');
         if (favoriteButton) {
             favoriteButton.addEventListener('click', async (event) => {
@@ -736,17 +748,15 @@
         }
 
         contenedor.appendChild(card);
-      });
+      }
 
-      // Delegación de eventos para los botones "Agregar al Carrito"
       contenedor.addEventListener('click', (event) => {
         const addToCartButton = event.target.closest('.btn-cart');
         if (addToCartButton) {
           const productId = addToCartButton.dataset.productId;
-          // Buscar el producto completo en el array allProducts
           const productToAdd = allProducts.find(p => String(p.id) === productId);
           if (productToAdd) {
-            agregarAlCarrito(event, productToAdd); // Pasar el evento y el objeto de producto
+            agregarAlCarrito(event, productToAdd);
           } else {
             console.error('Producto no encontrado para el ID:', productId);
           }
@@ -758,7 +768,6 @@
       contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
     }
 
-    // Inicializar el carrito al cargar la página para que refleje el estado de localStorage
     renderizarCarrito();
   });
 </script>
@@ -890,5 +899,3 @@
 </body>
 
 </html>
-
-

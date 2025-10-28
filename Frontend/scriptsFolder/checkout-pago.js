@@ -1,10 +1,15 @@
 import { obtenerMiPerfil } from './api/api_usuarios.js';
 import { crearPreferencia } from './api/api_mercadopago.js';
+import { showAlert } from './funciones.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('jwt_token');
   if (!token) {
-    alert('Debes iniciar sesion para usar el checkout.');
+    showAlert({
+      title: 'Acceso Requerido',
+      message: 'Debes iniciar sesión para usar el checkout.',
+      type: 'warning'
+    });
     window.location.href = 'index.html';
     return;
   }
@@ -57,7 +62,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     usuario = await obtenerMiPerfil();
   } catch (error) {
     console.error('No se pudo obtener el perfil del usuario:', error);
-    alert('No pudimos obtener tus datos de perfil. Inicia sesion nuevamente.');
+    showAlert({
+      title: 'Error de Perfil',
+      message: 'No pudimos obtener tus datos. Por favor, inicia sesión nuevamente.',
+      type: 'error'
+    });
     window.location.href = 'index.html';
     return;
   }
@@ -65,7 +74,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fullName = [usuario?.nombre, usuario?.apellido].filter(Boolean).join(' ').trim() || 'Cliente';
   const domicilios = Array.isArray(usuario?.domicilios) ? usuario.domicilios : [];
   if (!domicilios.length) {
-    alert('Necesitas cargar al menos una direccion de entrega en tu perfil.');
+    showAlert({
+      title: 'Falta Dirección',
+      message: 'Necesitas cargar al menos una dirección de entrega en tu perfil para continuar.',
+      type: 'warning'
+    });
     window.location.href = 'perfil.html';
     return;
   }
@@ -350,11 +363,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (nextButton) {
     nextButton.addEventListener('click', () => {
       if (currentStep === 0 && !selectedAddressId) {
-        alert('Selecciona una direccion para continuar.');
+        showAlert({
+          title: 'Paso Incompleto',
+          message: 'Selecciona una dirección para continuar.',
+          type: 'info'
+        });
         return;
       }
       if (currentStep === 1 && !selectedPaymentMethod) {
-        alert('Selecciona el metodo de pago.');
+        showAlert({
+          title: 'Paso Incompleto',
+          message: 'Selecciona el método de pago.',
+          type: 'info'
+        });
         return;
       }
       goToStep(currentStep + 1);
@@ -364,7 +385,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (confirmButton) {
     confirmButton.addEventListener('click', async () => {
       if (!(selectedAddressId && selectedPaymentMethod)) {
-        alert('Completa los pasos anteriores antes de confirmar.');
+        showAlert({
+          title: 'Faltan Datos',
+          message: 'Completa los pasos anteriores antes de confirmar.',
+          type: 'warning'
+        });
         return;
       }
 
@@ -386,7 +411,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
       } catch (error) {
         console.error('Error al iniciar el pago:', error);
-        alert(error?.message || 'No pudimos iniciar el pago. Intenta nuevamente.');
+        showAlert({
+          title: 'Error de Pago',
+          message: error?.message || 'No pudimos iniciar el proceso de pago. Intenta nuevamente.',
+          type: 'error'
+        });
         confirmButton.disabled = false;
         confirmButton.textContent = originalText;
       }

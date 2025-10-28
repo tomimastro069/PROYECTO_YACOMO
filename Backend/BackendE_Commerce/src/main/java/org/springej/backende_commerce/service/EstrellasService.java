@@ -42,4 +42,8 @@ public class EstrellasService {
 
         estrellasRepository.save(estrellas);
     }
+    
+    public Double obtenerPromedioEstrellas(Long productoId) {
+        return estrellasRepository.promedioPorProducto(productoId);
+    }
 }

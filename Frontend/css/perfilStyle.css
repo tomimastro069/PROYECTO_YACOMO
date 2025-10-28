@@ -6,7 +6,7 @@
 }
 @font-face {
     font-family: Andromeda;
-    src: url('fonts/andromeda/Andromeda-Bold.otf') format('opentype');
+    src: url('../fonts/andromeda/Andromeda-Bold.otf') format('opentype');
 }
 
 /* Estilos generales y box-sizing */
@@ -371,6 +371,147 @@ input:not(:placeholder-shown) ~ .reset {
     --border-color: #e9ecef;
     --card-bg: #fff;
     --border-radius: 8px;
+}
+
+/* Contenedor del historial */
+.info-historial {
+    display: grid;
+    gap: 16px;
+}
+
+/* Tarjeta de historial: moderna, limpia y minimalista */
+.history-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.2s ease;
+}
+
+.history-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.history-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.history-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.history-card-id {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.history-card-date {
+    font-size: 0.875rem;
+    color: var(--light-text-color);
+}
+
+.history-card-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.history-card-total {
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.history-card-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* Variantes de estado comunes */
+.history-card-status--entregado {
+    background: rgba(40, 167, 69, 0.12);
+    color: #1e7e34;
+    border-color: rgba(40, 167, 69, 0.18);
+}
+
+.history-card-status--enviado,
+.history-card-status--despachado {
+    background: rgba(255, 152, 0, 0.14);
+    color: #9a5b00;
+    border-color: rgba(255, 152, 0, 0.22);
+}
+
+.history-card-status--pendiente,
+.history-card-status--procesando,
+.history-card-status--preparacion {
+    background: rgba(93, 93, 255, 0.12);
+    color: #3737cc;
+    border-color: rgba(93, 93, 255, 0.2);
+}
+
+.history-card-status--cancelado {
+    background: rgba(220, 53, 69, 0.12);
+    color: #842029;
+    border-color: rgba(220, 53, 69, 0.18);
+}
+
+.history-card-body {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.history-card-products {
+    display: grid;
+    gap: 6px;
+}
+
+.history-product {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.history-product-qty {
+    color: var(--light-text-color);
+    min-width: 2.5ch;
+}
+
+.history-product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Responsive: apilar header en pantallas chicas */
+@media (max-width: 640px) {
+    .history-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .history-card-summary {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 .order-card {
@@ -1521,4 +1662,3 @@ input:not(:placeholder-shown) ~ .reset {
     display: block; 
 }
 /* --------- RESPONSIVE --------- */
-

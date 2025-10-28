@@ -42,7 +42,69 @@ export const obtenerProductos = async () => {
  * @returns {Promise<Producto>} - Detalle del producto.
  */
 export const obtenerProductoPorId = async (id) => {
-  return await llamarApi(`/productos/${id}`, 'GET', null, false);
+  console.log('🔍 Intentando obtener producto ID:', id);
+  
+  const endpoints = [
+    { url: `/productos/by-id?id=${id}`, name: 'Temporal (@RequestParam)' },
+    { url: `/productos/detalles/${id}`, name: 'Detalles (@PathVariable)' },
+    { url: `/productos/fallback/${id}`, name: 'Fallback (@PathVariable)' },
+    { url: `/productos/${id}`, name: 'Original (@PathVariable)' }
+  ];
+
+  for (let endpoint of endpoints) {
+    try {
+      console.log(`🌐 Probando endpoint: ${endpoint.name}`);
+      const response = await llamarApi(endpoint.url, 'GET', null, false);
+      
+      if (response) {
+        console.log(`✅ Éxito con endpoint: ${endpoint.name}`, response);
+        return response;
+      }
+    } catch (error) {
+      console.log(`❌ Falló endpoint ${endpoint.name}:`, error.message);
+      // Continuar con el siguiente endpoint
+    }
+  }
+
+  // Si todos los endpoints fallan, usar datos locales
+  console.log('🔄 Todos los endpoints fallaron, usando datos locales...');
+  try {
+    const productos = await obtenerProductos();
+    const productoLocal = productos.find(p => p.id === parseInt(id));
+    
+    if (productoLocal) {
+      console.log('✅ Producto encontrado localmente');
+      return productoLocal;
+    } else {
+      throw new Error('Producto no encontrado en datos locales');
+    }
+  } catch (error) {
+    console.error('❌ Error fatal:', error);
+    throw new Error('No se pudo obtener el producto de ninguna fuente');
+  }
+};
+
+// Función para probar el endpoint de test
+export const testApi = async () => {
+  try {
+    const response = await llamarApi('/productos/test', 'GET', null, false);
+    console.log('✅ Test API:', response);
+    return response;
+  } catch (error) {
+    console.error('❌ Test API falló:', error);
+    return null;
+  }
+};
+
+// Función para obtener productos con imágenes
+export const obtenerProductosConImagenes = async () => {
+  try {
+    return await llamarApi('/productos/con-imagenes', 'GET', null, false);
+  } catch (error) {
+    console.error('Error obteniendo productos con imágenes:', error);
+    // Fallback a endpoint normal
+    return await obtenerProductos();
+  }
 };
 
 // =============================================================

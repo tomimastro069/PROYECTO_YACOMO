@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     saveChats();
     updateSidebar();
     renderMessages();
-    showToast(`💬 Nuevo chat "${newName}" creado.`, "success");
+    showToast(`Nuevo chat "${newName}" creado.`, "success");
   });
 
   // Enviar mensaje
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       delBtn.addEventListener("click", e => {
         e.stopPropagation();
         if (Object.keys(chats).length === 1) {
-          showToast("⚠️ No se puede eliminar el único chat.", "error");
+          showToast("No se puede eliminar el único chat.", "error");
           return;
         }
         delete chats[chatName];
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateSidebar();
         renderMessages();
         saveChats();
-        showToast(`🗑️ Chat "${chatName}" eliminado.`, "success");
+        showToast(`Chat "${chatName}" eliminado.`, "success");
       });
 
       container.addEventListener("click", () => {

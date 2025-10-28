@@ -1491,3 +1491,6 @@ footer {
     40% { transform: scale(1.28); }
     100% { transform: scale(1); }
 }
+.swal-container-top {
+  z-index: 99999 !important; /* aseguramos que quede por encima de todo */
+}

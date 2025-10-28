@@ -1179,4 +1179,6 @@ footer {
   .listas-redes { flex-wrap: wrap; gap: 20px; }
   .Footer_Container h2 { text-align: center; }
 }
-
+.swal-container-top {
+  z-index: 99999 !important; /* aseguramos que quede por encima de todo */
+}

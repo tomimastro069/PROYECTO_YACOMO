@@ -10,6 +10,7 @@ import {
 
 import { cerrarSesion } from './api/api_auth.js';
 import { showAlert } from './funciones.js';
+import { renderizarEstrellas, obtenerPromedioEstrellas } from './estrellas.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica de verificación de rol de administrador ---

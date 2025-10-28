@@ -15,8 +15,198 @@
     <link rel="stylesheet" href="../css/productosStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        /* Estilos para la barra de búsqueda en inicio */
+        .hero-busqueda {
+            margin: 2rem auto 3rem;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .hero-busqueda-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-busqueda-container:focus-within {
+            border-color: #4a90e2;
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .hero-busqueda input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background: transparent;
+            padding: 0 60px 0 20px;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+        }
+        
+        .hero-busqueda input::placeholder {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .hero-busqueda-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(90deg, #4facfe, #7366ff);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-busqueda-btn:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(122, 77, 255, 0.4);
+        }
+        
+        .hero-busqueda-resultados {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+        }
 
+        /* Estilos para la búsqueda del header */
+        .busqueda-resultados {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        /* Mensaje hero para la búsqueda */
+        .hero-message {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .hero-message h2 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00c6ff, #ad00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-message p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
+        /* Estilos para resultados de búsqueda */
+        .resultado-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .resultado-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .resultado-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 12px;
+        }
+
+        .resultado-info {
+            flex: 1;
+        }
+
+        .resultado-nombre {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        .resultado-precio {
+            font-weight: 700;
+            color: #4a90e2;
+            margin-bottom: 4px;
+        }
+
+        .resultado-stock {
+            font-size: 0.85rem;
+        }
+
+        .en-stock {
+            color: #28a745;
+        }
+
+        .sin-stock {
+            color: #dc3545;
+        }
+
+        .resultado-ver-detalles {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .resultado-ver-detalles:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .sin-resultados, .buscando {
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .loading-spinner {
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
     <header class="main-header">
@@ -38,7 +228,13 @@
 
         <div class="busqueda" id="searchToggle">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Buscar componentes...">
+            <input type="search" placeholder="Buscar componentes..." id="headerSearchInput">
+        </div>
+        
+        <div class="busqueda-resultados" id="headerSearchResults">
+            <div class="resultados-container" id="headerResultsContainer">
+                <!-- Los resultados se cargarán aquí dinámicamente -->
+            </div>
         </div>
         
         <div class="menu" id="mobileMenu">
@@ -67,11 +263,12 @@
         <!-- Overlay para cerrar tocando fuera del menú -->
         <div class="nav-overlay" id="navOverlay"></div>
     </header>
+
     <!-- Panel de búsqueda (mobile) -->
     <div id="mobileSearchPanel" class="mobile-search-panel" role="search" aria-hidden="true">
         <div class="mobile-search-inner">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Buscar componentes..." aria-label="Buscar" />
+            <input type="search" placeholder="Buscar componentes..." aria-label="Buscar" id="mobileSearchInput" />
         </div>
     </div>
 
@@ -116,135 +313,159 @@
         </aside>
     </div>
 
-        <!-- From Uiverse.io by yashasvi9199 --> 
+    <!-- From Uiverse.io by yashasvi9199 --> 
+    <div class="pop-up modal-cerrado" id="loginModal">
+        <div class="card2">
+            <form class="form">
+                <button type="button" class="cerrar-modal">×</button>
+                
+                <p id="heading">Iniciar Sesión</p>
+                <div class="field">
+                    <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height="16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="input-icon"
+                    >
+                    <path
+                        d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"
+                    ></path>
+                    </svg>
+                    <input
+                    type="email"
+                    class="input-field"
+                    placeholder="Correo Electrónico"
+                    autocomplete="email"
+                    />
+                </div>
+                <div class="field">
+                    <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    height="16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="input-icon"
+                    >
+                    <path
+                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"
+                    ></path>
+                    </svg> 
+                    <input type="password" class="input-field" placeholder="Contraseña" />
+                </div>
+                <div class="btn-is">
+                    <button class="button1">
+                    Ingresar
+                    </button>
+                    <button class="button2">Registrarse</button>
+                </div>
+                <button class="button3">¿Olvidaste tu contraseña?</button>
+            </form>
+        </div>
+    </div>
 
-<div class="pop-up modal-cerrado" id="loginModal">
-    <div class="card2">
-        <form class="form">
-            <button type="button" class="cerrar-modal">×</button>
-            
-            <p id="heading">Iniciar Sesión</p>
-            <div class="field">
-                <svg
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                height="16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-                class="input-icon"
-                >
-                <path
-                    d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"
-                ></path>
-                </svg>
-                <input
-                type="email"
-                class="input-field"
-                placeholder="Correo Electrónico"
-                autocomplete="email"
-                />
+    <!-- Modal de Registro -->
+    <div class="pop-up modal-cerrado" id="signupModal">
+        <div class="card2">
+            <form class="form signup">
+                <button type="button" class="cerrar-modal">×</button>
+                
+                <p id="heading">Registrarse</p>
+                
+                <div class="name-fields">
+                    <div class="field">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                        <input type="text" class="input-field" placeholder="Nombre" required/>
+                    </div>
+                    <div class="field">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                        <input type="text" class="input-field" placeholder="Apellido" required/>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                    </svg>
+                    <input type="email" class="input-field" placeholder="Email" required/>
+                </div>
+
+                <div class="field">
+                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                    </svg>
+                    <input type="password" class="input-field" placeholder="Contraseña" required/>
+                </div>
+
+                <div class="btn-is">
+                    <button type="submit" class="button1">Registrarse</button>
+                </div>
+
+                <div class="modal-switch">
+                    ¿Ya tienes una cuenta? 
+                    <button type="button" class="modal-toggle-btn" id="switchToLogin">Iniciar Sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero Section con Búsqueda -->
+    <section class="hero-section">
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <img src="../imgs/cropped-header-1170x400.jpg" alt="Black Friday">
+                    <h2 id="slide-1">Black Friday</h2>
+                </div>
+                <div class="carousel-slide">
+                    <img src="../imgs/cropped-header-1170x400.jpg" alt="Ofertas Especiales">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../imgs/cropped-header-1170x400.jpg" alt="Nuevos Productos">
+                </div>
             </div>
-            <div class="field">
-                <svg
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                height="16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-                class="input-icon"
-                >
-                <path
-                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"
-                ></path>
-                </svg> 
-                <input type="password" class="input-field" placeholder="Contraseña" />
+            <button class="carousel-button prev">&lt;</button>
+            <button class="carousel-button next">&gt;</button>
+            <div class="carousel-caption">
+                <button class="menu-btn">Ver Más</button>
+                <h2>Calidad Garantizada</h2>
+                <p>Descubre nuestros increíbles productos aquí.</p>
             </div>
-            <div class="btn-is">
-                <button class="button1">
-                Ingresar
+            <div class="carousel-indicators">
+                <span class="indicator-dot active"></span>
+                <span class="indicator-dot"></span>
+                <span class="indicator-dot"></span>
+            </div>
+        </div>
+
+        <!-- Barra de Búsqueda Hero -->
+        <div class="hero-message">
+            <h2>Encuentra tu componente ideal</h2>
+            <p>Busca entre miles de productos de computación y gaming</p>
+        </div>
+        
+        <div class="hero-busqueda">
+            <div class="hero-busqueda-container">
+                <input type="search" placeholder="Buscar procesadores, tarjetas gráficas, memorias..." id="heroSearchInput">
+                <button class="hero-busqueda-btn" id="heroSearchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <button class="button2">Registrarse</button>
             </div>
-            <button class="button3">¿Olvidaste tu contraseña?</button>
-        </form>
-    </div>
-</div>
-
-<!-- Modal de Registro -->
-<div class="pop-up modal-cerrado" id="signupModal">
-    <div class="card2">
-        <form class="form signup">
-            <button type="button" class="cerrar-modal">×</button>
-            
-            <p id="heading">Registrarse</p>
-            
-            <div class="name-fields">
-                <div class="field">
-                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                    </svg>
-                    <input type="text" class="input-field" placeholder="Nombre" required/>
-                </div>
-                <div class="field">
-                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                    </svg>
-                    <input type="text" class="input-field" placeholder="Apellido" required/>
+            <div class="hero-busqueda-resultados" id="heroSearchResults">
+                <div class="resultados-container" id="heroResultsContainer">
+                    <!-- Los resultados se cargarán aquí dinámicamente -->
                 </div>
             </div>
-
-            <div class="field">
-                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
-                </svg>
-                <input type="email" class="input-field" placeholder="Email" required/>
-            </div>
-
-            <div class="field">
-                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-                </svg>
-                <input type="password" class="input-field" placeholder="Contraseña" required/>
-            </div>
-
-            <div class="btn-is">
-                <button type="submit" class="button1">Registrarse</button>
-            </div>
-
-            <div class="modal-switch">
-                ¿Ya tienes una cuenta? 
-                <button type="button" class="modal-toggle-btn" id="switchToLogin">Iniciar Sesión</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-    <div class="carousel-container">
-        <div class="carousel-track">
-            <div class="carousel-slide">
-                <img src="../imgs/cropped-header-1170x400.jpg" alt="Imagen 1">
-                <h2 id="slide-1">Black Friday</h2>
-            </div>
-            <div class="carousel-slide">
-                <img src="../imgs/cropped-header-1170x400.jpg" alt="Imagen 2">
-            </div>
-            <div class="carousel-slide">
-                <img src="../imgs/cropped-header-1170x400.jpg" alt="Imagen 3">
-            </div>
         </div>
-        <button class="carousel-button prev">&lt;</button>
-        <button class="carousel-button next">&gt;</button>
-        <div class="carousel-caption">
-            <button class="menu-btn">Ver Más</button>
-            <h2>Calidad Garantizada</h2>
-            <p>Descubre nuestros increíbles productos aquí.</p>
-        </div>
-        <div class="carousel-indicators">
-            <span class="indicator-dot active"></span>
-            <span class="indicator-dot"></span>
-            <span class="indicator-dot"></span>
-        </div>
-    </div>
+    </section>
+
+    <!-- Contenido principal de tu página -->
     <h2 class="h2-xqelegir">¿Por qué elegir Script-G?</h2>
     <div class="all_cards">
         <div class="cards">
@@ -290,7 +511,7 @@
     <div class="calidades">
         <h4>PCs Pre-Armadas por Categoría</h4>
         <h2>Calidad Profesional Garantizada</h2>
-        <p>Desde wokrstations profesionales hasta Gaming de entrada, cada PC está cuidadosamente seleccionada para ofrecer la mejor experiencia en su categoría</p>
+        <p>Desde workstations profesionales hasta Gaming de entrada, cada PC está cuidadosamente seleccionada para ofrecer la mejor experiencia en su categoría</p>
         <ol class="card-list">
             <li class="card profesional">
                 <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
@@ -328,89 +549,89 @@
         </ol>
     </div>
     
-        <div class="Catalogo ">
-            <div class="card_producto" data-id="gpu-4080">
-                <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
+    <div class="Catalogo ">
+        <div class="card_producto" data-id="gpu-4080">
+            <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
 
-                <div class="content">
-                    <span class="stock"></span>
-                    <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
-                    <div class="rating">
-                        5/5
-                    </div>
-                    <p class="precio-anterior">$1.100.000</p>
-                    <p class="Precio"> $839.999</p>
-                    <ul class="Especificaciones"></ul>
-                    <div class="actions">
-                        <button class="btn-cart">Agregar al Carrito</button>
-                        <button class="btn-details">Ver Detalles</button>
-                    </div>
+            <div class="content">
+                <span class="stock"></span>
+                <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
+                <div class="rating">
+                    5/5
+                </div>
+                <p class="precio-anterior">$1.100.000</p>
+                <p class="Precio"> $839.999</p>
+                <ul class="Especificaciones"></ul>
+                <div class="actions">
+                    <button class="btn-cart">Agregar al Carrito</button>
+                    <button class="btn-details">Ver Detalles</button>
                 </div>
             </div>
-            <div class="card_producto" data-id="gpu-4080">
-                <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
-
-                <div class="content">
-                    <span class="stock"></span>
-                    <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
-                    <div class="rating">
-                        5/5
-                    </div>
-                    <p class="precio-anterior">$1.100.000</p>
-                    <p class="Precio"> $839.999</p>
-                    <ul class="Especificaciones"></ul>
-                    <div class="actions">
-                        <button class="btn-cart">Agregar al Carrito</button>
-                        <button class="btn-details">Ver Detalles</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card_producto" data-id="gpu-4080">
-                <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
-
-                <div class="content">
-                    <span class="stock"></span>
-                    <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
-                    <div class="rating">
-                        5/5
-                    </div>
-                    <p class="precio-anterior">$1.100.000</p>
-                    <p class="Precio"> $839.999</p>
-                    <ul class="Especificaciones"></ul>
-                    <div class="actions">
-                        <button class="btn-cart">Agregar al Carrito</button>
-                        <button class="btn-details">Ver Detalles</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card_producto" data-id="gpu-4080">
-                <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
-
-                <div class="content">
-                    <span class="stock"></span>
-                    <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
-                    <div class="rating">
-                        5/5
-                    </div>
-                    <p class="precio-anterior">$1.100.000</p>
-                    <p class="Precio"> $839.999</p>
-                    <ul class="Especificaciones"></ul>
-                    <div class="actions">
-                        <button class="btn-cart">Agregar al Carrito</button>
-                        <button class="btn-details">Ver Detalles</button>
-                    </div>
-                </div>
-            </div>   
         </div>
-        </section>
-        <div class="custom-box">
-            <h2>¿Necesitas algo personalizado?</h2>
-            <p>
-            Nuestro servicio de IA puede ayudarte a encontrar los componentes ideales para la PC perfecta acorde a tus necesidades específicas. 
-            Desde gaming competitivo hasta workstations profesionales, garantizamos la mejor calidad.
-            </p>
-           
+        <div class="card_producto" data-id="gpu-4080">
+            <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
+
+            <div class="content">
+                <span class="stock"></span>
+                <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
+                <div class="rating">
+                    5/5
+                </div>
+                <p class="precio-anterior">$1.100.000</p>
+                <p class="Precio"> $839.999</p>
+                <ul class="Especificaciones"></ul>
+                <div class="actions">
+                    <button class="btn-cart">Agregar al Carrito</button>
+                    <button class="btn-details">Ver Detalles</button>
+                </div>
+            </div>
         </div>
+        <div class="card_producto" data-id="gpu-4080">
+            <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
+
+            <div class="content">
+                <span class="stock"></span>
+                <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
+                <div class="rating">
+                    5/5
+                </div>
+                <p class="precio-anterior">$1.100.000</p>
+                <p class="Precio"> $839.999</p>
+                <ul class="Especificaciones"></ul>
+                <div class="actions">
+                    <button class="btn-cart">Agregar al Carrito</button>
+                    <button class="btn-details">Ver Detalles</button>
+                </div>
+            </div>
+        </div>
+        <div class="card_producto" data-id="gpu-4080">
+            <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
+
+            <div class="content">
+                <span class="stock"></span>
+                <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
+                <div class="rating">
+                    5/5
+                </div>
+                <p class="precio-anterior">$1.100.000</p>
+                <p class="Precio"> $839.999</p>
+                <ul class="Especificaciones"></ul>
+                <div class="actions">
+                    <button class="btn-cart">Agregar al Carrito</button>
+                    <button class="btn-details">Ver Detalles</button>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+    <div class="custom-box">
+        <h2>¿Necesitas algo personalizado?</h2>
+        <p>
+        Nuestro servicio de IA puede ayudarte a encontrar los componentes ideales para la PC perfecta acorde a tus necesidades específicas. 
+        Desde gaming competitivo hasta workstations profesionales, garantizamos la mejor calidad.
+        </p>
+    </div>
+
     <section class="seccion-ofertas">
         <div class="titulo-ofertas">
             <h2>Ofertas Especiales</h2>
@@ -474,14 +695,15 @@
             </div>
         </div>
     
-    <div class="custom-box">
-        <h2>¿Listo para armar tu PC ideal?</h2>
-        <p>Explora nuestro catálogo completo con más de 100 productos</p>
-        <div class="buttons">
-            <button class="btn primary"><a href="productos.html">Ir al Catálogo</a></button>
-        </div> 
-    </div>      
+        <div class="custom-box">
+            <h2>¿Listo para armar tu PC ideal?</h2>
+            <p>Explora nuestro catálogo completo con más de 100 productos</p>
+            <div class="buttons">
+                <button class="btn primary"><a href="productos.html">Ir al Catálogo</a></button>
+            </div> 
+        </div>      
     </section>
+
     <footer>
         <div class="Footer_Container">
             <Div class="Logo_Pagina">
@@ -489,8 +711,6 @@
                 <path
                     d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
             </svg>
-
-
             <h1>Script-G</h1>
             </Div>
             <div class="Redes_Sociales">
@@ -501,7 +721,7 @@
                         <li><a href="#facebook"><i class="fa-brands fa-facebook"></i>Facebook</a></li>
                     </ul>
                     <ul>
-                        <li><a href="#youtube"><i class="fa-brands fa-facebook"></i>YouTube</a></li>
+                        <li><a href="#youtube"><i class="fa-brands fa-youtube"></i>YouTube</a></li>
                         <li><a href="#tiktok"><i class="fa-brands fa-tiktok"></i>TikTok</a></li>
                     </ul>
                 </div>
@@ -509,155 +729,369 @@
             <h2><a href="Terminos_condiciones">Terminos y Condiciones</a></h2>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="../scriptsFolder/Inicio.js"></script>
     <script type="module" src="../scriptsFolder/auth.js"></script>
+    
+    <!-- Script para la búsqueda en ambas barras -->
     <script type="module">
-      import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js';
+        import { buscarProductos } from '../scriptsFolder/api/api_busqueda.js';
+        import { mostrarDetallesProducto } from '../scriptsFolder/detallesProducto.js';
 
-      const parsePrice = (texto) => {
-        if (!texto) return 0;
-        const sanitized = texto.replace(/[^0-9,.-]+/g, '').replace(/\./g, '').replace(',', '.');
-        const value = Number.parseFloat(sanitized);
-        return Number.isFinite(value) ? value : 0;
-      };
+        class BusquedaManager {
+            constructor(type) {
+                this.type = type; // 'header' o 'hero'
+                this.searchInput = document.getElementById(`${type}SearchInput`);
+                this.searchBtn = type === 'hero' ? document.getElementById(`${type}SearchBtn`) : null;
+                this.resultsContainer = document.getElementById(`${type}SearchResults`);
+                this.resultsList = document.getElementById(`${type}ResultsContainer`);
+                this.debounceTimer = null;
+                this.productosEncontrados = [];
+                
+                this.init();
+            }
 
-      const buildProductFromCard = (card) => {
-        const idAttr =
-          card.dataset.id ||
-          card.dataset.productId ||
-          card.id ||
-          (window.crypto?.randomUUID?.() ?? `card-${Date.now()}-${Math.random().toString(16).slice(2)}`);
-        const title = card.querySelector('.Titulo')?.textContent.trim() || 'Producto';
-        const priceText = card.querySelector('.Precio')?.textContent || '$0';
-        const priceValue = parsePrice(priceText);
-        const imageUrl = card.querySelector('img')?.src || 'https://via.placeholder.com/200';
-        const categoria = card.querySelector('.stock')?.textContent.trim() || '';
+            init() {
+                if (!this.searchInput || !this.resultsContainer) {
+                    console.error(`❌ Elementos de búsqueda ${this.type} no encontrados`);
+                    return;
+                }
 
-        return {
-          id: idAttr,
-          nombre: title,
-          precio: priceValue,
-          imagenes: [{ url: imageUrl }],
-          categoria
-        };
-      };
+                // Event listeners
+                this.searchInput.addEventListener('input', (e) => {
+                    this.handleInput(e);
+                });
+                
+                this.searchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.performFinalSearch();
+                    } else if (e.key === 'Escape') {
+                        this.hideResults();
+                    }
+                });
+                
+                this.searchInput.addEventListener('focus', () => {
+                    if (this.searchInput.value.trim().length >= 2) {
+                        this.showResults();
+                    }
+                });
+                
+                if (this.searchBtn) {
+                    this.searchBtn.addEventListener('click', () => {
+                        this.performFinalSearch();
+                    });
+                }
+                
+                document.addEventListener('click', (e) => this.handleClickOutside(e));
+                this.resultsContainer.addEventListener('click', (e) => e.stopPropagation());
+                
+                console.log(`✅ Búsqueda ${this.type} inicializada`);
+            }
 
-      document.addEventListener('DOMContentLoaded', () => {
-        renderizarCarrito();
-        updateCartCount();
+            handleInput(e) {
+                const query = e.target.value.trim();
+                
+                if (this.debounceTimer) {
+                    clearTimeout(this.debounceTimer);
+                }
 
-        const cartButton = document.getElementById('header-cart-button');
-        if (cartButton) {
-          cartButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            toggleCart();
-          });
+                if (query.length < 2) {
+                    this.hideResults();
+                    return;
+                }
+
+                this.showLoading();
+                
+                this.debounceTimer = setTimeout(() => {
+                    this.performSearch(query);
+                }, 300);
+            }
+
+            async performSearch(query) {
+                try {
+                    this.productosEncontrados = await buscarProductos(query);
+                    this.displayResults(this.productosEncontrados, query);
+                } catch (error) {
+                    console.error(`Error en búsqueda ${this.type}:`, error);
+                    this.displayError();
+                }
+            }
+
+            performFinalSearch() {
+                const query = this.searchInput.value.trim();
+                if (query.length >= 2) {
+                    window.location.href = `productos.html?busqueda=${encodeURIComponent(query)}`;
+                }
+            }
+
+            displayResults(productos, query) {
+                if (!this.resultsList) return;
+
+                if (productos.length === 0) {
+                    this.resultsList.innerHTML = `
+                        <div class="sin-resultados">
+                            <i class="fa-solid fa-search" style="font-size: 24px; margin-bottom: 10px; opacity: 0.5;"></i>
+                            <p>No se encontraron productos para "${query}"</p>
+                            <small>Intenta con otros términos de búsqueda</small>
+                        </div>
+                    `;
+                    return;
+                }
+
+                this.resultsList.innerHTML = productos.slice(0, 6).map(producto => {
+                    const imagenUrl = producto.imagenes?.[0]?.url || 
+                                     'https://via.placeholder.com/50?text=Sin+Imagen';
+                    
+                    return `
+                        <div class="resultado-item" data-product-id="${producto.id}">
+                            <img src="${imagenUrl}" 
+                                 alt="${producto.nombre}" 
+                                 onerror="this.src='https://via.placeholder.com/50?text=Error'">
+                            <div class="resultado-info">
+                                <div class="resultado-nombre">${producto.nombre}</div>
+                                <div class="resultado-precio">$${producto.precio.toLocaleString('es-AR')}</div>
+                                <div class="resultado-stock ${producto.stock > 0 ? 'en-stock' : 'sin-stock'}">
+                                    ${producto.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}
+                                </div>
+                            </div>
+                            <button class="resultado-ver-detalles" data-product-id="${producto.id}">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+
+                // Event listeners para resultados
+                this.resultsList.querySelectorAll('.resultado-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        if (!e.target.closest('.resultado-ver-detalles')) {
+                            const productId = item.dataset.productId;
+                            this.mostrarDetalles(productId);
+                        }
+                    });
+                });
+
+                this.resultsList.querySelectorAll('.resultado-ver-detalles').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const productId = button.dataset.productId;
+                        this.mostrarDetalles(productId);
+                    });
+                });
+            }
+
+            mostrarDetalles(productId) {
+                const producto = this.productosEncontrados.find(p => String(p.id) === String(productId));
+                
+                if (producto) {
+                    this.hideResults();
+                    this.searchInput.value = '';
+                    mostrarDetallesProducto(productId);
+                }
+            }
+
+            showLoading() {
+                if (!this.resultsList) return;
+                
+                this.resultsList.innerHTML = `
+                    <div class="buscando">
+                        <div class="loading-spinner">
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                        </div>
+                        <div>Buscando productos...</div>
+                    </div>
+                `;
+                this.showResults();
+            }
+
+            displayError() {
+                if (!this.resultsList) return;
+                
+                this.resultsList.innerHTML = `
+                    <div class="sin-resultados">
+                        <i class="fa-solid fa-exclamation-triangle" style="font-size: 24px; margin-bottom: 10px; color: #ff6b6b;"></i>
+                        <p>Error al buscar productos</p>
+                        <small>Intenta nuevamente en unos momentos</small>
+                    </div>
+                `;
+            }
+
+            showResults() {
+                this.resultsContainer.style.display = 'block';
+            }
+
+            hideResults() {
+                this.resultsContainer.style.display = 'none';
+            }
+
+            handleClickOutside(e) {
+                if (!this.resultsContainer.contains(e.target) && 
+                    e.target !== this.searchInput && 
+                    e.target !== this.searchBtn) {
+                    this.hideResults();
+                }
+            }
         }
 
-        const cards = document.querySelectorAll('.card_producto');
-        cards.forEach((card) => {
-          const button = card.querySelector('.btn-cart');
-          if (!button) return;
-          button.addEventListener('click', (event) => {
-            event.preventDefault();
-            const productData = buildProductFromCard(card);
-            agregarAlCarrito(event, productData);
-          });
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar búsqueda del header
+            new BusquedaManager('header');
+            
+            // Inicializar búsqueda del hero
+            new BusquedaManager('hero');
+            
+            // Inicializar búsqueda móvil si existe
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            if (mobileSearchInput) {
+                mobileSearchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.trim();
+                    if (query.length >= 2) {
+                        window.location.href = `productos.html?busqueda=${encodeURIComponent(query)}`;
+                    }
+                });
+            }
         });
-
-        const loginButton = document.getElementById('btn-login');
-        if (loginButton) {
-          import('../scriptsFolder/modalHandler.js')
-            .then(({ toggleLoginModal }) => {
-              loginButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                toggleLoginModal();
-              });
-            })
-            .catch(() => {});
-        }
-      });
     </script>
+
+    <!-- Scripts existentes -->
+    <script type="module">
+        import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js';
+        
+        const parsePrice = (texto) => {
+            if (!texto) return 0;
+            const sanitized = texto.replace(/[^0-9,.-]+/g, '').replace(/\./g, '').replace(',', '.');
+            const value = Number.parseFloat(sanitized);
+            return Number.isFinite(value) ? value : 0;
+        };
+
+        const buildProductFromCard = (card) => {
+            const idAttr = card.dataset.id || `card-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+            const title = card.querySelector('.Titulo')?.textContent.trim() || 'Producto';
+            const priceText = card.querySelector('.Precio')?.textContent || '$0';
+            const priceValue = parsePrice(priceText);
+            const imageUrl = card.querySelector('img')?.src || 'https://via.placeholder.com/200';
+            const categoria = card.querySelector('.stock')?.textContent.trim() || '';
+
+            return {
+                id: idAttr,
+                nombre: title,
+                precio: priceValue,
+                imagenes: [{ url: imageUrl }],
+                categoria
+            };
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderizarCarrito();
+            updateCartCount();
+
+            const cartButton = document.getElementById('header-cart-button');
+            if (cartButton) {
+                cartButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    toggleCart();
+                });
+            }
+
+            const cards = document.querySelectorAll('.card_producto');
+            cards.forEach((card) => {
+                const button = card.querySelector('.btn-cart');
+                if (!button) return;
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const productData = buildProductFromCard(card);
+                    agregarAlCarrito(event, productData);
+                });
+            });
+
+            const loginButton = document.getElementById('btn-login');
+            if (loginButton) {
+                import('../scriptsFolder/modalHandler.js')
+                    .then(({ toggleLoginModal }) => {
+                        loginButton.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            toggleLoginModal();
+                        });
+                    })
+                    .catch(() => {});
+            }
+        });
+    </script>
+
     <script>
-      (function(){
-        const btn = document.getElementById('hamburgerBtn');
-        const menu = document.getElementById('mobileMenu');
-        const overlay = document.getElementById('navOverlay');
-        const searchToggle = document.getElementById('searchToggle');
-        const searchPanel  = document.getElementById('mobileSearchPanel');
-        if(!btn || !menu || !overlay) return;
-        const closeMenu = ()=>{
-          menu.classList.remove('active');
-          btn.setAttribute('aria-expanded','false');
-          overlay.classList.remove('active');
-        };
-        const openMenu = ()=>{
-          menu.classList.add('active');
-          btn.setAttribute('aria-expanded','true');
-          overlay.classList.add('active');
-        };
-        btn.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          menu.classList.contains('active') ? closeMenu() : openMenu();
-        });
+        (function(){
+            const btn = document.getElementById('hamburgerBtn');
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('navOverlay');
+            const searchToggle = document.getElementById('searchToggle');
+            const searchPanel  = document.getElementById('mobileSearchPanel');
+            if(!btn || !menu || !overlay) return;
+            const closeMenu = ()=>{
+                menu.classList.remove('active');
+                btn.setAttribute('aria-expanded','false');
+                overlay.classList.remove('active');
+            };
+            const openMenu = ()=>{
+                menu.classList.add('active');
+                btn.setAttribute('aria-expanded','true');
+                overlay.classList.add('active');
+            };
+            btn.addEventListener('click', (e)=>{
+                e.stopPropagation();
+                menu.classList.contains('active') ? closeMenu() : openMenu();
+            });
 
-        const closeSearch = ()=>{ searchPanel?.classList.remove('open'); overlay.classList.remove('active'); };
-        const openSearch = ()=>{ searchPanel?.classList.add('open'); overlay.classList.add('active'); };
+            const closeSearch = ()=>{ searchPanel?.classList.remove('open'); overlay.classList.remove('active'); };
+            const openSearch = ()=>{ searchPanel?.classList.add('open'); overlay.classList.add('active'); };
 
-        // Toggle de búsqueda al tocar el icono en mobile
-        searchToggle?.addEventListener('click', (e)=>{
-          // Solo comportamiento especial en mobile (coincide con breakpoint 992px)
-          if (window.matchMedia('(max-width: 992px)').matches) {
-            e.preventDefault();
-            e.stopPropagation();
-            // Cierra menú si está abierto
-            closeMenu();
-            // Abre/cierra panel de búsqueda
-            if (searchPanel?.classList.contains('open')) { closeSearch(); }
-            else { openSearch(); }
-          }
-        });
+            searchToggle?.addEventListener('click', (e)=>{
+                if (window.matchMedia('(max-width: 992px)').matches) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeMenu();
+                    if (searchPanel?.classList.contains('open')) { closeSearch(); }
+                    else { openSearch(); }
+                }
+            });
 
-        overlay.addEventListener('click', ()=>{ closeMenu(); closeSearch(); });
-        document.addEventListener('click', (e)=>{
-          if(!menu.contains(e.target) && e.target !== btn) closeMenu();
-          if(!searchPanel?.contains(e.target) && e.target !== searchToggle) closeSearch();
-        });
-        document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { closeMenu(); closeSearch(); } });
-      })();
+            overlay.addEventListener('click', ()=>{ closeMenu(); closeSearch(); });
+            document.addEventListener('click', (e)=>{
+                if(!menu.contains(e.target) && e.target !== btn) closeMenu();
+                if(!searchPanel?.contains(e.target) && e.target !== searchToggle) closeSearch();
+            });
+            document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { closeMenu(); closeSearch(); } });
+        })();
     </script>
-<!-- Burbuja del chatbot -->
-<div id="chatbot-bubble">
-  <div class="chat-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
 
-<!-- Ventana del chatbot -->
-<div id="chatbot-window">
-  <div class="chatbot-header">
-    <span>Ayudante SCRIPT-G</span>
-    <button id="new-chat-btn">➕ Nuevo Chat</button>
-  </div>
-
-  <div class="chatbot-body">
-    <!-- Sidebar de chats (a la izquierda) -->
-    <div class="chatbot-sidebar" id="chat-sidebar"></div>
-
-    <!-- Área de mensajes -->
-    <div class="chatbot-main">
-      <div class="chatbot-messages" id="chatbot-messages"></div>
-
-      <div class="chatbot-input">
-        <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
-        <button id="chatbot-send">Enviar</button>
-      </div>
+    <!-- Chatbot -->
+    <div id="chatbot-bubble">
+        <div class="chat-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-  </div>
-</div>
-<div id="toast-container"></div>
-<script src="../scriptsFolder/chatbot.js"></script>
+    <div id="chatbot-window">
+        <div class="chatbot-header">
+            <span>Ayudante SCRIPT-G</span>
+            <button id="new-chat-btn">➕ Nuevo Chat</button>
+        </div>
+        <div class="chatbot-body">
+            <div class="chatbot-sidebar" id="chat-sidebar"></div>
+            <div class="chatbot-main">
+                <div class="chatbot-messages" id="chatbot-messages"></div>
+                <div class="chatbot-input">
+                    <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
+                    <button id="chatbot-send">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+    <script src="../scriptsFolder/chatbot.js"></script>
 </body>
 </html>

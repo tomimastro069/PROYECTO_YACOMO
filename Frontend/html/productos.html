@@ -1,451 +1,152 @@
-﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Script-G</title>
+    <title>Script-G - Productos</title>
     <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/productosStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href ="../css/chatbot.css">
-    <script type="module" src="../scriptsFolder/modalHandler.js"></script>
-    <script type="module" src="../scriptsFolder/funciones.js"></script>
+    <link rel="stylesheet" href="../css/chatbot.css">
+    
+    <style>
+        /* Estilos adicionales para el modal de detalles */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            gap: 10px;
+        }
 
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ddd;
+            background: #f5f5f5;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .quantity-input {
+            width: 60px;
+            height: 35px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .x-thumbs {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .x-thumb {
+            width: 60px;
+            height: 60px;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .x-thumb.active {
+            border-color: #4a90e2;
+        }
+
+        .x-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-favorite.active {
+            background-color: #ff6b6b;
+            color: white;
+        }
+
+        .en-stock {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .sin-stock {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Toast messages */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        }
+    </style>
 </head>
 
-<div id="cart" class="ts-cart">
-    <a href="#" class="ts-cart__overlay" aria-hidden="true"></a>
-
-    <aside class="ts-cart__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
-        <header class="ts-cart__header">
-            <div>
-                <h4 id="cartTitle">Carrito de Compras</h4>
-                <small class="ts-cart__count">0 productos</small>
-            </div>
-            <a href="#" class="ts-x" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="ts-cart__body">
-           <!-- El contenido del carrito se generará dinámicamente aquí -->
-        </div>
-
-        <footer class="ts-cart__footer">
-            <div class="ts-summary">
-                <div class="ts-summary__row">
-                    <span>Subtotal (0 items)</span>
-                    <strong>$0</strong>
-                </div>
-                <div class="ts-summary__row">
-                    <span>Envío</span>
-                    <strong>Gratis</strong>
-                </div>
-                <div class="ts-summary__total">
-                    <span>Total</span>
-                    <strong class="ts-total-price">$0</strong>
-                </div>
-            </div>
-
-            <a href="#" class="ts-pay">
-                <span class="ts-pay__icon"><i class="fa-regular fa-credit-card"></i></span>
-                Pagar Ahora
-            </a>
-        </footer>
-    </aside>
-</div>
-
-<!-- ============= MODAL: HYTE Y70 TOUCH INFINITE Black ============= -->
-<div id="modal-hyte" class="x-modal" aria-hidden="true">
-    <a class="x-overlay" href="#"></a>
-    <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-hyte">
-        <header class="x-header">
-            <h3 id="ttl-hyte">HYTE Y70 TOUCH INFINITE Black — Gabinete</h3>
-            <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="x-content">
-            <div class="x-gallery">
-                <div class="x-main"><img
-                        src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_43863_Gabinete_HYTE_Y70_TOUCH_INFINITE_Black_Vidrio_Templado_Pantalla_Tactil_2.5K_LCD_IPS_60Hz_Inc._Cable_Riser_PCIe_4x16_USB-C_3.2_7b72188b-grn.jpg"
-                        alt=""></div>
-
-            </div>
-            <aside class="x-side">
-                <div class="x-badges">
-                    <span class="x-chip">Case</span><span class="x-chip">En stock</span><span class="x-chip">★★★★★
-                        5/5</span>
-                </div>
-                <div class="x-priceBox">
-                    <div class="x-big">$696.658</div>
-                    <div class="x-muted">Precio incluye IVA</div>
-                </div>
-                <div class="x-flags"><span class="x-chip">Envío gratis</span><span class="x-chip">Garantía
-                        oficial</span></div>
-
-                <!-- SIEMPRE ABAJO -->
-                <div class="x-actions">
-                    <a href="#" class="btn-cart" style="text-align:center">Agregar al Carrito</a>
-                    <a href="#" class="btn-details" style="text-align:center">Favoritos</a>
-                </div>
-            </aside>
-        </div>
-
-        <!-- TABS a lo ancho, debajo del contenido -->
-        <section class="x-tabs">
-            <!-- Especificaciones (incluye Conectividad) -->
-            <div class="x-tab">
-                <input type="radio" name="tab-hyte" id="hyte-specs" checked>
-                <label for="hyte-specs">Especificaciones</label>
-                <div class="x-panel">
-                    <div class="x-cols">
-                        <div class="x-box">
-                            <h4>Técnicas</h4>
-                            <div class="x-kv">
-                                <div>Tamaño</div>
-                                <div>Mid Tower</div>
-                                <div>Vidrio</div>
-                                <div>Templado panorámico</div>
-                                <div>GPU máx.</div>
-                                <div>400 mm</div>
-                                <div>Radiadores</div>
-                                <div>Hasta 360 mm</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Conectividad</h4>
-                            <div class="x-kv">
-                                <div>Front I/O</div>
-                                <div>USB-C, 2× USB-A, Audio</div>
-                                <div>Pantalla</div>
-                                <div>LCD frontal integrada</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Compatibilidad -->
-            <div class="x-tab">
-                <input type="radio" name="tab-hyte" id="hyte-compat">
-                <label for="hyte-compat">Compatibilidad</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <div class="x-kv">
-                            <div>Mother</div>
-                            <div>ATX / mATX / ITX</div>
-                            <div>Fuente</div>
-                            <div>ATX</div>
-                            <div>Altura CPU</div>
-                            <div>~180 mm</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reseñas (hacia abajo) -->
-            <div class="x-tab">
-                <input type="radio" name="tab-hyte" id="hyte-reviews">
-                <label for="hyte-reviews">Reseñas</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">“Construcción premium y vitrina brutal.” — Juan</p>
-                        <p class="x-muted">“Cableado cómodo y buen flujo de aire.” — Ana</p>
-                        <p class="x-muted">“La pantalla es un golazo para stats.” — Pedro</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
-
-<!-- ================= MODAL: ASUS ROG Strix SCAR 18 ================= -->
-<div id="modal-asus" class="x-modal" aria-hidden="true">
-    <a class="x-overlay" href="#"></a>
-    <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-asus">
-        <header class="x-header">
-            <h3 id="ttl-asus">ASUS ROG Strix SCAR 18 — Notebook 18"</h3>
-            <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="x-content">
-            <div class="x-gallery">
-                <div class="x-main">Imagen Notebook</div>
-                <div class="x-thumbs">
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                </div>
-            </div>
-            <aside class="x-side">
-                <div class="x-badges"><span class="x-chip">Notebook</span><span class="x-chip">En stock</span><span
-                        class="x-chip">★★★★★ 5/5</span></div>
-                <div class="x-priceBox">
-                    <div class="x-big">$6.856.497</div>
-                    <div class="x-muted">Precio incluye IVA</div>
-                </div>
-                <div class="x-flags"><span class="x-chip">Envío rápido</span><span class="x-chip">Garantía
-                        oficial</span></div>
-
-                <div class="x-actions">
-                    <a href="#" class="btn-cart" style="text-align:center">Agregar al Carrito</a>
-                    <a href="#" class="btn-details" style="text-align:center">Favoritos</a>
-                </div>
-            </aside>
-        </div>
-
-        <section class="x-tabs">
-            <div class="x-tab">
-                <input type="radio" name="tab-asus" id="asus-specs" checked>
-                <label for="asus-specs">Especificaciones</label>
-                <div class="x-panel">
-                    <div class="x-cols">
-                        <div class="x-box">
-                            <h4>Hardware</h4>
-                            <div class="x-kv">
-                                <div>CPU</div>
-                                <div>Intel Core i9</div>
-                                <div>GPU</div>
-                                <div>RTX 4090 Laptop</div>
-                                <div>RAM</div>
-                                <div>32 GB DDR5</div>
-                                <div>SSD</div>
-                                <div>1 TB NVMe</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Pantalla</h4>
-                            <div class="x-kv">
-                                <div>Tamaño</div>
-                                <div>18"</div>
-                                <div>Resolución</div>
-                                <div>QHD+</div>
-                                <div>Refresco</div>
-                                <div>240 Hz</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Conectividad</h4>
-                            <div class="x-kv">
-                                <div>USB</div>
-                                <div>2× USB-C, 2× USB-A</div>
-                                <div>Red</div>
-                                <div>Wi-Fi 6E · LAN 2.5Gb</div>
-                                <div>Video</div>
-                                <div>HDMI 2.1</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-asus" id="asus-compat">
-                <label for="asus-compat">Compatibilidad</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">Windows 11 · Soporte VR · Monitores externos hasta 8K.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-asus" id="asus-reviews">
-                <label for="asus-reviews">Reseñas</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">“Vuelo en AAA; algo caliente en carga.” — Vale</p>
-                        <p class="x-muted">“Teclado y pantalla top.” — Leo</p>
-                        <p class="x-muted">“Ideal para trabajo + gaming.” — Sofi</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
-
-<!-- ========== MODAL: Glorious GMMK3 HE 75% RGB (Teclado) ========== -->
-<div id="modal-gmmk3" class="x-modal" aria-hidden="true">
-    <a class="x-overlay" href="#"></a>
-    <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-gmmk3">
-        <header class="x-header">
-            <h3 id="ttl-gmmk3">Glorious GMMK3 HE 75% RGB — Teclado</h3>
-            <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="x-content">
-            <div class="x-gallery">
-                <div class="x-main">Imagen Teclado</div>
-                <div class="x-thumbs">
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                </div>
-            </div>
-            <aside class="x-side">
-                <div class="x-badges"><span class="x-chip">Teclado</span><span class="x-chip">Hall Effect</span><span
-                        class="x-chip">Hot-swap</span></div>
-                <div class="x-priceBox">
-                    <div class="x-big">$256.099</div>
-                    <div class="x-muted">Precio incluye IVA</div>
-                </div>
-
-                <div class="x-actions">
-                    <a href="#" class="btn-cart" style="text-align:center">Agregar al Carrito</a>
-                    <a href="#" class="btn-details" style="text-align:center">Favoritos</a>
-                </div>
-            </aside>
-        </div>
-
-        <section class="x-tabs">
-            <div class="x-tab">
-                <input type="radio" name="tab-gmmk3" id="gmmk3-specs" checked>
-                <label for="gmmk3-specs">Especificaciones</label>
-                <div class="x-panel">
-                    <div class="x-cols">
-                        <div class="x-box">
-                            <h4>Detalles</h4>
-                            <div class="x-kv">
-                                <div>Layout</div>
-                                <div>75%</div>
-                                <div>Switches</div>
-                                <div>Magnéticos (HE)</div>
-                                <div>Keycaps</div>
-                                <div>PBT</div>
-                                <div>Conexión</div>
-                                <div>USB-C</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Conectividad</h4>
-                            <div class="x-kv">
-                                <div>Sistemas</div>
-                                <div>Windows / macOS</div>
-                                <div>Software</div>
-                                <div>Glorious Core</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-gmmk3" id="gmmk3-compat">
-                <label for="gmmk3-compat">Compatibilidad</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">Mapeos por software para macOS; NKRO en Windows.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-gmmk3" id="gmmk3-reviews">
-                <label for="gmmk3-reviews">Reseñas</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">“Lineal, rápido y silencioso.” — Nico</p>
-                        <p class="x-muted">“Muy sólido; estabilizadores buenos.” — Lara</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
-
-<!-- ====== MODAL: ZOTAC GeForce RTX 5080 AMP EXTREME INFINITY ====== -->
-<div id="modal-rtx5080" class="x-modal" aria-hidden="true">
-    <a class="x-overlay" href="#"></a>
-    <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-rtx5080">
-        <header class="x-header">
-            <h3 id="ttl-rtx5080">ZOTAC GeForce RTX 5080 16GB GDDR7 — AMP EXTREME INFINITY</h3>
-            <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="x-content">
-            <div class="x-gallery">
-                <div class="x-main">Imagen GPU</div>
-                <div class="x-thumbs">
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                </div>
-            </div>
-            <aside class="x-side">
-                <div class="x-badges"><span class="x-chip">GPU</span><span class="x-chip">En stock</span></div>
-                <div class="x-priceBox">
-                    <div class="x-big">$839.999</div>
-                    <div class="x-muted">Precio incluye IVA</div>
-                </div>
-
-                <div class="x-actions">
-                    <a href="#" class="btn-cart" style="text-align:center">Agregar al Carrito</a>
-                    <a href="#" class="btn-details" style="text-align:center">Favoritos</a>
-                </div>
-            </aside>
-        </div>
-
-        <section class="x-tabs">
-            <div class="x-tab">
-                <input type="radio" name="tab-rtx5080" id="rtx5080-specs" checked>
-                <label for="rtx5080-specs">Especificaciones</label>
-                <div class="x-panel">
-                    <div class="x-cols">
-                        <div class="x-box">
-                            <h4>Técnicas</h4>
-                            <div class="x-kv">
-                                <div>Arquitectura</div>
-                                <div>Blackwell</div>
-                                <div>Memoria</div>
-                                <div>16 GB GDDR7</div>
-                                <div>Bus</div>
-                                <div>256-bit</div>
-                                <div>TBP</div>
-                                <div>~320 W</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Conectividad</h4>
-                            <div class="x-kv">
-                                <div>Puertos</div>
-                                <div>3× DP 2.1 · 1× HDMI 2.1</div>
-                                <div>Alim.</div>
-                                <div>2× 8-pin / 12V-2×6</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-rtx5080" id="rtx5080-compat">
-                <label for="rtx5080-compat">Compatibilidad</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">Fuente 750 W recomendada; chasis 2.7 slots.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-rtx5080" id="rtx5080-reviews">
-                <label for="rtx5080-reviews">Reseñas</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">“Top en 4K con RT.” — Maxi</p>
-                        <p class="x-muted">“Silenciosa bajo carga.” — Agus</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
-<!-- ============================== FIN MODALES ============================== -->
-
-
-
 <body>
+    <!-- Carrito -->
+    <div id="cart" class="ts-cart">
+        <a href="#" class="ts-cart__overlay" aria-hidden="true"></a>
+        <aside class="ts-cart__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+            <header class="ts-cart__header">
+                <div>
+                    <h4 id="cartTitle">Carrito de Compras</h4>
+                    <small class="ts-cart__count">0 productos</small>
+                </div>
+                <a href="#" class="ts-x" aria-label="Cerrar">✕</a>
+            </header>
+            <div class="ts-cart__body">
+                <!-- El contenido del carrito se generará dinámicamente aquí -->
+            </div>
+            <footer class="ts-cart__footer">
+                <div class="ts-summary">
+                    <div class="ts-summary__row">
+                        <span>Subtotal (0 items)</span>
+                        <strong>$0</strong>
+                    </div>
+                    <div class="ts-summary__row">
+                        <span>Envío</span>
+                        <strong>Gratis</strong>
+                    </div>
+                    <div class="ts-summary__total">
+                        <span>Total</span>
+                        <strong class="ts-total-price">$0</strong>
+                    </div>
+                </div>
+                <a href="#" class="ts-pay">
+                    <span class="ts-pay__icon"><i class="fa-regular fa-credit-card"></i></span>
+                    Pagar Ahora
+                </a>
+            </footer>
+        </aside>
+    </div>
+
+    <!-- Header -->
     <header class="main-header">
         <a href="index.html" class="header-logo-title">
             <div class="logo">
@@ -460,7 +161,11 @@
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="search" placeholder="Buscar componentes...">
         </div>
-        
+        <div class="busqueda-resultados" id="searchResults" style="display: none;">
+            <div class="resultados-container">
+                <!-- Los resultados se cargarán aquí dinámicamente -->
+            </div>
+        </div>
         <div class="menu">
             <nav>
                 <ul class="main-nav-list">
@@ -486,7 +191,8 @@
         </div>
     </header>
     <div class="fix"></div>
-    
+
+    <!-- Modales de Login/Registro -->
     <div class="pop-up modal-cerrado" id="loginModal">
         <div class="card2">
             <form class="form">
@@ -523,9 +229,7 @@
         <div class="card2">
             <form class="form signup">
                 <button type="button" class="cerrar-modal">×</button>
-                
                 <p id="heading">Registrarse</p>
-                
                 <div class="name-fields">
                     <div class="field">
                         <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -540,25 +244,21 @@
                         <input type="text" class="input-field" placeholder="Apellido" required/>
                     </div>
                 </div>
-
                 <div class="field">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
                     </svg>
                     <input type="email" class="input-field" placeholder="Email" required/>
                 </div>
-
                 <div class="field">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
                     </svg>
                     <input type="password" class="input-field" placeholder="Contraseña" required/>
                 </div>
-
                 <div class="btn-is">
                     <button type="submit" class="button1">Registrarse</button>
                 </div>
-
                 <div class="modal-switch">
                     ¿Ya tienes una cuenta? 
                     <button type="button" class="modal-toggle-btn" id="switchToLogin">Iniciar Sesión</button>
@@ -567,17 +267,15 @@
         </div>
     </div>
 
-
+    <!-- Contenido Principal -->
     <div class="contenedor">
         <div class="Categorias-container">
-
             <div class="Categorias">
                 <h3>Categorias</h3>
                 <p>Explora por tipo de componente</p>
                 <button>🎮 Todos los productos</button>
             </div>
-
-            <Div class="Categorias-Lista">
+            <div class="Categorias-Lista">
                 <nav>
                     <ul>
                         <li><a href="#Procesadores">Procesadores</a></li>
@@ -591,10 +289,10 @@
                         <li><a href="#Perifericos">Perifericos</a></li>
                     </ul>
                 </nav>
-            </Div>
+            </div>
         </div>
+        
         <div class="Catalogo-Container">
-
             <div class="Catalogo-Header">
                 <div class="Catalogo-texto">
                     <h2>Catalogo de Productos</h2>
@@ -606,38 +304,16 @@
                     <option value="rating-asc">Calificación: Baja a Alta</option>
                     <option value="rating-desc">Calificación: Alta a Baja</option>
                 </select>
-
             </div>
 
             <div class="Catalogo" id="catalogo-productos">
                 <!-- Los productos se cargarán aquí dinámicamente desde el script -->
-                <!-- Ejemplo de producto hardcodeado (comentado para referencia):
-                <div class="card" data-id="gpu-4080">
-                    <img class="Imagen_Producto" src="..." alt="Producto">
-                    <div class="content">
-                        <span class="stock"></span>
-                        <h3 class="Titulo">Nombre del Producto</h3>
-                        <div class="rating">★5/5</div>
-                        <p class="precio-anterior">$1.000</p>
-                        <p class="Precio">$800</p>
-                        <ul class="Especificaciones"></ul>
-                        <div class="actions">
-                            <button class="btn-cart">Agregar al Carrito</button>
-                            <button class="btn-favorite" type="button">Agregar a Favoritos</button>
-                            <a class="btn-details" href="#modal-id">Ver Detalles</a>
-                        </div>
-                    </div>
-                </div>
-                -->
             </div>
         </div>
     </div>
 
-
-    <footer>
-        <div class="Footer_Container">
-            <a href="index.html" class="Logo_Pagina">
-                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
+       <footer>
+="currentColor" viewBox="0 0 24 24">
                     <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
                 </svg>
                 <h1>Script-G</h1>
@@ -650,7 +326,7 @@
                         <li><a href="#facebook"><i class="fa-brands fa-facebook"></i>Facebook</a></li>
                     </ul>
                     <ul>
-                        <li><a href="#youtube"><i class="fa-brands fa-facebook"></i>YouTube</a></li>
+                        <li><a href="#youtube"><i class="fa-brands fa-youtube"></i>YouTube</a></li>
                         <li><a href="#tiktok"><i class="fa-brands fa-tiktok"></i>TikTok</a></li>
                     </ul>
                 </div>
@@ -658,147 +334,160 @@
             <h2><a href="Terminos_condiciones">Terminos y Condiciones</a></h2>
         </div>
     </footer>
-    <script type='module' src='../scriptsFolder/auth.js'></script>
-    <script type="module">
-  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js'; // Importar la función de favoritos
-  import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
-  import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js'; // Importar funciones del carrito
-  import { toggleLoginModal } from '../scriptsFolder/modalHandler.js'; // Importar la función del modal de login
 
-  document.addEventListener('DOMContentLoaded', async () => {
-    const contenedor = document.getElementById('catalogo-productos');
-
-    let allProducts = []; // Para almacenar todos los productos obtenidos de la API
-
-    // Adjuntar event listener para el botón del carrito en el header
-    const headerCartButton = document.getElementById('header-cart-button');
-    if (headerCartButton) {
-        headerCartButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevenir el comportamiento por defecto del ancla
-            toggleCart();
-        });
-    }
-
-    // Adjuntar event listener para el botón de login en el header
-    const headerLoginButton = document.getElementById('btn-login');
-    if (headerLoginButton) {
-        headerLoginButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleLoginModal();
-        });
-    }
-    try {
-      const productos = await obtenerProductos();
-
-      if (!productos || productos.length === 0) {
-        contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
-        return;
-      }
-
-      contenedor.innerHTML = ''; // Borra los hardcodeados
-      allProducts = productos; // Guardar los productos para la lógica del carrito
-
-      productos.forEach((p) => {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.dataset.id = `producto-${p.id}`;
-        // Usar p.imagenes?.[0]?.url para la URL de la imagen
-        card.innerHTML = `
-          <img class="Imagen_Producto"
-               src="${p.imagenes?.[0]?.url || 'https://via.placeholder.com/200'}"
-               alt="${p.nombre}">
-
-          <div class="content">
-            <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
-            <h3 class="Titulo">${p.nombre}</h3>
-            <div class="rating">★5/5</div>
-            <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
-
-            <ul class="Especificaciones"></ul>
-            <div class="actions">
-              <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
-              <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
-              <a class="btn-details" href="#">Ver Detalles</a>
-            </div>
-          </div>
-        `;
-        
-        // Añadir el event listener para el botón de favoritos
-        const favoriteButton = card.querySelector('.btn-favorite');
-        if (favoriteButton) {
-            favoriteButton.addEventListener('click', async (event) => {
-                const productId = event.target.dataset.productId;
-                try {
-                    await agregarFavorito(productId);
-                    alert('Producto agregado a favoritos con éxito!');
-                } catch (error) {
-                    alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
-                }
-            });
-        }
-
-        contenedor.appendChild(card);
-      });
-
-      // Delegación de eventos para los botones "Agregar al Carrito"
-      contenedor.addEventListener('click', (event) => {
-        const addToCartButton = event.target.closest('.btn-cart');
-        if (addToCartButton) {
-          const productId = addToCartButton.dataset.productId;
-          // Buscar el producto completo en el array allProducts
-          const productToAdd = allProducts.find(p => String(p.id) === productId);
-          if (productToAdd) {
-            agregarAlCarrito(event, productToAdd); // Pasar el evento y el objeto de producto
-          } else {
-            console.error('Producto no encontrado para el ID:', productId);
-          }
-        }
-      });
-
-    } catch (error) {
-      console.error('Error al obtener productos:', error);
-      contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
-    }
-
-    // Inicializar el carrito al cargar la página para que refleje el estado de localStorage
-    renderizarCarrito();
-  });
-</script>
-<!-- Burbuja del chatbot -->
-<div id="chatbot-bubble">
-  <div class="chat-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-
-<!-- Ventana del chatbot -->
-<div id="chatbot-window">
-  <div class="chatbot-header">
-    <span>Ayudante SCRIPT-G</span>
-    <button id="new-chat-btn">➕ Nuevo Chat</button>
-  </div>
-
-  <div class="chatbot-body">
-    <!-- Sidebar de chats (a la izquierda) -->
-    <div class="chatbot-sidebar" id="chat-sidebar"></div>
-
-    <!-- Área de mensajes -->
-    <div class="chatbot-main">
-      <div class="chatbot-messages" id="chatbot-messages"></div>
-
-      <div class="chatbot-input">
-        <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
-        <button id="chatbot-send">Enviar</button>
-      </div>
+    <!-- Chatbot -->
+    <div id="chatbot-bubble">
+        <div class="chat-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-  </div>
-</div>
-<div id="toast-container"></div>
-<script src="../scriptsFolder/chatbot.js"></script>
+    <div id="chatbot-window">
+        <div class="chatbot-header">
+            <span>Ayudante SCRIPT-G</span>
+            <button id="new-chat-btn">➕ Nuevo Chat</button>
+        </div>
+        <div class="chatbot-body">
+            <div class="chatbot-sidebar" id="chat-sidebar"></div>
+            <div class="chatbot-main">
+                <div class="chatbot-messages" id="chatbot-messages"></div>
+                <div class="chatbot-input">
+                    <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
+                    <button id="chatbot-send">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script type='module' src='../scriptsFolder/auth.js'></script>
+    <script type="module" src="../scriptsFolder/modalHandler.js"></script>
+    <script type="module" src="../scriptsFolder/funciones.js"></script>
+    <script type="module" src="../scriptsFolder/busqueda.js"></script>
+    
+    <script type="module">
+        import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
+        import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
+        import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js';
+        import { toggleLoginModal } from '../scriptsFolder/modalHandler.js';
+        import { buscarProductos } from '../scriptsFolder/api/api_busqueda.js';
+        import { mostrarDetallesProducto } from '../scriptsFolder/detallesProducto.js';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const contenedor = document.getElementById('catalogo-productos');
+            const urlParams = new URLSearchParams(window.location.search);
+            const busquedaParam = urlParams.get('busqueda');
+            
+            let allProducts = [];
+
+            // Adjuntar event listener para el botón del carrito en el header
+            const headerCartButton = document.getElementById('header-cart-button');
+            if (headerCartButton) {
+                headerCartButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleCart();
+                });
+            }
+
+            // Adjuntar event listener para el botón de login en el header
+            const headerLoginButton = document.getElementById('btn-login');
+            if (headerLoginButton) {
+                headerLoginButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleLoginModal();
+                });
+            }
+
+            try {
+                // Verificar si hay parámetro de búsqueda en la URL
+                if (busquedaParam) {
+                    document.querySelector('.Catalogo-Header h2').textContent = `Resultados para: "${busquedaParam}"`;
+                    allProducts = await buscarProductos(busquedaParam);
+                } else {
+                    allProducts = await obtenerProductos();
+                }
+
+                if (!allProducts || allProducts.length === 0) {
+                    contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
+                    return;
+                }
+
+                contenedor.innerHTML = '';
+
+                allProducts.forEach((p) => {
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+                    card.dataset.id = `producto-${p.id}`;
+                    
+                    card.innerHTML = `
+                        <img class="Imagen_Producto"
+                            src="${p.imagenes?.[0]?.url || 'https://via.placeholder.com/200'}"
+                            alt="${p.nombre}">
+                        <div class="content">
+                            <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
+                            <h3 class="Titulo">${p.nombre}</h3>
+                            <div class="rating">★5/5</div>
+                            <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
+                            <ul class="Especificaciones"></ul>
+                            <div class="actions">
+                                <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
+                                <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
+                                <button class="btn-details" data-product-id="${p.id}">Ver Detalles</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Event listener para favoritos
+                    const favoriteButton = card.querySelector('.btn-favorite');
+                    if (favoriteButton) {
+                        favoriteButton.addEventListener('click', async (event) => {
+                            const productId = event.target.dataset.productId;
+                            try {
+                                await agregarFavorito(productId);
+                                alert('Producto agregado a favoritos con éxito!');
+                            } catch (error) {
+                                alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
+                            }
+                        });
+                    }
+
+                    // Event listener para ver detalles
+                    const detailsButton = card.querySelector('.btn-details');
+                    if (detailsButton) {
+                        detailsButton.addEventListener('click', (event) => {
+                            const productId = event.target.dataset.productId;
+                            mostrarDetallesProducto(productId);
+                        });
+                    }
+
+                    contenedor.appendChild(card);
+                });
+
+                // Delegación de eventos para carrito
+                contenedor.addEventListener('click', (event) => {
+                    const addToCartButton = event.target.closest('.btn-cart');
+                    if (addToCartButton) {
+                        const productId = addToCartButton.dataset.productId;
+                        const productToAdd = allProducts.find(p => String(p.id) === productId);
+                        if (productToAdd) {
+                            agregarAlCarrito(event, productToAdd);
+                        } else {
+                            console.error('Producto no encontrado para el ID:', productId);
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error al obtener productos:', error);
+                contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
+            }
+
+            // Inicializar el carrito al cargar la página
+            renderizarCarrito();
+        });
+    </script>
+    <script src="../scriptsFolder/chatbot.js"></script>
 </body>
-
 </html>
-
-

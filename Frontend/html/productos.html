@@ -578,19 +578,17 @@
             </div>
 
             <Div class="Categorias-Lista">
-                <nav>
-                    <ul>
-                        <li><a href="#Procesadores">Procesadores</a></li>
-                        <li><a href="#TarjetasGraficas">Tarjetas Graficas</a></li>
-                        <li><a href="#PlacasMadre">Placas Madre</a></li>
-                        <li><a href="#MemoriasRAM">Memorias RAM</a></li>
-                        <li><a href="#Almacenamiento">Almacenamiento</a></li>
-                        <li><a href="#FuentesPoder">Fuentes de Poder</a></li>
-                        <li><a href="#Gabinetes">Gabinetes</a></li>
-                        <li><a href="#Refrigeracion">Refrigeracion</a></li>
-                        <li><a href="#Perifericos">Perifericos</a></li>
-                    </ul>
-                </nav>
+                <form id="category-filters">
+                    <label>Procesadores <input type="checkbox" name="categoria" value="Procesadores"></label>
+                    <label>Tarjetas Graficas <input type="checkbox" name="categoria" value="Tarjetas Graficas"></label>
+                    <label>Placas Madre <input type="checkbox" name="categoria" value="Placas Madre"></label>
+                    <label>Memorias RAM <input type="checkbox" name="categoria" value="Memorias RAM"></label>
+                    <label>Almacenamiento <input type="checkbox" name="categoria" value="Almacenamiento"></label>
+                    <label>Fuentes de Poder <input type="checkbox" name="categoria" value="Fuentes de Poder"></label>
+                    <label>Gabinetes <input type="checkbox" name="categoria" value="Gabinetes"></label>
+                    <label>Refrigeracion <input type="checkbox" name="categoria" value="Refrigeracion"></label>
+                    <label>Perifericos <input type="checkbox" name="categoria" value="Perifericos"></label>
+                </form>
             </Div>
         </div>
         <div class="Catalogo-Container">
@@ -797,6 +795,98 @@
 </div>
 <div id="toast-container"></div>
 <script src="../scriptsFolder/chatbot.js"></script>
+<script>
+  // Filtros por múltiples categorías con checkboxes + ordenamiento por precio
+  document.addEventListener('DOMContentLoaded', () => {
+    const catalog = document.getElementById('catalogo-productos');
+    const filtersForm = document.getElementById('category-filters');
+    const sortSelect = document.getElementById('sort-options');
+
+    if (!catalog) return;
+
+    const normalize = (s) => (s || '').toString().toLowerCase();
+    const inferCategoriaFromText = (text) => {
+      const t = (text || '').toLowerCase();
+      if (/ryzen|intel\s*core|\bi3\b|\bi5\b|\bi7\b|\bi9\b|socket|procesador|cpu/.test(t)) return 'Procesadores';
+      if (/rtx|gtx|rx\s?\d|radeon|geforce|tarjeta\s*gr(á|a)fica|gpu/.test(t)) return 'Tarjetas Graficas';
+      if (/mother|placa\s*madre|\bb\d{3}\b|\bx\d{3}\b|\bz\d{3}\b|\bh\d{3}\b|am4|am5|lga/.test(t)) return 'Placas Madre';
+      if (/\bram\b|ddr(3|4|5)|sodimm|memoria\s*ram/.test(t)) return 'Memorias RAM';
+      if (/ssd|hdd|m\.?2|nvme|sata|almacenamiento|disco/.test(t)) return 'Almacenamiento';
+      if (/fuente|psu|80\+|80plus/.test(t)) return 'Fuentes de Poder';
+      if (/gabinete|case|mid\s*tower|full\s*tower/.test(t)) return 'Gabinetes';
+      if (/refrigeraci(ó|o)n|cooler|aio|radiador|ventilador/.test(t)) return 'Refrigeracion';
+      if (/teclado|mouse|rat(ó|o)n|headset|auricular|monitor|perif(é|e)rico/.test(t)) return 'Perifericos';
+      return 'Otros';
+    };
+
+    const parsePrice = (priceText) => {
+      // Convierte "$1.234.567" o "$349.999,00" => 1234567 / 349999
+      const digits = (priceText || '').replace(/[^\d]/g, '');
+      return Number(digits || '0');
+    };
+
+    const getSelectedCategories = () => {
+      if (!filtersForm) return [];
+      return Array.from(filtersForm.querySelectorAll('input[name="categoria"]:checked')).map(i => i.value);
+    };
+
+    const ensureCardCategory = (card) => {
+      if (!card.dataset.categoria) {
+        const title = card.querySelector('.Titulo')?.textContent || '';
+        card.dataset.categoria = inferCategoriaFromText(title);
+      }
+      return card.dataset.categoria;
+    };
+
+    let isApplying = false;
+    let observer;
+    const reconnectObserver = () => {
+      if (observer) observer.disconnect();
+      observer = new MutationObserver(() => {
+        if (!isApplying) applyFiltersAndSort();
+      });
+      observer.observe(catalog, { childList: true });
+    };
+
+    const applyFiltersAndSort = () => {
+      if (isApplying) return;
+      isApplying = true;
+      const selected = getSelectedCategories();
+      const cards = Array.from(catalog.querySelectorAll('.card'));
+
+      // Primero ordenar por precio según selección
+      const sortVal = sortSelect?.value || 'default';
+      if (sortVal === 'price-asc' || sortVal === 'price-desc') {
+        cards.sort((a, b) => {
+          const pa = parsePrice(a.querySelector('.Precio')?.textContent);
+          const pb = parsePrice(b.querySelector('.Precio')?.textContent);
+          return sortVal === 'price-asc' ? pa - pb : pb - pa;
+        });
+        // Evitar bucles: desconectar observer mientras reordenamos
+        if (observer) observer.disconnect();
+        cards.forEach(c => catalog.appendChild(c));
+        reconnectObserver();
+      }
+
+      // Luego aplicar visibilidad por categorías seleccionadas
+      cards.forEach(card => {
+        const cat = ensureCardCategory(card);
+        const show = selected.length === 0 || selected.some(s => normalize(s) === normalize(cat));
+        card.style.display = show ? '' : 'none';
+      });
+      isApplying = false;
+    };
+
+    // Observa cuando se cargan las cards (render dinámico) y aplica últimos filtros/orden
+    reconnectObserver();
+
+    if (filtersForm) filtersForm.addEventListener('change', applyFiltersAndSort);
+    if (sortSelect) sortSelect.addEventListener('change', applyFiltersAndSort);
+
+    // Intento inicial (si ya se cargaron productos)
+    applyFiltersAndSort();
+  });
+</script>
 </body>
 
 </html>

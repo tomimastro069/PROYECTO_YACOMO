@@ -166,6 +166,21 @@ public Optional<Producto> buscarPorIdConImagenes(Long id) {
         logger.info("Total de productos en base de datos: {}", total);
         return total;
     }
+    public Optional<Producto> buscarPorNombre(String nombre) {
+    logger.info("Service: Buscando producto por nombre: {}", nombre);
+    
+    // Busca ignorando mayúsculas/minúsculas
+    Optional<Producto> resultado = productoRepository.findByNombreIgnoreCase(nombre.trim());
+    
+    if (resultado.isEmpty()) {
+        logger.warn("Producto no encontrado con nombre: {}", nombre);
+    } else {
+        logger.info("Producto encontrado: {}", resultado.get().getNombre());
+    }
+    
+    return resultado;
+}
+    
 //
 //    // Método privado para guardar auditoría
 //    private void guardarAuditoria(String accion, String detalle) {

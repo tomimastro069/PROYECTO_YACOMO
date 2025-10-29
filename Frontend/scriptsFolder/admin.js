@@ -512,4 +512,123 @@ document.addEventListener('DOMContentLoaded', () => {
             showAlert({ title: 'Error', message: `Error al cargar ventas: ${error.message}`, type: 'error' });
         }
     }
+    // ==================== SUBIDA DE IMÁGENES POR NOMBRE DE PRODUCTO ====================
+    const uploadForm = document.getElementById('form-upload-imagenes');
+    const statusDiv = document.getElementById('upload-status');
+
+    console.log("🔍 Upload form encontrado:", uploadForm);
+    console.log("🔍 Status div encontrado:", statusDiv);
+
+    if (uploadForm && statusDiv) {
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log("📤 Formulario enviado");
+            
+            statusDiv.textContent = "Procesando...";
+            statusDiv.style.color = '#ffaa00'; // Color amarillo para "procesando"
+
+            const nombre = document.getElementById('upload_producto_nombre').value.trim();
+            const files = document.getElementById('imagenes').files;
+
+            console.log("📝 Nombre ingresado:", nombre);
+            console.log("📁 Archivos seleccionados:", files.length);
+            console.log("📁 Archivos:", files);
+
+            if (!nombre || files.length === 0) {
+                statusDiv.style.color = 'red';
+                statusDiv.textContent = 'Debes ingresar un nombre y seleccionar imágenes.';
+                console.error("❌ Validación falló");
+                return;
+            }
+
+            try {
+                // 1. Buscar el ID del producto por nombre
+                statusDiv.textContent = `Buscando producto "${nombre}"...`;
+                console.log("🔍 Buscando producto con nombre:", nombre);
+                
+                const buscarUrl = `http://localhost:8080/api/productos/buscar-id?nombre=${encodeURIComponent(nombre)}`;
+                console.log("🌐 URL de búsqueda:", buscarUrl);
+                
+                const buscarResponse = await fetch(buscarUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${jwtToken}`
+                    }
+                });
+
+                console.log("📥 Respuesta búsqueda - Status:", buscarResponse.status);
+
+                if (!buscarResponse.ok) {
+                    if (buscarResponse.status === 404) {
+                        throw new Error(`Producto "${nombre}" no encontrado`);
+                    }
+                    throw new Error(`Error al buscar producto: ${buscarResponse.status}`);
+                }
+
+                const productoData = await buscarResponse.json();
+                const productoId = productoData.id;
+                
+                console.log("✅ Producto encontrado:", productoData);
+                console.log("🆔 ID del producto:", productoId);
+                statusDiv.textContent = `Producto encontrado (ID: ${productoId}). Subiendo imágenes...`;
+
+                // 2. Subir las imágenes al producto usando su ID
+                const formData = new FormData();
+                for (const file of files) {
+                    formData.append('imagenes', file);
+                    console.log("📎 Agregando archivo:", file.name, "Tamaño:", file.size);
+                }
+
+                console.log("📦 FormData creado, archivos:", formData.getAll('imagenes').length);
+                
+                const uploadUrl = `http://localhost:8080/api/producto-imagenes/producto/${productoId}`;
+                console.log("🌐 URL de subida:", uploadUrl);
+
+                const uploadResponse = await fetch(uploadUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`
+                    },
+                    body: formData
+                });
+
+                console.log("📥 Respuesta subida - Status:", uploadResponse.status);
+
+                if (uploadResponse.ok) {
+                    const msg = await uploadResponse.text();
+                    console.log("✅ Respuesta exitosa:", msg);
+                    statusDiv.style.color = '#00ff90'; // Verde para éxito
+                    statusDiv.textContent = `✅ ${msg} (Producto ID: ${productoId})`;
+                    
+                    // Limpiar el formulario
+                    uploadForm.reset();
+                    
+                    // Mostrar alerta de éxito
+                    showAlert({
+                        title: 'Éxito',
+                        message: `Imágenes subidas correctamente al producto "${nombre}"`,
+                        type: 'success'
+                    });
+                } else {
+                    const errText = await uploadResponse.text();
+                    console.error("❌ Error en respuesta:", errText);
+                    throw new Error(errText);
+                }
+
+            } catch (err) {
+                statusDiv.style.color = 'red';
+                statusDiv.textContent = `❌ Error: ${err.message}`;
+                console.error("❌ Error completo:", err);
+                
+                showAlert({
+                    title: 'Error',
+                    message: err.message,
+                    type: 'error'
+                });
+            }
+        });
+    } else {
+        console.error("❌ No se encontró el formulario o el div de status");
+    }
 });

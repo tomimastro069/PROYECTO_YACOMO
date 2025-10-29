@@ -12,7 +12,8 @@ import java.util.Optional;
 public interface ProductoRepository extends JpaRepository<Producto, Long>,
         RevisionRepository<Producto, Long, Integer> {
     List<Producto> findByNombreContainingIgnoreCase(String nombre);
-
+// Agregar en la interfaz ProductoRepository
+Optional<Producto> findByNombreIgnoreCase(String nombre);
 
 //    // Buscar por nombre parcial (ignorando mayúsculas/minúsculas)
 //    List<Producto> findByNombreContainingIgnoreCase(String nombre);

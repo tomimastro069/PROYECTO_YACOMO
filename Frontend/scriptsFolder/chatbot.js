@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const messages = document.getElementById("chatbot-messages");
   const sidebar = document.getElementById("chat-sidebar");
   const newChatBtn = document.getElementById("new-chat-btn");
+  const closeBtn = document.getElementById("close-chat-btn");
 
   // Cargar chats o crear uno inicial
   let chats = JSON.parse(localStorage.getItem("chatHistories") || "{}");
@@ -30,6 +31,16 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => windowChat.classList.add("show"), 10);
     }
   });
+
+  // Cerrar desde el botón de la cabecera (útil en móvil)
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      if (windowChat.classList.contains("show")) {
+        windowChat.classList.remove("show");
+        setTimeout(() => (windowChat.style.display = "none"), 300);
+      }
+    });
+  }
 
   // Crear nuevo chat con mensaje inicial
   newChatBtn.addEventListener("click", () => {

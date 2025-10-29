@@ -1529,3 +1529,62 @@ footer {
     40% { transform: scale(1.28); }
     100% { transform: scale(1); }
 }
+
+/* === Responsive ajustes móviles para listado de productos === */
+@media (max-width:768px) {
+    /* Layout principal: apilar filtros y catálogo */
+    .contenedor {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        max-width: 100%;
+        padding: 0 12px;
+    }
+
+    /* Filtros arriba, ancho completo, sin sticky */
+    .Categorias-container {
+        order: 1;
+        position: static;
+        top: auto;
+        align-self: stretch;
+        flex: 1 1 auto;
+    }
+    .Categorias,
+    .Categorias-Lista {
+        width: 100%;
+    }
+
+    /* Catálogo debajo de filtros */
+    .Catalogo-Container { order: 2; padding: 16px; }
+
+    /* Header del catálogo en columna y con select a ancho completo */
+    .Catalogo-Header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .Catalogo-Header select {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Grilla de productos adaptada a pantallas chicas */
+    .Catalogo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    /* Tarjetas más compactas en móvil */
+    .card { min-height: 0; }
+    .card .Imagen_Producto { aspect-ratio: 1/1; }
+}
+
+/* Teléfonos pequeños */
+@media (max-width:480px) {
+    .Catalogo {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .Catalogo-Container { padding: 12px; }
+}

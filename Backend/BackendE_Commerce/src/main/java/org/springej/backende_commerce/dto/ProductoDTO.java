@@ -1,7 +1,6 @@
 package org.springej.backende_commerce.dto;
 
 import lombok.*;
-import org.springej.backende_commerce.dto.ImagenDTO;
 import org.springej.backende_commerce.entity.Producto;
 import java.util.ArrayList;
 import java.util.List;

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
+import org.springej.backende_commerce.dto.ProductoDTO;
 import org.springej.backende_commerce.entity.Producto;
 import org.springej.backende_commerce.repository.ProductoRepository;
 import org.springej.backende_commerce.service.ProductoService;
@@ -22,25 +23,26 @@ import java.util.Optional;
 public class ProductoController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
-
     private final ProductoService productoService;
     private final ProductoRepository productoRepository;
 
+    // ✅ DEVUELVE DTOs (sin referencias circulares)
     @GetMapping
-    public ResponseEntity<List<Producto>> listarTodos() {
+    public ResponseEntity<List<ProductoDTO>> listarTodos() {
         logger.info("Iniciando búsqueda de todos los productos");
-        List<Producto> productos = productoService.listarTodos();
+        List<ProductoDTO> productos = productoService.listarTodos();
         logger.info("Se encontraron {} productos", productos.size());
         return ResponseEntity.ok(productos);
     }
 
+    // ✅ DEVUELVE DTO
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<ProductoDTO> buscarPorId(@PathVariable Long id) {
         logger.info("Buscando producto con ID: {}", id);
         return productoService.buscarPorId(id)
-                .map(producto -> {
-                    logger.info("Producto encontrado: {}", producto.getNombre());
-                    return ResponseEntity.ok(producto);
+                .map(productoDTO -> {
+                    logger.info("Producto encontrado: {}", productoDTO.getNombre());
+                    return ResponseEntity.ok(productoDTO);
                 })
                 .orElseGet(() -> {
                     logger.info("Producto con ID {} no encontrado", id);
@@ -62,7 +64,7 @@ public class ProductoController {
             @Valid @RequestBody Producto producto) {
 
         logger.info("Iniciando actualización completa del producto con ID: {}", id);
-        return productoService.buscarPorId(id)
+        return productoRepository.findById(id)
                 .map(productoExistente -> {
                     producto.setId(id);
                     Producto productoActualizado = productoService.guardar(producto);
@@ -97,7 +99,7 @@ public class ProductoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
         logger.info("Iniciando eliminación del producto con ID: {}", id);
-        return productoService.buscarPorId(id)
+        return productoRepository.findById(id)
                 .map(producto -> {
                     logger.info("Eliminando producto: {}", producto.getNombre());
                     productoService.eliminar(id);
@@ -109,7 +111,6 @@ public class ProductoController {
                     return ResponseEntity.notFound().build();
                 });
     }
-// Agregar este metodo en ProductoController
 
     @GetMapping("/buscar-id")
     public ResponseEntity<?> buscarIdPorNombre(@RequestParam(required = false) String nombre) {
@@ -134,5 +135,4 @@ public class ProductoController {
                             .body(Map.of("error", "Producto no encontrado con nombre: " + nombre));
                 });
     }
-
 }

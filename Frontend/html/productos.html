@@ -662,108 +662,129 @@
   import { renderizarEstrellas, obtenerPromedioEstrellas } from '../scriptsFolder/estrellas.js'; // ← IMPORTAR
 
   document.addEventListener('DOMContentLoaded', async () => {
-    const contenedor = document.getElementById('catalogo-productos');
-    let allProducts = [];
+  const contenedor = document.getElementById('catalogo-productos');
+  let allProducts = [];
 
-    const headerCartButton = document.getElementById('header-cart-button');
-    if (headerCartButton) {
-        headerCartButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleCart();
-        });
+  const headerCartButton = document.getElementById('header-cart-button');
+  if (headerCartButton) {
+      headerCartButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleCart();
+      });
+  }
+
+  const headerLoginButton = document.getElementById('btn-login');
+  if (headerLoginButton) {
+      headerLoginButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleLoginModal();
+      });
+  }
+
+  try {
+    const productos = await obtenerProductos();
+
+    if (!productos || productos.length === 0) {
+      contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
+      return;
     }
 
-    const headerLoginButton = document.getElementById('btn-login');
-    if (headerLoginButton) {
-        headerLoginButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleLoginModal();
-        });
+    contenedor.innerHTML = '';
+    allProducts = productos;
+
+    const cantidadProductos = document.querySelector('.Cantidad-de-productos');
+    if (cantidadProductos) {
+      cantidadProductos.textContent = `${productos.length} productos encontrados`;
     }
 
-    try {
-      const productos = await obtenerProductos();
+    // 🔥 CARGAR PRODUCTOS CON IMÁGENES
+    for (const p of productos) {
+      const promedio = await obtenerPromedioEstrellas(p.id);
 
-      if (!productos || productos.length === 0) {
-        contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
-        return;
-      }
-
-      contenedor.innerHTML = '';
-      allProducts = productos;
-
-      // Actualizar contador de productos
-      const cantidadProductos = document.querySelector('.Cantidad-de-productos');
-      if (cantidadProductos) {
-        cantidadProductos.textContent = `${productos.length} productos encontrados`;
-      }
-
-      // Cargar productos con estrellas
-      for (const p of productos) {
-        const promedio = await obtenerPromedioEstrellas(p.id); // ← OBTENER PROMEDIO
-        
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.dataset.id = `producto-${p.id}`;
-        
-        card.innerHTML = `
-          <img class="Imagen_Producto"
-               src="${p.imagenes?.[0]?.url || 'https://via.placeholder.com/200'}"
-               alt="${p.nombre}">
-
-          <div class="content">
-            <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
-            <h3 class="Titulo">${p.nombre}</h3>
-            <div class="rating">
-                ${renderizarEstrellas(promedio)}
-            </div>
-            <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
-
-            <ul class="Especificaciones"></ul>
-            <div class="actions">
-              <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
-              <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
-              <a class="btn-details" href="#">Ver Detalles</a>
-            </div>
-          </div>
-        `;
-        
-        const favoriteButton = card.querySelector('.btn-favorite');
-        if (favoriteButton) {
-            favoriteButton.addEventListener('click', async (event) => {
-                const productId = event.target.dataset.productId;
-                try {
-                    await agregarFavorito(productId);
-                    alert('Producto agregado a favoritos con éxito!');
-                } catch (error) {
-                    alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
-                }
-            });
-        }
-
-        contenedor.appendChild(card);
-      }
-
-      contenedor.addEventListener('click', (event) => {
-        const addToCartButton = event.target.closest('.btn-cart');
-        if (addToCartButton) {
-          const productId = addToCartButton.dataset.productId;
-          const productToAdd = allProducts.find(p => String(p.id) === productId);
-          if (productToAdd) {
-            agregarAlCarrito(event, productToAdd);
-          } else {
-            console.error('Producto no encontrado para el ID:', productId);
-          }
-        }
+      // 🔥 DEBUG: Ver si el producto tiene imágenes
+      console.log(`Producto ${p.id} - ${p.nombre}:`, {
+        tieneImagenes: p.imagenes && p.imagenes.length > 0,
+        cantidadImagenes: p.imagenes ? p.imagenes.length : 0,
+        primeraURL: p.imagenes?.[0]?.url
       });
 
-    } catch (error) {
-      console.error('Error al obtener productos:', error);
-      contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.dataset.id = `producto-${p.id}`;
+
+      // 🔥 OBTENER URL DE LA IMAGEN
+      let imagenUrl = 'https://via.placeholder.com/200x200/CCCCCC/666666?text=Sin+Imagen';
+
+      if (p.imagenes && Array.isArray(p.imagenes) && p.imagenes.length > 0) {
+        const primeraImagen = p.imagenes[0];
+        if (primeraImagen && primeraImagen.url) {
+          imagenUrl = primeraImagen.url;
+          console.log(`✅ Imagen encontrada para ${p.nombre}: ${imagenUrl}`);
+        }
+      } else {
+        console.warn(`⚠️ ${p.nombre} no tiene imágenes`);
+      }
+
+      card.innerHTML = `
+        <img class="Imagen_Producto"
+             src="${imagenUrl}"
+             alt="${p.nombre}"
+             onerror="console.error('❌ Error cargando:', this.src); this.src='https://via.placeholder.com/200x200/FF6B6B/FFFFFF?text=Error';"
+             onload="console.log('✅ Imagen cargada:', this.src)">
+
+        <div class="content">
+          <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
+          <h3 class="Titulo">${p.nombre}</h3>
+          <div class="rating">
+              ${renderizarEstrellas(promedio)}
+          </div>
+          <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
+
+          <ul class="Especificaciones"></ul>
+          <div class="actions">
+            <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
+            <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
+            <a class="btn-details" href="#">Ver Detalles</a>
+          </div>
+        </div>
+      `;
+
+      const favoriteButton = card.querySelector('.btn-favorite');
+      if (favoriteButton) {
+          favoriteButton.addEventListener('click', async (event) => {
+              const productId = event.target.dataset.productId;
+              try {
+                  await agregarFavorito(productId);
+                  alert('Producto agregado a favoritos con éxito!');
+              } catch (error) {
+                  alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
+              }
+          });
+      }
+
+      contenedor.appendChild(card);
     }
 
-    renderizarCarrito();
-  });
+    contenedor.addEventListener('click', (event) => {
+      const addToCartButton = event.target.closest('.btn-cart');
+      if (addToCartButton) {
+        const productId = addToCartButton.dataset.productId;
+        const productToAdd = allProducts.find(p => String(p.id) === productId);
+        if (productToAdd) {
+          agregarAlCarrito(event, productToAdd);
+        } else {
+          console.error('Producto no encontrado para el ID:', productId);
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Error al obtener productos:', error);
+    contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
+  }
+
+  renderizarCarrito();
+});
 </script>
 <!-- Burbuja del chatbot -->
 <div id="chatbot-bubble">

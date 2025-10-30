@@ -5,8 +5,13 @@ import org.slf4j.Logger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springej.backende_commerce.dto.ProductoDTO;
+import org.springej.backende_commerce.entity.Imagen;
 import org.springej.backende_commerce.entity.Producto;
+import org.springej.backende_commerce.entity.ProductoImagen;
+import org.springej.backende_commerce.repository.ImagenRepository;
+import org.springej.backende_commerce.repository.ProductoImagenRepository;
 import org.springej.backende_commerce.repository.ProductoRepository;
+import org.springej.backende_commerce.service.CloudinaryService;
 import org.springej.backende_commerce.service.ProductoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5500")
 @RestController
@@ -24,6 +30,10 @@ public class ProductoController {
     private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
     private final ProductoService productoService;
     private final ProductoRepository productoRepository;
+    private final ImagenRepository imagenRepository;
+    private final ProductoImagenRepository productoImagenRepository;
+    private final CloudinaryService cloudinaryService; 
+
 
     // ✅ DEVUELVE DTOs (sin referencias circulares)
     @GetMapping
@@ -94,22 +104,37 @@ public class ProductoController {
                     return ResponseEntity.notFound().build();
                 });
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
-        logger.info("Iniciando eliminación del producto con ID: {}", id);
-        return productoRepository.findById(id)
-                .map(producto -> {
-                    logger.info("Eliminando producto: {}", producto.getNombre());
-                    productoService.eliminar(id);
-                    logger.info("Producto eliminado exitosamente");
-                    return ResponseEntity.noContent().<Void>build();
-                })
-                .orElseGet(() -> {
-                    logger.info("No se puede eliminar. Producto con ID {} no encontrado", id);
-                    return ResponseEntity.notFound().build();
-                });
+@DeleteMapping("/{id}")
+public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
+    Optional<Producto> optProducto = productoRepository.findById(id);
+    if (optProducto.isEmpty()) {
+        return ResponseEntity.notFound().build();
     }
+    Producto producto = optProducto.get();
+
+    // Primero eliminamos todas las imágenes asociadas
+    if (producto.getProductoImagenes() != null) {
+        for (ProductoImagen pi : producto.getProductoImagenes()) {
+            Imagen imagen = pi.getImagen();
+            // lógica de eliminación que tenías en tu endpoint de ProductoImagenController
+            try {
+                if (imagen.getPublicId() != null) {
+                    cloudinaryService.destroy(imagen.getPublicId());
+                }
+                productoImagenRepository.delete(pi);
+                imagenRepository.delete(imagen);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(500).build();
+            }
+        }
+    }
+
+    // Ahora eliminamos el producto
+    productoService.eliminar(id);
+    return ResponseEntity.noContent().build();
+}
+
 
     @GetMapping("/buscar-id")
     public ResponseEntity<?> buscarIdPorNombre(@RequestParam(required = false) String nombre) {

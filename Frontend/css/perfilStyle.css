@@ -1678,3 +1678,87 @@ input:not(:placeholder-shown) ~ .reset {
     display: block; 
 }
 /* --------- RESPONSIVE --------- */
+/* Estilos específicos para la nueva sección de soporte */
+.support-simple-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.support-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.support-channels {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.support-channel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    width: 200px;
+    text-decoration: none;
+    color: white;
+    border: none;
+}
+
+.support-channel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.gmail-channel {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gmail-channel:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.whatsapp-channel {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+
+.whatsapp-channel:hover {
+    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+}
+
+.channel-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.gmail-icon {
+    color: white;
+}
+
+.whatsapp-icon {
+    color: white;
+}
+
+.channel-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.channel-description {
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+}

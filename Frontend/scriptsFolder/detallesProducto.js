@@ -61,128 +61,16 @@ function extraerDatosDeCard(card, productoId) {
     };
 }
 
-function crearModalDetalles(producto) {
-    const modalExistente = document.getElementById('modal-detalles-producto');
-    if (modalExistente) {
-        modalExistente.remove();
-    }
 
-    const modalHTML = `
-        <div id="modal-detalles-producto" class="x-modal" aria-hidden="true">
-            <a class="x-overlay" href="#"></a>
-            <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-${producto.id}">
-                <header class="x-header">
-                    <h3 id="ttl-${producto.id}">${producto.nombre}</h3>
-                    <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-                </header>
-
-                <div class="x-content">
-                    <div class="x-gallery">
-                        <div class="x-main">
-                            <img src="${producto.imagenes?.[0]?.url || 'https://via.placeholder.com/600x400'}" 
-                                 alt="${producto.nombre}" id="main-image-${producto.id}">
-                        </div>
-                        <div class="x-thumbs" id="thumbnails-${producto.id}">
-                            ${generarMiniaturas(producto.imagenes || [])}
-                        </div>
-                    </div>
-                    
-                    <aside class="x-side">
-                        <div class="x-badges">
-                            <span class="x-chip">${producto.categoria || 'General'}</span>
-                            <span class="x-chip ${producto.stock > 0 ? 'en-stock' : 'sin-stock'}">
-                                ${producto.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}
-                            </span>
-                            <span class="x-chip">★★★★★ 5/5</span>
-                        </div>
-                        
-                        <div class="x-priceBox">
-                            <div class="x-big">$${producto.precio?.toLocaleString('es-AR') || '0'}</div>
-                            <div class="x-muted">Precio incluye IVA</div>
-                        </div>
-                        
-                        <div class="x-flags">
-                            <span class="x-chip">Envío gratis</span>
-                            <span class="x-chip">Garantía oficial</span>
-                        </div>
-
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decreaseQuantity(${producto.id})">-</button>
-                            <input type="number" class="quantity-input" id="quantity-${producto.id}" value="1" min="1" max="${producto.stock || 1}">
-                            <button class="quantity-btn" onclick="increaseQuantity(${producto.id})">+</button>
-                        </div>
-
-                        <div class="x-actions">
-                            <button class="btn-cart" onclick="agregarAlCarritoDesdeDetalles(${producto.id})" 
-                                    ${producto.stock === 0 ? 'disabled' : ''}>
-                                <i class="fa-solid fa-cart-plus"></i>
-                                ${producto.stock === 0 ? 'Agotado' : 'Agregar al Carrito'}
-                            </button>
-                            <button class="btn-favorite" onclick="toggleFavoritoDesdeDetalles(${producto.id})" id="favorite-btn-${producto.id}">
-                                <i class="fa-regular fa-heart"></i>
-                                Favoritos
-                            </button>
-                        </div>
-                    </aside>
-                </div>
-
-                <section class="x-tabs">
-                    <div class="x-tab">
-                        <input type="radio" name="tab-${producto.id}" id="${producto.id}-descripcion" checked>
-                        <label for="${producto.id}-descripcion">Descripción</label>
-                        <div class="x-panel">
-                            <div class="x-box">
-                                <p>${producto.descripcion || 'Descripción no disponible temporalmente.'}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="x-tab">
-                        <input type="radio" name="tab-${producto.id}" id="${producto.id}-especificaciones">
-                        <label for="${producto.id}-especificaciones">Especificaciones</label>
-                        <div class="x-panel">
-                            <div class="x-cols">
-                                <div class="x-box">
-                                    <h4>Información General</h4>
-                                    <div class="x-kv">
-                                        <div>Stock disponible</div>
-                                        <div>${producto.stock} unidades</div>
-                                        <div>Categoría</div>
-                                        <div>${producto.categoria || 'No especificada'}</div>
-                                        ${producto.promocion ? `<div>Promoción</div><div>${producto.promocion}</div>` : ''}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="x-tab">
-                        <input type="radio" name="tab-${producto.id}" id="${producto.id}-reseñas">
-                        <label for="${producto.id}-reseñas">Reseñas</label>
-                        <div class="x-panel">
-                            <div class="x-box">
-                                <p class="x-muted">Este producto aún no tiene reseñas. ¡Sé el primero en opinar!</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </section>
-        </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    configurarEventosModal(producto);
-    document.getElementById('modal-detalles-producto').style.display = 'block';
-}
-
-function generarMiniaturas(imagenes) {
-    if (imagenes.length === 0) {
+// Generar miniaturas dinámicas con productoId
+function generarMiniaturas(imagenes, productoId) {
+    if (!imagenes || imagenes.length === 0) {
         return '<div class="x-thumb"></div>';
     }
-    
+
     return imagenes.map((imagen, index) => `
         <div class="x-thumb ${index === 0 ? 'active' : ''}" 
-             onclick="cambiarImagenPrincipal('${imagen.url}', ${index})">
+             onclick="cambiarImagenPrincipal('${imagen.url}', ${productoId}, ${index})">
             <img src="${imagen.url}" alt="Miniatura ${index + 1}">
         </div>
     `).join('');
@@ -207,23 +95,17 @@ function configurarEventosModal(producto) {
     });
 }
 
-// Funciones globales para los eventos
-window.cambiarImagenPrincipal = function(url, index) {
-    const productoId = productoActual?.id;
-    if (!productoId) return;
-    
+// Función global para cambiar imagen principal desde las miniaturas
+window.cambiarImagenPrincipal = function(url, productoId, index) {
     const mainImage = document.getElementById(`main-image-${productoId}`);
     const thumbs = document.querySelectorAll(`#thumbnails-${productoId} .x-thumb`);
-    
-    if (mainImage) {
-        mainImage.src = url;
-    }
-    
+
+    if (mainImage) mainImage.src = url;
+
     thumbs.forEach((thumb, i) => {
         thumb.classList.toggle('active', i === index);
     });
 };
-
 window.increaseQuantity = function(productoId) {
     const input = document.getElementById(`quantity-${productoId}`);
     const max = parseInt(input.max);

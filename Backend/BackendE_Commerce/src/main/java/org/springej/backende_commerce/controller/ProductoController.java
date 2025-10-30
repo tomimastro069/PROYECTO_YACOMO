@@ -25,6 +25,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/productos")
 @RequiredArgsConstructor
+
 public class ProductoController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
@@ -159,4 +160,12 @@ public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
                             .body(Map.of("error", "Producto no encontrado con nombre: " + nombre));
                 });
     }
+    @GetMapping("/buscar")
+    public ResponseEntity<List<ProductoDTO>> buscar(@RequestParam String termino) {
+        logger.info("Solicitud de búsqueda recibida: {}", termino);
+        List<ProductoDTO> resultados = productoService.buscar(termino);
+        return ResponseEntity.ok(resultados);
+    }
+
+
 }

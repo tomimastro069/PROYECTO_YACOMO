@@ -58,6 +58,7 @@ body{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 /* Hacer que el enlace del logo se vea igual que el <strong> */
 .header__logo a {
     margin: 0;

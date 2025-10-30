@@ -422,14 +422,14 @@
         <div class="carousel-container">
             <div class="carousel-track">
                 <div class="carousel-slide">
-                    <img src="../imgs/cropped-header-1170x400.jpg" alt="Black Friday">
+                    <img src="../imgs/imagencarrusel1.jpg" alt="Black Friday">
                     <h2 id="slide-1">Black Friday</h2>
                 </div>
                 <div class="carousel-slide">
-                    <img src="../imgs/cropped-header-1170x400.jpg" alt="Ofertas Especiales">
+                    <img src="../imgs/imagencarrusel2.png" alt="Ofertas Especiales">
                 </div>
                 <div class="carousel-slide">
-                    <img src="../imgs/cropped-header-1170x400.jpg" alt="Nuevos Productos">
+                    <img src="../imgs/imagencarrusel3.jpg" alt="Nuevos Productos">
                 </div>
             </div>
             <button class="carousel-button prev">&lt;</button>
@@ -508,6 +508,14 @@
                 <p class="p2">Asistencia técnica completa</p>
             </div>
         </div>
+    </div>
+
+    <div class="custom-box" id="algopersonalizado">
+        <h2>¿Necesitas algo personalizado?</h2>
+        <p>
+        Nuestro servicio de IA puede ayudarte a encontrar los componentes ideales para la PC perfecta acorde a tus necesidades específicas. 
+        Desde gaming competitivo hasta workstations profesionales, garantizamos la mejor calidad.
+        </p>
     </div>
 
     <div class="calidades">
@@ -626,86 +634,13 @@
         </div>   
     </div>
 
-    <div class="custom-box">
-        <h2>¿Necesitas algo personalizado?</h2>
-        <p>
-        Nuestro servicio de IA puede ayudarte a encontrar los componentes ideales para la PC perfecta acorde a tus necesidades específicas. 
-        Desde gaming competitivo hasta workstations profesionales, garantizamos la mejor calidad.
-        </p>
-    </div>
-
-    <section class="seccion-ofertas">
-        <div class="titulo-ofertas">
-            <h2>Ofertas Especiales</h2>
-            <img src="imgs/fuego azul icono.png" alt="">
-        </div>
-        
-        <div class="Catalogo-ofertas">
-            <div class="card_producto" data-id="gpu-4080">
-                <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
-
-                <div class="content">
-                    <span class="stock"></span>
-                    <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
-                    <div class="rating">
-                        5/5
-                    </div>
-                    <p class="precio-anterior">$1.100.000</p>
-                    <p class="Precio"> $839.999</p>
-                    <ul class="Especificaciones"></ul>
-                    <div class="actions">
-                        <button class="btn-cart">Agregar al Carrito</button>
-                        <button class="btn-details">Ver Detalles</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card_producto" data-id="gpu-4080">
-                <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
-
-                <div class="content">
-                    <span class="stock"></span>
-                    <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
-                    <div class="rating">
-                        5/5
-                    </div>
-                    <p class="precio-anterior">$1.100.000</p>
-                    <p class="Precio"> $839.999</p>
-                    <ul class="Especificaciones"></ul>
-                    <div class="actions">
-                        <button class="btn-cart">Agregar al Carrito</button>
-                        <button class="btn-details">Ver Detalles</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card_producto" data-id="gpu-4080">
-                <img class="Imagen_Producto" src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_47535_Placa_de_Video_Zotac_GeForce_RTX_5080_16GB_GDDR7_AMP_EXTREME_INFINITY_4a1fa7a0-grn.jpg" alt="Producto">
-
-                <div class="content">
-                    <span class="stock"></span>
-                    <h3 class="Titulo">Zotac GeForce RTX 5080 16GB GDDR7 AMP EXTREME INFINITY</h3>
-                    <div class="rating">
-                        5/5
-                    </div>
-                    <p class="precio-anterior">$1.100.000</p>
-                    <p class="Precio"> $839.999</p>
-                    <ul class="Especificaciones"></ul>
-                    <div class="actions">
-                        <button class="btn-cart">Agregar al Carrito</button>
-                        <button class="btn-details">Ver Detalles</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
         <div class="custom-box">
             <h2>¿Listo para armar tu PC ideal?</h2>
             <p>Explora nuestro catálogo completo con más de 100 productos</p>
             <div class="buttons">
                 <button class="btn primary"><a href="productos.html">Ir al Catálogo</a></button>
             </div> 
-        </div>      
-    </section>
-
+        </div>  
     <footer>
         <div class="Footer_Container">
             <Div class="Logo_Pagina">
@@ -735,6 +670,106 @@
     <!-- Scripts -->
     <script src="../scriptsFolder/Inicio.js"></script>
     <script type="module" src="../scriptsFolder/auth.js"></script>
+    
+    <!-- Cargar 4 productos aleatorios en el grid principal con el mismo estilo -->
+    <script type="module">
+        import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
+        import { agregarAlCarrito } from '../scriptsFolder/funciones.js';
+        
+        const PLACEHOLDER_IMG = 'https://via.placeholder.com/200?text=Sin+Imagen';
+        
+        const pickRandom = (arr, n) => {
+            const result = [];
+            const used = new Set();
+            const max = Math.min(n, Array.isArray(arr) ? arr.length : 0);
+            while (result.length < max) {
+                const idx = Math.floor(Math.random() * arr.length);
+                if (!used.has(idx)) {
+                    used.add(idx);
+                    result.push(arr[idx]);
+                }
+            }
+            return result;
+        };
+        
+        const crearCardProductoHTML = (p) => {
+            const imagenUrl = p?.imagenes?.[0]?.url || PLACEHOLDER_IMG;
+            const precio = Number(p?.precio ?? 0).toLocaleString('es-AR');
+            return `
+                <div class="card_producto" data-id="${p.id}">
+                    <img class="Imagen_Producto" src="${imagenUrl}" alt="${p.nombre}" onerror="this.src='${PLACEHOLDER_IMG}'">
+                    <div class="content">
+                        <span class="stock"></span>
+                        <h3 class="Titulo">${p.nombre}</h3>
+                        <div class="rating"></div>
+                        <p class="precio-anterior"></p>
+                        <p class="Precio"> $${precio}</p>
+                        <ul class="Especificaciones"></ul>
+                        <div class="actions">
+                            <button class="btn-cart">Agregar al Carrito</button>
+                            <button class="btn-details">Ver Detalles</button>
+                        </div>
+                    </div>
+                </div>`;
+        };
+        
+        const parsePriceFromText = (texto) => {
+            if (!texto) return 0;
+            const sanitized = String(texto)
+                .replace(/[^0-9,.-]+/g, '')
+                .replace(/\./g, '')
+                .replace(/,/g, '.');
+            const value = Number.parseFloat(sanitized);
+            return Number.isFinite(value) ? value : 0;
+        };
+        
+        const buildCardProductData = (card) => {
+            const idAttr = (card && card.dataset && card.dataset.id)
+                ? card.dataset.id
+                : `card-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+            const titleEl = card ? card.querySelector('.Titulo') : null;
+            const priceEl = card ? card.querySelector('.Precio') : null;
+            const imgEl = card ? card.querySelector('img') : null;
+            const stockEl = card ? card.querySelector('.stock') : null;
+            
+            const title = (titleEl && titleEl.textContent) ? titleEl.textContent.trim() : 'Producto';
+            const priceText = (priceEl && priceEl.textContent) ? priceEl.textContent : '$0';
+            const priceValue = parsePriceFromText(priceText);
+            const imageUrl = (imgEl && imgEl.src) ? imgEl.src : 'https://via.placeholder.com/200';
+            const categoria = (stockEl && stockEl.textContent) ? stockEl.textContent.trim() : '';
+            
+            return {
+                id: idAttr,
+                nombre: title,
+                precio: priceValue,
+                imagenes: [{ url: imageUrl }],
+                categoria
+            };
+        };
+        
+        (async () => {
+            try {
+                const catalogo = document.querySelector('.Catalogo');
+                if (!catalogo) return;
+                const productos = await obtenerProductos();
+                if (!Array.isArray(productos) || productos.length === 0) return;
+                const seleccion = pickRandom(productos, 4);
+                catalogo.innerHTML = seleccion.map(crearCardProductoHTML).join('');
+                const cards = catalogo.querySelectorAll('.card_producto');
+                cards.forEach((card) => {
+                    const button = card.querySelector('.btn-cart');
+                    if (!button) return;
+                    button.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const productData = buildCardProductData(card);
+                        agregarAlCarrito(event, productData);
+                    });
+                });
+            } catch (err) {
+                console.error('Error cargando productos aleatorios en inicio:', err);
+            }
+        })();
+    </script>
     
     <!-- Script para la búsqueda en ambas barras -->
     <script type="module">
@@ -965,18 +1000,28 @@
         
         const parsePrice = (texto) => {
             if (!texto) return 0;
-            const sanitized = texto.replace(/[^0-9,.-]+/g, '').replace(/\./g, '').replace(',', '.');
+            const sanitized = String(texto)
+                .replace(/[^0-9,.-]+/g, '')
+                .replace(/\./g, '')
+                .replace(/,/g, '.');
             const value = Number.parseFloat(sanitized);
             return Number.isFinite(value) ? value : 0;
         };
 
         const buildProductFromCard = (card) => {
-            const idAttr = card.dataset.id || `card-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-            const title = card.querySelector('.Titulo')?.textContent.trim() || 'Producto';
-            const priceText = card.querySelector('.Precio')?.textContent || '$0';
+            const idAttr = (card && card.dataset && card.dataset.id)
+                ? card.dataset.id
+                : `card-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+            const titleEl = card ? card.querySelector('.Titulo') : null;
+            const priceEl = card ? card.querySelector('.Precio') : null;
+            const imgEl = card ? card.querySelector('img') : null;
+            const stockEl = card ? card.querySelector('.stock') : null;
+
+            const title = (titleEl && titleEl.textContent) ? titleEl.textContent.trim() : 'Producto';
+            const priceText = (priceEl && priceEl.textContent) ? priceEl.textContent : '$0';
             const priceValue = parsePrice(priceText);
-            const imageUrl = card.querySelector('img')?.src || 'https://via.placeholder.com/200';
-            const categoria = card.querySelector('.stock')?.textContent.trim() || '';
+            const imageUrl = (imgEl && imgEl.src) ? imgEl.src : 'https://via.placeholder.com/200';
+            const categoria = (stockEl && stockEl.textContent) ? stockEl.textContent.trim() : '';
 
             return {
                 id: idAttr,

@@ -1,6 +1,6 @@
 // c:/Users/windows/Desktop/PROYECTO_YACOMO/Frontend/scriptsFolder/auth.js
 
-import { iniciarSesion, registrarUsuario, cerrarSesion } from './api/api_auth.js';
+import { iniciarSesion, registrarUsuario, cerrarSesion, solicitarRecuperacionPassword } from './api/api_auth.js';
 import { toggleLoginModal } from './modalHandler.js'; // Importar desde el nuevo manejador de modales
 import { showAlert } from './funciones.js';
 
@@ -181,6 +181,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Handler: ¿Olvidaste tu contraseña?
+    const forgotBtn = loginModal?.querySelector('.button3');
+    if (forgotBtn) {
+        forgotBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                let emailValue = loginForm?.querySelector('input[type="email"]').value?.trim() || '';
+
+                if (!emailValue) {
+                    if (window.Swal && typeof window.Swal.fire === 'function') {
+                        const { value } = await window.Swal.fire({
+                            title: 'Recuperar contraseña',
+                            input: 'email',
+                            inputLabel: 'Ingresa tu correo',
+                            inputPlaceholder: 'tu@correo.com',
+                            confirmButtonText: 'Enviar enlace',
+                            showCancelButton: true,
+                        });
+                        if (!value) return;
+                        emailValue = String(value).trim();
+                    } else {
+                        const value = window.prompt('Ingresa tu correo para recuperar tu contraseña:');
+                        if (!value) return;
+                        emailValue = String(value).trim();
+                    }
+                }
+
+                if (!emailValue) return;
+
+                await solicitarRecuperacionPassword(emailValue);
+                showAlert({
+                    title: 'Solicitud enviada',
+                    message: 'Si el correo existe, te enviamos un enlace para restablecer tu contraseña.',
+                    type: 'success',
+                });
+            } catch (error) {
+                showAlert({
+                    title: 'Error',
+                    message: error.message || 'No se pudo procesar la solicitud de recuperación.',
+                    type: 'error',
+                });
+            }
+        });
+    }
+
     // Ejecutar al cargar la página para verificar si ya hay una sesión activa
     updateUIForLoggedInUser();
 });
@@ -195,3 +240,4 @@ if (typeof window.toggleLoginModal === 'undefined') {
         }
     }
 }
+

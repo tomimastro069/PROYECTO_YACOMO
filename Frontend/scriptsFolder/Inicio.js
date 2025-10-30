@@ -51,10 +51,12 @@ class Carousel {
     }
 
     setSlidePosition() {
-        // Calcular y establecer el ancho y posición de cada slide
-        this.slideWidth = this.slides[0].getBoundingClientRect().width;
-        this.slides.forEach((slide, index) => {
-            slide.style.left = this.slideWidth * index + 'px';
+        // Calcular el ancho de cada slide y evitar offsets manuales
+        const first = this.slides[0];
+        this.slideWidth = first ? first.getBoundingClientRect().width : 0;
+        // No usar posicionamiento por "left" cuando el track es flex
+        this.slides.forEach((slide) => {
+            slide.style.left = '0px';
         });
         this.updateCarousel();
     }

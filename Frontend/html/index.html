@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Estilos para la barra de búsqueda en inicio */
+        /* Estilos para la barra de bÃºsqueda en inicio */
         .hero-busqueda {
             margin: 2rem auto 3rem;
             max-width: 600px;
@@ -94,7 +94,7 @@
             display: none;
         }
 
-        /* Estilos para la búsqueda del header */
+        /* Estilos para la bÃºsqueda del header */
         .busqueda-resultados {
             position: absolute;
             top: 100%;
@@ -110,7 +110,7 @@
             display: none;
         }
         
-        /* Mensaje hero para la búsqueda */
+        /* Mensaje hero para la bÃºsqueda */
         .hero-message {
             margin-top: 2rem;
             text-align: center;
@@ -134,7 +134,7 @@
             margin: 0 auto;
         }
 
-        /* Estilos para resultados de búsqueda */
+        /* Estilos para resultados de bÃºsqueda */
         .resultado-item {
             display: flex;
             align-items: center;
@@ -208,6 +208,20 @@
         .loading-spinner {
             margin-bottom: 1rem;
         }
+
+        /* Correcciones de texto en resultados de búsqueda (mostrar texto correcto) */
+        .resultado-stock {
+            color: transparent;
+            position: relative;
+        }
+        .resultado-stock.en-stock::before {
+            content: 'En stock';
+            color: #28a745;
+        }
+        .resultado-stock.sin-stock::before {
+            content: 'Agotado';
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -221,8 +235,8 @@
             <h1>Script-G</h1>
         </a>
     
-        <!-- Botón hamburguesa (visible en mobile) -->
-        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">
+        <!-- BotÃ³n hamburguesa (visible en mobile) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menÃº" aria-controls="mobileMenu" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
             </svg>
@@ -235,7 +249,7 @@
         
         <div class="busqueda-resultados" id="headerSearchResults">
             <div class="resultados-container" id="headerResultsContainer">
-                <!-- Los resultados se cargarán aquí dinámicamente -->
+                <!-- Los resultados se cargarÃ¡n aquÃ­ dinÃ¡micamente -->
             </div>
         </div>
         
@@ -249,7 +263,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" fill="currentColor"
                                 class="bi bi-person-fill" viewBox="0 0 16 16">
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            </svg>Log in
+                            </svg>Iniciar sesión
                         </button>
                     </li>
                     <li>
@@ -262,11 +276,11 @@
                 </ul>
             </nav>
         </div>
-        <!-- Overlay para cerrar tocando fuera del menú -->
+        <!-- Overlay para cerrar tocando fuera del menÃº -->
         <div class="nav-overlay" id="navOverlay"></div>
     </header>
 
-    <!-- Panel de búsqueda (mobile) -->
+    <!-- Panel de bÃºsqueda (mobile) -->
     <div id="mobileSearchPanel" class="mobile-search-panel" role="search" aria-hidden="true">
         <div class="mobile-search-inner">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -284,11 +298,11 @@
                     <h4 id="cartTitle">Carrito de Compras</h4>
                     <small class="ts-cart__count">0 productos</small>
                 </div>
-                <a href="#" class="ts-x" aria-label="Cerrar">✕</a>
+                <a href="#" class="ts-x" aria-label="Cerrar">âœ•</a>
             </header>
 
             <div class="ts-cart__body">
-                <!-- Los items del carrito se añadirán aquí dinámicamente -->
+                <!-- Los items del carrito se aÃ±adirÃ¡n aquÃ­ dinÃ¡micamente -->
             </div>
 
             <footer class="ts-cart__footer">
@@ -298,7 +312,7 @@
                         <strong>$0</strong>
                     </div>
                     <div class="ts-summary__row">
-                        <span>Envío</span>
+                        <span>EnvÃ­o</span>
                         <strong>Gratis</strong>
                     </div>
                     <div class="ts-summary__total">
@@ -319,9 +333,9 @@
     <div class="pop-up modal-cerrado" id="loginModal">
         <div class="card2">
             <form class="form">
-                <button type="button" class="cerrar-modal">×</button>
+                <button type="button" class="cerrar-modal">Ã—</button>
                 
-                <p id="heading">Iniciar Sesión</p>
+                <p id="heading">Iniciar SesiÃ³n</p>
                 <div class="field">
                     <svg
                     viewBox="0 0 16 16"
@@ -338,7 +352,7 @@
                     <input
                     type="email"
                     class="input-field"
-                    placeholder="Correo Electrónico"
+                    placeholder="Correo ElectrÃ³nico"
                     autocomplete="email"
                     />
                 </div>
@@ -355,7 +369,7 @@
                         d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"
                     ></path>
                     </svg> 
-                    <input type="password" class="input-field" placeholder="Contraseña" />
+                    <input type="password" class="input-field" placeholder="ContraseÃ±a" />
                 </div>
                 <div class="btn-is">
                     <button class="button1">
@@ -363,7 +377,7 @@
                     </button>
                     <button class="button2">Registrarse</button>
                 </div>
-                <button class="button3">¿Olvidaste tu contraseña?</button>
+                <button class="button3">Â¿Olvidaste tu contraseÃ±a?</button>
             </form>
         </div>
     </div>
@@ -372,7 +386,7 @@
     <div class="pop-up modal-cerrado" id="signupModal">
         <div class="card2">
             <form class="form signup">
-                <button type="button" class="cerrar-modal">×</button>
+                <button type="button" class="cerrar-modal">Ã—</button>
                 
                 <p id="heading">Registrarse</p>
                 
@@ -402,7 +416,7 @@
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
                     </svg>
-                    <input type="password" class="input-field" placeholder="Contraseña" required/>
+                    <input type="password" class="input-field" placeholder="ContraseÃ±a" required/>
                 </div>
 
                 <div class="btn-is">
@@ -410,43 +424,43 @@
                 </div>
 
                 <div class="modal-switch">
-                    ¿Ya tienes una cuenta? 
-                    <button type="button" class="modal-toggle-btn" id="switchToLogin">Iniciar Sesión</button>
+                    Â¿Ya tienes una cuenta? 
+                    <button type="button" class="modal-toggle-btn" id="switchToLogin">Iniciar SesiÃ³n</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Hero Section con Búsqueda -->
+    <!-- Hero Section con BÃºsqueda -->
     <section class="hero-section">
         <div class="carousel-container">
             <div class="carousel-track">
                 <div class="carousel-slide">
-                    <img src="../imgs/imagencarrusel1.jpg" alt="Black Friday">
-                    <h2 id="slide-1">Black Friday</h2>
+                    <img src="../imgs/carrusel1.jpg" alt="Black Friday">
+                    <div class="carousel-caption">
+                        <button class="menu-btn">Ver Más</button>
+                        <h2>Black Friday</h2>
+                        <p>Ofertas imperdibles por tiempo limitado.</p>
+                    </div>
                 </div>
                 <div class="carousel-slide">
-                    <img src="../imgs/imagencarrusel2.png" alt="Ofertas Especiales">
-                </div>
-                <div class="carousel-slide">
-                    <img src="../imgs/imagencarrusel3.jpg" alt="Nuevos Productos">
+                    <img src="../imgs/carrusel2.png" alt="Ofertas Especiales">
+                    <div class="carousel-caption">
+                        <button class="menu-btn">Ver Más</button>
+                        <h2>Ofertas Especiales</h2>
+                        <p>Aprovecha descuentos en componentes top.</p>
+                    </div>
                 </div>
             </div>
             <button class="carousel-button prev">&lt;</button>
             <button class="carousel-button next">&gt;</button>
-            <div class="carousel-caption">
-                <button class="menu-btn">Ver Más</button>
-                <h2>Calidad Garantizada</h2>
-                <p>Descubre nuestros increíbles productos aquí.</p>
-            </div>
             <div class="carousel-indicators">
                 <span class="indicator-dot active"></span>
-                <span class="indicator-dot"></span>
                 <span class="indicator-dot"></span>
             </div>
         </div>
 
-        <!-- Barra de Búsqueda Hero -->
+        <!-- Barra de BÃºsqueda Hero -->
         <div class="hero-message">
             <h2>Encuentra tu componente ideal</h2>
             <p>Busca entre miles de productos de computación y gaming</p>
@@ -454,28 +468,28 @@
         
         <div class="hero-busqueda">
             <div class="hero-busqueda-container">
-                <input type="search" placeholder="Buscar procesadores, tarjetas gráficas, memorias..." id="heroSearchInput">
+                <input type="search" placeholder="Buscar procesadores, tarjetas grÃ¡ficas, memorias..." id="heroSearchInput">
                 <button class="hero-busqueda-btn" id="heroSearchBtn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
             <div class="hero-busqueda-resultados" id="heroSearchResults">
                 <div class="resultados-container" id="heroResultsContainer">
-                    <!-- Los resultados se cargarán aquí dinámicamente -->
+                    <!-- Los resultados se cargarÃ¡n aquÃ­ dinÃ¡micamente -->
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contenido principal de tu página -->
-    <h2 class="h2-xqelegir">¿Por qué elegir Script-G?</h2>
+    <!-- Contenido principal de tu pÃ¡gina -->
+    <h2 class="h2-xqelegir">Â¿Por quÃ© elegir Script-G?</h2>
     <div class="all_cards">
         <div class="cards">
             <div class="top-card">
                 <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bibi-lightning-charge-fill" viewBox="0 0 16 16">
                     <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
                 </svg>
-                <p class="p1">Envío Rápido</p>
+                <p class="p1">EnvÃ­o RÃ¡pido</p>
                 <p class="p2">Entrega en 24-48hs</p>
             </div>
         </div>
@@ -484,8 +498,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-shield-fill-check" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m2.146 5.146a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793z"/>
                 </svg>
-                <p class="p1">Garantía Extendida</p>
-                <p class="p2">Hasta 3 años de Garantía</p>
+                <p class="p1">GarantÃ­a Extendida</p>
+                <p class="p2">Hasta 3 aÃ±os de GarantÃ­a</p>
             </div>
         </div>
         <div class="cards">
@@ -494,7 +508,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
                 <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A2 2 0 0 1 4.732 11h5.536a2 2 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
                 </svg></div>
-                <p class="p1">Envío Gratis</p>
+                <p class="p1">EnvÃ­o Gratis</p>
                 <p class="p2">En compras superiores $50.000</p>
             </div>
 
@@ -505,30 +519,30 @@
                     <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5"/>
                     </svg>
                 <p class="p1">Soporte 24/7</p>
-                <p class="p2">Asistencia técnica completa</p>
+                <p class="p2">Asistencia tÃ©cnica completa</p>
             </div>
         </div>
     </div>
 
     <div class="custom-box" id="algopersonalizado">
-        <h2>¿Necesitas algo personalizado?</h2>
+        <h2>Â¿Necesitas algo personalizado?</h2>
         <p>
-        Nuestro servicio de IA puede ayudarte a encontrar los componentes ideales para la PC perfecta acorde a tus necesidades específicas. 
+        Nuestro servicio de IA puede ayudarte a encontrar los componentes ideales para la PC perfecta acorde a tus necesidades especÃ­ficas. 
         Desde gaming competitivo hasta workstations profesionales, garantizamos la mejor calidad.
         </p>
     </div>
 
     <div class="calidades">
-        <h4>PCs Pre-Armadas por Categoría</h4>
+        <h4>PCs Pre-Armadas por CategorÃ­a</h4>
         <h2>Calidad Profesional Garantizada</h2>
-        <p>Desde workstations profesionales hasta Gaming de entrada, cada PC está cuidadosamente seleccionada para ofrecer la mejor experiencia en su categoría</p>
+        <p>Desde workstations profesionales hasta Gaming de entrada, cada PC estÃ¡ cuidadosamente seleccionada para ofrecer la mejor experiencia en su categorÃ­a</p>
         <ol class="card-list">
             <li class="card profesional">
                 <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
                     <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383z"/>
                     </svg>
                 <h3>Profesional</h3>
-                <p>Para profesionales que exigen lo máximo</p>
+                <p>Para profesionales que exigen lo mÃ¡ximo</p>
             </li>
 
             <li class="card alta">
@@ -635,10 +649,10 @@
     </div>
 
         <div class="custom-box">
-            <h2>¿Listo para armar tu PC ideal?</h2>
-            <p>Explora nuestro catálogo completo con más de 100 productos</p>
+            <h2>Â¿Listo para armar tu PC ideal?</h2>
+            <p>Explora nuestro catÃ¡logo completo con mÃ¡s de 100 productos</p>
             <div class="buttons">
-                <button class="btn primary"><a href="productos.html">Ir al Catálogo</a></button>
+                <button class="btn primary"><a href="productos.html">Ir al CatÃ¡logo</a></button>
             </div> 
         </div>  
     <footer>
@@ -663,7 +677,7 @@
                     </ul>
                 </div>
             </div>
-            <h2><a href="Terminos_condiciones">Terminos y Condiciones</a></h2>
+            <h2><a href="Terminos_condiciones">Términos y Condiciones</a></h2>
         </div>
     </footer>
 
@@ -771,7 +785,7 @@
         })();
     </script>
     
-    <!-- Script para la búsqueda en ambas barras -->
+    <!-- Script para la bÃºsqueda en ambas barras -->
     <script type="module">
         import { buscarProductos } from '../scriptsFolder/api/api_busqueda.js';
         import { mostrarDetallesProducto } from '../scriptsFolder/detallesProducto.js';
@@ -791,7 +805,7 @@
 
             init() {
                 if (!this.searchInput || !this.resultsContainer) {
-                    console.error(`❌ Elementos de búsqueda ${this.type} no encontrados`);
+                    console.error(`âŒ Elementos de bÃºsqueda ${this.type} no encontrados`);
                     return;
                 }
 
@@ -824,7 +838,7 @@
                 document.addEventListener('click', (e) => this.handleClickOutside(e));
                 this.resultsContainer.addEventListener('click', (e) => e.stopPropagation());
                 
-                console.log(`✅ Búsqueda ${this.type} inicializada`);
+                console.log(`âœ… BÃºsqueda ${this.type} inicializada`);
             }
 
             handleInput(e) {
@@ -851,7 +865,7 @@
                     this.productosEncontrados = await buscarProductos(query);
                     this.displayResults(this.productosEncontrados, query);
                 } catch (error) {
-                    console.error(`Error en búsqueda ${this.type}:`, error);
+                    console.error(`Error en bÃºsqueda ${this.type}:`, error);
                     this.displayError();
                 }
             }
@@ -871,7 +885,7 @@
                         <div class="sin-resultados">
                             <i class="fa-solid fa-search" style="font-size: 24px; margin-bottom: 10px; opacity: 0.5;"></i>
                             <p>No se encontraron productos para "${query}"</p>
-                            <small>Intenta con otros términos de búsqueda</small>
+                            <small>Intenta con otros tÃ©rminos de bÃºsqueda</small>
                         </div>
                     `;
                     return;
@@ -890,7 +904,7 @@
                                 <div class="resultado-nombre">${producto.nombre}</div>
                                 <div class="resultado-precio">$${producto.precio.toLocaleString('es-AR')}</div>
                                 <div class="resultado-stock ${producto.stock > 0 ? 'en-stock' : 'sin-stock'}">
-                                    ${producto.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}
+                                    ${producto.stock > 0 ? 'ðŸŸ¢ En stock' : 'ðŸ”´ Agotado'}
                                 </div>
                             </div>
                             <button class="resultado-ver-detalles" data-product-id="${producto.id}">
@@ -973,15 +987,15 @@
             }
         }
 
-        // Inicializar cuando el DOM esté listo
+        // Inicializar cuando el DOM estÃ© listo
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar búsqueda del header
+            // Inicializar bÃºsqueda del header
             new BusquedaManager('header');
             
-            // Inicializar búsqueda del hero
+            // Inicializar bÃºsqueda del hero
             new BusquedaManager('hero');
             
-            // Inicializar búsqueda móvil si existe
+            // Inicializar bÃºsqueda mÃ³vil si existe
             const mobileSearchInput = document.getElementById('mobileSearchInput');
             if (mobileSearchInput) {
                 mobileSearchInput.addEventListener('input', (e) => {
@@ -1124,16 +1138,16 @@
     </div>
     <div id="chatbot-window">
         <div class="chatbot-header">
-            <button id="close-chat-btn" aria-label="Cerrar chat">✕</button>
+            <button id="close-chat-btn" aria-label="Cerrar chat">âœ•</button>
             <span>Ayudante SCRIPT-G</span>
-            <button id="new-chat-btn">➕ Nuevo Chat</button>
+            <button id="new-chat-btn">âž• Nuevo Chat</button>
         </div>
         <div class="chatbot-body">
             <div class="chatbot-sidebar" id="chat-sidebar"></div>
             <div class="chatbot-main">
                 <div class="chatbot-messages" id="chatbot-messages"></div>
                 <div class="chatbot-input">
-                    <input type="text" id="chatbot-text" placeholder="Escribí un mensaje..." />
+                    <input type="text" id="chatbot-text" placeholder="EscribÃ­ un mensaje..." />
                     <button id="chatbot-send">Enviar</button>
                 </div>
             </div>
@@ -1141,5 +1155,140 @@
     </div>
     <div id="toast-container"></div>
     <script src="../scriptsFolder/chatbot.js"></script>
+
+    <!-- Correcciones de texto visibles (fallbacks y acentos) -->
+    <script>
+        (function() {
+            const safeSetText = (sel, text) => {
+                const el = document.querySelector(sel);
+                if (el) el.textContent = text;
+            };
+            const safeSetHTML = (sel, html) => {
+                const el = document.querySelector(sel);
+                if (el) el.innerHTML = html;
+            };
+            const safeSetPlaceholder = (sel, text) => {
+                const el = document.querySelector(sel);
+                if (el) el.setAttribute('placeholder', text);
+            };
+
+            const fixCartTexts = () => {
+                const rows = document.querySelectorAll('.ts-summary__row span');
+                if (rows && rows[1]) rows[1].textContent = 'Envío';
+                safeSetText('.ts-x', '×');
+            };
+
+            const fixLoginSignupTexts = () => {
+                // Cierres
+                document.querySelectorAll('.cerrar-modal').forEach(b => b.textContent = '×');
+                // Login
+                safeSetText('#loginModal #heading', 'Iniciar Sesión');
+                const loginScope = document.querySelector('#loginModal');
+                if (loginScope) {
+                    const email = loginScope.querySelector('input[type="email"]');
+                    const pass = loginScope.querySelector('input[type="password"]');
+                    if (email) email.setAttribute('placeholder', 'Correo Electrónico');
+                    if (pass) pass.setAttribute('placeholder', 'Contraseña');
+                    const forgot = loginScope.querySelector('.button3');
+                    if (forgot) forgot.textContent = '¿Olvidaste tu contraseña?';
+                }
+                // Signup
+                const signupScope = document.querySelector('#signupModal');
+                if (signupScope) {
+                    const pass2 = signupScope.querySelector('input[type="password"]');
+                    if (pass2) pass2.setAttribute('placeholder', 'Contraseña');
+                    const switchBox = signupScope.querySelector('.modal-switch');
+                    if (switchBox) {
+                        switchBox.innerHTML = '¿Ya tienes una cuenta? <button type="button" class="modal-toggle-btn" id="switchToLogin">Iniciar Sesión</button>';
+                    }
+                }
+            };
+
+            const fixHeroAndHeadings = () => {
+                safeSetPlaceholder('#heroSearchInput', 'Buscar procesadores, tarjetas gráficas, memorias...');
+                safeSetText('.hero-message p', 'Busca entre miles de productos de computación y gaming');
+                safeSetText('.h2-xqelegir', '¿Por qué elegir Script-G?');
+            };
+
+            const fixCards = () => {
+                const cards = document.querySelectorAll('.all_cards .cards');
+                if (cards[0]) {
+                    const p1 = cards[0].querySelector('.p1');
+                    if (p1) p1.textContent = 'Envío Rápido';
+                }
+                if (cards[1]) {
+                    const p1 = cards[1].querySelector('.p1');
+                    const p2 = cards[1].querySelector('.p2');
+                    if (p1) p1.textContent = 'Garantía Extendida';
+                    if (p2) p2.textContent = 'Hasta 3 años de Garantía';
+                }
+                if (cards[2]) {
+                    const p1 = cards[2].querySelector('.p1');
+                    if (p1) p1.textContent = 'Envío Gratis';
+                }
+                if (cards[3]) {
+                    const p2 = cards[3].querySelector('.p2');
+                    if (p2) p2.textContent = 'Asistencia técnica completa';
+                }
+            };
+
+            const fixCustomAndCalidades = () => {
+                // Personalizado (arriba)
+                safeSetText('#algopersonalizado h2', '¿Necesitas algo personalizado?');
+                safeSetText('#algopersonalizado p', 'Nuestro servicio de IA puede ayudarte a encontrar los componentes ideales para la PC perfecta acorde a tus necesidades específicas. Desde gaming competitivo hasta workstations profesionales, garantizamos la mejor calidad.');
+                // Calidades
+                safeSetText('.calidades h4', 'PCs Pre-Armadas por Categoría');
+                safeSetText('.calidades p', 'Desde workstations profesionales hasta Gaming de entrada, cada PC está cuidadosamente seleccionada para ofrecer la mejor experiencia en su categoría');
+                safeSetText('.card.profesional p', 'Para profesionales que exigen lo máximo');
+                safeSetText('.card.alta p', 'Gaming de élite y contenido 4K');
+                // Bloque inferior (call to action)
+                const ctas = Array.from(document.querySelectorAll('.custom-box')).filter(el => el.id !== 'algopersonalizado');
+                if (ctas[0]) {
+                    const h2 = ctas[0].querySelector('h2');
+                    const p = ctas[0].querySelector('p');
+                    const a = ctas[0].querySelector('.btn.primary a');
+                    if (h2) h2.textContent = '¿Listo para armar tu PC ideal?';
+                    if (p) p.textContent = 'Explora nuestro catálogo completo con más de 100 productos';
+                    if (a) a.textContent = 'Ir al Catálogo';
+                }
+            };
+
+            const fixFooter = () => {
+                const link = document.querySelector('footer a[href="Terminos_condiciones"]');
+                if (link) link.textContent = 'Términos y Condiciones';
+            };
+
+            const fixChat = () => {
+                safeSetText('#close-chat-btn', '×');
+                safeSetText('#new-chat-btn', 'Nuevo Chat');
+                safeSetPlaceholder('#chatbot-text', 'Escribe un mensaje...');
+            };
+
+            const observeSearchResults = () => {
+                const observer = new MutationObserver(() => {
+                    document.querySelectorAll('.sin-resultados small').forEach(el => {
+                        if (el && el.textContent && el.textContent.toLowerCase().includes('intenta')) {
+                            el.textContent = 'Intenta con otros términos de búsqueda';
+                        }
+                    });
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+            };
+
+            document.addEventListener('DOMContentLoaded', () => {
+                try {
+                    fixCartTexts();
+                    fixLoginSignupTexts();
+                    fixHeroAndHeadings();
+                    fixCards();
+                    fixCustomAndCalidades();
+                    fixFooter();
+                    fixChat();
+                    observeSearchResults();
+                } catch (e) { /* noop */ }
+            });
+        })();
+    </script>
 </body>
 </html>
+

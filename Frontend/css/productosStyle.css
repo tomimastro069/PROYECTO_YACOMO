@@ -1578,6 +1578,7 @@ footer {
     /* Tarjetas más compactas en móvil */
     .card { min-height: 0; }
     .card .Imagen_Producto { aspect-ratio: 1/1; }
+    
 }
 
 /* Teléfonos pequeños */
@@ -1587,4 +1588,8 @@ footer {
         gap: 12px;
     }
     .Catalogo-Container { padding: 12px; }
+}
+
+.swal-container-top {
+  z-index: 99999 !important; /* aseguramos que quede por encima de todo */
 }

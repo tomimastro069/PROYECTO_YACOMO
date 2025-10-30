@@ -359,21 +359,21 @@ body { padding-top: 70px; }
 /* Cada diapositiva de la imagen */
 .carousel-slide {
     min-width: 100%; /* Cada diapositiva ocupa el 100% del contenedor */
+    height: 100%;    
     box-sizing: border-box;
     scroll-snap-align: start; /* alinea cada slide al inicio */
     position: relative;       /* contexto para overlays/captions */
+    gap: 0;  
 }
 
 /* Las imÃ¡genes dentro del carrusel */
 .carousel-slide img {
-    width: 100%;
-    height: 100%; /* La imagen ocupa el 100% de la altura de su contenedor */
-    object-fit: cover; /* recorte elegante manteniendo encuadre */
-    object-position: center center; /* encuadre por defecto */
+    width: 100%;              /* llena el ancho */
+    height: 100%;             /* llena el alto del contenedor */
+    object-fit: cover;        /* recorta lo necesario sin deformar */
+    object-position: center;  /* centra la imagen */
     display: block;
-    user-select: none;
 }
-
 #slide-1 {
     font-family: "AndroidAssassin";
     font-weight: 400;
@@ -858,9 +858,8 @@ body { padding-top: 70px; }
     transition: transform 0.3s, box-shadow 0.3s;
     width: 100%;
     margin-top: 15px;
-     min-height: 420px;  
-
-
+    min-height: 420px;  
+    margin-left: 54%;
 
 }
 .card_producto .content {

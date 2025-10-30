@@ -160,5 +160,17 @@ public class ProductoService {
         }
         return resultado;
     }
+    @Transactional(readOnly = true)
+    public List<ProductoDTO> buscar(String termino) {
+        logger.info("Buscando productos por término: {}", termino);
+        List<Producto> resultados = productoRepository.buscarPorNombreODescripcion(termino);
 
+        if (resultados.isEmpty()) {
+            logger.warn("No se encontraron productos que coincidan con '{}'", termino);
+        }
+
+        return resultados.stream()
+                .map(ProductoDTO::new)
+                .collect(Collectors.toList());
+    }
 }

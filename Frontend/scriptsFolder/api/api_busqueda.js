@@ -1,14 +1,12 @@
-import llamarApi from './apiClient.js';
+const BACKEND_URL = 'http://localhost:8080'; // tu backend
 
-/**
- * Busca productos por nombre
- * @param {string} query - Término de búsqueda
- * @returns {Promise<Producto[]>} - Lista de productos encontrados
- */
-export const buscarProductos = async (query) => {
-    if (!query || query.trim().length < 2) {
-        return []; // No buscar si el término es muy corto
+export async function buscarProductos(termino) {
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/productos/buscar?termino=${encodeURIComponent(termino)}`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return await res.json();
+    } catch (error) {
+        console.error('❌ Error en buscarProductos:', error);
+        throw error;
     }
-    
-    return await llamarApi(`/productos/buscar?q=${encodeURIComponent(query)}`, 'GET', null, false);
-};
+}

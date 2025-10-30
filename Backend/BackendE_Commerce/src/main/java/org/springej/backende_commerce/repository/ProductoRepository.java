@@ -31,6 +31,14 @@ Optional<Producto> findByNombreIgnoreCase(String nombre);
     @EntityGraph(attributePaths = {"productoImagenes", "productoImagenes.imagen"})
     @Query("SELECT p FROM Producto p WHERE p.id = :id")
     Optional<Producto> findByIdWithImages(@Param("id") Long id);
+
+    @Query("""
+       SELECT p FROM Producto p
+       WHERE LOWER(p.nombre) LIKE LOWER(CONCAT('%', :termino, '%'))
+          OR LOWER(p.descripcion) LIKE LOWER(CONCAT('%', :termino, '%'))
+       ORDER BY p.nombre ASC
+       """)
+    List<Producto> buscarPorNombreODescripcion(@Param("termino") String termino);
 }
 
 //    // Buscar por nombre parcial (ignorando mayúsculas/minúsculas)

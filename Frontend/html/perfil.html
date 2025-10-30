@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/perfilStyle.css">
     <title>Script-G</title>
@@ -38,7 +36,6 @@
         <aside class="sidebar">
             <section class="user-summary">
                 <div class="user-profile-header">
-                    <img src="https://via.placeholder.com/80" alt="Foto de perfil del usuario" class="profile-photo">
                     <div class="user-details">
                         <h2 class="user-name" data-sidebar-username>Cargando...</h2>
                         <span class="user-membership" data-sidebar-membership></span>
@@ -64,20 +61,7 @@
             <section class="quick-access">
                 <h3>Accesos rápidos</h3>
                 <nav class="quick-nav-list">
-                    <a href="/configuracion" class="quick-nav-item">
-                        <i class="bi bi-gear-fill"></i>
-                        <div class="quick-nav-text">
-                            <span>Configuración</span>
-                            <span class="quick-nav-subtitle">Preferencias de cuenta</span>
-                        </div>
-                    </a>
-                    <a href="/ayuda" class="quick-nav-item">
-                        <i class="bi bi-question-circle-fill"></i>
-                        <div class="quick-nav-text">
-                            <span>Ayuda</span>
-                            <span class="quick-nav-subtitle">Centro de soporte</span>
-                        </div>
-                    </a>
+                    <!-- Estos elementos fueron eliminados según tu solicitud -->
                     <a href="/logout" class="quick-nav-item logout-link">
                         <i class="bi bi-box-arrow-right"></i>
                         <div class="quick-nav-text">
@@ -138,15 +122,15 @@
                     
                         <ul class="perfil-detalles-extra">
                             <li>
-                                <i class="bi bi-calendar-check" data-orders-count>0</i><br>
+                                <i class="bi bi-calendar-check" data-orders-count></i><br>
                                 <span class="aclaracion">Pedidos realizados</span>
                             </li>
                             <li>
-                                <i class="bi bi-currency-dollar" data-total-spent>$0</i><br>
+                                <i data-total-spent></i><br>
                                 <span class="aclaracion">Total gastado</span>
                             </li>
                             <li>
-                                <i class="bi bi-person-badge" data-membership>Cliente Script-G</i><br>
+                                <i class="bi bi-person-badge" data-membership></i><br>
                                 <span class="aclaracion">Nivel de membresía</span>
                             </li>
                         </ul>

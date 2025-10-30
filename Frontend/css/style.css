@@ -360,6 +360,7 @@ body { padding-top: 70px; }
     color: rgb(255, 255, 255);
     z-index: 5; /* Asegura que el texto esté sobre la imagen */
     white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    text-shadow: 0 0 3rem#000000;
 }
 
 

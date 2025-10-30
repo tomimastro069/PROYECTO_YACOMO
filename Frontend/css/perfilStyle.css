@@ -189,6 +189,11 @@ input:not(:placeholder-shown) ~ .reset {
   margin-top: 3px;
 }
 
+.dashboard-layout {
+    display: grid;
+    
+}
+
 .sidebar {
     width: fit-content;
     padding: 20px;
@@ -197,6 +202,7 @@ input:not(:placeholder-shown) ~ .reset {
 }
 
 .user-summary {
+    gap: 1.5rem;
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
@@ -210,6 +216,7 @@ input:not(:placeholder-shown) ~ .reset {
 
 
 .quick-access {
+    height: auto;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
@@ -218,6 +225,7 @@ input:not(:placeholder-shown) ~ .reset {
     border-radius: 20px;
     padding: 2rem;
     box-shadow: 4px 4px 20px rgba(31, 31, 31, 0.1);
+    margin-bottom: 125px;
 
 }
 .quick-nav-list {
@@ -225,6 +233,12 @@ input:not(:placeholder-shown) ~ .reset {
     flex-direction: column;
     align-items: start;
     gap: 1.5rem;
+    height: auto;
+}
+.stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .quick-nav-subtitle {

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
@@ -6,11 +6,15 @@
   <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/checkout.css">
-</head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 <body>
  <header class="header">
   <div class="header__logo">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v12H3z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" /></svg>
     <a href="index.html">Script-G</a>
   </div>
   <div class="header__right">
@@ -37,14 +41,14 @@
 
         <section class="flow-step is-active" data-step="1">
           <h4>1. Elegi la direccion de entrega</h4>
-          <p>Usaremos la direccion que selecciones para programar el envio. Podés administrarlas desde tu perfil.</p>
+          <p>Usaremos la direccion que selecciones para programar el envio. PodÃ©s administrarlas desde tu perfil.</p>
           <div class="address-options" data-address-list></div>
           <a class="flow-step__link" href="perfil.html">Administrar direcciones desde tu perfil</a>
         </section>
 
         <section class="flow-step" data-step="2">
           <h4>2. Selecciona y configura tu metodo de pago</h4>
-          <p>Por ahora solo ofrecemos Mercado Pago. Confirmá que querés usarlo para continuar.</p>
+          <p>Por ahora solo ofrecemos Mercado Pago. ConfirmÃ¡ que querÃ©s usarlo para continuar.</p>
 
           <div class="pay-methods">
             <label class="payopt">
@@ -57,7 +61,7 @@
               </div>
               <div class="payopt__main">
                 <div class="payopt__title">Mercado Pago</div>
-                <div class="addr__meta">Pagá con tu saldo, tarjeta guardada o cuenta bancaria vinculada.</div>
+                <div class="addr__meta">PagÃ¡ con tu saldo, tarjeta guardada o cuenta bancaria vinculada.</div>
                 <span class="summary__badge">Pago 100% seguro</span>
               </div>
             </label>
@@ -75,14 +79,14 @@
 
         <section class="flow-step" data-step="3">
           <h4>3. Confirma tu pedido</h4>
-          <p>Verificá que todo esté correcto antes de finalizar tu compra.</p>
+          <p>VerificÃ¡ que todo estÃ© correcto antes de finalizar tu compra.</p>
 
           <div class="confirm-shell">
             <div class="success">
-              <div class="success__icon">✓</div>
+              <div class="success__icon">âœ“</div>
               <div>
                 <strong>Todo listo para pagar</strong>
-                <div>Tu compra se debitará al confirmar y recibirás un correo con el detalle del pedido.</div>
+                <div>Tu compra se debitarÃ¡ al confirmar y recibirÃ¡s un correo con el detalle del pedido.</div>
               </div>
             </div>
 
@@ -147,6 +151,8 @@
   <script type="module" src="../scriptsFolder/checkout-pago.js"></script>
 </body>
 </html>
+
+
 
 
 

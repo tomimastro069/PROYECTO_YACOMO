@@ -1,5 +1,7 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-
+﻿@font-face {
+  font-family: "AndroidAssassin";
+  src: url('../fonts/Android Assassin.otf') format('opentype');
+}
 :root{
   --bg:#f5f7fb;
   --card:#ffffff;
@@ -21,7 +23,7 @@ body{
 /* ============ HEADER ============ */
 .header{
   /* gradiente estilo Script-Gang */
-  background:linear-gradient(90deg,#0d0a2c 0%, #4b00e0 45%, #1bc2ff 100%);
+  background: linear-gradient(90deg, #0d0c1d, #4b0082, #2e006c);
   color:#fff;
   padding:16px 26px;                 /* + padding */
   display:flex;
@@ -599,5 +601,6 @@ body{
 }
 .actions{ display:flex; gap:10px; justify-content:flex-end; }
 .btn--ghost{ background:#fff; }
+
 
 

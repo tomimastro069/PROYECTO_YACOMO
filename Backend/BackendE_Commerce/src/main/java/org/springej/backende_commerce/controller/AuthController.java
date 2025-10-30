@@ -52,7 +52,7 @@ public class AuthController {
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
         String resetToken = usuarioService.generarTokenRecuperacion(request.getEmail(), jwtService);
-        String resetLink = "http://127.0.0.1:5500/reset-password.html?token=" + resetToken;
+        String resetLink = "http://127.0.0.1:5500/Frontend/html/reset-password.html?token=" + resetToken;
         usuarioService.enviarEmailRecuperacion(request.getEmail(), resetLink, emailService);
         return ResponseEntity.ok("Link de recuperación: " + resetLink);
     }

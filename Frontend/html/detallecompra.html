@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Producto</title>
+    <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/productosStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -283,6 +288,62 @@
     </style>
 </head>
 <body>
+    <header class="main-header">
+        <a href="index.html" class="header-logo-title">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
+                </svg>
+            </div>
+            <h1>Script-G</h1>
+        </a>
+
+        <!-- Botón hamburguesa (visible en mobile) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+            </svg>
+        </button>
+
+        <div class="busqueda" id="searchToggle">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Buscar componentes...">
+        </div>
+
+        <div class="menu" id="mobileMenu">
+            <nav>
+                <ul class="main-nav-list">
+                    <li><a href="../html/index.html" class="menu-btn"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li><a href="../html/productos.html" class="menu-btn"><i class="fa-solid fa-box"></i> Productos</a></li>
+                    <li>
+                        <button class="menu-btn" id="btn-login" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" fill="currentColor"
+                                class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            </svg>Log in
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#cart" class="menu-btn" id="header-cart-button">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Carrito
+                            <span id="cart-count" class="cart-notification"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Overlay para cerrar tocando fuera del menú -->
+        <div class="nav-overlay" id="navOverlay"></div>
+    </header>
+    <!-- Panel de búsqueda (mobile) -->
+    <div id="mobileSearchPanel" class="mobile-search-panel" role="search" aria-hidden="true">
+        <div class="mobile-search-inner">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Buscar componentes..." aria-label="Buscar" id="mobileSearchInput" />
+        </div>
+    </div>
+    <div class="fix"></div>
     <div class="container">
         <div class="product-detail">
             <div class="product-images">
@@ -483,6 +544,77 @@
                 thumbnailContainer.appendChild(thumbnail);
             });
         };
+    </script>
+
+    <footer>
+        <div class="Footer_Container">
+            <a href="index.html" class="Logo_Pagina">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
+                </svg>
+                <h1>Script-G</h1>
+            </a>
+            <div class="Redes_Sociales">
+                <h2>Redes Sociales</h2>
+                <div class="listas-redes">
+                    <ul>
+                        <li><a href="#instagram"><i class="fa-brands fa-instagram"></i>Instagram</a></li>
+                        <li><a href="#facebook"><i class="fa-brands fa-facebook"></i>Facebook</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#youtube"><i class="fa-brands fa-facebook"></i>YouTube</a></li>
+                        <li><a href="#tiktok"><i class="fa-brands fa-tiktok"></i>TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+            <h2><a href="Terminos_condiciones">Terminos y Condiciones</a></h2>
+        </div>
+    </footer>
+
+    <!-- Toggle responsive header -->
+    <script>
+        (function(){
+            const btn = document.getElementById('hamburgerBtn');
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('navOverlay');
+            const searchToggle = document.getElementById('searchToggle');
+            const searchPanel  = document.getElementById('mobileSearchPanel');
+            if(!btn || !menu || !overlay) return;
+            const closeMenu = ()=>{
+                menu.classList.remove('active');
+                btn.setAttribute('aria-expanded','false');
+                overlay.classList.remove('active');
+            };
+            const openMenu = ()=>{
+                menu.classList.add('active');
+                btn.setAttribute('aria-expanded','true');
+                overlay.classList.add('active');
+            };
+            btn.addEventListener('click', (e)=>{
+                e.stopPropagation();
+                menu.classList.contains('active') ? closeMenu() : openMenu();
+            });
+
+            const closeSearch = ()=>{ searchPanel?.classList.remove('open'); overlay.classList.remove('active'); };
+            const openSearch = ()=>{ searchPanel?.classList.add('open'); overlay.classList.add('active'); };
+
+            searchToggle?.addEventListener('click', (e)=>{
+                if (window.matchMedia('(max-width: 992px)').matches) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeMenu();
+                    if (searchPanel?.classList.contains('open')) { closeSearch(); }
+                    else { openSearch(); }
+                }
+            });
+
+            overlay.addEventListener('click', ()=>{ closeMenu(); closeSearch(); });
+            document.addEventListener('click', (e)=>{
+                if(!menu.contains(e.target) && e.target !== btn) closeMenu();
+                if(!searchPanel?.contains(e.target) && e.target !== searchToggle) closeSearch();
+            });
+            document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { closeMenu(); closeSearch(); } });
+        })();
     </script>
 </body>
 </html>

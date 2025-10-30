@@ -1,3 +1,6 @@
+// Importar desde el MISMO archivo que usa el index (usa el backend)
+import { buscarProductos } from './api/api_busqueda.js';
+
 class BusquedaManager {
     constructor() {
         this.searchInput = document.getElementById('headerSearchInput');
@@ -77,13 +80,27 @@ class BusquedaManager {
             return;
         }
 
-        this.resultsList.innerHTML = productos.slice(0, 8).map(p => `
-            <div class="resultado-item" data-id="${p.id}">
-                <div class="resultado-nombre">${p.nombre}</div>
-                <div class="resultado-precio">$${p.precio.toLocaleString('es-AR')}</div>
-                <button class="resultado-ver-detalles" data-id="${p.id}">Ver detalles</button>
-            </div>
-        `).join('');
+        const PLACEHOLDER_IMG = 'data:image/svg+xml,%3Csvg xmlns=%22http%3A//www.w3.org/2000/svg%22 width=%2250%22 height=%2250%22 viewBox=%220 0 50 50%22%3E%3Crect width=%2250%22 height=%2250%22 fill=%22%23ddd%22/%3E%3C/svg%3E';
+
+        this.resultsList.innerHTML = productos.slice(0, 8).map(p => {
+            const imgUrl = (p.imagenes && p.imagenes[0]?.url) ? p.imagenes[0].url : PLACEHOLDER_IMG;
+            const stockClass = p.stock > 0 ? 'en-stock' : 'sin-stock';
+            const stockText = p.stock > 0 ? '✓ En stock' : '✗ Sin stock';
+            
+            return `
+                <div class="resultado-item" data-id="${p.id}">
+                    <img src="${imgUrl}" alt="${p.nombre}" onerror="this.src='${PLACEHOLDER_IMG}'">
+                    <div class="resultado-info">
+                        <div class="resultado-nombre">${p.nombre}</div>
+                        <div class="resultado-precio">$${p.precio.toLocaleString('es-AR')}</div>
+                        <div class="resultado-stock ${stockClass}">${stockText}</div>
+                    </div>
+                    <button class="resultado-ver-detalles" data-id="${p.id}">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            `;
+        }).join('');
 
         this.showResults();
         this.addResultListeners();
@@ -104,15 +121,9 @@ class BusquedaManager {
                 e.preventDefault();
                 e.stopPropagation();
                 const id = btn.dataset.id;
-                this.mostrarDetalles(id);
+                this.navigateToProduct(id);
             });
         });
-    }
-
-    mostrarDetalles(productId) {
-        this.hideResults();
-        this.searchInput.value = '';
-        mostrarDetallesProducto(productId);
     }
 
     showLoading() {
@@ -136,10 +147,8 @@ class BusquedaManager {
     }
 
     navigateToProduct(id) {
-        // Redirige directamente a la página de detalles
-        window.location.href = `detalles.html?id=${id}`;
+        window.location.href = `productos.html?producto=${id}`;
     }
-
 }
 
 // Inicialización

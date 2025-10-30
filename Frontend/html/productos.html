@@ -13,10 +13,158 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href ="../css/chatbot.css">
     <script type="module" src="../scriptsFolder/productos.js"></script>
-    
+    <script type="module" src="../scriptsFolder/busqueda.js"></script>
     <script type="module" src="../scriptsFolder/modalHandler.js"></script>
     <script type="module" src="../scriptsFolder/funciones.js"></script>
+    <style>
+/* Contenedor de resultados */
+#headerSearchResults {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    background: white !important;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    max-height: 450px;
+    overflow-y: auto;
+}
 
+#headerResultsContainer {
+    padding: 0;
+}
+
+/* Items de resultados CON IMAGEN */
+.resultado-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    gap: 12px;
+}
+
+.resultado-item:last-child {
+    border-bottom: none;
+}
+
+.resultado-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Imagen del producto */
+.resultado-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+/* Info del producto */
+.resultado-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.resultado-nombre {
+    font-weight: 600;
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.resultado-precio {
+    font-weight: 700;
+    font-size: 16px;
+    color: #4a90e2;
+    margin-bottom: 4px;
+}
+
+.resultado-stock {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.en-stock {
+    color: #28a745;
+}
+
+.sin-stock {
+    color: #dc3545;
+}
+
+/* Botón ver detalles */
+.resultado-ver-detalles {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultado-ver-detalles:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Mensajes */
+.sin-resultados, .buscando {
+    padding: 30px 20px;
+    text-align: center;
+    color: #666;
+    font-size: 15px;
+}
+
+.main-header {
+    position: relative;
+}
+
+/* Scrollbar */
+#headerSearchResults::-webkit-scrollbar {
+    width: 6px;
+}
+
+#headerSearchResults::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#headerSearchResults::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+#headerSearchResults::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #headerSearchResults {
+        width: 95%;
+    }
+    
+    .resultado-item img {
+        width: 40px;
+        height: 40px;
+    }
+}
+</style>
 </head>
 
 <div id="cart" class="ts-cart">
@@ -24,6 +172,7 @@
 
     <aside class="ts-cart__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
         <header class="ts-cart__header">
+          </header>
             <div>
                 <h4 id="cartTitle">Carrito de Compras</h4>
                 <small class="ts-cart__count">0 productos</small>
@@ -79,7 +228,7 @@
 
         <div class="busqueda" id="searchToggle">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Buscar componentes...">
+            <input type="search" placeholder="Buscar componentes..." id="headerSearchInput">
         </div>
 
         <div class="menu" id="mobileMenu">
@@ -107,7 +256,11 @@
         </div>
         <!-- Overlay para cerrar tocando fuera del menú -->
         <div class="nav-overlay" id="navOverlay"></div>
+        <div id="headerSearchResults" style="display: none;">
+        <div id="headerResultsContainer"></div>
+    </div>
     </header>
+    
     <!-- Panel de búsqueda (mobile) -->
     <div id="mobileSearchPanel" class="mobile-search-panel" role="search" aria-hidden="true">
         <div class="mobile-search-inner">
@@ -281,207 +434,253 @@
         </div>
     </footer>
     <script type='module' src='../scriptsFolder/auth.js'></script>
-    <script type="module">
+<script type="module">
   import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
   import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
   import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js';
   import { toggleLoginModal } from '../scriptsFolder/modalHandler.js';
-  import { renderizarEstrellas, obtenerPromedioEstrellas } from '../scriptsFolder/estrellas.js'; // ← IMPORTAR
+  import { renderizarEstrellas, obtenerPromedioEstrellas } from '../scriptsFolder/estrellas.js';
 
   const PLACEHOLDER_IMG = 'data:image/svg+xml,%3Csvg xmlns=%22http%3A//www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23f2f4f8%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Inter%2CArial%2Csans-serif%22 font-size=%2214%22 fill=%22%23666%22%3ESin%20imagen%3C/text%3E%3C/svg%3E';
-  document.addEventListener('DOMContentLoaded', async () => {
-  const contenedor = document.getElementById('catalogo-productos');
-  const detalleContainer = document.getElementById('detalle-producto');
-  let allProducts = [];
-
-  const headerCartButton = document.getElementById('header-cart-button');
-  if (headerCartButton) {
-      headerCartButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          toggleCart();
-      });
-  }
-
-  const headerLoginButton = document.getElementById('btn-login');
-  if (headerLoginButton) {
-      headerLoginButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          toggleLoginModal();
-      });
-  }
-
-  // (Limpieza) Modales hardcodeados removidos del HTML; no se requiere lógica adicional
-
-  try {
-    const productos = await obtenerProductos();
-
-    if (!productos || productos.length === 0) {
-      contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
-      return;
-    }
-
-    contenedor.innerHTML = '';
-    allProducts = productos;
-
-    const cantidadProductos = document.querySelector('.Cantidad-de-productos');
-    if (cantidadProductos) {
-      cantidadProductos.textContent = `${productos.length} productos encontrados`;
-    }
-
-    // 🔥 CARGAR PRODUCTOS CON IMÁGENES
-    for (const p of productos) {
-      const promedio = await obtenerPromedioEstrellas(p.id);
-
-      // 🔥 DEBUG: Ver si el producto tiene imágenes
-      console.log(`Producto ${p.id} - ${p.nombre}:`, {
-        tieneImagenes: p.imagenes && p.imagenes.length > 0,
-        cantidadImagenes: p.imagenes ? p.imagenes.length : 0,
-        primeraURL: p.imagenes?.[0]?.url
-      });
-
-      const card = document.createElement('div');
-      card.classList.add('card');
-      card.dataset.id = `producto-${p.id}`;
-
-      // 🔥 OBTENER URL DE LA IMAGEN
-      let imagenUrl = PLACEHOLDER_IMG;
-
-      if (p.imagenes && Array.isArray(p.imagenes) && p.imagenes.length > 0) {
-        const primeraImagen = p.imagenes[0];
-        if (primeraImagen && primeraImagen.url) {
-          imagenUrl = primeraImagen.url;
-          console.log(`✅ Imagen encontrada para ${p.nombre}: ${imagenUrl}`);
-        }
-      } else {
-        console.warn(`⚠️ ${p.nombre} no tiene imágenes`);
-      }
-
-      card.innerHTML = `
-        <img class="Imagen_Producto"
-             src="${imagenUrl}"
-             alt="${p.nombre}"
-             onerror="console.error('? Error cargando:', this.src); this.src='data:image/svg+xml,%3Csvg xmlns=%22http%3A//www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23ffecec%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Inter%2CArial%2Csans-serif%22 font-size=%2214%22 fill=%22%23cc2433%22%3EError%20imagen%3C/text%3E%3C/svg%3E';
-             onload="console.log('✅ Imagen cargada:', this.src)">
-
-        <div class="content">
-          <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
-          <h3 class="Titulo">${p.nombre}</h3>
-          <div class="rating">
-              ${renderizarEstrellas(promedio)}
-          </div>
-          <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
-
-          <ul class="Especificaciones"></ul>
-          <div class="actions">
-            <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
-            <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
-            <a class="btn-details" href="../html/detallecompra.html?id=${p.id}" target="_blank" rel="noopener noreferrer">Ver Detalles</a>
-          </div>
-        </div>
-      `;
-
-      const favoriteButton = card.querySelector('.btn-favorite');
-      if (favoriteButton) {
-          favoriteButton.addEventListener('click', async (event) => {
-              const productId = event.target.dataset.productId;
-              try {
-                  await agregarFavorito(productId);
-                  alert('Producto agregado a favoritos con éxito!');
-              } catch (error) {
-                  alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
-              }
-          });
-      }
-
-      contenedor.appendChild(card);
-    }
-
-    contenedor.addEventListener('click', (event) => {
-      const addToCartButton = event.target.closest('.btn-cart');
-      if (addToCartButton) {
-        const productId = addToCartButton.dataset.productId;
-        const productToAdd = allProducts.find(p => String(p.id) === productId);
-        if (productToAdd) {
-          agregarAlCarrito(event, productToAdd);
-        } else {
-          console.error('Producto no encontrado para el ID:', productId);
-        }
-      }
-
-      const detailsLink = event.target.closest('.btn-details');
-      if (detailsLink) {
-        event.preventDefault();
-        const card = event.target.closest('.card');
-        const dataId = card?.dataset.id || '';
-        const productId = dataId.replace('producto-', '');
-        const producto = allProducts.find(p => String(p.id) === String(productId));
-        if (producto) {
-          mostrarDetalleEmbebido(producto);
-        }
-      }
-    });
-
-  } catch (error) {
-    console.error('Error al obtener productos:', error);
-    contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
-  }
-
-  renderizarCarrito();
   
-  function mostrarDetalleEmbebido(producto) {
-    if (!detalleContainer) return;
-    const imgUrl = (producto.imagenes && producto.imagenes[0]?.url) ? producto.imagenes[0].url : PLACEHOLDER_IMG;
-    const stockClass = producto.stock > 10 ? 'in-stock' : (producto.stock > 0 ? 'low-stock' : 'out-of-stock');
-    const stockText = producto.stock > 10 ? 'En stock' : (producto.stock > 0 ? 'Stock bajo' : 'Agotado');
+  document.addEventListener('DOMContentLoaded', async () => {
+    const contenedor = document.getElementById('catalogo-productos');
+    const detalleContainer = document.getElementById('detalle-producto');
+    let allProducts = [];
 
-    detalleContainer.innerHTML = `
-      <div class="detalle-embed">
-        <button class="btn-back" id="btn-volver-catalogo">← Volver al catálogo</button>
-        <div class="detalle-body">
-          <div class="detalle-media">
-            <img class="detalle-image" src="${imgUrl}" alt="${producto.nombre}">
-          </div>
-          <div class="detalle-info">
-            <h1 class="detalle-title">${producto.nombre}</h1>
-            ${producto.promocion ? `<span class="detalle-promo">${producto.promocion}</span>` : ''}
-            <div class="detalle-price">$${(producto.precio ?? 0).toLocaleString('es-AR')}</div>
-            <div class="detalle-stock ${stockClass}">${stockText}</div>
-            ${producto.descripcion ? `<p class="detalle-description">${producto.descripcion}</p>` : ''}
-            <div class="action-buttons">
-              <button class="btn-cart" id="detalle-add-cart">Agregar al Carrito</button>
-              <button class="btn-favorite" type="button" id="detalle-fav">Agregar a Favoritos</button>
+    const headerCartButton = document.getElementById('header-cart-button');
+    if (headerCartButton) {
+        headerCartButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleCart();
+        });
+    }
+
+    const headerLoginButton = document.getElementById('btn-login');
+    if (headerLoginButton) {
+        headerLoginButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleLoginModal();
+        });
+    }
+
+    try {
+      const productos = await obtenerProductos();
+
+      if (!productos || productos.length === 0) {
+        contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
+        return;
+      }
+
+      contenedor.innerHTML = '';
+      allProducts = productos;
+
+      const cantidadProductos = document.querySelector('.Cantidad-de-productos');
+      if (cantidadProductos) {
+        cantidadProductos.textContent = `${productos.length} productos encontrados`;
+      }
+
+      // 🔥 CARGAR PRODUCTOS CON IMÁGENES
+      for (const p of productos) {
+        const promedio = await obtenerPromedioEstrellas(p.id);
+
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.id = `producto-${p.id}`;
+
+        // 🔥 OBTENER URL DE LA IMAGEN
+        let imagenUrl = PLACEHOLDER_IMG;
+
+        if (p.imagenes && Array.isArray(p.imagenes) && p.imagenes.length > 0) {
+          const primeraImagen = p.imagenes[0];
+          if (primeraImagen && primeraImagen.url) {
+            imagenUrl = primeraImagen.url;
+          }
+        }
+
+        card.innerHTML = `
+          <img class="Imagen_Producto"
+               src="${imagenUrl}"
+               alt="${p.nombre}"
+               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http%3A//www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23ffecec%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Inter%2CArial%2Csans-serif%22 font-size=%2214%22 fill=%22%23cc2433%22%3EError%20imagen%3C/text%3E%3C/svg%3E'">
+
+          <div class="content">
+            <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
+            <h3 class="Titulo">${p.nombre}</h3>
+            <div class="rating">
+                ${renderizarEstrellas(promedio)}
+            </div>
+            <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
+
+            <ul class="Especificaciones"></ul>
+            <div class="actions">
+              <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
+              <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
+              <a class="btn-details" href="#" data-product-id="${p.id}">Ver Detalles</a>
             </div>
           </div>
+        `;
+
+        const favoriteButton = card.querySelector('.btn-favorite');
+        if (favoriteButton) {
+            favoriteButton.addEventListener('click', async (event) => {
+                const productId = event.target.dataset.productId;
+                try {
+                    await agregarFavorito(productId);
+                    alert('Producto agregado a favoritos con éxito!');
+                } catch (error) {
+                    alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
+                }
+            });
+        }
+
+        contenedor.appendChild(card);
+      }
+
+      contenedor.addEventListener('click', (event) => {
+        const addToCartButton = event.target.closest('.btn-cart');
+        if (addToCartButton) {
+          const productId = addToCartButton.dataset.productId;
+          const productToAdd = allProducts.find(p => String(p.id) === productId);
+          if (productToAdd) {
+            agregarAlCarrito(event, productToAdd);
+          } else {
+            console.error('Producto no encontrado para el ID:', productId);
+          }
+        }
+
+        const detailsLink = event.target.closest('.btn-details');
+        if (detailsLink) {
+          event.preventDefault();
+          const productId = detailsLink.dataset.productId;
+          const producto = allProducts.find(p => String(p.id) === String(productId));
+          if (producto) {
+            mostrarDetalleEmbebido(producto);
+          }
+        }
+      });
+
+      // 🔥 DETECTAR SI VIENE UN PRODUCTO EN LA URL (DESDE LA BÚSQUEDA)
+      const urlParams = new URLSearchParams(window.location.search);
+      const productoIdParam = urlParams.get('producto');
+
+      if (productoIdParam) {
+        const productoAAbrir = allProducts.find(p => String(p.id) === String(productoIdParam));
+        if (productoAAbrir) {
+          console.log('🔍 Abriendo producto desde búsqueda:', productoAAbrir.nombre);
+          // Esperar un momento para que todo se renderice
+          setTimeout(() => {
+            mostrarDetalleEmbebido(productoAAbrir);
+            // Limpiar la URL para que no se vuelva a abrir si recarga
+            window.history.replaceState({}, '', 'productos.html');
+          }, 100);
+        }
+      }
+
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+      contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
+    }
+
+    renderizarCarrito();
+    
+    function mostrarDetalleEmbebido(producto) {
+  if (!detalleContainer) return;
+  
+  // Obtener todas las imágenes del producto
+  const imagenes = producto.imagenes && producto.imagenes.length > 0 
+    ? producto.imagenes 
+    : [{ url: PLACEHOLDER_IMG }];
+  
+  const imgUrl = imagenes[0].url;
+  const stockClass = producto.stock > 10 ? 'in-stock' : (producto.stock > 0 ? 'low-stock' : 'out-of-stock');
+  const stockText = producto.stock > 10 ? 'En stock' : (producto.stock > 0 ? 'Stock bajo' : 'Agotado');
+
+  // Generar miniaturas
+  const thumbnailsHTML = imagenes.length > 1 ? `
+    <div class="detalle-thumbnails">
+      ${imagenes.map((img, index) => `
+        <img src="${img.url}" 
+             alt="Imagen ${index + 1}" 
+             class="detalle-thumbnail ${index === 0 ? 'active' : ''}"
+             data-index="${index}"
+             onclick="cambiarImagenDetalle(${index})">
+      `).join('')}
+    </div>
+  ` : '';
+
+  detalleContainer.innerHTML = `
+    <div class="detalle-embed">
+      <button class="btn-back" id="btn-volver-catalogo">← Volver al catálogo</button>
+      <div class="detalle-body">
+        <div class="detalle-media">
+          <img class="detalle-image" id="detalle-main-image" src="${imgUrl}" alt="${producto.nombre}">
+          ${thumbnailsHTML}
         </div>
-      </div>`;
+        <div class="detalle-info">
+          <h1 class="detalle-title">${producto.nombre}</h1>
+          ${producto.promocion ? `<span class="detalle-promo">${producto.promocion}</span>` : ''}
+          <div class="detalle-price">$${(producto.precio ?? 0).toLocaleString('es-AR')}</div>
+          <div class="detalle-stock ${stockClass}">${stockText}</div>
+          ${producto.descripcion ? `<p class="detalle-description">${producto.descripcion}</p>` : ''}
+          <div class="action-buttons">
+            <button class="btn-cart" id="detalle-add-cart">Agregar al Carrito</button>
+            <button class="btn-favorite" type="button" id="detalle-fav">Agregar a Favoritos</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
 
-    // Mostrar detalle y ocultar catálogo
-    contenedor.style.display = 'none';
-    detalleContainer.style.display = 'block';
+  // Guardar las imágenes en una variable global para acceder desde cambiarImagenDetalle
+  window.imagenesProductoActual = imagenes;
 
-    const backBtn = document.getElementById('btn-volver-catalogo');
-    backBtn?.addEventListener('click', () => {
-      detalleContainer.style.display = 'none';
-      contenedor.style.display = '';
-    });
+  // Mostrar detalle y ocultar catálogo
+  contenedor.style.display = 'none';
+  detalleContainer.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const addBtn = document.getElementById('detalle-add-cart');
-    addBtn?.addEventListener('click', (e) => {
-      agregarAlCarrito(e, producto);
-    });
+  const backBtn = document.getElementById('btn-volver-catalogo');
+  backBtn?.addEventListener('click', () => {
+    detalleContainer.style.display = 'none';
+    contenedor.style.display = '';
+  });
 
-    const favBtn = document.getElementById('detalle-fav');
-    favBtn?.addEventListener('click', async () => {
-      try {
-        await agregarFavorito(producto.id);
-        favBtn.textContent = 'En Favoritos';
-        favBtn.classList.add('active');
-      } catch (error) {
-        alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
+  const addBtn = document.getElementById('detalle-add-cart');
+  addBtn?.addEventListener('click', (e) => {
+    agregarAlCarrito(e, producto);
+  });
+
+  const favBtn = document.getElementById('detalle-fav');
+  favBtn?.addEventListener('click', async () => {
+    try {
+      await agregarFavorito(producto.id);
+      favBtn.textContent = 'En Favoritos';
+      favBtn.classList.add('active');
+    } catch (error) {
+      alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
+    }
+  });
+}
+
+// Función global para cambiar imagen
+window.cambiarImagenDetalle = function(index) {
+  const mainImage = document.getElementById('detalle-main-image');
+  const thumbnails = document.querySelectorAll('.detalle-thumbnail');
+  
+  if (window.imagenesProductoActual && window.imagenesProductoActual[index]) {
+    mainImage.src = window.imagenesProductoActual[index].url;
+    
+    // Actualizar clase active en miniaturas
+    thumbnails.forEach((thumb, i) => {
+      if (i === index) {
+        thumb.classList.add('active');
+      } else {
+        thumb.classList.remove('active');
       }
     });
   }
-});
+};
+  });
 </script>
 <!-- Burbuja del chatbot -->
 <div id="chatbot-bubble">

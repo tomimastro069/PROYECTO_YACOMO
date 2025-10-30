@@ -1179,7 +1179,14 @@ footer {
   .Redes_Sociales h2 { margin-bottom: 8px; }
   .listas-redes { flex-wrap: wrap; gap: 20px; }
   .Footer_Container h2 { text-align: center; }
-
-  
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+/* Evitar que algún header fijo empuje contenido */
+body {
+    position: relative;
+}

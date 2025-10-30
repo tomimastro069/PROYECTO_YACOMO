@@ -16,8 +16,13 @@
     <link rel="stylesheet" href="../css/productosStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        /* Estilos para la barra de búsqueda en inicio */
+   <style>        /* Estilos para la barra de búsqueda en inicio */
+        .resultados-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px;
+        }
         .hero-busqueda {
             margin: 2rem auto 3rem;
             max-width: 600px;
@@ -93,14 +98,17 @@
             overflow-y: auto;
             display: none;
         }
+       
 
         /* Estilos para la búsqueda del header */
         .busqueda-resultados {
             position: absolute;
             top: 100%;
-            left: 0;
-            right: 0;
+            left: 30%;
+            right: 70%;
             background: white;
+            width: 100%;
+            max-width: 500px;
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             margin-top: 10px;
@@ -208,7 +216,8 @@
         .loading-spinner {
             margin-bottom: 1rem;
         }
-    </style>
+    
+</style>
 </head>
 <body>
     <header class="main-header">
@@ -738,226 +747,230 @@
     
     <!-- Script para la búsqueda en ambas barras -->
     <script type="module">
-        import { buscarProductos } from '../scriptsFolder/api/api_busqueda.js';
-        import { mostrarDetallesProducto } from '../scriptsFolder/detallesProducto.js';
+    import { buscarProductos } from '../scriptsFolder/api/api_busqueda.js';
+    import { mostrarDetallesProducto } from '../scriptsFolder/detallesProducto.js';
 
-        class BusquedaManager {
-            constructor(type) {
-                this.type = type; // 'header' o 'hero'
-                this.searchInput = document.getElementById(`${type}SearchInput`);
-                this.searchBtn = type === 'hero' ? document.getElementById(`${type}SearchBtn`) : null;
-                this.resultsContainer = document.getElementById(`${type}SearchResults`);
-                this.resultsList = document.getElementById(`${type}ResultsContainer`);
-                this.debounceTimer = null;
-                this.productosEncontrados = [];
-                
-                this.init();
+    class BusquedaManager {
+        constructor(type) {
+            this.type = type; // 'header' o 'hero'
+            this.searchInput = document.getElementById(`${type}SearchInput`);
+            this.searchBtn = type === 'hero' ? document.getElementById(`${type}SearchBtn`) : null;
+            this.resultsContainer = document.getElementById(`${type}SearchResults`);
+            this.resultsList = document.getElementById(`${type}ResultsContainer`);
+            this.debounceTimer = null;
+            this.productosEncontrados = [];
+            
+            this.init();
+        }
+
+        init() {
+            if (!this.searchInput || !this.resultsContainer) {
+                console.error(`❌ Elementos de búsqueda ${this.type} no encontrados`);
+                return;
             }
 
-            init() {
-                if (!this.searchInput || !this.resultsContainer) {
-                    console.error(`❌ Elementos de búsqueda ${this.type} no encontrados`);
-                    return;
-                }
-
-                // Event listeners
-                this.searchInput.addEventListener('input', (e) => {
-                    this.handleInput(e);
-                });
-                
-                this.searchInput.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        this.performFinalSearch();
-                    } else if (e.key === 'Escape') {
-                        this.hideResults();
-                    }
-                });
-                
-                this.searchInput.addEventListener('focus', () => {
-                    if (this.searchInput.value.trim().length >= 2) {
-                        this.showResults();
-                    }
-                });
-                
-                if (this.searchBtn) {
-                    this.searchBtn.addEventListener('click', () => {
-                        this.performFinalSearch();
-                    });
-                }
-                
-                document.addEventListener('click', (e) => this.handleClickOutside(e));
-                this.resultsContainer.addEventListener('click', (e) => e.stopPropagation());
-                
-                console.log(`✅ Búsqueda ${this.type} inicializada`);
-            }
-
-            handleInput(e) {
-                const query = e.target.value.trim();
-                
-                if (this.debounceTimer) {
-                    clearTimeout(this.debounceTimer);
-                }
-
-                if (query.length < 2) {
-                    this.hideResults();
-                    return;
-                }
-
-                this.showLoading();
-                
-                this.debounceTimer = setTimeout(() => {
-                    this.performSearch(query);
-                }, 300);
-            }
-
-            async performSearch(query) {
-                try {
-                    this.productosEncontrados = await buscarProductos(query);
-                    this.displayResults(this.productosEncontrados, query);
-                } catch (error) {
-                    console.error(`Error en búsqueda ${this.type}:`, error);
-                    this.displayError();
-                }
-            }
-
-            performFinalSearch() {
-                const query = this.searchInput.value.trim();
-                if (query.length >= 2) {
-                    window.location.href = `productos.html?busqueda=${encodeURIComponent(query)}`;
-                }
-            }
-
-            displayResults(productos, query) {
-                if (!this.resultsList) return;
-
-                if (productos.length === 0) {
-                    this.resultsList.innerHTML = `
-                        <div class="sin-resultados">
-                            <i class="fa-solid fa-search" style="font-size: 24px; margin-bottom: 10px; opacity: 0.5;"></i>
-                            <p>No se encontraron productos para "${query}"</p>
-                            <small>Intenta con otros términos de búsqueda</small>
-                        </div>
-                    `;
-                    return;
-                }
-
-                this.resultsList.innerHTML = productos.slice(0, 6).map(producto => {
-                    const imagenUrl = producto.imagenes?.[0]?.url || 
-                                     'https://via.placeholder.com/50?text=Sin+Imagen';
-                    
-                    return `
-                        <div class="resultado-item" data-product-id="${producto.id}">
-                            <img src="${imagenUrl}" 
-                                 alt="${producto.nombre}" 
-                                 onerror="this.src='https://via.placeholder.com/50?text=Error'">
-                            <div class="resultado-info">
-                                <div class="resultado-nombre">${producto.nombre}</div>
-                                <div class="resultado-precio">$${producto.precio.toLocaleString('es-AR')}</div>
-                                <div class="resultado-stock ${producto.stock > 0 ? 'en-stock' : 'sin-stock'}">
-                                    ${producto.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}
-                                </div>
-                            </div>
-                            <button class="resultado-ver-detalles" data-product-id="${producto.id}">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                        </div>
-                    `;
-                }).join('');
-
-                // Event listeners para resultados
-                this.resultsList.querySelectorAll('.resultado-item').forEach(item => {
-                    item.addEventListener('click', (e) => {
-                        if (!e.target.closest('.resultado-ver-detalles')) {
-                            const productId = item.dataset.productId;
-                            this.mostrarDetalles(productId);
-                        }
-                    });
-                });
-
-                this.resultsList.querySelectorAll('.resultado-ver-detalles').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const productId = button.dataset.productId;
-                        this.mostrarDetalles(productId);
-                    });
-                });
-            }
-
-            mostrarDetalles(productId) {
-                const producto = this.productosEncontrados.find(p => String(p.id) === String(productId));
-                
-                if (producto) {
-                    this.hideResults();
-                    this.searchInput.value = '';
-                    mostrarDetallesProducto(productId);
-                }
-            }
-
-            showLoading() {
-                if (!this.resultsList) return;
-                
-                this.resultsList.innerHTML = `
-                    <div class="buscando">
-                        <div class="loading-spinner">
-                            <i class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                        <div>Buscando productos...</div>
-                    </div>
-                `;
-                this.showResults();
-            }
-
-            displayError() {
-                if (!this.resultsList) return;
-                
-                this.resultsList.innerHTML = `
-                    <div class="sin-resultados">
-                        <i class="fa-solid fa-exclamation-triangle" style="font-size: 24px; margin-bottom: 10px; color: #ff6b6b;"></i>
-                        <p>Error al buscar productos</p>
-                        <small>Intenta nuevamente en unos momentos</small>
-                    </div>
-                `;
-            }
-
-            showResults() {
-                this.resultsContainer.style.display = 'block';
-            }
-
-            hideResults() {
-                this.resultsContainer.style.display = 'none';
-            }
-
-            handleClickOutside(e) {
-                if (!this.resultsContainer.contains(e.target) && 
-                    e.target !== this.searchInput && 
-                    e.target !== this.searchBtn) {
+            // Event listeners
+            this.searchInput.addEventListener('input', (e) => {
+                this.handleInput(e);
+            });
+            
+            this.searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.performFinalSearch();
+                } else if (e.key === 'Escape') {
                     this.hideResults();
                 }
+            });
+            
+            this.searchInput.addEventListener('focus', () => {
+                if (this.searchInput.value.trim().length >= 2) {
+                    this.showResults();
+                }
+            });
+            
+            if (this.searchBtn) {
+                this.searchBtn.addEventListener('click', () => {
+                    this.performFinalSearch();
+                });
+            }
+            
+            document.addEventListener('click', (e) => this.handleClickOutside(e));
+            this.resultsContainer.addEventListener('click', (e) => e.stopPropagation());
+            
+            console.log(`✅ Búsqueda ${this.type} inicializada`);
+        }
+
+        handleInput(e) {
+            const query = e.target.value.trim();
+            
+            if (this.debounceTimer) {
+                clearTimeout(this.debounceTimer);
+            }
+
+            if (query.length < 2) {
+                this.hideResults();
+                return;
+            }
+
+            this.showLoading();
+            
+            this.debounceTimer = setTimeout(() => {
+                this.performSearch(query);
+            }, 300);
+        }
+
+        async performSearch(query) {
+            try {
+                this.productosEncontrados = await buscarProductos(query);
+                this.displayResults(this.productosEncontrados, query);
+            } catch (error) {
+                console.error(`Error en búsqueda ${this.type}:`, error);
+                this.displayError();
             }
         }
 
-        // Inicializar cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar búsqueda del header
-            new BusquedaManager('header');
-            
-            // Inicializar búsqueda del hero
-            new BusquedaManager('hero');
-            
-            // Inicializar búsqueda móvil si existe
-            const mobileSearchInput = document.getElementById('mobileSearchInput');
-            if (mobileSearchInput) {
-                mobileSearchInput.addEventListener('input', (e) => {
-                    const query = e.target.value.trim();
-                    if (query.length >= 2) {
-                        window.location.href = `productos.html?busqueda=${encodeURIComponent(query)}`;
+        performFinalSearch() {
+            const query = this.searchInput.value.trim();
+            if (query.length >= 2) {
+                window.location.href = `productos.html?busqueda=${encodeURIComponent(query)}`;
+            }
+        }
+
+        displayResults(productos, query) {
+            if (!this.resultsList) return;
+
+            if (productos.length === 0) {
+                this.resultsList.innerHTML = `
+                    <div class="sin-resultados">
+                        <i class="fa-solid fa-search" style="font-size: 24px; margin-bottom: 10px; opacity: 0.5;"></i>
+                        <p>No se encontraron productos para "${query}"</p>
+                        <small>Intenta con otros términos de búsqueda</small>
+                    </div>
+                `;
+                return;
+            }
+
+            this.resultsList.innerHTML = productos.slice(0, 6).map(producto => {
+                const imagenUrl = producto.imagenes?.[0]?.url || 
+                                 'https://via.placeholder.com/50?text=Sin+Imagen';
+                
+                // 🔄 CAMBIO SOLO ACÁ: íconos de stock y botón
+                const stockTexto = producto.stock > 0 ? '✓ En stock' : '✗ Sin stock';
+                const stockClase = producto.stock > 0 ? 'en-stock' : 'sin-stock';
+                
+                return `
+                    <div class="resultado-item" data-product-id="${producto.id}">
+                        <img src="${imagenUrl}" 
+                             alt="${producto.nombre}" 
+                             onerror="this.src='https://via.placeholder.com/50?text=Error'">
+                        <div class="resultado-info">
+                            <div class="resultado-nombre">${producto.nombre}</div>
+                            <div class="resultado-precio">$${producto.precio.toLocaleString('es-AR')}</div>
+                            <div class="resultado-stock ${stockClase}">
+                                ${stockTexto}
+                            </div>
+                        </div>
+                        <button class="resultado-ver-detalles" data-product-id="${producto.id}">
+                            <i class="fa-solid fa-arrow-right"></i> <!-- ← reemplazado el ojo por flecha -->
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            // Event listeners para resultados
+            this.resultsList.querySelectorAll('.resultado-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (!e.target.closest('.resultado-ver-detalles')) {
+                        const productId = item.dataset.productId;
+                        this.mostrarDetalles(productId);
                     }
                 });
+            });
+
+            this.resultsList.querySelectorAll('.resultado-ver-detalles').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const productId = button.dataset.productId;
+                    this.mostrarDetalles(productId);
+                });
+            });
+        }
+
+        mostrarDetalles(productId) {
+            const producto = this.productosEncontrados.find(p => String(p.id) === String(productId));
+            
+            if (producto) {
+                this.hideResults();
+                this.searchInput.value = '';
+                mostrarDetallesProducto(productId);
             }
-        });
-    </script>
+        }
+
+        showLoading() {
+            if (!this.resultsList) return;
+            
+            this.resultsList.innerHTML = `
+                <div class="buscando">
+                    <div class="loading-spinner">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                    </div>
+                    <div>Buscando productos...</div>
+                </div>
+            `;
+            this.showResults();
+        }
+
+        displayError() {
+            if (!this.resultsList) return;
+            
+            this.resultsList.innerHTML = `
+                <div class="sin-resultados">
+                    <i class="fa-solid fa-exclamation-triangle" style="font-size: 24px; margin-bottom: 10px; color: #ff6b6b;"></i>
+                    <p>Error al buscar productos</p>
+                    <small>Intenta nuevamente en unos momentos</small>
+                </div>
+            `;
+        }
+
+        showResults() {
+            this.resultsContainer.style.display = 'block';
+        }
+
+        hideResults() {
+            this.resultsContainer.style.display = 'none';
+        }
+
+        handleClickOutside(e) {
+            if (!this.resultsContainer.contains(e.target) && 
+                e.target !== this.searchInput && 
+                e.target !== this.searchBtn) {
+                this.hideResults();
+            }
+        }
+    }
+
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+        // Inicializar búsqueda del header
+        new BusquedaManager('header');
+        
+        // Inicializar búsqueda del hero
+        new BusquedaManager('hero');
+        
+        // Inicializar búsqueda móvil si existe
+        const mobileSearchInput = document.getElementById('mobileSearchInput');
+        if (mobileSearchInput) {
+            mobileSearchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                if (query.length >= 2) {
+                    window.location.href = `productos.html?busqueda=${encodeURIComponent(query)}`;
+                }
+            });
+        }
+    });
+</script>
 
     <!-- Scripts existentes -->
     <script type="module">

@@ -330,7 +330,7 @@
 
     // 🔥 CARGAR PRODUCTOS CON IMÁGENES
     for (const p of productos) {
-      const promedio = await obtenerPromedioEstrellas(p.id);
+      
 
       // 🔥 DEBUG: Ver si el producto tiene imágenes
       console.log(`Producto ${p.id} - ${p.nombre}:`, {
@@ -366,9 +366,7 @@
         <div class="content">
           <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
           <h3 class="Titulo">${p.nombre}</h3>
-          <div class="rating">
-              ${renderizarEstrellas(promedio)}
-          </div>
+          
           <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
 
           <ul class="Especificaciones"></ul>

@@ -35,6 +35,8 @@ header {
     text-decoration: none;
 }
 
+.header-logo-title h1 { white-space: nowrap; }
+
 .header-logo-title .logo {
     display: flex;
     align-items: center;

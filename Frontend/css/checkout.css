@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
 :root{
   --bg:#f5f7fb;
@@ -58,6 +58,19 @@ body{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+/* Hacer que el enlace del logo se vea igual que el <strong> */
+.header__logo a {
+    margin: 0;
+    font-size: 30px;
+    font-family: "AndroidAssassin", "Roboto Mono", monospace;
+    font-weight: 700;
+    background: linear-gradient(90deg, #00c6ff, #ad00ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    color: inherit;
+}
 .header__right{
   margin-left:auto;
   display:flex;
@@ -70,7 +83,7 @@ body{
   padding:8px 14px;                  /* + padding */
   border-radius:12px;
   font-weight:600;
-  font-size:14px;                    /* + tamaño */
+  font-size:14px;                    /* + tamaÃ±o */
 }
 
 /* ============ LAYOUT ============ */
@@ -79,7 +92,7 @@ body{
   margin:34px auto;                  /* + margen */
   padding:0 24px;                    /* + padding lateral */
   display:grid;
-  grid-template-columns:1.4fr .9fr;  /* + proporción */
+  grid-template-columns:1.4fr .9fr;  /* + proporciÃ³n */
   gap:28px;                          /* + gap */
 }
 @media(max-width:1180px){
@@ -354,7 +367,7 @@ body{
 /* ============ STEPPER ============ */
 .stepper{
   display:flex;
-  gap:28px;                          /* + separación */
+  gap:28px;                          /* + separaciÃ³n */
   align-items:center;
   padding-bottom:20px;
   border-bottom:1px dashed var(--line);
@@ -367,10 +380,10 @@ body{
   gap:12px;
   color:var(--muted);
   font-weight:600;
-  font-size:16px;                    /* + tamaño */
+  font-size:16px;                    /* + tamaÃ±o */
 }
 .step__dot{
-  width:36px;                        /* + tamaño */
+  width:36px;                        /* + tamaÃ±o */
   height:36px;
   border-radius:50%;
   display:grid;
@@ -402,7 +415,7 @@ body{
   border-radius:16px;                /* + radio */
   padding:22px;                      /* + padding */
   display:flex;
-  gap:16px;                          /* + separación */
+  gap:16px;                          /* + separaciÃ³n */
   align-items:flex-start;
   transition:.25s ease;
   cursor:pointer;
@@ -422,14 +435,14 @@ body{
   box-shadow:0 0 0 4px rgba(27,194,255,.12);
   background:#f2f7ff;
 }
-/* fallback por si :has no está soportado */
+/* fallback por si :has no estÃ¡ soportado */
 .addr:focus-within,.payopt:focus-within{
   border-color:var(--brand2);
   box-shadow:0 0 0 4px rgba(27,194,255,.12);
 }
 
 .addr input,.payopt input{
-  width:20px;                        /* + tamaño */
+  width:20px;                        /* + tamaÃ±o */
   height:20px;
   accent-color:#6b74ff;
   margin-top:2px;
@@ -438,11 +451,11 @@ body{
 .addr__main,.payopt__main{flex:1;display:grid;gap:6px;}
 .addr__name,.payopt__title{
   font-weight:800;
-  font-size:16px;                    /* + tamaño */
+  font-size:16px;                    /* + tamaÃ±o */
 }
 .addr__meta,.payopt__meta{
   color:var(--muted);
-  font-size:14px;                    /* + tamaño */
+  font-size:14px;                    /* + tamaÃ±o */
 }
 
 /* sello */
@@ -459,7 +472,7 @@ body{
 
 /* ============ LOGO/ICONO PAGO ============ */
 .payopt__logo{
-  width:64px;                        /* + tamaño */
+  width:64px;                        /* + tamaÃ±o */
   height:64px;
   border-radius:12px;
   display:grid;place-items:center;
@@ -532,7 +545,7 @@ body{
 /* ============ ITEMS ============ */
 .item{
   display:grid;
-  grid-template-columns:84px 1fr auto; /* + tamaño columna imagen */
+  grid-template-columns:84px 1fr auto; /* + tamaÃ±o columna imagen */
   gap:18px;                           /* + espacio */
   align-items:center;
 }
@@ -543,11 +556,11 @@ body{
   background:#f8fafc;
   object-fit:cover;
 }
-.item__title{font-weight:700;font-size:15px;}  /* + tamaño texto */
-.item__qty{color:var(--muted);font-size:14px;} /* + tamaño texto */
+.item__title{font-weight:700;font-size:15px;}  /* + tamaÃ±o texto */
+.item__qty{color:var(--muted);font-size:14px;} /* + tamaÃ±o texto */
 
 
-/* === Extensiones Confirmación === */
+/* === Extensiones ConfirmaciÃ³n === */
 .success{
   display:flex; align-items:center; gap:14px;
   padding:16px; border:1px solid rgba(22,163,74,.25);
@@ -585,3 +598,5 @@ body{
 }
 .actions{ display:flex; gap:10px; justify-content:flex-end; }
 .btn--ghost{ background:#fff; }
+
+

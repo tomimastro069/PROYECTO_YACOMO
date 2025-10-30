@@ -234,18 +234,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 if (id) {
-                    // Si hay un ID, actualizamos el producto existente
                     await updateProduct(id, productData);
                     showAlert({ title: 'Éxito', message: 'Producto actualizado con éxito.', type: 'success' });
+                    // dejar en la pestaña de modificar para subir imágenes
                 } else {
-                    // Si no hay ID, creamos un nuevo producto
-                    await createProduct(productData);
+                    const nuevoProducto = await createProduct(productData);
                     showAlert({ title: 'Éxito', message: 'Producto creado con éxito.', type: 'success' });
+
+                    // limpiar el formulario excepto el nombre (así podés subir imágenes)
+                    productIdInput.value = nuevoProducto.id; // asigna el ID generado
+                    // opcional: no cambiar de pestaña
                 }
-                productForm.reset();
-                productIdInput.value = ''; // Limpiar el campo ID
-                loadProducts(); // Recargar la lista
-                document.querySelector('a[href="#producto-list"]').click(); // Volver a la pestaña de listado
+
+                    // recargar tabla de productos de todas formas
+                    loadProducts();
+               
             } catch (error) {
                 showAlert({ title: 'Error', message: `Error al guardar el producto: ${error.message}`, type: 'error' });
             }
@@ -527,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusDiv.textContent = "Procesando...";
             statusDiv.style.color = '#ffaa00'; // Color amarillo para "procesando"
 
-            const nombre = document.getElementById('upload_producto_nombre').value.trim();
+            const nombre = document.getElementById('producto_nombre').value.trim();
             const files = document.getElementById('imagenes').files;
 
             console.log("📝 Nombre ingresado:", nombre);
@@ -610,6 +613,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         message: `Imágenes subidas correctamente al producto "${nombre}"`,
                         type: 'success'
                     });
+                    document.querySelector('a[href="#producto-list"]').click();
                 } else {
                     const errText = await uploadResponse.text();
                     console.error("❌ Error en respuesta:", errText);
@@ -631,4 +635,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error("❌ No se encontró el formulario o el div de status");
     }
+
+    
 });

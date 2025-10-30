@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto</title>
+    <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/productosStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .product-detail {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .product-images {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        
+        .thumbnail:hover {
+            transform: scale(1.05);
+            border-color: #4a90e2;
+        }
+        
+        .product-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .product-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        
+        .product-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .product-promotion {
+            display: inline-block;
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .product-description {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .product-stock {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .in-stock {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .low-stock {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .out-of-stock {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-cart {
+            background-color: #4a90e2;
+            color: white;
+            flex: 2;
+        }
+        
+        .btn-cart:hover {
+            background-color: #3a7bc8;
+        }
+        
+        .btn-favorite {
+            background-color: #f5f5f5;
+            color: #333;
+            flex: 1;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-favorite:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .btn-favorite.active {
+            background-color: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            margin: 0 5px;
+        }
+        
+        .related-products {
+            margin-top: 40px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4a90e2;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-card-info {
+            padding: 15px;
+        }
+        
+        .product-card-title {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .product-card-price {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .product-card-btn {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .product-detail {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" class="header-logo-title">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
+                </svg>
+            </div>
+            <h1>Script-G</h1>
+        </a>
+
+        <!-- Botón hamburguesa (visible en mobile) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+            </svg>
+        </button>
+
+        <div class="busqueda" id="searchToggle">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Buscar componentes...">
+        </div>
+
+        <div class="menu" id="mobileMenu">
+            <nav>
+                <ul class="main-nav-list">
+                    <li><a href="../html/index.html" class="menu-btn"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                    <li><a href="../html/productos.html" class="menu-btn"><i class="fa-solid fa-box"></i> Productos</a></li>
+                    <li>
+                        <button class="menu-btn" id="btn-login" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" fill="currentColor"
+                                class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            </svg>Log in
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#cart" class="menu-btn" id="header-cart-button">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Carrito
+                            <span id="cart-count" class="cart-notification"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Overlay para cerrar tocando fuera del menú -->
+        <div class="nav-overlay" id="navOverlay"></div>
+    </header>
+    <!-- Panel de búsqueda (mobile) -->
+    <div id="mobileSearchPanel" class="mobile-search-panel" role="search" aria-hidden="true">
+        <div class="mobile-search-inner">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Buscar componentes..." aria-label="Buscar" id="mobileSearchInput" />
+        </div>
+    </div>
+    <div class="fix"></div>
+    <div class="container">
+        <div class="product-detail">
+            <div class="product-images">
+                <img id="mainImage" src="https://via.placeholder.com/600x400" alt="Producto" class="main-image">
+                <div class="thumbnail-container">
+                    <img src="https://via.placeholder.com/150x100" alt="Miniatura 1" class="thumbnail" onclick="changeImage(this.src)">
+                    <img src="https://via.placeholder.com/150x100/4a90e2/ffffff" alt="Miniatura 2" class="thumbnail" onclick="changeImage(this.src)">
+                    <img src="https://via.placeholder.com/150x100/e74c3c/ffffff" alt="Miniatura 3" class="thumbnail" onclick="changeImage(this.src)">
+                    <img src="https://via.placeholder.com/150x100/27ae60/ffffff" alt="Miniatura 4" class="thumbnail" onclick="changeImage(this.src)">
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <div>
+                    <h1 class="product-title" id="productName">Nombre del Producto</h1>
+                    <div class="product-price" id="productPrice">$99.99</div>
+                    <span class="product-promotion" id="productPromotion">20% OFF</span>
+                    <p class="product-description" id="productDescription">
+                        Descripción detallada del producto. Incluye todas las características, especificaciones y beneficios. 
+                        Este es un producto de alta calidad que satisface todas las necesidades del cliente.
+                    </p>
+                    
+                    <div class="product-stock">
+                        Disponibilidad: <span id="stockStatus" class="in-stock">En stock</span>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                        <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-cart" onclick="addToCart()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                        Agregar al Carrito
+                    </button>
+                    <button class="btn btn-favorite" id="favoriteBtn" onclick="toggleFavorite()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>
+                        Favoritos
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="related-products">
+            <h2 class="section-title">Productos Relacionados</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300x200" alt="Producto relacionado 1">
+                    <div class="product-card-info">
+                        <h3 class="product-card-title">Producto Relacionado 1</h3>
+                        <div class="product-card-price">$79.99</div>
+                        <a href="#" class="product-card-btn">Ver Detalles</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300x200/4a90e2/ffffff" alt="Producto relacionado 2">
+                    <div class="product-card-info">
+                        <h3 class="product-card-title">Producto Relacionado 2</h3>
+                        <div class="product-card-price">$89.99</div>
+                        <a href="#" class="product-card-btn">Ver Detalles</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300x200/e74c3c/ffffff" alt="Producto relacionado 3">
+                    <div class="product-card-info">
+                        <h3 class="product-card-title">Producto Relacionado 3</h3>
+                        <div class="product-card-price">$69.99</div>
+                        <a href="#" class="product-card-btn">Ver Detalles</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/300x200/27ae60/ffffff" alt="Producto relacionado 4">
+                    <div class="product-card-info">
+                        <h3 class="product-card-title">Producto Relacionado 4</h3>
+                        <div class="product-card-price">$99.99</div>
+                        <a href="#" class="product-card-btn">Ver Detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar la imagen principal al hacer clic en una miniatura
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+        
+        // Función para aumentar la cantidad
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue < 10) {
+                quantityInput.value = currentValue + 1;
+            }
+        }
+        
+        // Función para disminuir la cantidad
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        }
+        
+        // Función para alternar el estado de favoritos
+        function toggleFavorite() {
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            favoriteBtn.classList.toggle('active');
+            
+            if (favoriteBtn.classList.contains('active')) {
+                // Aquí iría la lógica para agregar a favoritos en la base de datos
+                console.log('Producto agregado a favoritos');
+            } else {
+                // Aquí iría la lógica para quitar de favoritos en la base de datos
+                console.log('Producto eliminado de favoritos');
+            }
+        }
+        
+        // Función para agregar al carrito
+        function addToCart() {
+            const productName = document.getElementById('productName').textContent;
+            const quantity = document.getElementById('quantity').value;
+            
+            // Aquí iría la lógica para agregar al carrito en la base de datos
+            console.log(`Agregado al carrito: ${quantity} x ${productName}`);
+            
+            // Mostrar mensaje de confirmación
+            alert(`¡${quantity} ${productName} agregado(s) al carrito!`);
+        }
+        
+        // Simulación de carga de datos del producto desde la base de datos
+        // En una implementación real, estos datos vendrían de tu base de datos
+        window.onload = function() {
+            // Simulamos la obtención de datos del producto
+            const productData = {
+                id: 1,
+                name: "Smartphone XYZ Pro",
+                price: 599.99,
+                promotion: "15% OFF",
+                description: "El último smartphone con características avanzadas. Incluye cámara de 108MP, pantalla AMOLED de 6.7 pulgadas, 256GB de almacenamiento y 8GB de RAM. Batería de 5000mAh con carga rápida de 65W.",
+                stock: 15,
+                images: [
+                    "https://via.placeholder.com/600x400",
+                    "https://via.placeholder.com/600x400/4a90e2/ffffff",
+                    "https://via.placeholder.com/600x400/e74c3c/ffffff",
+                    "https://via.placeholder.com/600x400/27ae60/ffffff"
+                ]
+            };
+            
+            // Actualizamos la interfaz con los datos del producto
+            document.getElementById('productName').textContent = productData.name;
+            document.getElementById('productPrice').textContent = `$${productData.price}`;
+            document.getElementById('productPromotion').textContent = productData.promotion;
+            document.getElementById('productDescription').textContent = productData.description;
+            
+            // Actualizamos el estado de stock
+            const stockStatus = document.getElementById('stockStatus');
+            if (productData.stock > 10) {
+                stockStatus.textContent = "En stock";
+                stockStatus.className = "in-stock";
+            } else if (productData.stock > 0) {
+                stockStatus.textContent = "Stock bajo";
+                stockStatus.className = "low-stock";
+            } else {
+                stockStatus.textContent = "Agotado";
+                stockStatus.className = "out-of-stock";
+                document.querySelector('.btn-cart').disabled = true;
+                document.querySelector('.btn-cart').style.backgroundColor = "#ccc";
+            }
+            
+            // Actualizamos las imágenes (en una implementación real, esto vendría de la tabla imagenes)
+            const mainImage = document.getElementById('mainImage');
+            const thumbnailContainer = document.querySelector('.thumbnail-container');
+            
+            mainImage.src = productData.images[0];
+            thumbnailContainer.innerHTML = '';
+            
+            productData.images.forEach((image, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = image;
+                thumbnail.alt = `Miniatura ${index + 1}`;
+                thumbnail.className = 'thumbnail';
+                thumbnail.onclick = function() {
+                    changeImage(this.src);
+                };
+                thumbnailContainer.appendChild(thumbnail);
+            });
+        };
+    </script>
+
+    <footer>
+        <div class="Footer_Container">
+            <a href="index.html" class="Logo_Pagina">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H8v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm1 2v9h16V6H4Z" />
+                </svg>
+                <h1>Script-G</h1>
+            </a>
+            <div class="Redes_Sociales">
+                <h2>Redes Sociales</h2>
+                <div class="listas-redes">
+                    <ul>
+                        <li><a href="#instagram"><i class="fa-brands fa-instagram"></i>Instagram</a></li>
+                        <li><a href="#facebook"><i class="fa-brands fa-facebook"></i>Facebook</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#youtube"><i class="fa-brands fa-facebook"></i>YouTube</a></li>
+                        <li><a href="#tiktok"><i class="fa-brands fa-tiktok"></i>TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+            <h2><a href="Terminos_condiciones">Terminos y Condiciones</a></h2>
+        </div>
+    </footer>
+
+    <!-- Toggle responsive header -->
+    <script>
+        (function(){
+            const btn = document.getElementById('hamburgerBtn');
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('navOverlay');
+            const searchToggle = document.getElementById('searchToggle');
+            const searchPanel  = document.getElementById('mobileSearchPanel');
+            if(!btn || !menu || !overlay) return;
+            const closeMenu = ()=>{
+                menu.classList.remove('active');
+                btn.setAttribute('aria-expanded','false');
+                overlay.classList.remove('active');
+            };
+            const openMenu = ()=>{
+                menu.classList.add('active');
+                btn.setAttribute('aria-expanded','true');
+                overlay.classList.add('active');
+            };
+            btn.addEventListener('click', (e)=>{
+                e.stopPropagation();
+                menu.classList.contains('active') ? closeMenu() : openMenu();
+            });
+
+            const closeSearch = ()=>{ searchPanel?.classList.remove('open'); overlay.classList.remove('active'); };
+            const openSearch = ()=>{ searchPanel?.classList.add('open'); overlay.classList.add('active'); };
+
+            searchToggle?.addEventListener('click', (e)=>{
+                if (window.matchMedia('(max-width: 992px)').matches) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeMenu();
+                    if (searchPanel?.classList.contains('open')) { closeSearch(); }
+                    else { openSearch(); }
+                }
+            });
+
+            overlay.addEventListener('click', ()=>{ closeMenu(); closeSearch(); });
+            document.addEventListener('click', (e)=>{
+                if(!menu.contains(e.target) && e.target !== btn) closeMenu();
+                if(!searchPanel?.contains(e.target) && e.target !== searchToggle) closeSearch();
+            });
+            document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { closeMenu(); closeSearch(); } });
+        })();
+    </script>
+</body>
+</html>

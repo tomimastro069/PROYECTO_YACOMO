@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const messages = document.getElementById("chatbot-messages");
   const sidebar = document.getElementById("chat-sidebar");
   const newChatBtn = document.getElementById("new-chat-btn");
+  const closeBtn = document.getElementById("close-chat-btn");
 
   // Cargar chats o crear uno inicial
   let chats = JSON.parse(localStorage.getItem("chatHistories") || "{}");
@@ -31,6 +32,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Cerrar desde el botón de la cabecera (útil en móvil)
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      if (windowChat.classList.contains("show")) {
+        windowChat.classList.remove("show");
+        setTimeout(() => (windowChat.style.display = "none"), 300);
+      }
+    });
+  }
+
   // Crear nuevo chat con mensaje inicial
   newChatBtn.addEventListener("click", () => {
     let i = 1;
@@ -43,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     saveChats();
     updateSidebar();
     renderMessages();
-    showToast(`💬 Nuevo chat "${newName}" creado.`, "success");
+    showToast(`Nuevo chat "${newName}" creado.`, "success");
   });
 
   // Enviar mensaje
@@ -126,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
       delBtn.addEventListener("click", e => {
         e.stopPropagation();
         if (Object.keys(chats).length === 1) {
-          showToast("⚠️ No se puede eliminar el único chat.", "error");
+          showToast("No se puede eliminar el único chat.", "error");
           return;
         }
         delete chats[chatName];
@@ -134,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateSidebar();
         renderMessages();
         saveChats();
-        showToast(`🗑️ Chat "${chatName}" eliminado.`, "success");
+        showToast(`Chat "${chatName}" eliminado.`, "success");
       });
 
       container.addEventListener("click", () => {

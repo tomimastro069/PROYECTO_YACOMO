@@ -10,14 +10,10 @@ import org.springej.backende_commerce.exception.ResourceNotFoundException;
 import org.springej.backende_commerce.exception.AlreadyExistsException;
 import org.springej.backende_commerce.service.AuthService;
 import org.springej.backende_commerce.service.FavoritoService;
-import org.springej.backende_commerce.repository.UsuarioRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/favoritos")
@@ -25,7 +21,6 @@ import java.util.stream.Collectors;
 public class FavoritoController {
 
     private final FavoritoService favoritoService;
-    private final UsuarioRepository usuarioRepository;
     private final AuthService authService;
 
     /**

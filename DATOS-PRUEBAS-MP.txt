@@ -4,7 +4,7 @@ CUENTAS DE PRUEBA
 
 Comprador
 User ID: 2667144193
-Usuario: TESTUSER2269543688887660140@testuser.com
+email: TESTUSER2269543688887660140@testuser.com
 Contraseña: NkP07CHtmr
 
 Vendedor

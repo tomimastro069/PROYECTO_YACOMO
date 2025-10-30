@@ -1,8 +1,11 @@
 package org.springej.backende_commerce.repository;
 
 import org.springej.backende_commerce.entity.Producto;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.history.RevisionRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +15,23 @@ import java.util.Optional;
 public interface ProductoRepository extends JpaRepository<Producto, Long>,
         RevisionRepository<Producto, Long, Integer> {
     List<Producto> findByNombreContainingIgnoreCase(String nombre);
+// Agregar en la interfaz ProductoRepository
+Optional<Producto> findByNombreIgnoreCase(String nombre);
+    /**
+     * ✅ Usa @EntityGraph en vez de FETCH JOIN
+     * Evita duplicados y problemas con DISTINCT
+     */
+    @EntityGraph(attributePaths = {"productoImagenes", "productoImagenes.imagen"})
+    @Query("SELECT p FROM Producto p ORDER BY p.id")
+    List<Producto> findAllWithImages();
 
+    /**
+     * ✅ Para obtener un producto específico con imágenes
+     */
+    @EntityGraph(attributePaths = {"productoImagenes", "productoImagenes.imagen"})
+    @Query("SELECT p FROM Producto p WHERE p.id = :id")
+    Optional<Producto> findByIdWithImages(@Param("id") Long id);
+}
 
 //    // Buscar por nombre parcial (ignorando mayúsculas/minúsculas)
 //    List<Producto> findByNombreContainingIgnoreCase(String nombre);
@@ -74,4 +93,3 @@ public interface ProductoRepository extends JpaRepository<Producto, Long>,
 //    // Top 5 productos más baratos
 //    @Query("SELECT p FROM Producto p ORDER BY p.precio ASC LIMIT 5")
 //    List<Producto> findTop5MasBaratos();
-}

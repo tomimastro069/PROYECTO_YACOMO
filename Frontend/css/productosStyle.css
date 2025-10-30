@@ -224,6 +224,44 @@ body {
     box-shadow: 0 6px 20px rgba(20, 18, 50, .06);
 }
 
+.Categorias-Lista form {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 10px 0 0;
+    border-top: 1px solid #eef0f4; /* línea superior suave, como antes */
+}
+
+.Categorias-Lista label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* texto a la izq, checkbox a la der */
+    gap: 8px;
+    text-decoration: none;
+    color: #1f2533;
+    font-size: 13.8px;
+    font-weight: 600;
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(0,0,0,.06); /* separadores entre filas */
+}
+
+.Categorias-Lista label:last-child {
+    border-bottom: none;
+}
+
+.Categorias-Lista input[type='checkbox'] {
+    margin-left: 12px;
+    inline-size: 16px;
+    block-size: 16px;
+    accent-color: #5b4dff; /* color acorde al tema */
+    cursor: pointer;
+}
+
+.Categorias-Lista label:hover {
+    background: #f2f3fb;
+    color: #5b4dff;
+}
+
 .Categorias-Lista ul {
     list-style: none;
     margin: 0;
@@ -462,6 +500,103 @@ footer {
     background: linear-gradient(90deg, #0d0c1d, #4b0082, #2e006c);
     color: #fff;
     padding: 30px 20px;
+}
+
+/* ================================================================
+   = Detalle embebido (productos.html)
+   ================================================================ */
+.Detalle-Container { display: none; }
+
+.detalle-embed {
+    background: #fff;
+    border: 1px solid #eef0f4;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(20, 18, 50, .06);
+    padding: 16px;
+}
+
+.detalle-embed .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: #111827;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+
+.detalle-embed .btn-back:hover {
+    background: #f3f4f6;
+}
+
+.detalle-body {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) 1fr;
+    gap: 18px;
+    align-items: start;
+}
+
+@media (max-width: 920px) {
+    .detalle-body { grid-template-columns: 1fr; }
+}
+
+.detalle-media .detalle-image {
+    width: 100%;
+    height: clamp(220px, 40vw, 420px);
+    object-fit: contain;
+    background: #f7f8fc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.detalle-info .detalle-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 2px 0 10px;
+    color: #1f2533;
+}
+
+.detalle-info .detalle-price {
+    font-size: 26px;
+    font-weight: 900;
+    color: #16a34a;
+    margin: 8px 0;
+}
+
+.detalle-info .detalle-promo {
+    display: inline-block;
+    background: #fffbcc;
+    color: #6b5e00;
+    border: 1px solid #f5e58a;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.detalle-info .detalle-description {
+    color: #475569;
+    line-height: 1.6;
+    margin: 10px 0 16px;
+}
+
+.detalle-info .detalle-stock {
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.detalle-info .detalle-stock.in-stock { color: #16a34a; }
+.detalle-info .detalle-stock.low-stock { color: #f59e0b; }
+.detalle-info .detalle-stock.out-of-stock { color: #e11d48; }
+
+.detalle-embed .action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .Footer_Container {
@@ -871,6 +1006,12 @@ footer {
 .x-dialog::-webkit-scrollbar-thumb:hover {
     background: #8c8c8c;
 }
+
+/* Ocultar cualquier remanente de estructuras de modales (x-*) fuera del detalle */
+body .x-tabs,
+body .x-panel,
+body .x-box,
+body .x-cols { display: none !important; }
 /*==============================================================================
 ----POP-UP/MODAL/INICIAR-SESION Y REGISTRO----
 ================================================================================*/
@@ -1329,7 +1470,7 @@ footer {
     color: #111827;
     font-weight: 800;
     cursor: pointer;
-    transition: background .2s;
+
 }
 
 .ts-qty__btn:hover {
@@ -1490,4 +1631,68 @@ footer {
     0% { transform: scale(1); }
     40% { transform: scale(1.28); }
     100% { transform: scale(1); }
+}
+
+/* === Responsive ajustes móviles para listado de productos === */
+@media (max-width:768px) {
+    /* Layout principal: apilar filtros y catálogo */
+    .contenedor {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        max-width: 100%;
+        padding: 0 12px;
+    }
+
+    /* Filtros arriba, ancho completo, sin sticky */
+    .Categorias-container {
+        order: 1;
+        position: static;
+        top: auto;
+        align-self: stretch;
+        flex: 1 1 auto;
+    }
+    .Categorias,
+    .Categorias-Lista {
+        width: 100%;
+    }
+
+    /* Catálogo debajo de filtros */
+    .Catalogo-Container { order: 2; padding: 16px; }
+
+    /* Header del catálogo en columna y con select a ancho completo */
+    .Catalogo-Header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .Catalogo-Header select {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Grilla de productos adaptada a pantallas chicas */
+    .Catalogo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    /* Tarjetas más compactas en móvil */
+    .card { min-height: 0; }
+    .card .Imagen_Producto { aspect-ratio: 1/1; }
+    
+}
+
+/* Teléfonos pequeños */
+@media (max-width:480px) {
+    .Catalogo {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .Catalogo-Container { padding: 12px; }
+}
+
+.swal-container-top {
+  z-index: 99999 !important; /* aseguramos que quede por encima de todo */
 }

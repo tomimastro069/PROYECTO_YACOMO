@@ -9,6 +9,16 @@ import {
 } from './api/api_productos.js';
 
 import { cerrarSesion } from './api/api_auth.js';
+import { showAlert } from './funciones.js';
+import { renderizarEstrellas, obtenerPromedioEstrellas } from './estrellas.js';
+import { obtenerTodasLasVentas as getAllSales } from './api/api_ventas.js';
+import {
+    listarUsuarios as listUsers,
+    obtenerUsuarioPorId as getUserById,
+    crearUsuario as createUser,
+    actualizarUsuario as updateUser,
+    eliminarUsuario as deleteUser
+} from './api/api_usuarios.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica de verificación de rol de administrador ---
@@ -28,7 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // La verificación de JWT y rol se hace aquí. Si no se cumple, se detiene todo.
     if (!jwtToken || !userRoles.includes('ROLE_ADMIN')) {
         // 1. Muestra un mensaje claro al usuario.
-        alert('Acceso denegado. No tienes los permisos necesarios para ver esta página.');
+        showAlert({
+            title: 'Acceso Denegado',
+            message: 'No tienes los permisos necesarios para ver esta página.',
+            type: 'error'
+        });
         // 2. Redirige al usuario a la página principal.
         window.location.href = 'index.html';
         // 3. Detenemos la ejecución del script para que no intente hacer nada más.
@@ -122,7 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const products = await getProducts();
             renderProductsTable(products);
         } catch (error) {
-            alert('Error al cargar productos: ' + error.message);
+            showAlert({
+                title: 'Error',
+                message: `Error al cargar productos: ${error.message}`,
+                type: 'error'
+            });
         }
     }
 
@@ -165,7 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Cambiar a la pestaña de "Añadir / Modificar"
                     document.querySelector('a[href="#producto-add-mod"]').click();
                 } catch (error) {
-                    alert('Error al cargar el producto para modificar: ' + error.message);
+                    showAlert({
+                        title: 'Error',
+                        message: `Error al cargar el producto para modificar: ${error.message}`,
+                        type: 'error'
+                    });
                 }
             });
         });
@@ -173,14 +195,25 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.btn-delete-product').forEach(button => {
             button.addEventListener('click', async (event) => {
                 const productId = event.target.dataset.id;
-                if (confirm(`¿Estás seguro de que quieres eliminar el producto con ID ${productId}?`)) {
-                    try {
-                        await eliminarProducto(productId);
-                        alert('Producto eliminado con éxito.');
-                        loadProducts(); // Recargar la lista de productos
-                    } catch (error) {
-                        alert('Error al eliminar el producto: ' + error.message);
-                    }
+                const result = await Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: `Quieres eliminar el producto con ID ${productId}?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    background: '#202020',
+                    color: '#fff'
+                });
+
+                if (!result.isConfirmed) return;
+
+                try {
+                    await eliminarProducto(productId);
+                    showAlert({ title: 'Éxito', message: 'Producto eliminado con éxito.', type: 'success' });
+                    loadProducts(); // Recargar la lista de productos
+                } catch (error) {
+                    showAlert({ title: 'Error', message: `Error al eliminar el producto: ${error.message}`, type: 'error' });
                 }
             });
         });
@@ -201,20 +234,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 if (id) {
-                    // Si hay un ID, actualizamos el producto existente
                     await updateProduct(id, productData);
-                    alert('Producto actualizado con éxito.');
+                    showAlert({ title: 'Éxito', message: 'Producto actualizado con éxito.', type: 'success' });
+                    // dejar en la pestaña de modificar para subir imágenes
                 } else {
-                    // Si no hay ID, creamos un nuevo producto
-                    await createProduct(productData);
-                    alert('Producto creado con éxito.');
+                    const nuevoProducto = await createProduct(productData);
+                    showAlert({ title: 'Éxito', message: 'Producto creado con éxito.', type: 'success' });
+
+                    // limpiar el formulario excepto el nombre (así podés subir imágenes)
+                    productIdInput.value = nuevoProducto.id; // asigna el ID generado
+                    // opcional: no cambiar de pestaña
                 }
-                productForm.reset();
-                productIdInput.value = ''; // Limpiar el campo ID
-                loadProducts(); // Recargar la lista
-                document.querySelector('a[href="#producto-list"]').click(); // Volver a la pestaña de listado
+
+                    // recargar tabla de productos de todas formas
+                    loadProducts();
+               
             } catch (error) {
-                alert('Error al guardar el producto: ' + error.message);
+                showAlert({ title: 'Error', message: `Error al guardar el producto: ${error.message}`, type: 'error' });
             }
         });
     }
@@ -225,23 +261,380 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const idToDelete = document.getElementById('producto_id_eliminar').value;
             if (!idToDelete) {
-                alert('Por favor, introduce un ID de producto para eliminar.');
+                showAlert({ title: 'Atención', message: 'Por favor, introduce un ID de producto para eliminar.', type: 'warning' });
                 return;
             }
-            if (confirm(`¿Estás seguro de que quieres eliminar el producto con ID ${idToDelete}?`)) {
-                try {
-                    await eliminarProducto(idToDelete);
-                    alert('Producto eliminado con éxito.');
-                    productDeleteForm.reset();
-                    loadProducts(); // Recargar la lista
-                } catch (error) {
-                    alert('Error al eliminar el producto: ' + error.message);
-                }
+            const result = await Swal.fire({
+                title: '¿Estás seguro?',
+                text: `Quieres eliminar el producto con ID ${idToDelete}?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                background: '#202020',
+                color: '#fff'
+            });
+
+            if (!result.isConfirmed) return;
+
+            try {
+                await eliminarProducto(idToDelete);
+                showAlert({ title: 'Éxito', message: 'Producto eliminado con éxito.', type: 'success' });
+                productDeleteForm.reset();
+                loadProducts(); // Recargar la lista
+            } catch (error) {
+                showAlert({ title: 'Error', message: `Error al eliminar el producto: ${error.message}`, type: 'error' });
             }
         });
     }
 
-    // --- Lógica para Gestión de Usuarios y Ventas (seguiría el mismo patrón) ---
-    function loadUsers() { console.log('Cargando usuarios...'); /* Implementar aquí */ }
-    function loadSales() { console.log('Cargando ventas...'); /* Implementar aquí */ }
+    // --- Gestión de Usuarios ---
+    async function loadUsers() {
+        const tbody = document.getElementById('usuarios-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        try {
+            const usuarios = await listUsers();
+            if (!usuarios || usuarios.length === 0) {
+                const row = tbody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 5;
+                cell.textContent = 'No hay usuarios registrados.';
+                return;
+            }
+            usuarios.forEach(u => {
+                const rol = Array.isArray(u.roles) && u.roles.length ? u.roles[0] : '-';
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${u.id}</td>
+                    <td>${u.nombre} ${u.apellido}</td>
+                    <td>${u.email}</td>
+                    <td>${rol}</td>
+                    <td>
+                        <button class="btn-modify-user" data-id="${u.id}">Modificar</button>
+                        <button class="btn-delete-user" data-id="${u.id}" style="background-color:#dc3545;">Eliminar</button>
+                    </td>
+                `;
+            });
+
+            // Bind actions
+            document.querySelectorAll('.btn-modify-user').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const userId = e.currentTarget.dataset.id;
+                    try {
+                        const user = await getUserById(userId);
+                        document.getElementById('usuario_id').value = user.id;
+                        const nombreEl = document.getElementById('usuario_nombre');
+                        const apellidoEl = document.getElementById('usuario_apellido');
+                        if (nombreEl) nombreEl.value = user.nombre || '';
+                        if (apellidoEl) apellidoEl.value = user.apellido || '';
+                        document.getElementById('usuario_email').value = user.email;
+                        const rolSel = document.getElementById('usuario_rol');
+                        if (rolSel && Array.isArray(user.roles) && user.roles.length) {
+                            rolSel.value = user.roles[0];
+                        }
+                        document.querySelector('a[href="#usuario-add-mod"]').click();
+                    } catch (err) {
+                        showAlert({ title: 'Error', message: `No se pudo cargar el usuario: ${err.message}`, type: 'error' });
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-delete-user').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const userId = e.currentTarget.dataset.id;
+                    const result = await Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: `Eliminar usuario ID ${userId}`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar',
+                        background: '#202020',
+                        color: '#fff'
+                    });
+                    if (!result.isConfirmed) return;
+                    try {
+                        await deleteUser(userId);
+                        showAlert({ title: 'Éxito', message: 'Usuario eliminado.', type: 'success' });
+                        loadUsers();
+                    } catch (err) {
+                        showAlert({ title: 'Error', message: `No se pudo eliminar: ${err.message}`, type: 'error' });
+                    }
+                });
+            });
+        } catch (error) {
+            showAlert({ title: 'Error', message: `Error al cargar usuarios: ${error.message}`, type: 'error' });
+        }
+    }
+
+    // Manejo de formulario add/mod usuario
+    const userForm = document.querySelector('#usuario-add-mod form');
+    if (userForm) {
+        userForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('usuario_id').value.trim();
+            const nombre = document.getElementById('usuario_nombre').value.trim();
+            const apellido = document.getElementById('usuario_apellido').value.trim();
+            const email = document.getElementById('usuario_email').value.trim();
+            const password = document.getElementById('usuario_password').value;
+            const rol = document.getElementById('usuario_rol').value;
+
+            if (!nombre || !apellido) {
+                showAlert({ title: 'Datos incompletos', message: 'Nombre y Apellido son obligatorios.', type: 'warning' });
+                return;
+            }
+
+            const payload = { nombre, apellido, email, rol };
+            if (password && password.trim() !== '') {
+                payload.password = password;
+            }
+
+            try {
+                if (id) {
+                    await updateUser(id, payload);
+                    showAlert({ title: 'Éxito', message: 'Usuario actualizado.', type: 'success' });
+                } else {
+                    if (!payload.password) {
+                        showAlert({ title: 'Atención', message: 'La contraseña es obligatoria al crear.', type: 'warning' });
+                        return;
+                    }
+                    await createUser(payload);
+                    showAlert({ title: 'Éxito', message: 'Usuario creado.', type: 'success' });
+                }
+                userForm.reset();
+                (document.getElementById('usuario_id')||{}).value = '';
+                loadUsers();
+                document.querySelector('a[href="#usuario-list"]').click();
+            } catch (err) {
+                showAlert({ title: 'Error', message: err.message || 'No se pudo guardar el usuario.', type: 'error' });
+            }
+        });
+    }
+
+    // Form eliminar por ID
+    const userDeleteForm = document.querySelector('#usuario-delete form');
+    if (userDeleteForm) {
+        userDeleteForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('usuario_id_eliminar').value.trim();
+            if (!id) {
+                showAlert({ title: 'Atención', message: 'Ingresa un ID válido.', type: 'warning' });
+                return;
+            }
+            const result = await Swal.fire({
+                title: '¿Estás seguro?',
+                text: `Eliminar usuario ID ${id}`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                background: '#202020',
+                color: '#fff'
+            });
+            if (!result.isConfirmed) return;
+            try {
+                await deleteUser(id);
+                showAlert({ title: 'Éxito', message: 'Usuario eliminado.', type: 'success' });
+                userDeleteForm.reset();
+                loadUsers();
+            } catch (err) {
+                showAlert({ title: 'Error', message: `No se pudo eliminar: ${err.message}`, type: 'error' });
+            }
+        });
+    }
+    async function loadSales() {
+        const salesTbody = document.getElementById('ventas-table-body');
+        if (!salesTbody) return;
+        salesTbody.innerHTML = '';
+
+        try {
+            const ventas = await getAllSales();
+            if (!ventas || ventas.length === 0) {
+                const row = salesTbody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 5;
+                cell.textContent = 'No hay ventas registradas.';
+                return;
+            }
+
+            ventas.forEach((venta, idx) => {
+                const total = (venta.productos || []).reduce((sum, p) => {
+                    const precio = Number(p.precioUnitario) || 0;
+                    const cantidad = Number(p.cantidad) || 0;
+                    return sum + precio * cantidad;
+                }, 0);
+
+                const row = salesTbody.insertRow();
+                row.innerHTML = `
+                    <td>${venta.usuario?.id ?? '-'}</td>
+                    <td>${venta.fechaVenta ?? '-'}</td>
+                    <td>${venta.estado ?? '-'}</td>
+                    <td>$${total.toFixed(2)}</td>
+                    <td><button class="btn-ver-detalles" data-idx="${idx}">Ver Detalles</button></td>
+                `;
+            });
+
+            // Adjuntar eventos para ver detalles
+            document.querySelectorAll('.btn-ver-detalles').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = Number(e.currentTarget.dataset.idx);
+                    const venta = ventas[idx];
+                    const productos = venta?.productos || [];
+                    const html = `
+                        <div style="text-align:left">
+                          <p><strong>Usuario:</strong> ${venta?.usuario?.id ?? '-'} (${venta?.usuario?.email ?? ''})</p>
+                          <p><strong>Fecha:</strong> ${venta?.fechaVenta ?? '-'}</p>
+                          <p><strong>Estado:</strong> ${venta?.estado ?? '-'}</p>
+                          <hr>
+                          <table style="width:100%">
+                            <thead>
+                              <tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Subtotal</th></tr>
+                            </thead>
+                            <tbody>
+                              ${productos.map(p => {
+                                  const precio = Number(p.precioUnitario) || 0;
+                                  const cant = Number(p.cantidad) || 0;
+                                  const subt = precio * cant;
+                                  const nombre = p.nombreProducto || `#${p.idProducto}`;
+                                  return `<tr><td>${nombre}</td><td>${cant}</td><td>$${precio.toFixed(2)}</td><td>$${subt.toFixed(2)}</td></tr>`;
+                              }).join('')}
+                            </tbody>
+                          </table>
+                        </div>
+                    `;
+                    if (window.Swal && typeof window.Swal.fire === 'function') {
+                        window.Swal.fire({ title: 'Detalle de Venta', html, width: 700, background: '#202020', color: '#fff' });
+                    } else {
+                        alert('Detalle de venta:\n' + productos.map(p => `${p.nombreProducto || p.idProducto} x${p.cantidad}`).join('\n'));
+                    }
+                });
+            });
+
+        } catch (error) {
+            showAlert({ title: 'Error', message: `Error al cargar ventas: ${error.message}`, type: 'error' });
+        }
+    }
+    // ==================== SUBIDA DE IMÁGENES POR NOMBRE DE PRODUCTO ====================
+    const uploadForm = document.getElementById('form-upload-imagenes');
+    const statusDiv = document.getElementById('upload-status');
+
+    console.log("🔍 Upload form encontrado:", uploadForm);
+    console.log("🔍 Status div encontrado:", statusDiv);
+
+    if (uploadForm && statusDiv) {
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log("📤 Formulario enviado");
+            
+            statusDiv.textContent = "Procesando...";
+            statusDiv.style.color = '#ffaa00'; // Color amarillo para "procesando"
+
+            const nombre = document.getElementById('producto_nombre').value.trim();
+            const files = document.getElementById('imagenes').files;
+
+            console.log("📝 Nombre ingresado:", nombre);
+            console.log("📁 Archivos seleccionados:", files.length);
+            console.log("📁 Archivos:", files);
+
+            if (!nombre || files.length === 0) {
+                statusDiv.style.color = 'red';
+                statusDiv.textContent = 'Debes ingresar un nombre y seleccionar imágenes.';
+                console.error("❌ Validación falló");
+                return;
+            }
+
+            try {
+                // 1. Buscar el ID del producto por nombre
+                statusDiv.textContent = `Buscando producto "${nombre}"...`;
+                console.log("🔍 Buscando producto con nombre:", nombre);
+                
+                const buscarUrl = `http://localhost:8080/api/productos/buscar-id?nombre=${encodeURIComponent(nombre)}`;
+                console.log("🌐 URL de búsqueda:", buscarUrl);
+                
+                const buscarResponse = await fetch(buscarUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${jwtToken}`
+                    }
+                });
+
+                console.log("📥 Respuesta búsqueda - Status:", buscarResponse.status);
+
+                if (!buscarResponse.ok) {
+                    if (buscarResponse.status === 404) {
+                        throw new Error(`Producto "${nombre}" no encontrado`);
+                    }
+                    throw new Error(`Error al buscar producto: ${buscarResponse.status}`);
+                }
+
+                const productoData = await buscarResponse.json();
+                const productoId = productoData.id;
+                
+                console.log("✅ Producto encontrado:", productoData);
+                console.log("🆔 ID del producto:", productoId);
+                statusDiv.textContent = `Producto encontrado (ID: ${productoId}). Subiendo imágenes...`;
+
+                // 2. Subir las imágenes al producto usando su ID
+                const formData = new FormData();
+                for (const file of files) {
+                    formData.append('imagenes', file);
+                    console.log("📎 Agregando archivo:", file.name, "Tamaño:", file.size);
+                }
+
+                console.log("📦 FormData creado, archivos:", formData.getAll('imagenes').length);
+                
+                const uploadUrl = `http://localhost:8080/api/producto-imagenes/producto/${productoId}`;
+                console.log("🌐 URL de subida:", uploadUrl);
+
+                const uploadResponse = await fetch(uploadUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`
+                    },
+                    body: formData
+                });
+
+                console.log("📥 Respuesta subida - Status:", uploadResponse.status);
+
+                if (uploadResponse.ok) {
+                    const msg = await uploadResponse.text();
+                    console.log("✅ Respuesta exitosa:", msg);
+                    statusDiv.style.color = '#00ff90'; // Verde para éxito
+                    statusDiv.textContent = `✅ ${msg} (Producto ID: ${productoId})`;
+                    
+                    // Limpiar el formulario
+                    uploadForm.reset();
+                    
+                    // Mostrar alerta de éxito
+                    showAlert({
+                        title: 'Éxito',
+                        message: `Imágenes subidas correctamente al producto "${nombre}"`,
+                        type: 'success'
+                    });
+                    document.querySelector('a[href="#producto-list"]').click();
+                } else {
+                    const errText = await uploadResponse.text();
+                    console.error("❌ Error en respuesta:", errText);
+                    throw new Error(errText);
+                }
+
+            } catch (err) {
+                statusDiv.style.color = 'red';
+                statusDiv.textContent = `❌ Error: ${err.message}`;
+                console.error("❌ Error completo:", err);
+                
+                showAlert({
+                    title: 'Error',
+                    message: err.message,
+                    type: 'error'
+                });
+            }
+        });
+    } else {
+        console.error("❌ No se encontró el formulario o el div de status");
+    }
+
+    
 });

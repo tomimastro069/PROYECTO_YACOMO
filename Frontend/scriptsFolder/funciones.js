@@ -1,4 +1,7 @@
-﻿// Array para almacenar los productos del carrito
+// funciones.js (o alert.js)
+//import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js';
+
+// Array para almacenar los productos del carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 // Keep the previous count to trigger a small "pop" animation when the count changes
 let previousCartCount = getCartProductCount(); // Inicializar con el conteo actual
@@ -153,17 +156,25 @@ document.addEventListener('DOMContentLoaded', function() {
     payButton.addEventListener('click', (e) => {
       e.preventDefault();
 
+      // Primero, importamos la función showAlert dinámicamente
       if (!localStorage.getItem('jwt_token')) {
-        alert('Debes iniciar sesiÃ³n para poder pagar.');
+        showAlert({
+          title: 'Acceso Requerido',
+          message: 'Debes iniciar sesión para poder pagar.',
+          type: 'warning'
+        });
         return;
       }
 
       const carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
       if (carritoActual.length === 0) {
-        alert('Tu carrito estÃ¡ vacÃ­o.');
+        showAlert({
+          title: 'Carrito Vacío',
+          message: 'Tu carrito está vacío. Agrega productos antes de continuar.',
+          type: 'info'
+        });0
         return;
       }
-
       window.location.href = 'checkout-pago.html';
     });
   }
@@ -207,5 +218,37 @@ export function getCartProductCount() {
 }
 // La lÃ³gica de los modales de login/registro se ha movido a scriptsFolder/modalHandler.js
 
+export function showAlert({ title, message, type }) {
+  try {
+    if (typeof window !== 'undefined' && window.Swal && typeof window.Swal.fire === 'function') {
+      window.Swal.fire({
+        title,
+        text: message,
+        icon: type || 'info',
+        confirmButtonText: 'OK',
+        background: '#202020',
+        color: '#fff',
+        // ============================>
+        // Esto hace que el modal quede arriba de todo
+        customClass: {
+          container: 'swal-container-top' // clase que vamos a definir en CSS
+        },
+        // ============================>
+        allowOutsideClick: false, // opcional: evita cerrar al click afuera
+      });
+      return;
+    }
 
-
+    const fallbackText = [title, message].filter(Boolean).join('\n');
+    if (typeof window !== 'undefined' && typeof window.alert === 'function') {
+      window.alert(fallbackText);
+    } else if (typeof alert === 'function') {
+      alert(fallbackText);
+    }
+  } catch (e) {
+    try {
+      const txt = [title, message].filter(Boolean).join('\n');
+      alert(txt);
+    } catch {}
+  }
+}

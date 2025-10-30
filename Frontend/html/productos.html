@@ -1,15 +1,19 @@
-﻿﻿﻿﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>Script-G</title>
+    <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/productosStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 global -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href ="../css/chatbot.css">
+    <script type="module" src="../scriptsFolder/productos.js"></script>
+    
     <script type="module" src="../scriptsFolder/modalHandler.js"></script>
     <script type="module" src="../scriptsFolder/funciones.js"></script>
 
@@ -55,395 +59,6 @@
     </aside>
 </div>
 
-<!-- ============= MODAL: HYTE Y70 TOUCH INFINITE Black ============= -->
-<div id="modal-hyte" class="x-modal" aria-hidden="true">
-    <a class="x-overlay" href="#"></a>
-    <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-hyte">
-        <header class="x-header">
-            <h3 id="ttl-hyte">HYTE Y70 TOUCH INFINITE Black — Gabinete</h3>
-            <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="x-content">
-            <div class="x-gallery">
-                <div class="x-main"><img
-                        src="https://imagenes.compragamer.com/productos/compragamer_Imganen_general_43863_Gabinete_HYTE_Y70_TOUCH_INFINITE_Black_Vidrio_Templado_Pantalla_Tactil_2.5K_LCD_IPS_60Hz_Inc._Cable_Riser_PCIe_4x16_USB-C_3.2_7b72188b-grn.jpg"
-                        alt=""></div>
-
-            </div>
-            <aside class="x-side">
-                <div class="x-badges">
-                    <span class="x-chip">Case</span><span class="x-chip">En stock</span><span class="x-chip">★★★★★
-                        5/5</span>
-                </div>
-                <div class="x-priceBox">
-                    <div class="x-big">$696.658</div>
-                    <div class="x-muted">Precio incluye IVA</div>
-                </div>
-                <div class="x-flags"><span class="x-chip">Envío gratis</span><span class="x-chip">Garantía
-                        oficial</span></div>
-
-                <!-- SIEMPRE ABAJO -->
-                <div class="x-actions">
-                    <a href="#" class="btn-cart" style="text-align:center">Agregar al Carrito</a>
-                    <a href="#" class="btn-details" style="text-align:center">Favoritos</a>
-                </div>
-            </aside>
-        </div>
-
-        <!-- TABS a lo ancho, debajo del contenido -->
-        <section class="x-tabs">
-            <!-- Especificaciones (incluye Conectividad) -->
-            <div class="x-tab">
-                <input type="radio" name="tab-hyte" id="hyte-specs" checked>
-                <label for="hyte-specs">Especificaciones</label>
-                <div class="x-panel">
-                    <div class="x-cols">
-                        <div class="x-box">
-                            <h4>Técnicas</h4>
-                            <div class="x-kv">
-                                <div>Tamaño</div>
-                                <div>Mid Tower</div>
-                                <div>Vidrio</div>
-                                <div>Templado panorámico</div>
-                                <div>GPU máx.</div>
-                                <div>400 mm</div>
-                                <div>Radiadores</div>
-                                <div>Hasta 360 mm</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Conectividad</h4>
-                            <div class="x-kv">
-                                <div>Front I/O</div>
-                                <div>USB-C, 2× USB-A, Audio</div>
-                                <div>Pantalla</div>
-                                <div>LCD frontal integrada</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Compatibilidad -->
-            <div class="x-tab">
-                <input type="radio" name="tab-hyte" id="hyte-compat">
-                <label for="hyte-compat">Compatibilidad</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <div class="x-kv">
-                            <div>Mother</div>
-                            <div>ATX / mATX / ITX</div>
-                            <div>Fuente</div>
-                            <div>ATX</div>
-                            <div>Altura CPU</div>
-                            <div>~180 mm</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reseñas (hacia abajo) -->
-            <div class="x-tab">
-                <input type="radio" name="tab-hyte" id="hyte-reviews">
-                <label for="hyte-reviews">Reseñas</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">“Construcción premium y vitrina brutal.” — Juan</p>
-                        <p class="x-muted">“Cableado cómodo y buen flujo de aire.” — Ana</p>
-                        <p class="x-muted">“La pantalla es un golazo para stats.” — Pedro</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
-
-<!-- ================= MODAL: ASUS ROG Strix SCAR 18 ================= -->
-<div id="modal-asus" class="x-modal" aria-hidden="true">
-    <a class="x-overlay" href="#"></a>
-    <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-asus">
-        <header class="x-header">
-            <h3 id="ttl-asus">ASUS ROG Strix SCAR 18 — Notebook 18"</h3>
-            <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="x-content">
-            <div class="x-gallery">
-                <div class="x-main">Imagen Notebook</div>
-                <div class="x-thumbs">
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                </div>
-            </div>
-            <aside class="x-side">
-                <div class="x-badges"><span class="x-chip">Notebook</span><span class="x-chip">En stock</span><span
-                        class="x-chip">★★★★★ 5/5</span></div>
-                <div class="x-priceBox">
-                    <div class="x-big">$6.856.497</div>
-                    <div class="x-muted">Precio incluye IVA</div>
-                </div>
-                <div class="x-flags"><span class="x-chip">Envío rápido</span><span class="x-chip">Garantía
-                        oficial</span></div>
-
-                <div class="x-actions">
-                    <a href="#" class="btn-cart" style="text-align:center">Agregar al Carrito</a>
-                    <a href="#" class="btn-details" style="text-align:center">Favoritos</a>
-                </div>
-            </aside>
-        </div>
-
-        <section class="x-tabs">
-            <div class="x-tab">
-                <input type="radio" name="tab-asus" id="asus-specs" checked>
-                <label for="asus-specs">Especificaciones</label>
-                <div class="x-panel">
-                    <div class="x-cols">
-                        <div class="x-box">
-                            <h4>Hardware</h4>
-                            <div class="x-kv">
-                                <div>CPU</div>
-                                <div>Intel Core i9</div>
-                                <div>GPU</div>
-                                <div>RTX 4090 Laptop</div>
-                                <div>RAM</div>
-                                <div>32 GB DDR5</div>
-                                <div>SSD</div>
-                                <div>1 TB NVMe</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Pantalla</h4>
-                            <div class="x-kv">
-                                <div>Tamaño</div>
-                                <div>18"</div>
-                                <div>Resolución</div>
-                                <div>QHD+</div>
-                                <div>Refresco</div>
-                                <div>240 Hz</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Conectividad</h4>
-                            <div class="x-kv">
-                                <div>USB</div>
-                                <div>2× USB-C, 2× USB-A</div>
-                                <div>Red</div>
-                                <div>Wi-Fi 6E · LAN 2.5Gb</div>
-                                <div>Video</div>
-                                <div>HDMI 2.1</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-asus" id="asus-compat">
-                <label for="asus-compat">Compatibilidad</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">Windows 11 · Soporte VR · Monitores externos hasta 8K.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-asus" id="asus-reviews">
-                <label for="asus-reviews">Reseñas</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">“Vuelo en AAA; algo caliente en carga.” — Vale</p>
-                        <p class="x-muted">“Teclado y pantalla top.” — Leo</p>
-                        <p class="x-muted">“Ideal para trabajo + gaming.” — Sofi</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
-
-<!-- ========== MODAL: Glorious GMMK3 HE 75% RGB (Teclado) ========== -->
-<div id="modal-gmmk3" class="x-modal" aria-hidden="true">
-    <a class="x-overlay" href="#"></a>
-    <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-gmmk3">
-        <header class="x-header">
-            <h3 id="ttl-gmmk3">Glorious GMMK3 HE 75% RGB — Teclado</h3>
-            <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="x-content">
-            <div class="x-gallery">
-                <div class="x-main">Imagen Teclado</div>
-                <div class="x-thumbs">
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                </div>
-            </div>
-            <aside class="x-side">
-                <div class="x-badges"><span class="x-chip">Teclado</span><span class="x-chip">Hall Effect</span><span
-                        class="x-chip">Hot-swap</span></div>
-                <div class="x-priceBox">
-                    <div class="x-big">$256.099</div>
-                    <div class="x-muted">Precio incluye IVA</div>
-                </div>
-
-                <div class="x-actions">
-                    <a href="#" class="btn-cart" style="text-align:center">Agregar al Carrito</a>
-                    <a href="#" class="btn-details" style="text-align:center">Favoritos</a>
-                </div>
-            </aside>
-        </div>
-
-        <section class="x-tabs">
-            <div class="x-tab">
-                <input type="radio" name="tab-gmmk3" id="gmmk3-specs" checked>
-                <label for="gmmk3-specs">Especificaciones</label>
-                <div class="x-panel">
-                    <div class="x-cols">
-                        <div class="x-box">
-                            <h4>Detalles</h4>
-                            <div class="x-kv">
-                                <div>Layout</div>
-                                <div>75%</div>
-                                <div>Switches</div>
-                                <div>Magnéticos (HE)</div>
-                                <div>Keycaps</div>
-                                <div>PBT</div>
-                                <div>Conexión</div>
-                                <div>USB-C</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Conectividad</h4>
-                            <div class="x-kv">
-                                <div>Sistemas</div>
-                                <div>Windows / macOS</div>
-                                <div>Software</div>
-                                <div>Glorious Core</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-gmmk3" id="gmmk3-compat">
-                <label for="gmmk3-compat">Compatibilidad</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">Mapeos por software para macOS; NKRO en Windows.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-gmmk3" id="gmmk3-reviews">
-                <label for="gmmk3-reviews">Reseñas</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">“Lineal, rápido y silencioso.” — Nico</p>
-                        <p class="x-muted">“Muy sólido; estabilizadores buenos.” — Lara</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
-
-<!-- ====== MODAL: ZOTAC GeForce RTX 5080 AMP EXTREME INFINITY ====== -->
-<div id="modal-rtx5080" class="x-modal" aria-hidden="true">
-    <a class="x-overlay" href="#"></a>
-    <section class="x-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-rtx5080">
-        <header class="x-header">
-            <h3 id="ttl-rtx5080">ZOTAC GeForce RTX 5080 16GB GDDR7 — AMP EXTREME INFINITY</h3>
-            <a class="x-close" href="#" aria-label="Cerrar">✕</a>
-        </header>
-
-        <div class="x-content">
-            <div class="x-gallery">
-                <div class="x-main">Imagen GPU</div>
-                <div class="x-thumbs">
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                    <div class="x-thumb"></div>
-                </div>
-            </div>
-            <aside class="x-side">
-                <div class="x-badges"><span class="x-chip">GPU</span><span class="x-chip">En stock</span></div>
-                <div class="x-priceBox">
-                    <div class="x-big">$839.999</div>
-                    <div class="x-muted">Precio incluye IVA</div>
-                </div>
-
-                <div class="x-actions">
-                    <a href="#" class="btn-cart" style="text-align:center">Agregar al Carrito</a>
-                    <a href="#" class="btn-details" style="text-align:center">Favoritos</a>
-                </div>
-            </aside>
-        </div>
-
-        <section class="x-tabs">
-            <div class="x-tab">
-                <input type="radio" name="tab-rtx5080" id="rtx5080-specs" checked>
-                <label for="rtx5080-specs">Especificaciones</label>
-                <div class="x-panel">
-                    <div class="x-cols">
-                        <div class="x-box">
-                            <h4>Técnicas</h4>
-                            <div class="x-kv">
-                                <div>Arquitectura</div>
-                                <div>Blackwell</div>
-                                <div>Memoria</div>
-                                <div>16 GB GDDR7</div>
-                                <div>Bus</div>
-                                <div>256-bit</div>
-                                <div>TBP</div>
-                                <div>~320 W</div>
-                            </div>
-                        </div>
-                        <div class="x-box">
-                            <h4>Conectividad</h4>
-                            <div class="x-kv">
-                                <div>Puertos</div>
-                                <div>3× DP 2.1 · 1× HDMI 2.1</div>
-                                <div>Alim.</div>
-                                <div>2× 8-pin / 12V-2×6</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-rtx5080" id="rtx5080-compat">
-                <label for="rtx5080-compat">Compatibilidad</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">Fuente 750 W recomendada; chasis 2.7 slots.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="x-tab">
-                <input type="radio" name="tab-rtx5080" id="rtx5080-reviews">
-                <label for="rtx5080-reviews">Reseñas</label>
-                <div class="x-panel">
-                    <div class="x-box">
-                        <p class="x-muted">“Top en 4K con RT.” — Maxi</p>
-                        <p class="x-muted">“Silenciosa bajo carga.” — Agus</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
-<!-- ============================== FIN MODALES ============================== -->
-
-
-
 <body>
     <header class="main-header">
         <a href="index.html" class="header-logo-title">
@@ -455,12 +70,19 @@
             <h1>Script-G</h1>
         </a>
 
-        <div class="busqueda">
+        <!-- Botón hamburguesa (visible en mobile) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+            </svg>
+        </button>
+
+        <div class="busqueda" id="searchToggle">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="search" placeholder="Buscar componentes...">
         </div>
-        
-        <div class="menu">
+
+        <div class="menu" id="mobileMenu">
             <nav>
                 <ul class="main-nav-list">
                     <li><a href="../html/index.html" class="menu-btn"><i class="fa-solid fa-house"></i> Inicio</a></li>
@@ -483,7 +105,16 @@
                 </ul>
             </nav>
         </div>
+        <!-- Overlay para cerrar tocando fuera del menú -->
+        <div class="nav-overlay" id="navOverlay"></div>
     </header>
+    <!-- Panel de búsqueda (mobile) -->
+    <div id="mobileSearchPanel" class="mobile-search-panel" role="search" aria-hidden="true">
+        <div class="mobile-search-inner">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Buscar componentes..." aria-label="Buscar" id="mobileSearchInput" />
+        </div>
+    </div>
     <div class="fix"></div>
     
     <div class="pop-up modal-cerrado" id="loginModal">
@@ -570,26 +201,18 @@
     <div class="contenedor">
         <div class="Categorias-container">
 
-            <div class="Categorias">
-                <h3>Categorias</h3>
-                <p>Explora por tipo de componente</p>
-                <button>🎮 Todos los productos</button>
-            </div>
-
             <Div class="Categorias-Lista">
-                <nav>
-                    <ul>
-                        <li><a href="#Procesadores">Procesadores</a></li>
-                        <li><a href="#TarjetasGraficas">Tarjetas Graficas</a></li>
-                        <li><a href="#PlacasMadre">Placas Madre</a></li>
-                        <li><a href="#MemoriasRAM">Memorias RAM</a></li>
-                        <li><a href="#Almacenamiento">Almacenamiento</a></li>
-                        <li><a href="#FuentesPoder">Fuentes de Poder</a></li>
-                        <li><a href="#Gabinetes">Gabinetes</a></li>
-                        <li><a href="#Refrigeracion">Refrigeracion</a></li>
-                        <li><a href="#Perifericos">Perifericos</a></li>
-                    </ul>
-                </nav>
+                <form id="category-filters">
+                    <label>Procesadores <input type="checkbox" name="categoria" value="Procesadores"></label>
+                    <label>Tarjetas Graficas <input type="checkbox" name="categoria" value="Tarjetas Graficas"></label>
+                    <label>Placas Madre <input type="checkbox" name="categoria" value="Placas Madre"></label>
+                    <label>Memorias RAM <input type="checkbox" name="categoria" value="Memorias RAM"></label>
+                    <label>Almacenamiento <input type="checkbox" name="categoria" value="Almacenamiento"></label>
+                    <label>Fuentes de Poder <input type="checkbox" name="categoria" value="Fuentes de Poder"></label>
+                    <label>Gabinetes <input type="checkbox" name="categoria" value="Gabinetes"></label>
+                    <label>Refrigeracion <input type="checkbox" name="categoria" value="Refrigeracion"></label>
+                    <label>Perifericos <input type="checkbox" name="categoria" value="Perifericos"></label>
+                </form>
             </Div>
         </div>
         <div class="Catalogo-Container">
@@ -607,6 +230,9 @@
                 </select>
 
             </div>
+
+            <!-- Contenedor de detalle embebido (inicialmente oculto) -->
+            <div class="Detalle-Container" id="detalle-producto"></div>
 
             <div class="Catalogo" id="catalogo-productos">
                 <!-- Los productos se cargarán aquí dinámicamente desde el script -->
@@ -659,109 +285,206 @@
     </footer>
     <script type='module' src='../scriptsFolder/auth.js'></script>
     <script type="module">
-  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js'; // Importar la función de favoritos
+  import { obtenerProductos } from '../scriptsFolder/api/api_productos.js';
   import { agregarFavorito } from '../scriptsFolder/api/api_favoritos.js';
-  import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js'; // Importar funciones del carrito
-  import { toggleLoginModal } from '../scriptsFolder/modalHandler.js'; // Importar la función del modal de login
+  import { agregarAlCarrito, renderizarCarrito, toggleCart, updateCartCount } from '../scriptsFolder/funciones.js';
+  import { toggleLoginModal } from '../scriptsFolder/modalHandler.js';
+  import { renderizarEstrellas, obtenerPromedioEstrellas } from '../scriptsFolder/estrellas.js'; // ← IMPORTAR
 
+  const PLACEHOLDER_IMG = 'data:image/svg+xml,%3Csvg xmlns=%22http%3A//www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23f2f4f8%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Inter%2CArial%2Csans-serif%22 font-size=%2214%22 fill=%22%23666%22%3ESin%20imagen%3C/text%3E%3C/svg%3E';
   document.addEventListener('DOMContentLoaded', async () => {
-    const contenedor = document.getElementById('catalogo-productos');
+  const contenedor = document.getElementById('catalogo-productos');
+  const detalleContainer = document.getElementById('detalle-producto');
+  let allProducts = [];
 
-    let allProducts = []; // Para almacenar todos los productos obtenidos de la API
+  const headerCartButton = document.getElementById('header-cart-button');
+  if (headerCartButton) {
+      headerCartButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleCart();
+      });
+  }
 
-    // Adjuntar event listener para el botón del carrito en el header
-    const headerCartButton = document.getElementById('header-cart-button');
-    if (headerCartButton) {
-        headerCartButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevenir el comportamiento por defecto del ancla
-            toggleCart();
-        });
+  const headerLoginButton = document.getElementById('btn-login');
+  if (headerLoginButton) {
+      headerLoginButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleLoginModal();
+      });
+  }
+
+  // (Limpieza) Modales hardcodeados removidos del HTML; no se requiere lógica adicional
+
+  try {
+    const productos = await obtenerProductos();
+
+    if (!productos || productos.length === 0) {
+      contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
+      return;
     }
 
-    // Adjuntar event listener para el botón de login en el header
-    const headerLoginButton = document.getElementById('btn-login');
-    if (headerLoginButton) {
-        headerLoginButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleLoginModal();
-        });
-    }
-    try {
-      const productos = await obtenerProductos();
+    contenedor.innerHTML = '';
+    allProducts = productos;
 
-      if (!productos || productos.length === 0) {
-        contenedor.innerHTML = '<p>No hay productos disponibles.</p>';
-        return;
+    const cantidadProductos = document.querySelector('.Cantidad-de-productos');
+    if (cantidadProductos) {
+      cantidadProductos.textContent = `${productos.length} productos encontrados`;
+    }
+
+    // 🔥 CARGAR PRODUCTOS CON IMÁGENES
+    for (const p of productos) {
+      const promedio = await obtenerPromedioEstrellas(p.id);
+
+      // 🔥 DEBUG: Ver si el producto tiene imágenes
+      console.log(`Producto ${p.id} - ${p.nombre}:`, {
+        tieneImagenes: p.imagenes && p.imagenes.length > 0,
+        cantidadImagenes: p.imagenes ? p.imagenes.length : 0,
+        primeraURL: p.imagenes?.[0]?.url
+      });
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.dataset.id = `producto-${p.id}`;
+
+      // 🔥 OBTENER URL DE LA IMAGEN
+      let imagenUrl = PLACEHOLDER_IMG;
+
+      if (p.imagenes && Array.isArray(p.imagenes) && p.imagenes.length > 0) {
+        const primeraImagen = p.imagenes[0];
+        if (primeraImagen && primeraImagen.url) {
+          imagenUrl = primeraImagen.url;
+          console.log(`✅ Imagen encontrada para ${p.nombre}: ${imagenUrl}`);
+        }
+      } else {
+        console.warn(`⚠️ ${p.nombre} no tiene imágenes`);
       }
 
-      contenedor.innerHTML = ''; // Borra los hardcodeados
-      allProducts = productos; // Guardar los productos para la lógica del carrito
+      card.innerHTML = `
+        <img class="Imagen_Producto"
+             src="${imagenUrl}"
+             alt="${p.nombre}"
+             onerror="console.error('? Error cargando:', this.src); this.src='data:image/svg+xml,%3Csvg xmlns=%22http%3A//www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23ffecec%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Inter%2CArial%2Csans-serif%22 font-size=%2214%22 fill=%22%23cc2433%22%3EError%20imagen%3C/text%3E%3C/svg%3E';
+             onload="console.log('✅ Imagen cargada:', this.src)">
 
-      productos.forEach((p) => {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.dataset.id = `producto-${p.id}`;
-        // Usar p.imagenes?.[0]?.url para la URL de la imagen
-        card.innerHTML = `
-          <img class="Imagen_Producto"
-               src="${p.imagenes?.[0]?.url || 'https://via.placeholder.com/200'}"
-               alt="${p.nombre}">
-
-          <div class="content">
-            <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
-            <h3 class="Titulo">${p.nombre}</h3>
-            <div class="rating">★5/5</div>
-            <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
-
-            <ul class="Especificaciones"></ul>
-            <div class="actions">
-              <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
-              <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
-              <a class="btn-details" href="#">Ver Detalles</a>
-            </div>
+        <div class="content">
+          <span class="stock">${p.stock > 0 ? '🟢 En stock' : '🔴 Agotado'}</span>
+          <h3 class="Titulo">${p.nombre}</h3>
+          <div class="rating">
+              ${renderizarEstrellas(promedio)}
           </div>
-        `;
-        
-        // Añadir el event listener para el botón de favoritos
-        const favoriteButton = card.querySelector('.btn-favorite');
-        if (favoriteButton) {
-            favoriteButton.addEventListener('click', async (event) => {
-                const productId = event.target.dataset.productId;
-                try {
-                    await agregarFavorito(productId);
-                    alert('Producto agregado a favoritos con éxito!');
-                } catch (error) {
-                    alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
-                }
-            });
-        }
+          <p class="Precio">$${p.precio.toLocaleString('es-AR')}</p>
 
-        contenedor.appendChild(card);
-      });
+          <ul class="Especificaciones"></ul>
+          <div class="actions">
+            <button class="btn-cart" data-product-id="${p.id}">Agregar al Carrito</button>
+            <button class="btn-favorite" type="button" data-product-id="${p.id}">Agregar a Favoritos</button>
+            <a class="btn-details" href="../html/detallecompra.html?id=${p.id}" target="_blank" rel="noopener noreferrer">Ver Detalles</a>
+          </div>
+        </div>
+      `;
 
-      // Delegación de eventos para los botones "Agregar al Carrito"
-      contenedor.addEventListener('click', (event) => {
-        const addToCartButton = event.target.closest('.btn-cart');
-        if (addToCartButton) {
-          const productId = addToCartButton.dataset.productId;
-          // Buscar el producto completo en el array allProducts
-          const productToAdd = allProducts.find(p => String(p.id) === productId);
-          if (productToAdd) {
-            agregarAlCarrito(event, productToAdd); // Pasar el evento y el objeto de producto
-          } else {
-            console.error('Producto no encontrado para el ID:', productId);
-          }
-        }
-      });
+      const favoriteButton = card.querySelector('.btn-favorite');
+      if (favoriteButton) {
+          favoriteButton.addEventListener('click', async (event) => {
+              const productId = event.target.dataset.productId;
+              try {
+                  await agregarFavorito(productId);
+                  alert('Producto agregado a favoritos con éxito!');
+              } catch (error) {
+                  alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
+              }
+          });
+      }
 
-    } catch (error) {
-      console.error('Error al obtener productos:', error);
-      contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
+      contenedor.appendChild(card);
     }
 
-    // Inicializar el carrito al cargar la página para que refleje el estado de localStorage
-    renderizarCarrito();
-  });
+    contenedor.addEventListener('click', (event) => {
+      const addToCartButton = event.target.closest('.btn-cart');
+      if (addToCartButton) {
+        const productId = addToCartButton.dataset.productId;
+        const productToAdd = allProducts.find(p => String(p.id) === productId);
+        if (productToAdd) {
+          agregarAlCarrito(event, productToAdd);
+        } else {
+          console.error('Producto no encontrado para el ID:', productId);
+        }
+      }
+
+      const detailsLink = event.target.closest('.btn-details');
+      if (detailsLink) {
+        event.preventDefault();
+        const card = event.target.closest('.card');
+        const dataId = card?.dataset.id || '';
+        const productId = dataId.replace('producto-', '');
+        const producto = allProducts.find(p => String(p.id) === String(productId));
+        if (producto) {
+          mostrarDetalleEmbebido(producto);
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Error al obtener productos:', error);
+    contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
+  }
+
+  renderizarCarrito();
+  
+  function mostrarDetalleEmbebido(producto) {
+    if (!detalleContainer) return;
+    const imgUrl = (producto.imagenes && producto.imagenes[0]?.url) ? producto.imagenes[0].url : PLACEHOLDER_IMG;
+    const stockClass = producto.stock > 10 ? 'in-stock' : (producto.stock > 0 ? 'low-stock' : 'out-of-stock');
+    const stockText = producto.stock > 10 ? 'En stock' : (producto.stock > 0 ? 'Stock bajo' : 'Agotado');
+
+    detalleContainer.innerHTML = `
+      <div class="detalle-embed">
+        <button class="btn-back" id="btn-volver-catalogo">← Volver al catálogo</button>
+        <div class="detalle-body">
+          <div class="detalle-media">
+            <img class="detalle-image" src="${imgUrl}" alt="${producto.nombre}">
+          </div>
+          <div class="detalle-info">
+            <h1 class="detalle-title">${producto.nombre}</h1>
+            ${producto.promocion ? `<span class="detalle-promo">${producto.promocion}</span>` : ''}
+            <div class="detalle-price">$${(producto.precio ?? 0).toLocaleString('es-AR')}</div>
+            <div class="detalle-stock ${stockClass}">${stockText}</div>
+            ${producto.descripcion ? `<p class="detalle-description">${producto.descripcion}</p>` : ''}
+            <div class="action-buttons">
+              <button class="btn-cart" id="detalle-add-cart">Agregar al Carrito</button>
+              <button class="btn-favorite" type="button" id="detalle-fav">Agregar a Favoritos</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+    // Mostrar detalle y ocultar catálogo
+    contenedor.style.display = 'none';
+    detalleContainer.style.display = 'block';
+
+    const backBtn = document.getElementById('btn-volver-catalogo');
+    backBtn?.addEventListener('click', () => {
+      detalleContainer.style.display = 'none';
+      contenedor.style.display = '';
+    });
+
+    const addBtn = document.getElementById('detalle-add-cart');
+    addBtn?.addEventListener('click', (e) => {
+      agregarAlCarrito(e, producto);
+    });
+
+    const favBtn = document.getElementById('detalle-fav');
+    favBtn?.addEventListener('click', async () => {
+      try {
+        await agregarFavorito(producto.id);
+        favBtn.textContent = 'En Favoritos';
+        favBtn.classList.add('active');
+      } catch (error) {
+        alert('Error al agregar a favoritos: ' + (error.message || 'Por favor, inicia sesión.'));
+      }
+    });
+  }
+});
 </script>
 <!-- Burbuja del chatbot -->
 <div id="chatbot-bubble">
@@ -775,6 +498,7 @@
 <!-- Ventana del chatbot -->
 <div id="chatbot-window">
   <div class="chatbot-header">
+    <button id="close-chat-btn" aria-label="Cerrar chat">✕</button>
     <span>Ayudante SCRIPT-G</span>
     <button id="new-chat-btn">➕ Nuevo Chat</button>
   </div>
@@ -796,8 +520,143 @@
 </div>
 <div id="toast-container"></div>
 <script src="../scriptsFolder/chatbot.js"></script>
+<script>
+  // Filtros por múltiples categorías con checkboxes + ordenamiento por precio
+  document.addEventListener('DOMContentLoaded', () => {
+    const catalog = document.getElementById('catalogo-productos');
+    const filtersForm = document.getElementById('category-filters');
+    const sortSelect = document.getElementById('sort-options');
+
+    if (!catalog) return;
+
+    const normalize = (s) => (s || '').toString().toLowerCase();
+    const inferCategoriaFromText = (text) => {
+      const t = (text || '').toLowerCase();
+      if (/ryzen|intel\s*core|\bi3\b|\bi5\b|\bi7\b|\bi9\b|socket|procesador|cpu/.test(t)) return 'Procesadores';
+      if (/rtx|gtx|rx\s?\d|radeon|geforce|tarjeta\s*gr(á|a)fica|gpu/.test(t)) return 'Tarjetas Graficas';
+      if (/mother|placa\s*madre|\bb\d{3}\b|\bx\d{3}\b|\bz\d{3}\b|\bh\d{3}\b|am4|am5|lga/.test(t)) return 'Placas Madre';
+      if (/\bram\b|ddr(3|4|5)|sodimm|memoria\s*ram/.test(t)) return 'Memorias RAM';
+      if (/ssd|hdd|m\.?2|nvme|sata|almacenamiento|disco/.test(t)) return 'Almacenamiento';
+      if (/fuente|psu|80\+|80plus/.test(t)) return 'Fuentes de Poder';
+      if (/gabinete|case|mid\s*tower|full\s*tower/.test(t)) return 'Gabinetes';
+      if (/refrigeraci(ó|o)n|cooler|aio|radiador|ventilador/.test(t)) return 'Refrigeracion';
+      if (/teclado|mouse|rat(ó|o)n|headset|auricular|monitor|perif(é|e)rico/.test(t)) return 'Perifericos';
+      return 'Otros';
+    };
+
+    const parsePrice = (priceText) => {
+      // Convierte "$1.234.567" o "$349.999,00" => 1234567 / 349999
+      const digits = (priceText || '').replace(/[^\d]/g, '');
+      return Number(digits || '0');
+    };
+
+    const getSelectedCategories = () => {
+      if (!filtersForm) return [];
+      return Array.from(filtersForm.querySelectorAll('input[name="categoria"]:checked')).map(i => i.value);
+    };
+
+    const ensureCardCategory = (card) => {
+      if (!card.dataset.categoria) {
+        const title = card.querySelector('.Titulo')?.textContent || '';
+        card.dataset.categoria = inferCategoriaFromText(title);
+      }
+      return card.dataset.categoria;
+    };
+
+    let isApplying = false;
+    let observer;
+    const reconnectObserver = () => {
+      if (observer) observer.disconnect();
+      observer = new MutationObserver(() => {
+        if (!isApplying) applyFiltersAndSort();
+      });
+      observer.observe(catalog, { childList: true });
+    };
+
+    const applyFiltersAndSort = () => {
+      if (isApplying) return;
+      isApplying = true;
+      const selected = getSelectedCategories();
+      const cards = Array.from(catalog.querySelectorAll('.card'));
+
+      // Primero ordenar por precio según selección
+      const sortVal = sortSelect?.value || 'default';
+      if (sortVal === 'price-asc' || sortVal === 'price-desc') {
+        cards.sort((a, b) => {
+          const pa = parsePrice(a.querySelector('.Precio')?.textContent);
+          const pb = parsePrice(b.querySelector('.Precio')?.textContent);
+          return sortVal === 'price-asc' ? pa - pb : pb - pa;
+        });
+        // Evitar bucles: desconectar observer mientras reordenamos
+        if (observer) observer.disconnect();
+        cards.forEach(c => catalog.appendChild(c));
+        reconnectObserver();
+      }
+
+      // Luego aplicar visibilidad por categorías seleccionadas
+      cards.forEach(card => {
+        const cat = ensureCardCategory(card);
+        const show = selected.length === 0 || selected.some(s => normalize(s) === normalize(cat));
+        card.style.display = show ? '' : 'none';
+      });
+      isApplying = false;
+    };
+
+    // Observa cuando se cargan las cards (render dinámico) y aplica últimos filtros/orden
+    reconnectObserver();
+
+    if (filtersForm) filtersForm.addEventListener('change', applyFiltersAndSort);
+    if (sortSelect) sortSelect.addEventListener('change', applyFiltersAndSort);
+
+    // Intento inicial (si ya se cargaron productos)
+    applyFiltersAndSort();
+  });
+</script>
+<!-- Toggle responsive header (igual que index) -->
+<script>
+    (function(){
+        const btn = document.getElementById('hamburgerBtn');
+        const menu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('navOverlay');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchPanel  = document.getElementById('mobileSearchPanel');
+        if(!btn || !menu || !overlay) return;
+        const closeMenu = ()=>{
+            menu.classList.remove('active');
+            btn.setAttribute('aria-expanded','false');
+            overlay.classList.remove('active');
+        };
+        const openMenu = ()=>{
+            menu.classList.add('active');
+            btn.setAttribute('aria-expanded','true');
+            overlay.classList.add('active');
+        };
+        btn.addEventListener('click', (e)=>{
+            e.stopPropagation();
+            menu.classList.contains('active') ? closeMenu() : openMenu();
+        });
+
+        const closeSearch = ()=>{ searchPanel?.classList.remove('open'); overlay.classList.remove('active'); };
+        const openSearch = ()=>{ searchPanel?.classList.add('open'); overlay.classList.add('active'); };
+
+        searchToggle?.addEventListener('click', (e)=>{
+            if (window.matchMedia('(max-width: 992px)').matches) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeMenu();
+                if (searchPanel?.classList.contains('open')) { closeSearch(); }
+                else { openSearch(); }
+            }
+        });
+
+        overlay.addEventListener('click', ()=>{ closeMenu(); closeSearch(); });
+        document.addEventListener('click', (e)=>{
+            if(!menu.contains(e.target) && e.target !== btn) closeMenu();
+            if(!searchPanel?.contains(e.target) && e.target !== searchToggle) closeSearch();
+        });
+        document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { closeMenu(); closeSearch(); } });
+    })();
+</script>
 </body>
 
 </html>
-
-

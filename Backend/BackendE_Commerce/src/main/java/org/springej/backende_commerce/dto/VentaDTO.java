@@ -42,6 +42,17 @@ public class VentaDTO {
 
         // El precio unitario no se recibe, se calcula en el backend. Se devuelve en la respuesta.
         private java.math.BigDecimal precioUnitario;
+
+        // Nuevo: nombre del producto para enviar directo al frontend
+        private String nombreProducto;
+
+        // Constructor de compatibilidad (sin nombreProducto)
+        public ProductoVentaDTO(Long idProducto, Integer cantidad, java.math.BigDecimal precioUnitario) {
+            this.idProducto = idProducto;
+            this.cantidad = cantidad;
+            this.precioUnitario = precioUnitario;
+            this.nombreProducto = null;
+        }
     }
 
     // Métodos helper

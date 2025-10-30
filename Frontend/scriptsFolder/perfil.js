@@ -1,6 +1,7 @@
-﻿import { cerrarSesion } from './api/api_auth.js';
+﻿﻿import { cerrarSesion } from './api/api_auth.js';
 import { obtenerMiPerfil, crearDomicilio, eliminarDomicilio } from './api/api_usuarios.js';
 import { eliminarFavorito } from './api/api_favoritos.js';
+import { showAlert } from './funciones.js';
 
 let perfilActual = null;
 
@@ -137,7 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarDirecciones(domicilios);
         } catch (error) {
             console.error('Error al cargar el perfil:', error);
-            alert('No se pudieron cargar los datos del perfil. Seras redirigido al inicio.');
+            showAlert({
+                title: 'Error de Carga',
+                message: 'No se pudieron cargar los datos del perfil. Serás redirigido al inicio.',
+                type: 'error'
+            });
             window.location.href = 'index.html';
         }
     }
@@ -162,36 +167,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const productos = Array.isArray(venta?.productos) ? venta.productos : [];
 
             const card = document.createElement('div');
-            card.className = 'order-card';
+            card.className = 'history-card'; // Cambiamos la clase para el nuevo estilo
             card.innerHTML = `
-                <div class="order-header">
-                    <div class="order-info">
-                        <h3 class="order-id">Pedido #${venta?.id ?? '---'}</h3>
-                        <p class="order-date">${fecha}</p>
+                <div class="history-card-header">
+                    <div class="history-card-info">
+                        <strong class="history-card-id">Pedido #${venta?.id ?? '---'}</strong>
+                        <span class="history-card-date">Realizado el ${fecha}</span>
                     </div>
-                    <div class="status-badge ${estado.toLowerCase()}">
-                        ${estado}
+                    <div class="history-card-summary">
+                        <strong class="history-card-total">${total}</strong>
+                        <span class="history-card-status history-card-status--${estado.toLowerCase()}">${estado}</span>
                     </div>
                 </div>
-                <div class="order-summary">
-                    <p class="summary-label">Total:</p>
-                    <p class="summary-value">${total}</p>
-                </div>
-                <div class="order-products">
-                    <p class="products-label">Productos (${productos.length}):</p>
+                <div class="history-card-body">
+                    <div class="history-card-products">
+                        ${productos.map(item => `
+                            <div class="history-product">
+                                <span class="history-product-qty">${item.cantidad}x</span>
+                                <span class="history-product-name">${item.nombreProducto || 'Producto'}</span>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
-
-            const productsContainer = card.querySelector('.order-products');
-            if (productsContainer) {
-                const detail = document.createElement('p');
-                detail.className = 'products-detail';
-                const resumen = productos
-                    .map((item) => `x${item?.cantidad ?? 0}`)
-                    .join(' Â· ');
-                detail.textContent = resumen || 'Sin detalles disponibles';
-                productsContainer.appendChild(detail);
-            }
 
             fragment.appendChild(card);
         });
@@ -253,14 +251,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 const favoritoId = Number(event.currentTarget.dataset.favoriteId);
                 if (!favoritoId) return;
 
-                const confirmation = confirm('Estas seguro de que quieres eliminar este producto de tus favoritos?');
-                if (!confirmation) return;
+                const result = await Swal.fire({
+                    title: '¿Eliminar Favorito?',
+                    text: '¿Estás seguro de que quieres eliminar este producto de tus favoritos?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    background: '#202020',
+                    color: '#fff'
+                });
+
+                if (!result.isConfirmed) return;
 
                 try {
                     await eliminarFavorito(favoritoId);
                     await cargarDatosPerfil();
                 } catch (error) {
-                    alert(`Error al eliminar el favorito: ${error.message ?? 'Intenta nuevamente.'}`);
+                    showAlert({ title: 'Error', message: `Error al eliminar el favorito: ${error.message ?? 'Intenta nuevamente.'}`, type: 'error' });
                 }
             });
         });
@@ -375,11 +383,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const domicilioId = Number(button.dataset.deleteAddress);
         if (!domicilioId) return;
 
-        const confirmation = confirm('Eliminar este domicilio?');
-        if (!confirmation) return;
+        const result = await Swal.fire({
+            title: '¿Eliminar Domicilio?',
+            text: '¿Estás seguro de que quieres eliminar este domicilio?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            background: '#202020',
+            color: '#fff'
+        });
+
+        if (!result.isConfirmed) return;
 
         button.disabled = true;
-        setAddressFeedback('Eliminando domicilio...');
+        setAddressFeedback('Eliminando domicilio...', 'info');
 
         try {
             await eliminarDomicilio(domicilioId);
@@ -404,11 +422,10 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutLink.addEventListener('click', (event) => {
             event.preventDefault();
             cerrarSesion();
-            alert('Has cerrado sesion.');
+            showAlert({ title: 'Sesión Cerrada', message: 'Has cerrado sesión exitosamente.', type: 'info' });
             window.location.href = 'index.html';
         });
     }
 
     cargarDatosPerfil();
 });
-

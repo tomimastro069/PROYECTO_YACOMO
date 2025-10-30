@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Panel de Administración</title>
+    <link rel="icon" href="../imgs/favicon.svg?v=1" type="image/svg+xml" sizes="any">
 </head>
 <body>
     <button id="logoutButton" style="float: right; margin-top: 1rem; margin-right: 1rem; background-color: #dc3545;">Cerrar Sesión</button>
@@ -18,43 +20,56 @@
         <summary><h2>Gestión de Productos</h2></summary>
         <nav>
             <a href="#producto-add-mod" class="admin-tab-link">Añadir / Modificar</a>
-            <a href="#producto-delete" class="admin-tab-link">Eliminar</a>
             <a href="#producto-list" class="admin-tab-link">Ver Listado</a>
         </nav>
 
-        <section id="producto-add-mod" class="admin-tab-content">
-            <fieldset>
-                <legend><h3>Añadir / Modificar Producto</h3></legend>
-                <form action="/api/productos" method="post">
-                    <p>
-                        <label for="producto_id">ID del Producto (dejar en blanco para añadir, rellenar para modificar):</label><br>
-                        <input type="text" id="producto_id" name="producto_id">
-                    </p>
-                    <p>
-                        <label for="producto_nombre">Nombre del Producto:</label><br>
-                        <input type="text" id="producto_nombre" name="producto_nombre" required>
-                    </p>
-                    <p>
-                        <label for="producto_descripcion">Descripción:</label><br>
-                        <textarea id="producto_descripcion" name="producto_descripcion" rows="4" cols="50"></textarea>
-                    </p>
-                    <p>
-                        <label for="producto_precio">Precio:</label><br>
-                        <input type="number" id="producto_precio" name="producto_precio" step="0.01" min="0" required>
-                    </p>
-                    <p>
-                        <label for="producto_stock">Stock disponible:</label><br>
-                        <input type="number" id="producto_stock" name="producto_stock" min="0" required>
-                    </p>
-                    <p>
-                        <label for="producto_categoria">Categoría:</label><br>
-                        <input type="text" id="producto_categoria" name="producto_categoria">
-                    </p>
-                    <button type="submit">Guardar Producto</button>
-                </form>
-            </fieldset>
-        </section>
+        <!-- Reemplazar toda la sección de productos en admin.html -->
+<section id="producto-add-mod" class="admin-tab-content">
+    <!-- FORMULARIO: Añadir/Modificar Producto Y Subir Imágenes -->
+<fieldset>
+    <legend><h3>Añadir / Modificar Producto</h3></legend>
+    <form id="producto-add-mod-form" action="/api/productos" method="post">
+        <p>
+            <label for="producto_id">ID del Producto (dejar en blanco para añadir, rellenar para modificar):</label><br>
+            <input type="text" id="producto_id" name="producto_id">
+        </p>
+        <p>
+            <label for="producto_nombre">Nombre del Producto:</label><br>
+            <input type="text" id="producto_nombre" name="producto_nombre" required>
+        </p>
+        <p>
+            <label for="producto_descripcion">Descripción:</label><br>
+            <textarea id="producto_descripcion" name="producto_descripcion" rows="4" cols="50"></textarea>
+        </p>
+        <p>
+            <label for="producto_precio">Precio:</label><br>
+            <input type="number" id="producto_precio" name="producto_precio" step="0.01" min="0" required>
+        </p>
+        <p>
+            <label for="producto_stock">Stock disponible:</label><br>
+            <input type="number" id="producto_stock" name="producto_stock" min="0" required>
+        </p>
+        <p>
+            <label for="producto_categoria">Categoría:</label><br>
+            <input type="text" id="producto_categoria" name="producto_categoria">
+        </p>
 
+        <button type="submit">Guardar Producto</button>
+    </form>
+
+    <!-- ================= SUBIDA DE IMÁGENES ================= -->
+    <form id="form-upload-imagenes">
+        <p>
+            <label for="imagenes">Seleccionar imágenes:</label><br>
+            <input type="file" id="imagenes" name="imagenes" multiple accept="image/*">
+        </p>
+        <button type="submit">Subir Imágenes</button>
+    </form>
+    <div id="upload-status" style="margin-top: 1rem; color: #00ff90;"></div>
+</fieldset>
+
+
+</section>
         <section id="producto-delete" class="admin-tab-content">
             <fieldset>
                 <legend><h3>Eliminar Producto</h3></legend>
@@ -113,21 +128,24 @@
         <summary><h2>Gestión de Usuarios</h2></summary>
         <nav>
             <a href="#usuario-add-mod" class="admin-tab-link">Añadir / Modificar</a>
-            <a href="#usuario-delete" class="admin-tab-link">Eliminar</a>
             <a href="#usuario-list" class="admin-tab-link">Ver Listado</a>
         </nav>
 
         <section id="usuario-add-mod" class="admin-tab-content">
             <fieldset>
                 <legend><h3>Añadir / Modificar Usuario</h3></legend>
-                <form action="/api/auth/register" method="post"> <!-- O una ruta de admin para modificar -->
+                <form> <!-- Gestionado por JS -->
                     <p>
                         <label for="usuario_id">ID del Usuario (para modificar):</label><br>
                         <input type="text" id="usuario_id" name="usuario_id">
                     </p>
                     <p>
-                        <label for="usuario_nombre">Nombre de Usuario:</label><br>
+                        <label for="usuario_nombre">Nombre:</label><br>
                         <input type="text" id="usuario_nombre" name="usuario_nombre" required>
+                    </p>
+                    <p>
+                        <label for="usuario_apellido">Apellido:</label><br>
+                        <input type="text" id="usuario_apellido" name="usuario_apellido" required>
                     </p>
                     <p>
                         <label for="usuario_email">Email:</label><br>
@@ -175,7 +193,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="usuarios-table-body">
                     <tr>
                         <td>101</td>
                         <td>admin_user</td>
@@ -206,6 +224,10 @@
     <!-- ================= SECCIÓN DE VENTAS ================= -->
     <details>
         <summary><h2>Gestión de Ventas</h2></summary>
+        <nav>
+            <a href="#ventas-list" class="admin-tab-link">Ver Ventas</a>
+        </nav>
+        <section id="ventas-list" class="admin-tab-content">
         <h3>Listado de Todas las Ventas</h3>
         <table>
             <thead>
@@ -217,7 +239,7 @@
                     <th>Detalles</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="ventas-table-body">
                 <tr>
                     <td>V-001</td>
                     <td>102</td>
@@ -234,6 +256,7 @@
                 </tr>
             </tbody>
         </table>
+        </section>
     </details>
 
     <!-- El script se carga aquí para asegurar que el HTML esté disponible -->

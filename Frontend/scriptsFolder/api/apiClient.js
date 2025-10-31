@@ -1,6 +1,7 @@
 // c:\Users\windows\Desktop\PROYECTO_YACOMO\Frontend\scriptsFolder\api\apiClient.js
 
 export const BASE_URL = 'http://localhost:8080/api';
+import { showAlert } from '../funciones.js';
 
 /**
  * Función genérica y robusta para realizar llamadas a la API.
@@ -77,12 +78,14 @@ export async function llamarApi(
         errorData?.error ||
         `Error ${response.status}: ${response.statusText}`;
 
-      // Ejemplo: si el token expira
-      if (response.status === 401) {
-        handleUnauthorized();
+      // Ejemplo: si el token expira (s3lo aplica a endpoints que requieren auth)
+      if (response.status === 401 && requiresAuth) {
+        handleUnauthorizedStyled();
       }
 
-      throw new Error(message);
+      const err = new Error(message);
+      err.status = response.status;
+      throw err;
     }
 
     // 🔹 Si no hay contenido (204)
@@ -92,7 +95,9 @@ export async function llamarApi(
     const result = await safeJsonParse(response);
     return result;
   } catch (error) {
-    handleApiError(error, endpoint);
+    if (requiresAuth) {
+      handleApiErrorStyled(error, endpoint);
+    }
     throw error;
   }
 }
@@ -115,6 +120,26 @@ function redirectToLogin() {
   localStorage.removeItem('jwt_token');
   localStorage.removeItem('user_roles');
   window.location.href = 'index.html';
+}
+
+// Estilo de alerta no bloqueante y consistente con el sitio
+function handleApiErrorStyled(error, endpoint) {
+  try {
+    console.error(`Error en endpoint ${endpoint}:`, error);
+    if (error && error.status === 401) return; // ya se maneja con redirect
+    showAlert({
+      title: 'Error',
+      message: (error && error.message) ? error.message : 'Error inesperado al comunicarse con el servidor.',
+      type: 'error',
+    });
+  } catch (e) {
+    // fallback silencioso
+  }
+}
+
+function handleUnauthorizedStyled() {
+  showAlert({ title: 'Sesión expirada', message: 'Tu sesión ha expirado. Por favor inicia sesión nuevamente.', type: 'warning' });
+  redirectToLogin();
 }
 
 /**
